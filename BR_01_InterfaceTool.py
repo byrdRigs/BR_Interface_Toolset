@@ -9,6 +9,7 @@ BR_InterfaceTool.gui()
 
 import pymel.core as pm
 import maya.cmds as cmds
+import maya.mel as mel
 
 # Still needs the control tab with the icons 
 # Working on the quad and biped setups
@@ -94,7 +95,7 @@ def gui():
 	pm.iconTextButton(w=win_width, st='iconAndTextHorizontal', image1='kinInsert.png', label='Insert Joint', c=insertJoint)
 	pm.iconTextButton(w=win_width, st='iconAndTextHorizontal', image1='menuIconDisplay.png', label='IK Handle Size', c=IkSize)
 	pm.iconTextButton(w=win_width, st='iconAndTextHorizontal', image1='hierarchy.png', label='Select Hierarchy', c=hierarchy)
-	pm.iconTextButton(w=win_width, st='iconAndTextHorizontal', image1='testNameTag.svg', label='Renamer', c=renamerWindow)
+	pm.iconTextButton(w=win_width, st='iconAndTextHorizontal', image1='renamerIcon.svg', label='Renamer', c=renamerWindow)
 	pm.iconTextButton(w=win_width, st='iconAndTextHorizontal', image1='circle.png', label='Curve Tool Window', c=curveWindow)
 	pm.separator(w=win_width, bgc=(color_3), st='in')
 	pm.rowColumnLayout(nc=3, cw=[[1, win_width*.5], [2, win_width*.25],[3, win_width*.25]])
@@ -423,9 +424,8 @@ def hierarchy(*args):
 	pm.mel.SelectHierarchy()
 
 def renamerWindow(*args):
-	import Quick_rename_tool
-	reload (Quick_rename_tool)
-	Quick_rename_tool.Quick_rename_tool()
+	mel.eval("source Quick_rename_tool;")
+	mel.eval("Quick_rename_tool;")
 
 	# Not my script, I downloaded it from highend3d.com I changed the colors though.
 
@@ -964,9 +964,9 @@ def bipedArm_system(*args):
 		print 'The left arm is not done'
 
 def twistWindow(*args):
-	import Arm_twist_window
-	reload (Arm_twist_window)
-	Arm_twist_window.gui()
+	import BR_Arm_twist_window
+	reload (BR_Arm_twist_window)
+	BR_Arm_twist_window.gui()
 
 def bipedLeg_joints(*args):
 	joint_system = pm.ls(selection=True, dag=True)
@@ -2081,56 +2081,6 @@ def quadHind_fkLeg_icons():
 	'''
 	# Pad 3 -> control 1
 	pm.parent(local_pad_3, control_icon_2)
-	
-def ik_jointRenamer():
-	'''
-	Get Selected
-	'''
-	joint_chain = pm.ls(selection=True, dag=True)
-
-	'''
-	Figure out naming convention
-	'''
-
-	ori = raw_input()
-	system_name = raw_input()
-	count = 0
-	suffix = 'ik'
-
-	'''
-	Loop through the joint chain.
-	'''
-	for current_joint in joint_chain:
-		count = count + 1
-		new_name = '{0},{1}IK,0{2};{3}'.format(ori, system_name, count, suffix)
-		#  Rename joints
-		current_joint.rename(new_name)
-	new_name = '{0},{1}IK,0{2};{3}'.format(ori,system_name,count, 'ik')
-
-def fk_jointRenamer():
-	'''
-	Get Selected
-	'''
-	joint_chain = pm.ls(selection=True, dag=True)
-
-	'''
-	Figure out naming convention
-	'''
-
-	ori = raw_input()
-	system_name = raw_input()
-	count = 0
-	suffix = 'fk'
-
-	'''
-	Loop through the joint chain.
-	'''
-	for current_joint in joint_chain:
-		count = count + 1
-		new_name = '{0},{1}FK,0{2};{3}'.format(ori, system_name, count, suffix)
-		#  Rename joints
-		current_joint.rename(new_name)
-	new_name = '{0},{1}FK,0{2};{3}'.format(ori,system_name,count, 'fk')
 
 def quad_hLeg_joints(*args):
 	joint_system = pm.ls(selection=True, dag=True)
@@ -2149,56 +2099,6 @@ def quad_hLeg_joints(*args):
 	fk_hJointRenamer()
 	pm.duplicate(rr=1)
 	helper_hJointRenamer()
-
-def ik_hJointRenamer():
-	'''
-	Get Selected
-	'''
-	joint_chain = pm.ls(selection=True, dag=True)
-
-	'''
-	Figure out naming convention
-	'''
-
-	ori = raw_input()
-	system_name = raw_input()
-	count = 0
-	suffix = 'ik'
-
-	'''
-	Loop through the joint chain.
-	'''
-	for current_joint in joint_chain:
-		count = count + 1
-		new_name = '{0},h{1}IK,0{2};{3}'.format(ori, system_name, count, suffix)
-		#  Rename joints
-		current_joint.rename(new_name)
-	new_name = '{0},h{1}IK,0{2};{3}'.format(ori,system_name,count, 'ik')
-
-def fk_hJointRenamer():
-	'''
-	Get Selected
-	'''
-	joint_chain = pm.ls(selection=True, dag=True)
-
-	'''
-	Figure out naming convention
-	'''
-
-	ori = raw_input()
-	system_name = raw_input()
-	count = 0
-	suffix = 'fk'
-
-	'''
-	Loop through the joint chain.
-	'''
-	for current_joint in joint_chain:
-		count = count + 1
-		new_name = '{0},h{1}FK,0{2};{3}'.format(ori, system_name, count, suffix)
-		#  Rename joints
-		current_joint.rename(new_name)
-	new_name = '{0},h{1}FK,0{2};{3}'.format(ori,system_name,count, 'fk')
 
 def helper_hJointRenamer():
 	'''
