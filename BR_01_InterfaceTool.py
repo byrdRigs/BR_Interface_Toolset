@@ -29,12 +29,11 @@ color_9 = (.475, .078, .678)
 color_10 = (.529, .078, .678)
 
 
-def gui():
 
+def gui():
 	if pm.window('ByrdRigs_interface_toolset', q=1, exists=1):
 		pm.deleteUI('ByrdRigs_interface_toolset')
 		#ByrdRigs_interface_toolset
-		
 
 	win_width = 240
 	window_object = pm.window('ByrdRigs_interface_toolset', title="ByrdRigs_interface_toolset", w=win_width, bgc=window_bgc)
@@ -45,19 +44,19 @@ def gui():
 	Clean Up Geo and Controls
 
 	'''
-	pm.frameLayout(w=win_width, label='Clean Up', bgc=(color_1), cl=True, cll=True, ann='Clean Up', cc=windowResize)
+	pm.frameLayout(w=win_width, label='Clean Up', bgc=color_1, cl=True, cll=True, ann='Clean Up', cc=windowResize)
 	pm.rowColumnLayout(w=win_width)
 	pm.iconTextButton('delete_histroy', w=166, st='iconAndTextHorizontal', image1='DeleteHistory.png',label='Delete History', c=deleteHistory)
 	pm.iconTextButton(w=166, st='iconAndTextHorizontal', image1='CenterPivot.png',label='Center Pivot', c=centerPivot)
 	pm.iconTextButton(w=166, st='iconAndTextHorizontal', image1='FreezeTransform.png',label='Freeze Transforms', c=freezeTransform)
 
 	pm.setParent(main_layout)
-	pm.separator(w=win_width, bgc=(color_1), st='in')
+	pm.separator(w=win_width, bgc=color_1, st='in')
 
 	'''
 	Visibility
 	'''
-	pm.frameLayout(w=win_width, label='Visibility', bgc=(color_2), cl=True, cll=True, ann='Change Visibility', cc=windowResize)
+	pm.frameLayout(w=win_width, label='Visibility', bgc=color_2, cl=True, cll=True, ann='Change Visibility', cc=windowResize)
 	pm.rowColumnLayout(nc=3, cw=[[1, win_width*.5], [2, win_width*.25],[3, win_width*.25]])
 	pm.text(label='Show')
 	pm.button(label='All', c=showAll)
@@ -82,12 +81,12 @@ def gui():
 	pm.button(label='Off', c=surfacesOff)
 
 	pm.setParent(main_layout)
-	pm.separator(w=win_width, bgc=(color_2), st='in')
+	pm.separator(w=win_width, bgc=color_2, st='in')
 
 	'''
 	Tools
 	'''
-	pm.frameLayout(w=win_width, label='Tools', bgc=(color_3), cl=True, cll=True, ann='Different Tools', cc=windowResize)
+	pm.frameLayout(w=win_width, label='Tools', bgc=color_3, cl=True, cll=True, ann='Different Tools', cc=windowResize)
 	pm.columnLayout()
 	pm.iconTextButton(w=win_width, st='iconAndTextHorizontal', image1='kinJoint.png', label='Create Joint Tool', c=jointTool)
 	pm.iconTextButton(w=win_width, st='iconAndTextHorizontal', image1='kinMirrorJoint_S.png', label='Mirror Joint Tool', c=mirrorTool)
@@ -97,7 +96,7 @@ def gui():
 	pm.iconTextButton(w=win_width, st='iconAndTextHorizontal', image1='hierarchy.png', label='Select Hierarchy', c=hierarchy)
 	pm.iconTextButton(w=win_width, st='iconAndTextHorizontal', image1='renamerIcon.svg', label='Renamer', c=renamerWindow)
 	pm.iconTextButton(w=win_width, st='iconAndTextHorizontal', image1='circle.png', label='Curve Tool Window', c=curveWindow)
-	pm.separator(w=win_width, bgc=(color_3), st='in')
+	pm.separator(w=win_width, bgc=color_3, st='in')
 	pm.rowColumnLayout(nc=3, cw=[[1, win_width*.5], [2, win_width*.25],[3, win_width*.25]])
 	pm.text(label='IK Handle Tool')
 	pm.button(label='RP', c=RP_IkHandle)
@@ -110,12 +109,12 @@ def gui():
 	# pm.button(label='Ctrl',c=ctrlRenamer, ann='For control chains')
 
 	pm.setParent(main_layout)
-	pm.separator(w=win_width, bgc=(color_4), st='in')
+	pm.separator(w=win_width, bgc=color_3, st='in')
 	
 	'''
 	Constraints
 	'''
-	pm.frameLayout(w=win_width, label='Constraints', bgc=(color_4), cl=True, cll=True, ann='Constraints', cc=windowResize)
+	pm.frameLayout(w=win_width, label='Constraints', bgc=color_4, cl=True, cll=True, ann='Constraints', cc=windowResize)
 	pm.rowColumnLayout(nc=3, cw=[[1, win_width*.5], [2, win_width*.25],[3, win_width*.25]])
 	pm.text(label='Parent MO')
 	pm.button(label='On', c=parentConstraint_on)
@@ -130,14 +129,14 @@ def gui():
 	
 	
 	pm.setParent(main_layout)
-	pm.separator(w=win_width, bgc=(color_4), st='in')
+	pm.separator(w=win_width, bgc=color_4, st='in')
 
 
 	'''
 	Bipeds
 	'''
-	biped_layout = pm.frameLayout(w=win_width, label='Bipeds', bgc=(color_5), cl=True, cll=True, ann='Biped Tools', cc=windowResize)
-	pm.frameLayout(w=win_width, label='Back (Based on 7 joints)', bgc=(color_6), cl=True, cll=True, cc=windowResize)
+	biped_layout = pm.frameLayout(w=win_width, label='Bipeds', bgc=color_5, cl=True, cll=True, ann='Biped Tools', cc=windowResize)
+	pm.frameLayout(w=win_width, label='Back (Based on 7 joints)', bgc=color_6, cl=True, cll=True, cc=windowResize)
 	pm.text(label='Step 1: Pad the back bind joints')
 	pm.separator(w=win_width, bgc=(tab_bgc), st='in')
 	pm.text(label='Step 2: Create a curve following the joints', w=win_width)
@@ -163,26 +162,26 @@ def gui():
 	pm.text(label="second 'curveBind'")
 	pm.setParent(biped_layout)
 
-	pm.frameLayout(w=win_width, label='Neck (Based on 4 joints)', bgc=(color_7), cl=True, cll=True, cc=windowResize)
+	pm.frameLayout(w=win_width, label='Neck (Based on 4 joints)', bgc=color_7, cl=True, cll=True, cc=windowResize)
 	pm.text(label='Select the neck bind joints', w=win_width)
 	pm.button(label='Ik/Fk System', w=win_width, c=neckSetup)
 
 	pm.setParent(biped_layout)
 
-	pm.frameLayout(w=win_width, label='Arms', bgc=(color_8), cl=True, cll=True, cc=windowResize)
+	pm.frameLayout(w=win_width, label='Arms', bgc=color_8, cl=True, cll=True, cc=windowResize)
 	pm.button(label='Arm IK/FK Joints', w=win_width, ann='Creates Arm ik/fk joints', c=bipedArm_joints)
 	pm.text(label='Select the bind, ik, and fk joints', w=win_width)
 	pm.button(label='IK/FK System', w=win_width, c=bipedArm_system)
 	pm.button(label='Twist Setup Window', w=win_width, c=twistWindow)
 	pm.setParent(biped_layout)
 
-	pm.frameLayout(w=win_width, label='Legs', bgc=(color_9), cl=True, cll=True, cc=windowResize)
+	pm.frameLayout(w=win_width, label='Legs', bgc=color_9, cl=True, cll=True, cc=windowResize)
 	pm.button(label='Leg IK/FK Joints', w=win_width, ann='Creates Leg ik/fk joints', c=bipedLeg_joints)
 	pm.text(label='Select the bind, ik, and fk joints', w=win_width)
 	pm.button(label='IK/FK System', w=win_width, c=bipedLeg_system)	
 	pm.setParent(biped_layout)
 
-	pm.frameLayout(w=win_width, label='Feet', bgc=(color_10), cl=True, cll=True, cc=windowResize)
+	pm.frameLayout(w=win_width, label='Feet', bgc=color_10, cl=True, cll=True, cc=windowResize)
 	pm.text(label='RFL Prep - Move the locators', w=win_width)
 	pm.button(label='Create Locators - Select the bind', w=win_width, c=rflPrep)
 	pm.text(label='Select the foot icon and the heel locator', w=win_width)
@@ -191,12 +190,12 @@ def gui():
 
 
 	pm.setParent(main_layout)
-	pm.separator(w=win_width, bgc=(color_5), st='in')
+	pm.separator(w=win_width, bgc=color_5, st='in')
 
 	'''
 	Quadrupeds
 	'''
-	quad_layout = pm.frameLayout(w=win_width, label='Quadrupeds', bgc=(color_6), cl=True, cll=True, ann='Quadruped Tools', cc=windowResize )
+	quad_layout = pm.frameLayout(w=win_width, label='Quadrupeds', bgc=color_6, cl=True, cll=True, ann='Quadruped Tools', cc=windowResize )
 	pm.setParent(quad_layout)
 	pm.frameLayout(w=win_width, label='Hind Legs', bgc=(color_7), cl=True, cll=True, cc=windowResize)
 	pm.text(label='orientation_h(Leg, LegIK, then LegFK)', w=win_width, al='center')
@@ -211,12 +210,12 @@ def gui():
 
 
 	pm.setParent(main_layout)
-	pm.separator(w=win_width, bgc=(color_6), st='in')
+	pm.separator(w=win_width, bgc=color_6, st='in')
 
 	'''
 	Zero Out Attributes
 	'''
-	pm.frameLayout(w=win_width, label='Zero Out', bgc=(color_7), cl=True, cll=True, ann='Zero Out the Attributes to defaults', cc=windowResize)
+	pm.frameLayout(w=win_width, label='Zero Out', bgc=color_7, cl=True, cll=True, ann='Zero Out the Attributes to defaults', cc=windowResize)
 	pm.columnLayout()
 	pm.button(label='Human Foot Attributes', w=win_width, c=setZeroHumanFoot, ann='Sets Custom Foot Attributes back to defaults')
 	pm.separator(w=win_width, bgc=(tab_bgc), st='in')
@@ -229,7 +228,7 @@ def gui():
 
 
 	pm.setParent(main_layout)
-	pm.separator(w=win_width, bgc=(color_7), st='in') 
+	pm.separator(w=win_width, bgc=color_7, st='in') 
 
 	pm.window('ByrdRigs_interface_toolset', e=1, wh=(240, 110), rtf=True)
 	pm.showWindow(window_object)
