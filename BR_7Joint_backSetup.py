@@ -1,27 +1,64 @@
+'''
+BR_7Joint_backSetup
+'''
+
 import pymel.core as pm
+import maya.cmds as cmds
+
+def joint_positions(*j):
+	pm.joint(zso=1, ch=1, e=1, oj='xzy', secondaryAxisOrient='zup')
+	pos = [pm.xform(j,q=True, t=True, ws=True)]
+	print pos
+   	children = cmds.listRelatives(j, c=True) or []
+   	for child in children:
+ 		pos.extend(joint_positions(child))
+	return pos
+
 def back():
 
-	joint_system = pm.ls(sl=True)
-	bind_joint_system = joint_system[0]
-	curve_bind = joint_system[1]
-	fk_joint_system = joint_system[2]
+	bind_system = pm.ls(sl=True, dag=True)
 
-	bind_joints = pm.ls(bind_joint_system, dag=True)
-	curve_joints = pm.ls(curve_bind, dag=True)
-	fk_joints = pm.ls(fk_joint_system, dag=True)
+	root_joint = bind_system[0]
+	joint_2 = bind_system[1]
+	joint_3 = bind_system[2]
+	joint_4 = bind_system[3]
+	joint_5 = bind_system[4]
+	joint_6 = bind_system[5]
+	joint_7 = bind_system[6]
 
-	b_joint_pad = bind_joints[0]
-	b_joint_1 = bind_joints[1]
-	b_joint_2 = bind_joints[2]
-	b_joint_3 = bind_joints[3]
-	b_joint_4 = bind_joints[4]
-	b_joint_5 = bind_joints[5]
-	b_joint_6 = bind_joints[6]
-	b_joint_7 = bind_joints[7]
-	ik_curve = bind_joints[8]
-	print ik_curve
-	ik_curve_shape = bind_joints[9]
+	bind_pad = pm.group(empty=True)
 
+	temp_constraint = pm.pointConstraint(root_joint, bind_pad, mo=0)
+	pm.delete(temp_constraint)
+	freezeTransform(bind_pad)
+	deleteHistory(bind_pad)
+
+	pm.parent(root_joint, bind_pad)
+	grp_name = root_joint.replace('01_bind', '00_pad')
+	bind_pad.rename(grp_name)
+
+	pm.select(bind_pad)
+
+	bind_system = pm.ls(sl=True, dag=True)
+
+	bind_pad = bind_system[0]
+	root_joint = bind_system[1]
+	joint_2 = bind_system[2]
+	joint_3 = bind_system[3]
+	joint_4 = bind_system[4]
+	joint_5 = bind_system[5]
+	joint_6 = bind_system[6]
+	joint_7 = bind_system[7]
+
+	pm.select(root_joint)
+	joints = joint_positions(root_joint) 
+	ik_curve = pm.curve(d = 1, p=joints)
+	# print ik_curve
+	
+	curve_joints = pm.duplicate(root_joint)
+
+	pm.select(curve_joints)
+	curve_joints = pm.ls(sl=True, dag=True)
 	cB_joint_1 = curve_joints[0]
 	cB_joint_2 = curve_joints[1]
 	cB_joint_3 = curve_joints[2]
@@ -29,6 +66,11 @@ def back():
 	cB_joint_5 = curve_joints[4]
 	cB_joint_6 = curve_joints[5]
 	cB_joint_7 = curve_joints[6]
+
+	fk_joints = pm.duplicate(root_joint)
+
+	pm.select(fk_joints)
+	fk_joints = pm.ls(sl=True, dag=True)
 
 	fk_joint_1 = fk_joints[0]
 	fk_joint_2 = fk_joints[1]
@@ -39,11 +81,11 @@ def back():
 	fk_joint_7 = fk_joints[6]
 
 	'''
-	Step one
+	Step one: Create the ik
 	'''
-	pm.select(b_joint_1, b_joint_7, ik_curve)
+	pm.select(root_joint, joint_7, ik_curve)
 	back_ik = pm.ikHandle(sol='ikSplineSolver', pcv=False, ccv=False)[0]
-	ik_name = b_joint_1.replace('01_bind', 'ikh')
+	ik_name = root_joint.replace('01_bind', 'ikh')
 	back_ik.rename(ik_name)
 	curve_name = back_ik.replace('ikh', 'crv')
 	ik_curve.rename(curve_name)
@@ -51,10 +93,10 @@ def back():
 	ik_curve.inheritsTransform.set(0)
 
 	'''
-	Step two
+	Step two: Rename and bind the curveBind
 	'''
-	pm.parent(cB_joint_7, b_joint_pad)
-	back_7_name = bind_joint_system.replace('00_pad', '02_curveBind')
+	pm.parent(cB_joint_7, bind_pad)
+	back_7_name = bind_pad.replace('00_pad', '02_curveBind')
 	cB_joint_7.rename(back_7_name)
 
 	pm.delete(cB_joint_2)
@@ -66,11 +108,14 @@ def back():
 	pm.mel.SmoothBindSkin()
 
 	'''
-	Step Three
+	Step Three: Create and move the chest and hip icons
 	'''
 	hip_icon = pm.curve(p=[(0.5, 0.5, 0.5), (-0.5, 0.5, 0.5), (-0.5, 0.5, -0.5), (0.5, 0.5, -0.5), (0.5, 0.5, 0.5), (0.5, -0.5, 0.5), (0.5, -0.5, -0.5), (0.5, 0.5, -0.5), (-0.5, 0.5, -0.5), (-0.5, -0.5, -0.5), (0.5, -0.5, -0.5), (0.5, -0.5, 0.5), (-0.5, -0.5, 0.5), (-0.5, 0.5, 0.5), (-0.5, 0.5, -0.5), (-0.5, -0.5, -0.5), (-0.5, -0.5, 0.5), (0.5, -0.5, 0.5), (0.5, -0.5, -0.5), (-0.5, -0.5, -0.5)], k=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19], d=1)
+	temp_constraint = pm.parentConstraint(root_joint, hip_icon, mo=0)
+	pm.delete(temp_constraint)
+	freezeTransform(hip_icon)
 	deleteHistory(hip_icon)
-	icon_naame = b_joint_1.replace('back_01_bind', 'hip_icon')
+	icon_naame = root_joint.replace('back_01_bind', 'hip_icon')
 	hip_icon.rename(icon_naame)
 
 	chest_icon = pm.curve(p=[(0.5, 0.5, 0.5), (-0.5, 0.5, 0.5), (-0.5, 0.5, -0.5), (0.5, 0.5, -0.5), (0.5, 0.5, 0.5), (0.5, -0.5, 0.5), (0.5, -0.5, -0.5), (0.5, 0.5, -0.5), (-0.5, 0.5, -0.5), (-0.5, -0.5, -0.5), (0.5, -0.5, -0.5), (0.5, -0.5, 0.5), (-0.5, -0.5, 0.5), (-0.5, 0.5, 0.5), (-0.5, 0.5, -0.5), (-0.5, -0.5, -0.5), (-0.5, -0.5, 0.5), (0.5, -0.5, 0.5), (0.5, -0.5, -0.5), (-0.5, -0.5, -0.5)], k=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19], d=1)
@@ -78,7 +123,7 @@ def back():
 	icon_naame = hip_icon.replace('hip', 'chest')
 	chest_icon.rename(icon_naame)
 
-	temp_constraint = pm.pointConstraint(b_joint_7, chest_icon)
+	temp_constraint = pm.pointConstraint(joint_7, chest_icon)
 	pm.delete(temp_constraint)
 	freezeTransform()
 
@@ -96,11 +141,15 @@ def back():
 
 	back_ik.dWorldUpAxis.set(1)
 	back_ik.dWorldUpVectorY.set(-1)
-	back_ik.dWorldUpVectorEndY.set(0)
-	back_ik.dWorldUpVectorEndZ.set(-1)
+	back_ik.dWorldUpVectorEndY.set(-1)
+	back_ik.dWorldUpVectorEndZ.set(0)
+
+	pm.connectAttr(cB_joint_1 + '.xformMatrix', back_ik + '.dWorldUpMatrix')
+	pm.connectAttr(cB_joint_7 + '.xformMatrix', back_ik + '.dWorldUpMatrixEnd')
+
 
 	'''
-	Step Four
+	Step Four: Create the fk System
 	'''
 	pm.parent(fk_joint_3, fk_joint_1)
 	pm.delete(fk_joint_2)
@@ -178,7 +227,7 @@ def back():
 	fk_local_2.rename(local_name)
 
 	'''
-	Step five
+	Step five: Node Network
 	'''
 	curve_info = pm.shadingNode('curveInfo', asUtility=1)
 	node_name = ik_curve.replace('crv', 'info')
@@ -192,119 +241,109 @@ def back():
 	stretch_mult.operation.set(2)
 
 	pm.connectAttr(curve_info + '.arcLength', stretch_mult + '.input1X')
-	arcLen = pm.promptDialog(title='arcLength #', 
-							 m='Enter arcLength #', 
-							 b=['Enter', 'Cancel'],
-							 db='Enter',
-							 cb='Cancel',
-							 ds='Cancel'
-							 )
-	if arcLen == 'Enter':
-		text = pm.promptDialog(q=True, tx=True)
-		stretch_mult.input2X.set(int(text))
-		pm.connectAttr(stretch_mult + '.outputX', b_joint_1 + '.sx')
-		pm.connectAttr(stretch_mult + '.outputX', b_joint_2 + '.sx')
-		pm.connectAttr(stretch_mult + '.outputX', b_joint_3 + '.sx')
-		pm.connectAttr(stretch_mult + '.outputX', b_joint_4 + '.sx')
-		pm.connectAttr(stretch_mult + '.outputX', b_joint_5 + '.sx')
-		pm.connectAttr(stretch_mult + '.outputX', b_joint_6 + '.sx')
 
-		stretch_squareRoot = pm.shadingNode('multiplyDivide', asUtility=1)
-		node_name = stretch_mult.replace('mult', 'squareRoot')
-		stretch_squareRoot.rename(node_name)
+	arcLen = curve_info.arcLength.get()
+	stretch_mult.input2X.set(arcLen)
+	pm.connectAttr(stretch_mult + '.outputX', root_joint + '.sx')
+	pm.connectAttr(stretch_mult + '.outputX', joint_2 + '.sx')
+	pm.connectAttr(stretch_mult + '.outputX', joint_3 + '.sx')
+	pm.connectAttr(stretch_mult + '.outputX', joint_4 + '.sx')
+	pm.connectAttr(stretch_mult + '.outputX', joint_5 + '.sx')
+	pm.connectAttr(stretch_mult + '.outputX', joint_6 + '.sx')
 
-		pm.connectAttr(stretch_mult + '.outputX', stretch_squareRoot + '.input1X')
-		stretch_squareRoot.operation.set(3)
-		stretch_squareRoot.input2X.set(.5)
+	stretch_squareRoot = pm.shadingNode('multiplyDivide', asUtility=1)
+	node_name = stretch_mult.replace('mult', 'squareRoot')
+	stretch_squareRoot.rename(node_name)
 
-		stretch_invert = pm.shadingNode('multiplyDivide', asUtility=1)
-		node_name = stretch_mult.replace('mult', 'invert')
-		stretch_invert.rename(node_name)
+	pm.connectAttr(stretch_mult + '.outputX', stretch_squareRoot + '.input1X')
+	stretch_squareRoot.operation.set(3)
+	stretch_squareRoot.input2X.set(.5)
 
-		pm.connectAttr(stretch_squareRoot + '.outputX', stretch_invert + '.input2X')
-		stretch_invert.operation.set(2)
-		stretch_invert.input1X.set(1)
+	stretch_invert = pm.shadingNode('multiplyDivide', asUtility=1)
+	node_name = stretch_mult.replace('mult', 'invert')
+	stretch_invert.rename(node_name)
+
+	pm.connectAttr(stretch_squareRoot + '.outputX', stretch_invert + '.input2X')
+	stretch_invert.operation.set(2)
+	stretch_invert.input1X.set(1)
 
 
-		pm.connectAttr(stretch_invert + '.outputX', b_joint_1 + '.sy')
-		pm.connectAttr(stretch_invert + '.outputX', b_joint_2 + '.sy')
-		pm.connectAttr(stretch_invert + '.outputX', b_joint_3 + '.sy')
-		pm.connectAttr(stretch_invert + '.outputX', b_joint_4 + '.sy')
-		pm.connectAttr(stretch_invert + '.outputX', b_joint_5 + '.sy')
-		pm.connectAttr(stretch_invert + '.outputX', b_joint_6 + '.sy')
+	pm.connectAttr(stretch_invert + '.outputX', root_joint + '.sy')
+	pm.connectAttr(stretch_invert + '.outputX', joint_2 + '.sy')
+	pm.connectAttr(stretch_invert + '.outputX', joint_3 + '.sy')
+	pm.connectAttr(stretch_invert + '.outputX', joint_4 + '.sy')
+	pm.connectAttr(stretch_invert + '.outputX', joint_5 + '.sy')
+	pm.connectAttr(stretch_invert + '.outputX', joint_6 + '.sy')
 
-		pm.connectAttr(stretch_invert + '.outputX', b_joint_1 + '.sz')
-		pm.connectAttr(stretch_invert + '.outputX', b_joint_2 + '.sz')
-		pm.connectAttr(stretch_invert + '.outputX', b_joint_3 + '.sz')
-		pm.connectAttr(stretch_invert + '.outputX', b_joint_4 + '.sz')
-		pm.connectAttr(stretch_invert + '.outputX', b_joint_5 + '.sz')
-		pm.connectAttr(stretch_invert + '.outputX', b_joint_6 + '.sz')
+	pm.connectAttr(stretch_invert + '.outputX', root_joint + '.sz')
+	pm.connectAttr(stretch_invert + '.outputX', joint_2 + '.sz')
+	pm.connectAttr(stretch_invert + '.outputX', joint_3 + '.sz')
+	pm.connectAttr(stretch_invert + '.outputX', joint_4 + '.sz')
+	pm.connectAttr(stretch_invert + '.outputX', joint_5 + '.sz')
+	pm.connectAttr(stretch_invert + '.outputX', joint_6 + '.sz')
 
-		'''
-		Step six
-		'''
+	'''
+	Step six: Back Global
+	'''
 
-		back_global = pm.curve(p=[(0.5, 0, 0.5), (-0.5, 0, 0.5), (-0.5, 0, -0.5), (0.5, 0, -0.5), (0.5, 0, 0.5)], k=[0, 1, 2, 3, 4], d=1)
-		icon_naame = hip_icon.replace('hip', 'body')
-		back_global.rename(icon_naame)
+	back_global = pm.curve(p=[(0.5, 0, 0.5), (-0.5, 0, 0.5), (-0.5, 0, -0.5), (0.5, 0, -0.5), (0.5, 0, 0.5)], k=[0, 1, 2, 3, 4], d=1)
+	icon_naame = hip_icon.replace('hip', 'body')
+	back_global.rename(icon_naame)
 
-		temp_constraint = pm.pointConstraint(b_joint_1, back_global, mo=0)
-		pm.delete(temp_constraint)
-		pm.select(back_global)
-		deleteHistory()
-		freezeTransform()
-		back_global.rotateOrder.set(2)
+	temp_constraint = pm.pointConstraint(root_joint, back_global, mo=0)
+	pm.delete(temp_constraint)
+	pm.select(back_global)
+	deleteHistory()
+	freezeTransform()
+	back_global.rotateOrder.set(2)
 
-		pm.parent(fk_local_1, chest_local, hip_local, back_ik, b_joint_pad)
+	pm.parent(fk_local_1, chest_local, hip_local, back_ik, bind_pad)
 
-		pm.parentConstraint(back_global, b_joint_pad, mo=1)
+	pm.parentConstraint(back_global, bind_pad, mo=1)
 
-		'''
-		Step eight 
-		'''
-		dnt = pm.group(ik_curve, cB_joint_1, cB_joint_7, fk_joint_1)
-		grp_name = b_joint_pad.replace('00_pad', 'DO____NOT____TOUCH')
-		dnt.rename(grp_name)
-		dnt.overrideEnabled.set(1)
-		dnt.overrideDisplayType.set(2)
-		dnt.v.set(0)
+	'''
+	Step eight: DNT grp
+	'''
+	dnt_grp = pm.group(ik_curve, cB_joint_1, cB_joint_7, fk_joint_1)
+	grp_name = bind_pad.replace('00_pad', 'DO____NOT____TOUCH')
+	dnt_grp.rename(grp_name)
+	dnt_grp.overrideEnabled.set(1)
+	dnt_grp.overrideDisplayType.set(2)
+	dnt_grp.v.set(0)
 
-		pm.setAttr(fk_icon_1 + '.tx', lock=True, channelBox=False, keyable=False)
-		pm.setAttr(fk_icon_1 + '.ty', lock=True, channelBox=False, keyable=False)
-		pm.setAttr(fk_icon_1 + '.tz', lock=True, channelBox=False, keyable=False)
-		pm.setAttr(fk_icon_1 + '.sx', lock=True, channelBox=False, keyable=False)
-		pm.setAttr(fk_icon_1 + '.sy', lock=True, channelBox=False, keyable=False)
-		pm.setAttr(fk_icon_1 + '.sz', lock=True, channelBox=False, keyable=False)
-		pm.setAttr(fk_icon_1 + '.v', lock=True, channelBox=False, keyable=False)
-		pm.setAttr(fk_icon_2 + '.tx', lock=True, channelBox=False, keyable=False)
-		pm.setAttr(fk_icon_2 + '.ty', lock=True, channelBox=False, keyable=False)
-		pm.setAttr(fk_icon_2 + '.tz', lock=True, channelBox=False, keyable=False)
-		pm.setAttr(fk_icon_2 + '.sx', lock=True, channelBox=False, keyable=False)
-		pm.setAttr(fk_icon_2 + '.sy', lock=True, channelBox=False, keyable=False)
-		pm.setAttr(fk_icon_2 + '.sz', lock=True, channelBox=False, keyable=False)
-		pm.setAttr(fk_icon_2 + '.v', lock=True, channelBox=False, keyable=False)
-		pm.setAttr(back_global + '.sx', lock=True, channelBox=False, keyable=False)
-		pm.setAttr(back_global +'.sy', lock=True, channelBox=False, keyable=False)
-		pm.setAttr(back_global + '.sz', lock=True, channelBox=False, keyable=False)
-	if arcLen == 'Cancel':
-		pm.warning('Must enter arcLength - Select the back_info node, find the arcLength, undo the back setup, then do step 5 again')
-
+	pm.setAttr(fk_icon_1 + '.tx', lock=True, channelBox=False, keyable=False)
+	pm.setAttr(fk_icon_1 + '.ty', lock=True, channelBox=False, keyable=False)
+	pm.setAttr(fk_icon_1 + '.tz', lock=True, channelBox=False, keyable=False)
+	pm.setAttr(fk_icon_1 + '.sx', lock=True, channelBox=False, keyable=False)
+	pm.setAttr(fk_icon_1 + '.sy', lock=True, channelBox=False, keyable=False)
+	pm.setAttr(fk_icon_1 + '.sz', lock=True, channelBox=False, keyable=False)
+	pm.setAttr(fk_icon_1 + '.v', lock=True, channelBox=False, keyable=False)
+	pm.setAttr(fk_icon_2 + '.tx', lock=True, channelBox=False, keyable=False)
+	pm.setAttr(fk_icon_2 + '.ty', lock=True, channelBox=False, keyable=False)
+	pm.setAttr(fk_icon_2 + '.tz', lock=True, channelBox=False, keyable=False)
+	pm.setAttr(fk_icon_2 + '.sx', lock=True, channelBox=False, keyable=False)
+	pm.setAttr(fk_icon_2 + '.sy', lock=True, channelBox=False, keyable=False)
+	pm.setAttr(fk_icon_2 + '.sz', lock=True, channelBox=False, keyable=False)
+	pm.setAttr(fk_icon_2 + '.v', lock=True, channelBox=False, keyable=False)
+	pm.setAttr(back_global + '.sx', lock=True, channelBox=False, keyable=False)
+	pm.setAttr(back_global +'.sy', lock=True, channelBox=False, keyable=False)
+	pm.setAttr(back_global + '.sz', lock=True, channelBox=False, keyable=False)
 	
+	loc_1 = pm.spaceLocator(p=(0, 0, 0))
+	temp_constraint = pm.parentConstraint(root_joint, loc_1)
+	pm.delete(temp_constraint)
+	freezeTransform(loc_1)
 
+	loc_name = back_global.replace('_icon', 'Space_loc')
+	loc_1.rename(loc_name)
+
+	pm.parent(loc_1, dnt_grp)
+	pm.parent(dnt_grp, bind_pad)
 
 def freezeTransform(*args):
 	pm.makeIdentity(apply=True, t=1, r=1, s=1, n=0, pn=1)
-	print 'Transform Frozen'
+	# print 'Transform Frozen'
 
 def deleteHistory(*args):
 	pm.delete(ch=True)
-	print 'History Deleted'
-
-
-
-
-
-
-
-
-
+	# print 'History Deleted'

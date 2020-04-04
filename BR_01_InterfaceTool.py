@@ -1,7 +1,7 @@
 '''
 ByrdRigs Interface tool
 
-import BR_InterfaceTool
+import BR_Interface_Toolset.BR_01_InterfaceTool as BR_InterfaceTool
 reload (BR_InterfaceTool)
 BR_InterfaceTool.gui()
 
@@ -27,7 +27,6 @@ color_7 = (.475, .278, .925)
 color_8 = (.447, .145, .965)
 color_9 = (.475, .078, .678)
 color_10 = (.529, .078, .678)
-
 
 
 def gui():
@@ -93,8 +92,9 @@ def gui():
 	pm.iconTextButton(w=win_width, st='iconAndTextHorizontal', image1='menuIconDisplay.png', label='Joint Size', c=jointSize)
 	pm.iconTextButton(w=win_width, st='iconAndTextHorizontal', image1='kinInsert.png', label='Insert Joint', c=insertJoint)
 	pm.iconTextButton(w=win_width, st='iconAndTextHorizontal', image1='menuIconDisplay.png', label='IK Handle Size', c=IkSize)
-	pm.iconTextButton(w=win_width, st='iconAndTextHorizontal', image1='hierarchy.png', label='Select Hierarchy', c=hierarchy)
-	pm.iconTextButton(w=win_width, st='iconAndTextHorizontal', image1='renamerIcon.svg', label='Renamer', c=renamerWindow)
+	pm.iconTextButton(w=win_width, st='iconAndTextHorizontal', image1='BR_icons/BR_diagram.png', label='Select Hierarchy', c=hierarchy)
+	pm.iconTextButton(w=win_width, st='iconAndTextHorizontal', image1='BR_icons/BR_renamerIcon.svg', label='Renamer', c=renamerWindow)
+	
 	pm.iconTextButton(w=win_width, st='iconAndTextHorizontal', image1='circle.png', label='Curve Tool Window', c=curveWindow)
 	pm.separator(w=win_width, bgc=color_3, st='in')
 	pm.rowColumnLayout(nc=3, cw=[[1, win_width*.5], [2, win_width*.25],[3, win_width*.25]])
@@ -135,63 +135,62 @@ def gui():
 	'''
 	Bipeds
 	'''
-	biped_layout = pm.frameLayout(w=win_width, label='Bipeds', bgc=color_5, cl=True, cll=True, ann='Biped Tools', cc=windowResize)
-	pm.frameLayout(w=win_width, label='Back (Based on 7 joints)', bgc=color_6, cl=True, cll=True, cc=windowResize)
-	pm.text(label='Step 1: Pad the back bind joints')
-	pm.separator(w=win_width, bgc=(tab_bgc), st='in')
-	pm.text(label='Step 2: Create a curve following the joints', w=win_width)
-	pm.separator(w=win_width, bgc=(tab_bgc), st='in')
-	pm.text(label='Step 3: Parent the curve under back pad grp', w=win_width)
-	pm.separator(w=win_width, bgc=(tab_bgc), st='in')
-	pm.text(label='Step 4: Duplicate the back bind joints twice', w=win_width)
-	pm.separator(w=win_width, bgc=(tab_bgc), st='in')
-	pm.text(label='Step 5: Select pad and duplicated 01_bind', w=win_width)
-	pm.text(label='joints')
-	pm.separator(w=win_width, bgc=(tab_bgc), st='in')
-	pm.text(label='Step 6: Hit the setup buttom', w=win_width)
-	pm.separator(w=win_width, bgc=(tab_bgc), st='in')
-	pm.button(label='Setup', w=win_width, c=backSetup)
-	pm.separator(w=win_width, bgc=(tab_bgc), st='in')
-	pm.text(label='Step 7: Select the ikHandle and go to the')
-	pm.text(label='advanced twist contols')
-	pm.separator(w=win_width, bgc=(tab_bgc), st='in')
-	pm.text(label="Step 8: Change the world up object to the")
-	pm.text(label="first 'curveBind'")
-	pm.separator(w=win_width, bgc=(tab_bgc), st='in')
-	pm.text(label="Step 9: Change the world up object 2 to the")
-	pm.text(label="second 'curveBind'")
+	pm.frameLayout(w=win_width, label='Bipeds', bgc=color_5, cl=True, cll=True, ann='Biped Tools', cc=windowResize)
+	biped_layout = pm.columnLayout(w=win_width)
+	pm.frameLayout(w=win_width, label='Root', bgc=color_6, cl=True, cll=True, cc=windowResize)
+	pm.text(label='Select the main root joint', w=win_width)
+	pm.button(label='Space Locator', w=win_width, c=rootLoc)
+	
 	pm.setParent(biped_layout)
+	pm.separator(w=win_width, bgc=color_6, st='in')
 
-	pm.frameLayout(w=win_width, label='Neck (Based on 4 joints)', bgc=color_7, cl=True, cll=True, cc=windowResize)
+	pm.frameLayout(w=win_width, label='Back (Based on 7 joints)', bgc=color_7, cl=True, cll=True, cc=windowResize)
+	pm.text(label='Select the back bind joints')
+	pm.button(label='Setup', w=win_width, c=backSetup)
+	
+	pm.setParent(biped_layout)
+	pm.separator(w=win_width, bgc=color_7, st='in')
+
+	pm.frameLayout(w=win_width, label='Neck (Based on 4 joints)', bgc=color_8, cl=True, cll=True, cc=windowResize)
 	pm.text(label='Select the neck bind joints', w=win_width)
 	pm.button(label='Ik/Fk System', w=win_width, c=neckSetup)
 
 	pm.setParent(biped_layout)
+	pm.separator(w=win_width, bgc=color_8, st='in')
 
-	pm.frameLayout(w=win_width, label='Arms', bgc=color_8, cl=True, cll=True, cc=windowResize)
-	pm.button(label='Arm IK/FK Joints', w=win_width, ann='Creates Arm ik/fk joints', c=bipedArm_joints)
-	pm.text(label='Select the bind, ik, and fk joints', w=win_width)
+	pm.frameLayout(w=win_width, label='Shoulders/Arms', bgc=color_9, cl=True, cll=True, cc=windowResize)
+	pm.text(label='Select the clav and arm bind', w=win_width)
+	pm.button(label='Create shoulder system', w=win_width, c=shoulderSetup)
+	pm.text(label='Select the arm bind', w=win_width)
 	pm.button(label='IK/FK System', w=win_width, c=bipedArm_system)
-	pm.button(label='Twist Setup Window', w=win_width, c=twistWindow)
+	
 	pm.setParent(biped_layout)
+	pm.separator(w=win_width, bgc=color_9, st='in')
 
-	pm.frameLayout(w=win_width, label='Legs', bgc=color_9, cl=True, cll=True, cc=windowResize)
+	pm.frameLayout(w=win_width, label='Legs', bgc=color_10, cl=True, cll=True, cc=windowResize)
 	pm.button(label='Leg IK/FK Joints', w=win_width, ann='Creates Leg ik/fk joints', c=bipedLeg_joints)
 	pm.text(label='Select the bind, ik, and fk joints', w=win_width)
 	pm.button(label='IK/FK System', w=win_width, c=bipedLeg_system)	
-	pm.setParent(biped_layout)
 
-	pm.frameLayout(w=win_width, label='Feet', bgc=color_10, cl=True, cll=True, cc=windowResize)
+	pm.setParent(biped_layout)
+	pm.separator(w=win_width, bgc=color_10, st='in')
+
+	pm.frameLayout(w=win_width, label='Feet', bgc=color_1, cl=True, cll=True, cc=windowResize)
 	pm.text(label='RFL Prep - Move the locators', w=win_width)
 	pm.button(label='Create Locators - Select the bind', w=win_width, c=rflPrep)
 	pm.text(label='Select the foot icon and the heel locator', w=win_width)
 	pm.button(label='RFL System', w=win_width, c=rflSystem)
 
+	pm.setParent(biped_layout)
+	pm.separator(w=win_width, bgc=color_1, st='in')
+
+	pm.frameLayout(w=win_width, label='Connections', bgc=color_2, cl=True, cll=True, cc=windowResize)
+	pm.text(label='Select the shoulderSpace_loc, ik_cons_grp, twist_cons_grp, arm_01_fk_local, and the IkFk_switch', w=win_width, ww=True, ann='The shoulderSpace_loc is under the clav_02_waste, the arm_01_fk_local is under the gimbal_core_icon, and the cons_grps are under the clav_DO____NOT____TOUCH_grp')
+	pm.button(label='Arm to Shoulder', w=win_width, c=armConnection_1)
 
 
 	pm.setParent(main_layout)
 	pm.separator(w=win_width, bgc=color_5, st='in')
-
 	'''
 	Quadrupeds
 	'''
@@ -237,32 +236,26 @@ def gui():
 
 def deleteHistory(*args):
 	pm.delete(ch=True)
-	print 'History Deleted'
+	# print 'History Deleted'
 
 def centerPivot(*args):
 	pm.xform(cpc=True)
-	print 'Selected pivot centered.'
+	# print 'Selected pivot centered.'
 
 def freezeTransform(*agrs):
 	pm.makeIdentity(apply=True, t=1, r=1, s=1, n=0, pn=1)
-	print 'Transform Frozen'
+	# print 'Transform Frozen'
 
 panel_1 = 'modelPanel1' 
 panel_2 =  'modelPanel2' 
 panel_3 = 'modelPanel3' 
 panel_4 = 'modelPanel4'
-# print 'Panel 1:', panel_1
-# print 'Panel 2:', panel_2
-# print 'Panel 3:', panel_3
-# print 'Panel 4:', panel_4
+
 show_1 = 'MainPane|viewPanes|modelPanel1|modelPanel1|menu14'
 show_2 = 'MainPane|viewPanes|modelPanel2|modelPanel2|menu18'
 show_3 = 'MainPane|viewPanes|modelPanel3|modelPanel3|menu22'
 show_4 = 'MainPane|viewPanes|modelPanel4|modelPanel4|menu26'
-# print 'Panel 1 Show menu:', show_1
-# print 'Panel 2 Show menu:', show_2
-# print 'Panel 3 Show menu:', show_3
-# print 'Panel 4 Show menu:', show_4
+
 
 def showAll(*args):
 	print 'Show All'
@@ -531,6 +524,20 @@ def poleVector(*args):
 	driven = selection[1]
 	pm.poleVectorConstraint(driver, driven)
 
+def rootLoc(*args):
+	selection = pm.ls(sl=True)
+	root_joint = selection[0]
+
+	loc_1 = pm.spaceLocator(p=(0, 0, 0))
+
+	temp_constraint = pm.parentConstraint(root_joint, loc_1, mo=0)
+	pm.delete(temp_constraint)
+	freezeTransform(loc_1)
+
+	loc_name = root_joint.replace('_01_waste', 'Space_loc')
+	loc_1.rename(loc_name)
+	pm.parent(loc_1, root_joint)
+
 def backSetup(*args):
 	import BR_7Joint_backSetup
 	reload (BR_7Joint_backSetup)
@@ -541,426 +548,258 @@ def neckSetup(*args):
 	reload (BR_4Joint_neckSetup)
 	BR_4Joint_neckSetup.neck()
 
-def bipedArm_joints(*args):
-	joint_system = pm.ls(selection=True, dag=True)
-
-	root_joint = joint_system[0]
-	joint_2 = joint_system[1]
-	joint_3 = joint_system[2]
-	# print 'Root Joint:', root_joint
-	# print 'Joint 2:', joint_2
-	# print 'Joint 3:', joint_3
-	pm.duplicate(root_joint)
-	ik_joints = pm.ls(selection=True, dag=True)
-	ik_root_joint = ik_joints[0]
-	ik_joint_2 = ik_joints[1]
-	ik_joint_3 = ik_joints[2]
-	# print 'Ik Root Joint:', ik_root_joint
-	# print 'Ik Joint 2:', ik_joint_2
-	# print 'Ik Joint 3:', ik_joint_3
-
-	ik_joint_name = root_joint.replace('bind', 'ik')
-	ik_root_joint.rename(ik_joint_name)
-
-	ik_joint_name = joint_2.replace('bind', 'ik')
-	ik_joint_2.rename(ik_joint_name)
-
-	ik_joint_name = joint_3.replace('waste', 'ik')
-	ik_joint_3.rename(ik_joint_name)
-	
-
-	pm.duplicate(ik_root_joint)
-	fk_joints = pm.ls(selection=True, dag=True)
-	fk_root_joint = fk_joints[0]
-	fk_joint_2 = fk_joints[1]
-	fk_joint_3 = fk_joints[2]
-	# print 'Ik Root Joint:', fk_root_joint
-	# print 'Ik Joint 2:', fk_joint_2
-	# print 'Ik Joint 3:', fk_joint_3
-
-	fk_joint_name = root_joint.replace('bind', 'fk')
-	fk_root_joint.rename(fk_joint_name)
-
-	fk_joint_name = joint_2.replace('bind', 'fk')
-	fk_joint_2.rename(fk_joint_name)
-
-	fk_joint_name = joint_3.replace('waste', 'fk')
-	fk_joint_3.rename(fk_joint_name)
-
 def bipedArm_system(*args):
-	joint_systems = pm.ls(selection=True)
-	
-	arm_root = joint_systems[0]
-	ik_root = joint_systems[1]
-	fk_root = joint_systems[2]
+	import BR_armSetup
+	reload (BR_armSetup)
+	BR_armSetup.armSetup()
 
-	arm_joints = pm.ls(arm_root, dag=True)
-	ik_joints = pm.ls(ik_root, dag=True)
-	fk_joints = pm.ls(fk_root, dag=True)
-	print 'Arm System:', arm_joints
-	print 'IK System:', ik_joints
-	print 'FK Systems:', fk_joints
+def shoulderSetup(*args):
+	joint_system = pm.ls(sl=True)
+	clav_system = joint_system[0]
+	arm_system = joint_system[1] 
 
-	arm_root_joint = pm.ls(arm_joints[0])
-	arm_joint_2 = pm.ls(arm_joints[1])
-	arm_joint_3 = pm.ls(arm_joints[2])
-	# print 'Arm root joint:', arm_root_joint
-	# print '2nd arm joint:', arm_joint_2 
-	# print '3rd arm joint:', arm_joint_3
-	
-	ik_root_joint = pm.ls(ik_joints[0])
-	ik_joint_2 = pm.ls(ik_joints[1])
-	ik_joint_3 = pm.ls(ik_joints[2])
-	# print 'IK Arm root joint:', ik_root_joint
-	# print '2nd ik joint:', ik_joint_2 
-	# print '3rd ik joint:', ik_joint_3
+	bJoints = pm.ls(clav_system, sl=True, dag=True)
+	bRoot_joint = bJoints[0]
+	bJoint_2 = bJoints[1]
+	print 'Clav root joint:', bRoot_joint
+	print 'Clav waste joint:', bJoint_2
 
-	fk_root_joint = pm.ls(fk_joints[0])
-	fk_joint_2 = pm.ls(fk_joints[1])
-	fk_joint_3 = pm.ls(fk_joints[2])
-	# print 'FK Arm root joint:', fk_root_joint
-	# print '2nd fk joint:', fk_joint_2 
-	# print '3rd fk joint:', fk_joint_3
+	armJoints = pm.ls(arm_system, sl=True, dag=True)
+	aRoot_joint = armJoints[0]
+	aJoint_2 = armJoints[1]
+	aJoint_3 = armJoints[2]
+	print 'Arm root joint:', aRoot_joint
+	print 'Arm joint 2:', aJoint_2
+	print 'Arm joint 3:', aJoint_3
 
-	orient_blend_1 = pm.orientConstraint(ik_root_joint, fk_root_joint, arm_root_joint)
-	orient_blend_2 = pm.orientConstraint(ik_joint_2, fk_joint_2, arm_joint_2)
+	pm.select(bRoot_joint, bJoint_2)
+	ikh = pm.ikHandle(sol='ikSCsolver')[0]
 
+	ik_name = bRoot_joint.replace('bind', 'ikh')
+	ikh.rename(ik_name)
 
-	pm.xform(ik_joint_2, ro= [0, 5, 0])
-	pm.joint(ik_joint_2, spa=1, ch=1, e=1)
-	pm.xform(ik_joint_2, ro= [0, 0, 0])
-
-	pm.select(ik_root_joint, ik_joint_3)
-	ikh = pm.ikHandle()[0]
-
-	ikh_name = ik_root.replace('01_ik', 'ikh')
-	ikh.rename(ikh_name)
-
-	'''
-	Create the arm icon
-	'''
-	arm_icon = pm.curve(p=[(0.5, 0.5, 0.5), (-0.5, 0.5, 0.5), (-0.5, 0.5, -0.5), (0.5, 0.5, -0.5), (0.5, 0.5, 0.5), (0.5, -0.5, 0.5), (0.5, -0.5, -0.5), (0.5, 0.5, -0.5), (-0.5, 0.5, -0.5), (-0.5, -0.5, -0.5), (0.5, -0.5, -0.5), (0.5, -0.5, 0.5), (-0.5, -0.5, 0.5), (-0.5, 0.5, 0.5), (-0.5, 0.5, -0.5), (-0.5, -0.5, -0.5), (-0.5, -0.5, 0.5), (0.5, -0.5, 0.5), (0.5, -0.5, -0.5), (-0.5, -0.5, -0.5)], k=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19], d=1)
-	temp_constraint = pm.pointConstraint(arm_joint_3, arm_icon)
+	loc_1 = pm.spaceLocator(p=(0, 0, 0))
+	temp_constraint = pm.pointConstraint(aRoot_joint, loc_1, mo=0)
 	pm.delete(temp_constraint)
-	freezeTransform()
-	deleteHistory()
+	freezeTransform(loc_1)
 
-	pm.parent(ikh, arm_icon)
+	loc_name = ikh.replace('ikh', 'loc')
+	loc_1.rename(loc_name)
+	pm.parent(ikh, loc_1)
 
-	'''
-	Rename arm icon
-	'''
-	arm_icon_name = arm_root.replace('01_bind', 'icon')
-	arm_icon.rename(arm_icon_name)
-
-
-	'''
-	Create the elbow icon.
-	'''
-
-	elbow_icon = pm.curve(p=[(2, 0, -2), (4, 0, -2), (4, 0, -3), (6, 0, -1), (4, 0, 1), (4, 0, 0), (2, 0, 0), (2, 0, 2), (3, 0, 2), (1, 0, 4), (-1, 0, 2), (0, 0, 2), (0, 0, 0), (-2, 0, 0), (-2, 0, 1), (-4, 0, -1), (-2, 0, -3), (-2, 0, -2), (0, 0, -2), (0, 0, -4), (-1, 0, -4), (1, 0, -6), (3, 0, -4), (2, 0, -4), (2, 0, -2)], k=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24], d=1)
-	pm.select('curve1.cv[0]', 'curve1.cv[6]', 'curve1.cv[12]', 'curve1.cv[18]', 'curve1.cv[24]', r=1)
-	pm.cmds.move(0, -0.982783, 0, r=1, os=1, wd=1)
-	pm.select('curve1.cv[22]', r=1)
-	pm.cmds.move(0, -0.483525, 0, r=1, os=1, wd=1)
-	pm.select('curve1.cv[23]', r=1)
-	pm.cmds.move(0, -0.483525, 0, r=1, os=1, wd=1)
-	pm.select('curve1.cv[19]', r=1)
-	pm.cmds.move(0, -0.483525, 0, r=1, os=1, wd=1)
-	pm.select('curve1.cv[20]', r=1)
-	pm.cmds.move(0, -0.483525, 0, r=1, os=1, wd=1)
-	pm.select('curve1.cv[16]', r=1)
-	pm.cmds.move(0, -0.483525, 0, r=1, os=1, wd=1)
-	pm.select('curve1.cv[17]', r=1)
-	pm.cmds.move(0, -0.483525, 0, r=1, os=1, wd=1)
-	pm.select('curve1.cv[13]', r=1)
-	pm.cmds.move(0, -0.483525, 0, r=1, os=1, wd=1)
-	pm.select('curve1.cv[14]', r=1)
-	pm.cmds.move(0, -0.483525, 0, r=1, os=1, wd=1)
-	pm.select('curve1.cv[10]', r=1)
-	pm.cmds.move(0, -0.483525, 0, r=1, os=1, wd=1)
-	pm.select('curve1.cv[11]', r=1)
-	pm.cmds.move(0, -0.483525, 0, r=1, os=1, wd=1)
-	pm.select('curve1.cv[7]', r=1)
-	pm.cmds.move(0, -0.483525, 0, r=1, os=1, wd=1)
-	pm.select('curve1.cv[8]', r=1)
-	pm.cmds.move(0, -0.483525, 0, r=1, os=1, wd=1)
-	pm.select('curve1.cv[4]', r=1)
-	pm.cmds.move(0, -0.483525, 0, r=1, os=1, wd=1)
-	pm.select('curve1.cv[5]', r=1)
-	pm.cmds.move(0, -0.483525, 0, r=1, os=1, wd=1)
-	pm.select('curve1.cv[1]', r=1)
-	pm.cmds.move(0, -0.483525, 0, r=1, os=1, wd=1)
-	pm.select('curve1.cv[2]', r=1)
-	pm.cmds.move(0, -0.483525, 0, r=1, os=1, wd=1)
-	
-	pm.select(elbow_icon)
-	centerPivot(elbow_icon)
-	freezeTransform()
-	deleteHistory()
-
-	'''
-	Move the elbow icon.
-	'''
-	temp_constraint = pm.pointConstraint(arm_joint_2, elbow_icon)
+	loc_2 =	pm.spaceLocator(p=(0, 0, 0))
+	temp_constraint = pm.parentConstraint(bRoot_joint, loc_2, mo=0)
 	pm.delete(temp_constraint)
-	freezeTransform(elbow_icon)
-	pm.xform(elbow_icon, t=[0,0,-10], scale=[.5, .5, .5], ro=[90, 0, 0])
-	freezeTransform(elbow_icon)
+	freezeTransform(loc_2)
+	loc_name = loc_1.replace('loc', 'startLoc')
+	loc_2.rename(loc_name)
 
-	'''
-	Rename elbow icon
-	'''
-	elbow_icon_name = arm_root.replace('arm_01_bind', 'elbow_icon')
-	elbow_icon.rename(elbow_icon_name)
-
-	'''
-	Create the pole vector for the elbow
-	'''
-	pm.poleVectorConstraint(elbow_icon, ikh)
-
-
-	'''
-	Create fk icons
-	'''
-	fk_icon_1 = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=2, tol=.01, nr=(1, 0, 0))[0]
-	print 'Fk icon 1:', fk_icon_1
-	temp_constraint = pm.parentConstraint(fk_root_joint, fk_icon_1)
+	loc_3 =	pm.spaceLocator(p=(0, 0, 0))
+	temp_constraint = pm.parentConstraint(bJoint_2, loc_3, mo=0)
 	pm.delete(temp_constraint)
-	fk_pad_1 = pm.group(empty=True)
-	temp_constraint = pm.parentConstraint(fk_root_joint, fk_pad_1)
+	freezeTransform(loc_3)
+	loc_name = loc_2.replace('start', 'end')
+	loc_3.rename(loc_name)
+
+	clav_dist = pm.shadingNode('distanceDimShape', asUtility=1)
+
+	pm.select(clav_dist)
+	selection = pm.ls(sl=True, s=False)
+	shape = selection[0]
+	pm.pickWalk(d='up')
+	transform = pm.ls(sl=True)[0]
+
+	node_name = loc_1.replace('loc', 'dist')
+	transform.rename(node_name)
+	temp_constraint = pm.parentConstraint(bRoot_joint, transform, mo=0)
 	pm.delete(temp_constraint)
-	pm.parent(fk_icon_1, fk_pad_1)
-	pm.select(fk_icon_1)
-	freezeTransform()
+
+	pm.connectAttr(loc_2 + '.worldPosition', clav_dist + '.startPoint')
+	pm.connectAttr(loc_3 + '.worldPosition', clav_dist + '.endPoint')
+
+	pm.parent(loc_3, loc_1)
+
+	driver = clav_dist + '.distance'
+	length = pm.getAttr(bJoint_2 + '.tx')
 
 
-	fk_icon_2 = pm.circle(c=(0, 0, 0), ch=2, d=3, ut=0, sw=360, s=8, r=2, tol=.02, nr=(2, 0, 0))[0]
-	print 'Fk icon 2:', fk_icon_2
-	temp_constraint = pm.parentConstraint(fk_joint_2, fk_icon_2)
+	pm.setDrivenKeyframe(bJoint_2 + '.tx', currentDriver=driver, driverValue=length, value=length)
+
+	pm.setDrivenKeyframe(bJoint_2 + '.tx', currentDriver=driver, driverValue=(2 * length), value=(2 * length))
+	pm.keyTangent(bJoint_2, itt='clamped', ott='clamped')
+	pm.setInfinity(bJoint_2, poi='linear')
+
+	shoulder_icon = pm.curve(d=1, p=[(0, 1.003235, 0),(0.668823, 0, 0),(0.334412, 0, 0),(0.334412, -0.167206, 0),(0.334412, -0.501617, 0),(0.334412, -1.003235, 0),(-0.334412, -1.003235, 0),(-0.334412, -0.501617, 0),(-0.334412, -0.167206, 0),(-0.334412, 0, 0),(-0.668823, 0, 0),(0, 1.003235, 0),(0, 0, -0.668823),(0, 0, -0.334412),(0, -0.167206, -0.334412),(0, -0.501617, -0.334412),(0, -1.003235, -0.334412),(0, -1.003235, 0.334412),(0, -0.501617, 0.334412),(0, -0.167206, 0.334412),(0, 0, 0.334412),(0, 0, 0.668823),(0, 1.003235, 0)], k=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22])
+	shoulder_icon.rx.set(180)
+	temp_constraint = pm.pointConstraint(bJoint_2, shoulder_icon, mo=0)
 	pm.delete(temp_constraint)
-	fk_pad_2 = pm.group(empty=True)
-	temp_constraint = pm.parentConstraint(fk_joint_2, fk_pad_2)
+	freezeTransform(shoulder_icon)
+	shoulder_icon.ty.set(3)
+	freezeTransform(shoulder_icon)
+
+	icon_name = bRoot_joint.replace('clav_01_bind', 'shoulder_icon')
+	shoulder_icon.rename(icon_name)
+	pm.parent(loc_1, shoulder_icon)
+
+	dnt_grp = pm.group(empty=True)
+	temp_constraint = pm.parentConstraint(bRoot_joint, dnt_grp, mo=0)
 	pm.delete(temp_constraint)
-	pm.parent(fk_icon_2, fk_pad_2)
-	pm.select(fk_icon_2)
-	freezeTransform()
-	pm.parent(fk_pad_2, fk_icon_1)
+	freezeTransform(dnt_grp)
 
-	'''
-	Rename the icons and the pads
-	'''
-	fk_icon1_name = fk_root.replace('fk', 'fk_icon')
-	fk_icon_1.rename(fk_icon1_name)
+	grp_name = bRoot_joint.replace('01_bind', 'DO____NOT____TOUCH_grp')
+	dnt_grp.rename(grp_name)
 
-	fk_icon2_name = fk_icon_1.replace('01', '02')
-	fk_icon_2.rename(fk_icon2_name)
+	pm.parent(transform, loc_2, dnt_grp)
 
-	fk_pad1_name = fk_icon_1.replace('icon', 'local')
-	fk_pad_1.rename(fk_pad1_name)
-
-	fk_pad2_name = fk_icon_2.replace('icon', 'local')
-	fk_pad_2.rename(fk_pad2_name)
-
-	'''
-	Orient constraaint the icons to the fk joints
-	'''
-	pm.orientConstraint(fk_icon_1, fk_root_joint)
-	pm.orientConstraint(fk_icon_2, fk_joint_2)
-
-
-	'''
-	Create the IK/FK switch
-	'''
-	ikfk_shape_1 = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=1, tol=0.01, nr=(0, 1, 0))[0]
-	ikfk_shape_2 = pm.curve(p=[(0, 0, -1), (0, 0, 1)], k=[0, 1], d=1)
-	ikfk_shape_3 = pm.curve(p=[(-1, 0, 0), (1, 0, 0)], k=[0, 1], d=1)
-	ikfk_shape_4 = pm.curve(p=[(0, 0, 1), (0, 0, 3)], k=[0, 1], d=1)
-
-	shape_name_1 = arm_root.replace('arm_01_bind', 'ikfk_curve1') 
-	# print 'Shape 1 Name:', shape_name_1
-	ikfk_shape_1.rename(shape_name_1)
-	
-	shape_name_2 = arm_root.replace('arm_01_bind', 'ikfk_curve2') 
-	# print 'Shape 2 Name:', shape_name_2
-	ikfk_shape_2.rename(shape_name_2)
-
-	shape_name_3 = arm_root.replace('arm_01_bind', 'ikfk_curve3') 
-	# print 'Shape 3 Name:', shape_name_3
-	ikfk_shape_3.rename(shape_name_3)
-	
-	shape_name_4 = arm_root.replace('arm_01_bind', 'ikfk_curve4') 
-	# print 'Shape 4 Name:', shape_name_4
-	ikfk_shape_4.rename(shape_name_4)
-
-	arm_switch = pm.group(empty=True)
-	pm.select(ikfk_shape_1, ikfk_shape_2, ikfk_shape_3, ikfk_shape_4, arm_switch)
-	shapes = pm.ls(selection=True, dag=True)
-	curveShape_1 = shapes[1]
-	curveShape_2 = shapes[3]
-	curveShape_3 = shapes[5]
-	curveShape_4 = shapes[7]
-	arm_switch_grp = shapes[8]
-	# print 'Curve Shape 1:', curveShape_1
-	# print 'Curve Shape 2:', curveShape_2
-	# print 'Curve Shape 3:', curveShape_3
-	# print 'Curve Shape 4:', curveShape_4
-	# print 'Switch:', arm_switch_grp
-	pm.select(ikfk_shape_2, ikfk_shape_3)
-
-	pm.cmds.scale(0.768, 0.768, 0.768)
-	freezeTransform()
-
-	pm.parent(curveShape_1, curveShape_2, curveShape_3, curveShape_4, arm_switch, s=1, r=1)
-	pm.delete(ikfk_shape_1, ikfk_shape_2, ikfk_shape_3, ikfk_shape_4)
-	pm.cmds.move(0, 0, 3, arm_switch + '.scalePivot', arm_switch + '.rotatePivot', rpr=1)
-
-	pm.xform(arm_switch, ro=[0,0,90], scale=[1.5,1.5,1.5])
-	freezeTransform(arm_switch)
-	temp_constraint = pm.pointConstraint(arm_joint_3, arm_switch, mo=0, w=1)
+	global_grp = pm.group(empty=True)
+	temp_constraint = pm.pointConstraint(bRoot_joint, global_grp, mo=0)
 	pm.delete(temp_constraint)
-	freezeTransform()
-	switch_name = arm_root.replace('01_bind', 'IkFk_switch')
-	arm_switch.rename(switch_name)
-	pm.pointConstraint(arm_joint_3, arm_switch, mo=0, w=1)
-	deleteHistory()
+	freezeTransform(global_grp)
 
-	'''
-	Add IkFk attribute
-	'''
-	pm.addAttr(arm_switch, ln="IkFk", max=1, dv=0, at='double', min=0)
-	arm_switch.IkFk.set(e=1, keyable=True)
+	grp_name = bRoot_joint.replace('01_bind', 'global_grp')
+	global_grp.rename(grp_name)
 
-	arm_switch.tx.set(lock=True, channelBox=False, keyable=False)
-	arm_switch.ty.set(lock=True, channelBox=False, keyable=False)
-	arm_switch.tz.set(lock=True, channelBox=False, keyable=False)
-	arm_switch.rx.set(lock=True, channelBox=False, keyable=False)
-	arm_switch.ry.set(lock=True, channelBox=False, keyable=False)
-	arm_switch.rz.set(lock=True, channelBox=False, keyable=False)
-	arm_switch.sx.set(lock=True, channelBox=False, keyable=False)
-	arm_switch.sy.set(lock=True, channelBox=False, keyable=False)
-	arm_switch.sz.set(lock=True, channelBox=False, keyable=False)
- 	arm_switch.v.set(lock=True, channelBox=False, keyable=False)
- 	ik_root.v.set(0)
- 	fk_root.v.set(0)
+	pad = pm.group(empty=True)
+	temp_constraint= pm.pointConstraint(bRoot_joint, pad, mo=0)
+	pm.delete(temp_constraint)
+	freezeTransform(pad)
 
-	'''
-	Rt SDKs
-	'''
-	if pm.objExists('rt_arm_01_bind_orientConstraint1.rt_arm_01_fkW1'):
-		arm_switch.IkFk.set(0)
-		pm.setAttr(orient_blend_1 + '.rt_arm_01_fkW1', 0)
-		pm.setDrivenKeyframe(orient_blend_1 + '.rt_arm_01_ikW0', currentDriver= arm_switch + '.IkFk')
-		pm.setDrivenKeyframe(orient_blend_1 + '.rt_arm_01_fkW1', currentDriver= arm_switch + '.IkFk')
-		arm_switch.IkFk.set(1)
-		pm.setAttr(orient_blend_1 + '.rt_arm_01_fkW1', 1)
-		pm.setAttr(orient_blend_1 + '.rt_arm_01_ikW0', 0)
-		pm.setDrivenKeyframe(orient_blend_1 + '.rt_arm_01_ikW0', currentDriver= arm_switch + '.IkFk')
-		pm.setDrivenKeyframe(orient_blend_1 + '.rt_arm_01_fkW1', currentDriver= arm_switch + '.IkFk')
-		arm_switch.IkFk.set(0)
-		arm_icon.v.set(1)
-		fk_pad_1.v.set(0)
-		elbow_icon.v.set(1)
-		pm.setDrivenKeyframe(arm_icon + '.v', currentDriver= arm_switch + '.IkFk')
-		pm.setDrivenKeyframe(fk_pad_1 + '.v', currentDriver= arm_switch + '.IkFk')
-		pm.setDrivenKeyframe(elbow_icon + '.v', currentDriver= arm_switch + '.IkFk')
-		arm_switch.IkFk.set(1)
-		arm_icon.v.set(0)
-		fk_pad_1.v.set(1)
-		elbow_icon.v.set(0)
-		pm.setDrivenKeyframe(arm_icon + '.v', currentDriver= arm_switch + '.IkFk')
-		pm.setDrivenKeyframe(fk_pad_1 + '.v', currentDriver= arm_switch + '.IkFk')
-		pm.setDrivenKeyframe(elbow_icon + '.v', currentDriver= arm_switch + '.IkFk')
-		arm_switch.IkFk.set(0.01)
-		arm_icon.v.set(1)
-		fk_pad_1.v.set(1)
-		elbow_icon.v.set(1)
-		pm.setDrivenKeyframe(arm_icon + '.v', currentDriver= arm_switch + '.IkFk')
-		pm.setDrivenKeyframe(fk_pad_1 + '.v', currentDriver= arm_switch + '.IkFk')
-		pm.setDrivenKeyframe(elbow_icon + '.v', currentDriver= arm_switch + '.IkFk')
-		arm_switch.IkFk.set(0.99)
-		arm_icon.v.set(1)
-		fk_pad_1.v.set(1)
-		elbow_icon.v.set(1)
-		pm.setDrivenKeyframe(arm_icon + '.v', currentDriver= arm_switch + '.IkFk')
-		pm.setDrivenKeyframe(fk_pad_1 + '.v', currentDriver= arm_switch + '.IkFk')
-		pm.setDrivenKeyframe(elbow_icon + '.v', currentDriver= arm_switch + '.IkFk')
-	else:
-		print 'The right arm is not done'
+	pad_name = bRoot_joint.replace('01_bind', '00_pad')
+	pad.rename(pad_name)
 
-	if pm.objExists('rt_arm_02_bind_orientConstraint1.rt_arm_02_fkW1'):
-		arm_switch.IkFk.set(0)
-		pm.setAttr(orient_blend_2 + '.rt_arm_02_fkW1', 0)
-		pm.setDrivenKeyframe(orient_blend_2 + '.rt_arm_02_ikW0', currentDriver= arm_switch + '.IkFk')
-		pm.setDrivenKeyframe(orient_blend_2 + '.rt_arm_02_fkW1', currentDriver= arm_switch + '.IkFk')
-		arm_switch.IkFk.set(1)
-		pm.setAttr(orient_blend_2 + '.rt_arm_02_fkW1', 1)
-		pm.setAttr(orient_blend_2 + '.rt_arm_02_ikW0', 0)
-		pm.setDrivenKeyframe(orient_blend_2 + '.rt_arm_02_ikW0', currentDriver= arm_switch + '.IkFk')
-		pm.setDrivenKeyframe(orient_blend_2 + '.rt_arm_02_fkW1', currentDriver= arm_switch + '.IkFk')
-		arm_switch.IkFk.set(0)
-	else:
-		print 'The right arm is not done'
+	pm.parent(bRoot_joint, pad)
 
- 	'''
- 	Lt SDKs
- 	'''
-	if pm.objExists('lt_arm_01_bind_orientConstraint1.lt_arm_01_fkW1'):
-		arm_switch.IkFk.set(0)
-		pm.setAttr(orient_blend_1 + '.lt_arm_01_fkW1', 0)
-		pm.setDrivenKeyframe(orient_blend_1 + '.lt_arm_01_ikW0', currentDriver= arm_switch + '.IkFk')
-		pm.setDrivenKeyframe(orient_blend_1 + '.lt_arm_01_fkW1', currentDriver= arm_switch + '.IkFk')
-		arm_switch.IkFk.set(1)
-		pm.setAttr(orient_blend_1 + '.lt_arm_01_fkW1', 1)
-		pm.setAttr(orient_blend_1 + '.lt_arm_01_ikW0', 0)
-		pm.setDrivenKeyframe(orient_blend_1 + '.lt_arm_01_ikW0', currentDriver= arm_switch + '.IkFk')
-		pm.setDrivenKeyframe(orient_blend_1 + '.lt_arm_01_fkW1', currentDriver= arm_switch + '.IkFk')
-		arm_switch.IkFk.set(0)
-		arm_icon.v.set(1)
-		fk_pad_1.v.set(0)
-		elbow_icon.v.set(1)
-		pm.setDrivenKeyframe(arm_icon + '.v', currentDriver= arm_switch + '.IkFk')
-		pm.setDrivenKeyframe(fk_pad_1 + '.v', currentDriver= arm_switch + '.IkFk')
-		pm.setDrivenKeyframe(elbow_icon + '.v', currentDriver= arm_switch + '.IkFk')
-		arm_switch.IkFk.set(1)
-		arm_icon.v.set(0)
-		fk_pad_1.v.set(1)
-		elbow_icon.v.set(0)
-		pm.setDrivenKeyframe(arm_icon + '.v', currentDriver= arm_switch + '.IkFk')
-		pm.setDrivenKeyframe(fk_pad_1 + '.v', currentDriver= arm_switch + '.IkFk')
-		pm.setDrivenKeyframe(elbow_icon + '.v', currentDriver= arm_switch + '.IkFk')
-		arm_switch.IkFk.set(0.01)
-		arm_icon.v.set(1)
-		fk_pad_1.v.set(1)
-		elbow_icon.v.set(1)
-		pm.setDrivenKeyframe(arm_icon + '.v', currentDriver= arm_switch + '.IkFk')
-		pm.setDrivenKeyframe(fk_pad_1 + '.v', currentDriver= arm_switch + '.IkFk')
-		pm.setDrivenKeyframe(elbow_icon + '.v', currentDriver= arm_switch + '.IkFk')
-		arm_switch.IkFk.set(0.99)
-		arm_icon.v.set(1)
-		fk_pad_1.v.set(1)
-		elbow_icon.v.set(1)
-		pm.setDrivenKeyframe(arm_icon + '.v', currentDriver= arm_switch + '.IkFk')
-		pm.setDrivenKeyframe(fk_pad_1 + '.v', currentDriver= arm_switch + '.IkFk')
-		pm.setDrivenKeyframe(elbow_icon + '.v', currentDriver= arm_switch + '.IkFk')
-	else:
-		print 'The left arm is not done'
+	pm.parent(pad, dnt_grp, shoulder_icon, global_grp)
 
 
-	if pm.objExists('lt_arm_02_bind_orientConstraint1.lt_arm_02_fkW1'):
-		arm_switch.IkFk.set(0)
-		pm.setAttr(orient_blend_2 + '.lt_arm_02_fkW1', 0)
-		pm.setDrivenKeyframe(orient_blend_2 + '.lt_arm_02_ikW0', currentDriver= arm_switch + '.IkFk')
-		pm.setDrivenKeyframe(orient_blend_2 + '.lt_arm_02_fkW1', currentDriver= arm_switch + '.IkFk')
-		arm_switch.IkFk.set(1)
-		pm.setAttr(orient_blend_2 + '.lt_arm_02_fkW1', 1)
-		pm.setAttr(orient_blend_2 + '.lt_arm_02_ikW0', 0)
-		pm.setDrivenKeyframe(orient_blend_2 + '.lt_arm_02_ikW0', currentDriver= arm_switch + '.IkFk')
-		pm.setDrivenKeyframe(orient_blend_2 + '.lt_arm_02_fkW1', currentDriver= arm_switch + '.IkFk')
-		arm_switch.IkFk.set(0)
+	dnt_grp.overrideEnabled.set(1)
+	dnt_grp.overrideDisplayType.set(2)
+	dnt_grp.v.set(0)
+	loc_1.v.set(0)
+	loc_2.v.set(0)
+	loc_3.v.set(0)
+
+	if pm.objExists('*moveAll'):
+		pm.select('*moveAll')
+		moveAll = '*moveAll'
 
 	else:
-		print 'The left arm is not done'
+		'''
+		Create the global icon
+		'''
+
+		moveAll_circle = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=1, tol=0.01, nr=(0, 1, 0))[0]
+		moveAll_circle.sx.set(3)
+		moveAll_circle.sy.set(3)
+		moveAll_circle.sz.set(3)
+		freezeTransform(moveAll_circle)
+
+
+		xAxis = pm.curve(p=[(3.324583, 0, -0.594445), (5, 0, -0.594444), (5.000001, 0, -1.008806), (6, 0, 0), (5.000001, 0, 1.008806), (5, 0, 0.594444), (3.324583, 0, 0.594445), (3.324583, 0, -0.594445)], k=[0, 1, 2, 3, 4, 5, 6, 7], d=1)
+
+
+		zAxis = pm.curve(p=[(0.594444, 0, 3.324583), (0.594444, 0, 5), (1.008806, 0, 5.000001), (0, 0, 6), (-1.008806, 0, 5.000001), (-0.594444, 0, 5), (-0.594444, 0, 3.324583), (0.594444, 0, 3.324583)], k=[0, 1, 2, 3, 4, 5, 6, 7], d=1)
+
+
+		pm.select(moveAll_circle, xAxis, zAxis)
+
+		shapes = pm.ls(sl=True, dag=True)
+		cShape_1 = shapes[1]
+		cShape_2 = shapes[3]
+		cShape_3 = shapes[5]
+		print 'shape 1:', cShape_1
+		print 'shape 2:', cShape_2
+		print 'shape 3:', cShape_3
+
+		cShape_2.overrideEnabled.set(1)
+		cShape_2.overrideColor.set(12)
+		cShape_3.overrideEnabled.set(1)
+		cShape_3.overrideColor.set(6)
+		pm.rename(cShape_1, 'moveAll_shape')
+		pm.rename(cShape_2, 'xAxis_shape')
+		pm.rename(cShape_3, 'zAxis_shape')
+
+
+		moveAll = pm.group(empty=True, n='ct_moveAll')
+
+		pm.parent(cShape_1, cShape_2, cShape_3, moveAll, s=1, r=1)
+
+		pm.delete(moveAll_circle, xAxis, zAxis)
+
+	if pm.objExists('*joint_grp'):
+		pm.select('*joint_grp')
+		jnt_grp = pm.ls(sl=True)[0]
+		print jnt_grp
+		# pm.parent(pad, jnt_grp)
+		pm.scaleConstraint(moveAll, jnt_grp)
+
+	else:
+		jnt_grp = pm.group(empty=True)
+		grp_name = bRoot_joint.replace('lt_clav_01_bind', 'joint_grp')
+		jnt_grp.rename(grp_name)
+		print jnt_grp
+		# pm.parent(pad, jnt_grp)
+		pm.scaleConstraint(moveAll, jnt_grp)
+
+	if pm.objExists('*icon_grp'):
+		pm.select('*icon_grp')
+		icon_grp = pm.ls(sl=True)[0] 
+		pm.parent(moveAll, icon_grp)
+		# pm.parent(shoulder_icon, moveAll)
+
+	else:
+		icon_grp = pm.group(empty=True)
+		pm.parent(moveAll, icon_grp)
+		group_name = jnt_grp.replace('joint', 'icon')
+		icon_grp.rename(group_name)
+		# pm.parent(shoulder_icon, moveAll)
+
+	loc_4 = pm.spaceLocator(p=(0, 0, 0))
+	temp_constraint = pm.parentConstraint(bJoint_2, loc_4)
+	pm.delete(temp_constraint)
+	freezeTransform(loc_4)
+
+	loc_name = shoulder_icon.replace('_icon', 'Space_loc')
+	loc_4.rename(loc_name)
+
+	pm.parent(loc_4, bJoint_2)
+	freezeTransform(loc_4)
+
+def armConnection_1(*args):
+	selection = pm.ls(sl=True)
+
+	space_loc = selection[0]
+	ik_main_grp = selection[1]
+	twist_main_grp = selection[2]
+	fk_icons = selection[3]
+	switch = selection[4]
+	# print 'Space loc:', space_loc
+	# print 'Ik cons grp:', ik_main_grp 
+	# print 'Twist cons grp:', twist_main_grp
+	# print 'Fk icon grp:', fk_icons
+	# print "IkFk switch:", switch
+
+	constraint_1 = pm.pointConstraint(space_loc, ik_main_grp, mo=1)
+	const_target_1 = constraint_1.getWeightAliasList()[0]
+	print const_target_1
+	switch.IkFk.set(1)
+	const_target_1.set(0)
+	pm.setDrivenKeyframe(const_target_1, currentDriver=switch + '.IkFk')
+	switch.IkFk.set(0)
+	const_target_1.set(1)
+	pm.setDrivenKeyframe(const_target_1, currentDriver=switch + '.IkFk')
+
+	constraint_2 = pm.pointConstraint(space_loc, twist_main_grp, mo=1)
+	const_target_2 = constraint_2.getWeightAliasList()[0]
+	print const_target_2
+	switch.IkFk.set(1)
+	const_target_2.set(0)
+	pm.setDrivenKeyframe(const_target_2, currentDriver=switch + '.IkFk')
+	switch.IkFk.set(0)
+	const_target_2.set(1)
+	pm.setDrivenKeyframe(const_target_2, currentDriver=switch + '.IkFk')
+
+	pm.pointConstraint(space_loc, fk_icons, mo=1)
 
 def twistWindow(*args):
 	import BR_Arm_twist_window
@@ -3032,7 +2871,6 @@ def setZeroSc(*args):
 		pm.setAttr((str(current) + ".scaleY"), 1)
 		pm.setAttr((str(current) + ".scaleZ"), lock=0)
 		pm.setAttr((str(current) + ".scaleZ"), 1)
-
 
 def windowResize(*args):
 	if pm.window('ByrdRigs_interface_toolset', q=1, exists=1):
