@@ -999,8 +999,6 @@ def armSetup(*args):
 	temp_constraint = pm.pointConstraint(elbow_icon, hPad, mo=0)
 	pm.delete(temp_constraint)
 
-	pm.orientConstraint(hIcon, hJ_1)
-
 	ik_cons_grp = pm.group(empty=True)
 	temp_constraint = pm.parentConstraint(mJ_3, ik_cons_grp)
 	pm.delete(temp_constraint)

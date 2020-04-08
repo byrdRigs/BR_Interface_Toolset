@@ -43,7 +43,7 @@ def gui():
 	Clean Up Geo and Controls
 
 	'''
-	pm.frameLayout(w=win_width, label='Clean Up', bgc=color_1, cl=True, cll=True, ann='Clean Up', cc=windowResize)
+	pm.frameLayout(w=win_width, label='Clean Up', bgc=color_1, cl=1, cll=1, ann='Clean Up', cc=windowResize)
 	pm.rowColumnLayout(w=win_width)
 	pm.iconTextButton('delete_histroy', w=166, st='iconAndTextHorizontal', image1='DeleteHistory.png',label='Delete History', c=deleteHistory)
 	pm.iconTextButton(w=166, st='iconAndTextHorizontal', image1='CenterPivot.png',label='Center Pivot', c=centerPivot)
@@ -55,7 +55,7 @@ def gui():
 	'''
 	Visibility
 	'''
-	pm.frameLayout(w=win_width, label='Visibility', bgc=color_2, cl=True, cll=True, ann='Change Visibility', cc=windowResize)
+	pm.frameLayout(w=win_width, label='Visibility', bgc=color_2, cl=1, cll=1, ann='Change Visibility', cc=windowResize)
 	pm.rowColumnLayout(nc=3, cw=[[1, win_width*.5], [2, win_width*.25],[3, win_width*.25]])
 	pm.text(label='Show')
 	pm.button(label='All', c=showAll)
@@ -85,10 +85,11 @@ def gui():
 	'''
 	Tools
 	'''
-	pm.frameLayout(w=win_width, label='Tools', bgc=color_3, cl=True, cll=True, ann='Different Tools', cc=windowResize)
+	pm.frameLayout(w=win_width, label='Tools', bgc=color_3, cl=1, cll=1, ann='Different Tools', cc=windowResize)
 	pm.columnLayout()
 	pm.iconTextButton(w=win_width, st='iconAndTextHorizontal', image1='kinJoint.png', label='Create Joint Tool', c=jointTool)
-	pm.iconTextButton(w=win_width, st='iconAndTextHorizontal', image1='kinMirrorJoint_S.png', label='Mirror Joint Tool', c=mirrorTool)
+	pm.iconTextButton(w=win_width, st='iconAndTextHorizontal', image1='kinMirrorJoint_S.png', label='Mirror Joint Tool-Behavior', c=mirrorToolB)
+	pm.iconTextButton(w=win_width, st='iconAndTextHorizontal', image1='kinMirrorJoint_S.png', label='Mirror Joint Tool-Orientation', c=mirrorToolO)
 	pm.iconTextButton(w=win_width, st='iconAndTextHorizontal', image1='menuIconDisplay.png', label='Joint Size', c=jointSize)
 	pm.iconTextButton(w=win_width, st='iconAndTextHorizontal', image1='kinInsert.png', label='Insert Joint', c=insertJoint)
 	pm.iconTextButton(w=win_width, st='iconAndTextHorizontal', image1='menuIconDisplay.png', label='IK Handle Size', c=IkSize)
@@ -114,7 +115,7 @@ def gui():
 	'''
 	Constraints
 	'''
-	pm.frameLayout(w=win_width, label='Constraints', bgc=color_4, cl=True, cll=True, ann='Constraints', cc=windowResize)
+	pm.frameLayout(w=win_width, label='Constraints', bgc=color_4, cl=1, cll=1, ann='Constraints', cc=windowResize)
 	pm.rowColumnLayout(nc=3, cw=[[1, win_width*.5], [2, win_width*.25],[3, win_width*.25]])
 	pm.text(label='Parent MO')
 	pm.button(label='On', c=parentConstraint_on)
@@ -135,57 +136,81 @@ def gui():
 	'''
 	Bipeds
 	'''
-	pm.frameLayout(w=win_width, label='Bipeds', bgc=color_5, cl=True, cll=True, ann='Biped Tools', cc=windowResize)
+	pm.frameLayout(w=win_width, label='Bipeds', bgc=color_5, cl=0, cll=1, ann='Biped Tools', cc=windowResize)
 	biped_layout = pm.columnLayout(w=win_width)
-	pm.frameLayout(w=win_width, label='Root', bgc=color_6, cl=True, cll=True, cc=windowResize)
-	pm.text(label='Select the main root joint', w=win_width)
-	pm.button(label='Space Locator', w=win_width, c=rootLoc)
-	
+
+
+	pm.frameLayout(w=win_width, label='Head/Eyes/Jaws', bgc=color_6, cl=0, cll=1, cc=windowResize)
+	pm.text(label='Select the head bind joints', w=win_width)
+	pm.button(label='Head Space locator and icon', w=win_width, c=headSetup)
+
 	pm.setParent(biped_layout)
 	pm.separator(w=win_width, bgc=color_6, st='in')
 
-	pm.frameLayout(w=win_width, label='Back (Based on 7 joints)', bgc=color_7, cl=True, cll=True, cc=windowResize)
-	pm.text(label='Select the back bind joints')
-	pm.button(label='Setup', w=win_width, c=backSetup)
-	
-	pm.setParent(biped_layout)
-	pm.separator(w=win_width, bgc=color_7, st='in')
 
-	pm.frameLayout(w=win_width, label='Neck (Based on 4 joints)', bgc=color_8, cl=True, cll=True, cc=windowResize)
+
+	pm.frameLayout(w=win_width, label='Neck (Based on 4 joints)', bgc=color_7, cl=1, cll=1, cc=windowResize)
 	pm.text(label='Select the neck bind joints', w=win_width)
 	pm.button(label='Ik/Fk System', w=win_width, c=neckSetup)
 
 	pm.setParent(biped_layout)
-	pm.separator(w=win_width, bgc=color_8, st='in')
+	pm.separator(w=win_width, bgc=color_7, st='in')
 
-	pm.frameLayout(w=win_width, label='Shoulders/Arms', bgc=color_9, cl=True, cll=True, cc=windowResize)
+
+	pm.frameLayout(w=win_width, label='Shoulders/Arms', bgc=color_8, cl=1, cll=1, cc=windowResize)
 	pm.text(label='Select the clav and arm bind', w=win_width)
 	pm.button(label='Create shoulder system', w=win_width, c=shoulderSetup)
 	pm.text(label='Select the arm bind', w=win_width)
 	pm.button(label='IK/FK System', w=win_width, c=bipedArm_system)
+
+	
+	pm.setParent(biped_layout)
+	pm.separator(w=win_width, bgc=color_8, st='in')
+
+
+
+	pm.frameLayout(w=win_width, label='Back (Based on 7 joints)', bgc=color_9, cl=1, cll=1, cc=windowResize)
+	pm.text(label='Select the back bind joints')
+	pm.button(label='Setup', w=win_width, c=backSetup)
 	
 	pm.setParent(biped_layout)
 	pm.separator(w=win_width, bgc=color_9, st='in')
 
-	pm.frameLayout(w=win_width, label='Legs', bgc=color_10, cl=True, cll=True, cc=windowResize)
+
+
+	pm.frameLayout(w=win_width, label='Root/Hips', bgc=color_10, cl=1, cll=1, cc=windowResize)
+	pm.text(label='Select the main root joint', w=win_width)
+	pm.button(label='Space Locator', w=win_width, c=rootLoc)
+	
+	pm.text(label='Select the main hip joint', w=win_width)
+	pm.button(label='Space Locator', w=win_width, c=hipLoc)
+	
+	pm.setParent(biped_layout)
+	pm.separator(w=win_width, bgc=color_10, st='in')
+
+
+
+	pm.frameLayout(w=win_width, label='Legs', bgc=color_1, cl=1, cll=1, cc=windowResize)
 	pm.button(label='Leg IK/FK Joints', w=win_width, ann='Creates Leg ik/fk joints', c=bipedLeg_joints)
 	pm.text(label='Select the bind, ik, and fk joints', w=win_width)
 	pm.button(label='IK/FK System', w=win_width, c=bipedLeg_system)	
 
 	pm.setParent(biped_layout)
-	pm.separator(w=win_width, bgc=color_10, st='in')
+	pm.separator(w=win_width, bgc=color_1, st='in')
 
-	pm.frameLayout(w=win_width, label='Feet', bgc=color_1, cl=True, cll=True, cc=windowResize)
+
+
+	pm.frameLayout(w=win_width, label='Feet', bgc=color_2, cl=1, cll=1, cc=windowResize)
 	pm.text(label='RFL Prep - Move the locators', w=win_width)
 	pm.button(label='Create Locators - Select the bind', w=win_width, c=rflPrep)
 	pm.text(label='Select the foot icon and the heel locator', w=win_width)
 	pm.button(label='RFL System', w=win_width, c=rflSystem)
 
 	pm.setParent(biped_layout)
-	pm.separator(w=win_width, bgc=color_1, st='in')
+	pm.separator(w=win_width, bgc=color_2, st='in')
 
-	pm.frameLayout(w=win_width, label='Connections', bgc=color_2, cl=True, cll=True, cc=windowResize)
-	pm.text(label='Select the shoulderSpace_loc, ik_cons_grp, twist_cons_grp, arm_01_fk_local, and the IkFk_switch', w=win_width, ww=True, ann='The shoulderSpace_loc is under the clav_02_waste, the arm_01_fk_local is under the gimbal_core_icon, and the cons_grps are under the clav_DO____NOT____TOUCH_grp')
+	pm.frameLayout(w=win_width, label='Connections', bgc=color_2, cl=1, cll=1, cc=windowResize)
+	pm.text(label='Select the shoulderSpace_loc, ik_cons_grp, twist_cons_grp, arm_01_fk_local, and the IkFk_switch', w=win_width, ww=1, ann='The shoulderSpace_loc is under the clav_02_waste, the arm_01_fk_local is under the gimbal_core_icon, and the cons_grps are under the clav_DO____NOT____TOUCH_grp')
 	pm.button(label='Arm to Shoulder', w=win_width, c=armConnection_1)
 
 
@@ -194,9 +219,9 @@ def gui():
 	'''
 	Quadrupeds
 	'''
-	quad_layout = pm.frameLayout(w=win_width, label='Quadrupeds', bgc=color_6, cl=True, cll=True, ann='Quadruped Tools', cc=windowResize )
+	quad_layout = pm.frameLayout(w=win_width, label='Quadrupeds', bgc=color_6, cl=1, cll=1, ann='Quadruped Tools', cc=windowResize )
 	pm.setParent(quad_layout)
-	pm.frameLayout(w=win_width, label='Hind Legs', bgc=(color_7), cl=True, cll=True, cc=windowResize)
+	pm.frameLayout(w=win_width, label='Hind Legs', bgc=(color_7), cl=1, cll=1, cc=windowResize)
 	pm.text(label='orientation_h(Leg, LegIK, then LegFK)', w=win_width, al='center')
 	pm.button(label='Hind IK/FK/Helper Joints',w=win_width, ann='Creates leg ik/fk/helper joint chains', c=quad_hLeg_joints)
 	pm.text(label='Select the bind, ik, helper, and fk joints', w=win_width)
@@ -214,7 +239,7 @@ def gui():
 	'''
 	Zero Out Attributes
 	'''
-	pm.frameLayout(w=win_width, label='Zero Out', bgc=color_7, cl=True, cll=True, ann='Zero Out the Attributes to defaults', cc=windowResize)
+	pm.frameLayout(w=win_width, label='Zero Out', bgc=color_7, cl=1, cll=1, ann='Zero Out the Attributes to defaults', cc=windowResize)
 	pm.columnLayout()
 	pm.button(label='Human Foot Attributes', w=win_width, c=setZeroHumanFoot, ann='Sets Custom Foot Attributes back to defaults')
 	pm.separator(w=win_width, bgc=(tab_bgc), st='in')
@@ -229,21 +254,21 @@ def gui():
 	pm.setParent(main_layout)
 	pm.separator(w=win_width, bgc=color_7, st='in') 
 
-	pm.window('ByrdRigs_interface_toolset', e=1, wh=(240, 110), rtf=True)
+	pm.window('ByrdRigs_interface_toolset', e=1, wh=(240, 110), rtf=1)
 	pm.showWindow(window_object)
 
 	print('Window Created:', window_object)
 
 def deleteHistory(*args):
-	pm.delete(ch=True)
+	pm.delete(ch=1)
 	# print 'History Deleted'
 
 def centerPivot(*args):
-	pm.xform(cpc=True)
+	pm.xform(cpc=1)
 	# print 'Selected pivot centered.'
 
 def freezeTransform(*agrs):
-	pm.makeIdentity(apply=True, t=1, r=1, s=1, n=0, pn=1)
+	pm.makeIdentity(apply=1, t=1, r=1, s=1, n=0, pn=1)
 	# print 'Transform Frozen'
 
 panel_1 = 'modelPanel1' 
@@ -287,121 +312,127 @@ def showNone(*args):
 
 def polyOn(*args):
 	print 'Polygons visible'
-	pm.modelEditor(panel_1, e=1, polymeshes=True)
-	pm.modelEditor(panel_1, e=1, hos=True)
-	pm.modelEditor(panel_2, e=1, polymeshes=True)
-	pm.modelEditor(panel_2, e=1, hos=True)
-	pm.modelEditor(panel_3, e=1, polymeshes=True)
-	pm.modelEditor(panel_3, e=1, hos=True)
-	pm.modelEditor(panel_4, e=1, polymeshes=True)
-	pm.modelEditor(panel_4, e=1, hos=True)
+	pm.modelEditor(panel_1, e=1, polymeshes=1)
+	pm.modelEditor(panel_1, e=1, hos=1)
+	pm.modelEditor(panel_2, e=1, polymeshes=1)
+	pm.modelEditor(panel_2, e=1, hos=1)
+	pm.modelEditor(panel_3, e=1, polymeshes=1)
+	pm.modelEditor(panel_3, e=1, hos=1)
+	pm.modelEditor(panel_4, e=1, polymeshes=1)
+	pm.modelEditor(panel_4, e=1, hos=1)
 
 def polyOff(*args):
 	print 'Polygons hidden'
-	pm.modelEditor(panel_1, e=1, polymeshes=False)
-	pm.modelEditor(panel_1, e=1, hos=False)
-	pm.modelEditor(panel_2, e=1, polymeshes=False)
-	pm.modelEditor(panel_2, e=1, hos=False)
-	pm.modelEditor(panel_3, e=1, polymeshes=False)
-	pm.modelEditor(panel_3, e=1, hos=False)
-	pm.modelEditor(panel_4, e=1, polymeshes=False)
-	pm.modelEditor(panel_4, e=1, hos=False)
+	pm.modelEditor(panel_1, e=1, polymeshes=0)
+	pm.modelEditor(panel_1, e=1, hos=0)
+	pm.modelEditor(panel_2, e=1, polymeshes=0)
+	pm.modelEditor(panel_2, e=1, hos=0)
+	pm.modelEditor(panel_3, e=1, polymeshes=0)
+	pm.modelEditor(panel_3, e=1, hos=0)
+	pm.modelEditor(panel_4, e=1, polymeshes=0)
+	pm.modelEditor(panel_4, e=1, hos=0)
 
 def jointsOn(*args):
 	print 'Joints visible'
-	pm.modelEditor(panel_1, e=1, joints = True)
-	pm.modelEditor(panel_1, e=1, hos = True)
-	pm.modelEditor(panel_2, e=1, joints = True)
-	pm.modelEditor(panel_2, e=1, hos = True)
-	pm.modelEditor(panel_3, e=1, joints = True)
-	pm.modelEditor(panel_3, e=1, hos = True)
-	pm.modelEditor(panel_4, e=1, joints = True)
-	pm.modelEditor(panel_4, e=1, hos = True)
+	pm.modelEditor(panel_1, e=1, joints = 1)
+	pm.modelEditor(panel_1, e=1, hos = 1)
+	pm.modelEditor(panel_2, e=1, joints = 1)
+	pm.modelEditor(panel_2, e=1, hos = 1)
+	pm.modelEditor(panel_3, e=1, joints = 1)
+	pm.modelEditor(panel_3, e=1, hos = 1)
+	pm.modelEditor(panel_4, e=1, joints = 1)
+	pm.modelEditor(panel_4, e=1, hos = 1)
 
 def jointsOff(*args):
 	print 'Joints hidden'
-	pm.modelEditor(panel_1, e=1, joints = False)
-	pm.modelEditor(panel_1, e=1, hos = False)
-	pm.modelEditor(panel_2, e=1, joints = False)
-	pm.modelEditor(panel_2, e=1, hos = False)
-	pm.modelEditor(panel_3, e=1, joints = False)
-	pm.modelEditor(panel_3, e=1, hos = False)
-	pm.modelEditor(panel_4, e=1, joints = False)
-	pm.modelEditor(panel_4, e=1, hos = False)
+	pm.modelEditor(panel_1, e=1, joints = 0)
+	pm.modelEditor(panel_1, e=1, hos = 0)
+	pm.modelEditor(panel_2, e=1, joints = 0)
+	pm.modelEditor(panel_2, e=1, hos = 0)
+	pm.modelEditor(panel_3, e=1, joints = 0)
+	pm.modelEditor(panel_3, e=1, hos = 0)
+	pm.modelEditor(panel_4, e=1, joints = 0)
+	pm.modelEditor(panel_4, e=1, hos = 0)
 
 def xRayOn(*args):
 	print 'X-Ray Joints visible'
-	pm.modelEditor(panel_1, e=1, jointXray = True)
-	pm.modelEditor(panel_1, e=1, hos = True)
-	pm.modelEditor(panel_2, e=1, jointXray = True)
-	pm.modelEditor(panel_2, e=1, hos = True)
-	pm.modelEditor(panel_3, e=1, jointXray = True)
-	pm.modelEditor(panel_3, e=1, hos = True)
-	pm.modelEditor(panel_4, e=1, jointXray = True)
-	pm.modelEditor(panel_4, e=1, hos = True)
+	pm.modelEditor(panel_1, e=1, jointXray = 1)
+	pm.modelEditor(panel_1, e=1, hos = 1)
+	pm.modelEditor(panel_2, e=1, jointXray = 1)
+	pm.modelEditor(panel_2, e=1, hos = 1)
+	pm.modelEditor(panel_3, e=1, jointXray = 1)
+	pm.modelEditor(panel_3, e=1, hos = 1)
+	pm.modelEditor(panel_4, e=1, jointXray = 1)
+	pm.modelEditor(panel_4, e=1, hos = 1)
 
 def xRayOff(*args):
 	print 'X-Ray Joints hidden'
-	pm.modelEditor(panel_1, e=1, jointXray = False)
-	pm.modelEditor(panel_1, e=1, hos = False)
-	pm.modelEditor(panel_2, e=1, jointXray = False)
-	pm.modelEditor(panel_2, e=1, hos = False)
-	pm.modelEditor(panel_3, e=1, jointXray = False)
-	pm.modelEditor(panel_3, e=1, hos = False)
-	pm.modelEditor(panel_4, e=1, jointXray = False)
-	pm.modelEditor(panel_4, e=1, hos = False)
+	pm.modelEditor(panel_1, e=1, jointXray = 0)
+	pm.modelEditor(panel_1, e=1, hos = 0)
+	pm.modelEditor(panel_2, e=1, jointXray = 0)
+	pm.modelEditor(panel_2, e=1, hos = 0)
+	pm.modelEditor(panel_3, e=1, jointXray = 0)
+	pm.modelEditor(panel_3, e=1, hos = 0)
+	pm.modelEditor(panel_4, e=1, jointXray = 0)
+	pm.modelEditor(panel_4, e=1, hos = 0)
 
 def wireOn(*args):
 	print 'Wireframe on Shaded On'
-	pm.mel.setWireframeOnShadedOption(True, panel_1)
-	pm.mel.setWireframeOnShadedOption(True, panel_2)
-	pm.mel.setWireframeOnShadedOption(True, panel_3)
-	pm.mel.setWireframeOnShadedOption(True, panel_4)
+	pm.mel.setWireframeOnShadedOption(1, panel_1)
+	pm.mel.setWireframeOnShadedOption(1, panel_2)
+	pm.mel.setWireframeOnShadedOption(1, panel_3)
+	pm.mel.setWireframeOnShadedOption(1, panel_4)
 
 def wireOff(*args):
 	print 'Wireframe On Shaded Off'
-	pm.mel.setWireframeOnShadedOption(False, panel_1)
-	pm.mel.setWireframeOnShadedOption(False, panel_2)
-	pm.mel.setWireframeOnShadedOption(False, panel_3)
-	pm.mel.setWireframeOnShadedOption(False, panel_4)
+	pm.mel.setWireframeOnShadedOption(0, panel_1)
+	pm.mel.setWireframeOnShadedOption(0, panel_2)
+	pm.mel.setWireframeOnShadedOption(0, panel_3)
+	pm.mel.setWireframeOnShadedOption(0, panel_4)
 
 def curvesOn(*args):
 	print 'NURBS Curves visible'
-	pm.modelEditor(panel_1, e=1, nurbsCurves=True)
-	pm.modelEditor(panel_2, e=1, nurbsCurves=True)
-	pm.modelEditor(panel_3, e=1, nurbsCurves=True)
-	pm.modelEditor(panel_4, e=1, nurbsCurves=True)
+	pm.modelEditor(panel_1, e=1, nurbsCurves=1)
+	pm.modelEditor(panel_2, e=1, nurbsCurves=1)
+	pm.modelEditor(panel_3, e=1, nurbsCurves=1)
+	pm.modelEditor(panel_4, e=1, nurbsCurves=1)
 
 def curvesOff(*args):
 	print 'NURBS Curves hidden'
-	pm.modelEditor(panel_1, e=1, nurbsCurves=False)
-	pm.modelEditor(panel_2, e=1, nurbsCurves=False)
-	pm.modelEditor(panel_3, e=1, nurbsCurves=False)
-	pm.modelEditor(panel_4, e=1, nurbsCurves=False)
+	pm.modelEditor(panel_1, e=1, nurbsCurves=0)
+	pm.modelEditor(panel_2, e=1, nurbsCurves=0)
+	pm.modelEditor(panel_3, e=1, nurbsCurves=0)
+	pm.modelEditor(panel_4, e=1, nurbsCurves=0)
 
 def surfacesOn(*args):
 	print 'NURBS Surfaces visible'
-	pm.modelEditor(panel_1, e=1, nurbsSurfaces=True)
-	pm.modelEditor(panel_2, e=1, nurbsSurfaces=True)
-	pm.modelEditor(panel_3, e=1, nurbsSurfaces=True)
-	pm.modelEditor(panel_4, e=1, nurbsSurfaces=True)
+	pm.modelEditor(panel_1, e=1, nurbsSurfaces=1)
+	pm.modelEditor(panel_2, e=1, nurbsSurfaces=1)
+	pm.modelEditor(panel_3, e=1, nurbsSurfaces=1)
+	pm.modelEditor(panel_4, e=1, nurbsSurfaces=1)
 
 def surfacesOff(*args):
 	print 'NURBS Surfaces hidden'
-	pm.modelEditor(panel_1, e=1, nurbsSurfaces=False)
-	pm.modelEditor(panel_2, e=1, nurbsSurfaces=False)
-	pm.modelEditor(panel_3, e=1, nurbsSurfaces=False)
-	pm.modelEditor(panel_4, e=1, nurbsSurfaces=False)
+	pm.modelEditor(panel_1, e=1, nurbsSurfaces=0)
+	pm.modelEditor(panel_2, e=1, nurbsSurfaces=0)
+	pm.modelEditor(panel_3, e=1, nurbsSurfaces=0)
+	pm.modelEditor(panel_4, e=1, nurbsSurfaces=0)
 
 def jointTool(*args):
 	print 'Joint Tool Active.'
 	pm.mel.JointTool()
 
-def mirrorTool(*args):
+def mirrorToolO(*args):
 	print 'Mirroring Joints'
-	selection = pm.ls(sl=True) 
+	selection = pm.ls(sl=1) 
 	for each in selection:
 		pm.mirrorJoint(each, searchReplace=("lt", "rt"), mirrorYZ=1)
+
+def mirrorToolB(*args):
+	print 'Mirroring Joints'
+	selection = pm.ls(sl=1) 
+	for each in selection:
+		pm.mirrorJoint(each, mirrorBehavior=1,searchReplace=("lt", "rt"), mirrorYZ=1)
 
 def jointSize(*args):
 	print 'Changing Joint Size.'
@@ -447,14 +478,14 @@ def jointPadding(*args):
 	byrdCheyenne_riggingTools.padding_tool()
 	'''
 
-	selected = pm.ls(selection=True)
+	selected = pm.ls(selection=1)
 	# print 'Current Selected:' , selected 
 	root_joint = selected[0]
 
 	# Create empty group
-	# empty=True will create an empty group 
+	# empty=1 will create an empty group 
 	# 
-	pad = pm.group(empty=True)
+	pad = pm.group(empty=1)
 
 	# Move group to joint.
 	# 	and delete constraint
@@ -462,7 +493,7 @@ def jointPadding(*args):
 	pm.delete(temp_constraint)
 
 	# Freeze Transformation on the group.
-	pm.makeIdentity(pad, apply=True, t=1, r=1, s=1, n=0)
+	pm.makeIdentity(pad, apply=1, t=1, r=1, s=1, n=0)
 	# Parent joint to group
 	pm.parent(root_joint, pad)
 
@@ -475,11 +506,11 @@ def jointPadding(*args):
 	print 'Padding group created.'
 
 def ctrlPadding(*args):
-	selected = pm.ls(selection=True)
+	selected = pm.ls(selection=1)
 	#print 'Current Selected:' , selected 
 	root_joint = selected[0]
 
-	local = pm.group(empty=True)
+	local = pm.group(empty=1)
 	temp_constraint =pm.parentConstraint(root_joint, local)
 	pm.delete(temp_constraint)
 	pm.parent(root_joint, local)
@@ -489,43 +520,97 @@ def ctrlPadding(*args):
 
 def parentConstraint_on(*args):
 	print 'Parent Constraint with Maintain Offset On'
-	selection = pm.ls(sl=True)
-	pm.parentConstraint(selection, mo=True)
+	selection = pm.ls(sl=1)
+	pm.parentConstraint(selection, mo=1)
 
 def parentConstraint_off(*args):
 	print 'Parent Constraint with Maintain Offset Off'
-	selection = pm.ls(sl=True)
-	pm.parentConstraint(selection, mo=False)
+	selection = pm.ls(sl=1)
+	pm.parentConstraint(selection, mo=0)
 
 def pointConstraint_on(*args):
 	print 'Point Constraint with Maintain Offset On'
-	selection = pm.ls(sl=True)
-	pm.pointConstraint(selection, mo=True)
+	selection = pm.ls(sl=1)
+	pm.pointConstraint(selection, mo=1)
 
 def pointConstraint_off(*args):
 	print 'Point Constraint with Maintain Offset Off'
-	selection = pm.ls(sl=True)
-	pm.pointConstraint(selection, mo=False)
+	selection = pm.ls(sl=1)
+	pm.pointConstraint(selection, mo=0)
 
 def orientConstraint_on(*args):
 	print 'Orient Constraint with Maintain Offset On'
-	selection = pm.ls(sl=True)
-	pm.orientConstraint(selection, mo=True)
+	selection = pm.ls(sl=1)
+	pm.orientConstraint(selection, mo=1)
 
 def orientConstraint_off(*args):
 	print 'Orient Constraint with Maintain Offset Off'
-	selection = pm.ls(sl=True)
-	pm.orientConstraint(selection, mo=False)
+	selection = pm.ls(sl=1)
+	pm.orientConstraint(selection, mo=0)
 
 def poleVector(*args):
 	print 'Pole Vector Constraint'
-	selection = pm.ls(sl=True)
+	selection = pm.ls(sl=1)
 	driver = selection[0]
 	driven = selection[1]
 	pm.poleVectorConstraint(driver, driven)
 
+
+def headSetup(*args):
+	joints = pm.ls(sl=1, dag=1)
+	head_bind = joints[0]
+	head_waste = joints[1]
+
+
+	head_pad = pm.group(empty=1)
+	temp_comnstraint = pm.parentConstraint(head_bind, head_pad, mo=0)
+	pm.delete(temp_comnstraint)
+	freezeTransform(head_pad)
+
+	local_name = head_bind.replace('01_bind', '00_pad')
+	head_pad.rename(local_name)
+	pm.parent(head_bind, head_pad)
+
+	head_icon = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=16, r=8, tol=0.01, nr=(1, 0, 0))[0]
+
+	pm.select('nurbsCircle1.cv[10]',
+		  'nurbsCircle1.cv[12]',
+		  'nurbsCircle1.cv[14]',
+		  'nurbsCircle1.cv[0]',
+		  'nurbsCircle1.cv[2]', 
+		  'nurbsCircle1.cv[4]', 
+		  'nurbsCircle1.cv[6]', 
+		  'nurbsCircle1.cv[8]')
+	cmds.move(-4, 0, 0, r=1, os=1, wd=1)
+
+	pm.select(head_icon)
+	centerPivot()
+
+	temp_constraint = pm.parentConstraint(head_bind, head_icon, mo=0)
+	pm.delete(temp_constraint)
+	temp_constraint = pm.pointConstraint(head_waste, head_icon, mo=0)
+	pm.delete(temp_constraint)
+	freezeTransform()
+	deleteHistory()
+	bind_pivots = head_bind.getTranslation(ws=1)
+	# print bind_pivots
+	head_icon.setPivots(bind_pivots)
+
+	icon_name = head_bind.replace('bind', 'icon')
+	head_icon.rename(icon_name)
+
+	pm.parentConstraint(head_icon, head_pad, mo=0)
+
+	head_icon.overrideEnabled.set(1)
+	head_icon.overrideColor.set(17)
+
+def eyeSetup(*args):
+	
+
+
+
 def rootLoc(*args):
-	selection = pm.ls(sl=True)
+	selection = pm.ls(sl=1)
 	root_joint = selection[0]
 
 	loc_1 = pm.spaceLocator(p=(0, 0, 0))
@@ -534,9 +619,23 @@ def rootLoc(*args):
 	pm.delete(temp_constraint)
 	freezeTransform(loc_1)
 
-	loc_name = root_joint.replace('_01_waste', 'Space_loc')
+	loc_name = root_joint.replace('_01_waste', '_space_loc')
 	loc_1.rename(loc_name)
 	pm.parent(loc_1, root_joint)
+
+def hipLoc(*args):
+	selection = pm.ls(sl=1)
+	hip_joint = selection[0]
+
+	loc_2 = pm.spaceLocator(p=(0, 0, 0))
+
+	temp_constraint = pm.parentConstraint(hip_joint, loc_2, mo=0)
+	pm.delete(temp_constraint)
+	freezeTransform(loc_2)
+
+	loc_name = hip_joint.replace('_01_bind', '_space_loc')
+	loc_2.rename(loc_name)
+	pm.parent(loc_2, hip_joint)
 
 def backSetup(*args):
 	import BR_7Joint_backSetup
@@ -546,7 +645,7 @@ def backSetup(*args):
 def neckSetup(*args):
 	import BR_4Joint_neckSetup
 	reload (BR_4Joint_neckSetup)
-	BR_4Joint_neckSetup.neck()
+	BR_4Joint_neckSetup.setup()
 
 def bipedArm_system(*args):
 	import BR_armSetup
@@ -554,17 +653,17 @@ def bipedArm_system(*args):
 	BR_armSetup.armSetup()
 
 def shoulderSetup(*args):
-	joint_system = pm.ls(sl=True)
+	joint_system = pm.ls(sl=1)
 	clav_system = joint_system[0]
 	arm_system = joint_system[1] 
 
-	bJoints = pm.ls(clav_system, sl=True, dag=True)
+	bJoints = pm.ls(clav_system, sl=1, dag=1)
 	bRoot_joint = bJoints[0]
 	bJoint_2 = bJoints[1]
 	print 'Clav root joint:', bRoot_joint
 	print 'Clav waste joint:', bJoint_2
 
-	armJoints = pm.ls(arm_system, sl=True, dag=True)
+	armJoints = pm.ls(arm_system, sl=1, dag=1)
 	aRoot_joint = armJoints[0]
 	aJoint_2 = armJoints[1]
 	aJoint_3 = armJoints[2]
@@ -604,10 +703,10 @@ def shoulderSetup(*args):
 	clav_dist = pm.shadingNode('distanceDimShape', asUtility=1)
 
 	pm.select(clav_dist)
-	selection = pm.ls(sl=True, s=False)
+	selection = pm.ls(sl=1, s=0)
 	shape = selection[0]
 	pm.pickWalk(d='up')
-	transform = pm.ls(sl=True)[0]
+	transform = pm.ls(sl=1)[0]
 
 	node_name = loc_1.replace('loc', 'dist')
 	transform.rename(node_name)
@@ -641,7 +740,7 @@ def shoulderSetup(*args):
 	shoulder_icon.rename(icon_name)
 	pm.parent(loc_1, shoulder_icon)
 
-	dnt_grp = pm.group(empty=True)
+	dnt_grp = pm.group(empty=1)
 	temp_constraint = pm.parentConstraint(bRoot_joint, dnt_grp, mo=0)
 	pm.delete(temp_constraint)
 	freezeTransform(dnt_grp)
@@ -651,7 +750,7 @@ def shoulderSetup(*args):
 
 	pm.parent(transform, loc_2, dnt_grp)
 
-	global_grp = pm.group(empty=True)
+	global_grp = pm.group(empty=1)
 	temp_constraint = pm.pointConstraint(bRoot_joint, global_grp, mo=0)
 	pm.delete(temp_constraint)
 	freezeTransform(global_grp)
@@ -659,7 +758,7 @@ def shoulderSetup(*args):
 	grp_name = bRoot_joint.replace('01_bind', 'global_grp')
 	global_grp.rename(grp_name)
 
-	pad = pm.group(empty=True)
+	pad = pm.group(empty=1)
 	temp_constraint= pm.pointConstraint(bRoot_joint, pad, mo=0)
 	pm.delete(temp_constraint)
 	freezeTransform(pad)
@@ -703,7 +802,7 @@ def shoulderSetup(*args):
 
 		pm.select(moveAll_circle, xAxis, zAxis)
 
-		shapes = pm.ls(sl=True, dag=True)
+		shapes = pm.ls(sl=1, dag=1)
 		cShape_1 = shapes[1]
 		cShape_2 = shapes[3]
 		cShape_3 = shapes[5]
@@ -720,7 +819,7 @@ def shoulderSetup(*args):
 		pm.rename(cShape_3, 'zAxis_shape')
 
 
-		moveAll = pm.group(empty=True, n='ct_moveAll')
+		moveAll = pm.group(empty=1, n='ct_moveAll')
 
 		pm.parent(cShape_1, cShape_2, cShape_3, moveAll, s=1, r=1)
 
@@ -728,13 +827,13 @@ def shoulderSetup(*args):
 
 	if pm.objExists('*joint_grp'):
 		pm.select('*joint_grp')
-		jnt_grp = pm.ls(sl=True)[0]
+		jnt_grp = pm.ls(sl=1)[0]
 		print jnt_grp
 		# pm.parent(pad, jnt_grp)
 		pm.scaleConstraint(moveAll, jnt_grp)
 
 	else:
-		jnt_grp = pm.group(empty=True)
+		jnt_grp = pm.group(empty=1)
 		grp_name = bRoot_joint.replace('lt_clav_01_bind', 'joint_grp')
 		jnt_grp.rename(grp_name)
 		print jnt_grp
@@ -743,12 +842,12 @@ def shoulderSetup(*args):
 
 	if pm.objExists('*icon_grp'):
 		pm.select('*icon_grp')
-		icon_grp = pm.ls(sl=True)[0] 
+		icon_grp = pm.ls(sl=1)[0] 
 		pm.parent(moveAll, icon_grp)
 		# pm.parent(shoulder_icon, moveAll)
 
 	else:
-		icon_grp = pm.group(empty=True)
+		icon_grp = pm.group(empty=1)
 		pm.parent(moveAll, icon_grp)
 		group_name = jnt_grp.replace('joint', 'icon')
 		icon_grp.rename(group_name)
@@ -759,14 +858,14 @@ def shoulderSetup(*args):
 	pm.delete(temp_constraint)
 	freezeTransform(loc_4)
 
-	loc_name = shoulder_icon.replace('_icon', 'Space_loc')
+	loc_name = shoulder_icon.replace('_icon', '_space_loc')
 	loc_4.rename(loc_name)
 
 	pm.parent(loc_4, bJoint_2)
 	freezeTransform(loc_4)
 
 def armConnection_1(*args):
-	selection = pm.ls(sl=True)
+	selection = pm.ls(sl=1)
 
 	space_loc = selection[0]
 	ik_main_grp = selection[1]
@@ -807,7 +906,7 @@ def twistWindow(*args):
 	BR_Arm_twist_window.gui()
 
 def bipedLeg_joints(*args):
-	joint_system = pm.ls(selection=True, dag=True)
+	joint_system = pm.ls(selection=1, dag=1)
 
 	root_joint = joint_system[0]
 	joint_2 = joint_system[1]
@@ -820,7 +919,7 @@ def bipedLeg_joints(*args):
 	# print 'Joint 4:', joint_4
 	# print 'Joint 5:', joint_5
 	pm.duplicate(root_joint)
-	ik_joints = pm.ls(selection=True, dag=True)
+	ik_joints = pm.ls(selection=1, dag=1)
 	ik_root_joint = ik_joints[0]
 	ik_joint_2 = ik_joints[1]
 	ik_joint_3 = ik_joints[2]
@@ -848,7 +947,7 @@ def bipedLeg_joints(*args):
 	ik_joint_5.rename(ik_joint_name)
 
 	pm.duplicate(ik_root_joint)
-	fk_joints = pm.ls(selection=True, dag=True)
+	fk_joints = pm.ls(selection=1, dag=1)
 	fk_root_joint = fk_joints[0]
 	fk_joint_2 = fk_joints[1]
 	fk_joint_3 = fk_joints[2]
@@ -876,15 +975,15 @@ def bipedLeg_joints(*args):
 	fk_joint_5.rename(fk_joint_name)
 
 def bipedLeg_system(*args):
-	joint_systems = pm.ls(selection=True)
+	joint_systems = pm.ls(selection=1)
 	
 	leg_root = joint_systems[0]
 	ik_root = joint_systems[1]
 	fk_root = joint_systems[2]
 
-	leg_joints = pm.ls(leg_root, dag=True)
-	ik_joints = pm.ls(ik_root, dag=True)
-	fk_joints = pm.ls(fk_root, dag=True)
+	leg_joints = pm.ls(leg_root, dag=1)
+	ik_joints = pm.ls(ik_root, dag=1)
+	fk_joints = pm.ls(fk_root, dag=1)
 
 	print 'Leg System:', leg_joints
 	print 'IK System:', ik_joints
@@ -953,10 +1052,10 @@ def bipedLeg_system(*args):
 	footCurve_1 = pm.curve(p=[(-1.67422e-06, 0, 2.182925), (-0.13416, 0, 2.16342), (-0.266779, 0, 2.095529), (-0.395472, 0, 1.99807), (-0.518993, 0, 1.858632), (-0.636496, 0, 1.679268), (-0.737632, 0, 1.452024), (-0.819474, 0, 1.166445), (-0.846144, 0, 0.821387), (-0.824602, 0, 0.556128), (-0.749206, 0, 0.167213), (-0.673656, 0, -0.127237), (-0.597808, 0, -0.419587), (-0.545054, 0, -0.746104), (-0.544891, 0, -1.097217), (-0.571904, 0, -1.448294), (-0.512279, 0, -1.753435), (-0.393271, 0, -1.92306), (-0.266839, 0, -2.035747), (-0.133965, 0, -2.097731), (0, 0, -2.120128), (0.133965, 0, -2.097731), (0.266839, 0, -2.035747), (0.393271, 0, -1.92306), (0.512279, 0, -1.753435), (0.571904, 0, -1.448294), (0.544891, 0, -1.097217), (0.545054, 0, -0.746104), (0.597807, 0, -0.419586), (0.673656, 0, -0.127237), (0.749207, 0, 0.167214), (0.824602, 0, 0.556128), (0.846144, 0, 0.82139), (0.819474, 0, 1.166447), (0.737631, 0, 1.452029), (0.636486, 0, 1.679267), (0.519008, 0, 1.858641), (0.395504, 0, 1.9981), (0.266596, 0, 2.09545), (0.134293, 0, 2.163449), (-1.67422e-06, 0, 2.182925)], k=[0, 0, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 38, 38], d=3)
 	footCurve_2 = pm.curve(p=[(-0.544891, 0, -1.097217), (-0.544891, 0, -1.097217), (-0.544891, 0, -1.097217), (0.544891, 0, -1.097217), (0.544891, 0, -1.097217), (0.544891, 0, -1.097217)], k=[0, 0, 0, 1, 2, 3, 3, 3], d=3)
 
-	foot_icon = pm.group(empty=True)
+	foot_icon = pm.group(empty=1)
 
 	pm.select(footCurve_1, footCurve_2, foot_icon)
-	foot_shapes = pm.ls(sl=True, dag=True)
+	foot_shapes = pm.ls(sl=1, dag=1)
 	curveShape_1 = foot_shapes[1]
 	curveShape_2 = foot_shapes[3]
 	foot_icon_grp = foot_shapes[4]
@@ -998,11 +1097,11 @@ def bipedLeg_system(*args):
 	Move the pivot of the foot icon
 	'''
 	pm.select(leg_joint_3, foot_icon)
-	selection = pm.ls(sl=True)
+	selection = pm.ls(sl=1)
 	driver_pivot = selection[0]
 	driven_pivot = selection[1]
-	driver_translation = driver_pivot.getTranslation(ws=True)
-	driven_pivot.setPivots(driver_translation, ws=True)
+	driver_translation = driver_pivot.getTranslation(ws=1)
+	driven_pivot.setPivots(driver_translation, ws=1)
 
 	'''
 	Create the knee icon.
@@ -1080,7 +1179,7 @@ def bipedLeg_system(*args):
 	print 'Fk icon 1:', fk_icon_1
 	temp_constraint = pm.parentConstraint(fk_root_joint, fk_icon_1)
 	pm.delete(temp_constraint)
-	fk_pad_1 = pm.group(empty=True)
+	fk_pad_1 = pm.group(empty=1)
 	temp_constraint = pm.parentConstraint(fk_root_joint, fk_pad_1)
 	pm.delete(temp_constraint)
 	pm.parent(fk_icon_1, fk_pad_1)
@@ -1092,7 +1191,7 @@ def bipedLeg_system(*args):
 	print 'Fk icon 2:', fk_icon_2
 	temp_constraint = pm.parentConstraint(fk_joint_2, fk_icon_2)
 	pm.delete(temp_constraint)
-	fk_pad_2 = pm.group(empty=True)
+	fk_pad_2 = pm.group(empty=1)
 	temp_constraint = pm.parentConstraint(fk_joint_2, fk_pad_2)
 	pm.delete(temp_constraint)
 	pm.parent(fk_icon_2, fk_pad_2)
@@ -1104,7 +1203,7 @@ def bipedLeg_system(*args):
 	print 'Fk icon 3:', fk_icon_3
 	temp_constraint = pm.parentConstraint(fk_joint_3, fk_icon_3)
 	pm.delete(temp_constraint)
-	fk_pad_3 = pm.group(empty=True)
+	fk_pad_3 = pm.group(empty=1)
 	temp_constraint = pm.parentConstraint(fk_joint_3, fk_pad_3)
 	pm.delete(temp_constraint)
 	pm.parent(fk_icon_3, fk_pad_3)
@@ -1116,7 +1215,7 @@ def bipedLeg_system(*args):
 	print 'Fk icon 4:', fk_icon_4
 	temp_constraint = pm.parentConstraint(fk_joint_4, fk_icon_4)
 	pm.delete(temp_constraint)
-	fk_pad_4 = pm.group(empty=True)
+	fk_pad_4 = pm.group(empty=1)
 	temp_constraint = pm.parentConstraint(fk_joint_4, fk_pad_4)
 	pm.delete(temp_constraint)
 	pm.parent(fk_icon_4, fk_pad_4)
@@ -1184,9 +1283,9 @@ def bipedLeg_system(*args):
 	# print 'Shape 4 Name:', shape_name_4
 	ikfk_shape_4.rename(shape_name_4)
 
-	leg_switch = pm.group(empty=True)
+	leg_switch = pm.group(empty=1)
 	pm.select(ikfk_shape_1, ikfk_shape_2, ikfk_shape_3, ikfk_shape_4, leg_switch)
-	shapes = pm.ls(selection=True, dag=True)
+	shapes = pm.ls(selection=1, dag=1)
 	curveShape_1 = shapes[1]
 	curveShape_2 = shapes[3]
 	curveShape_3 = shapes[5]
@@ -1220,18 +1319,18 @@ def bipedLeg_system(*args):
 	Add IkFk attribute
 	'''
 	pm.addAttr(leg_switch, ln="IkFk", max=1, dv=0, at='double', min=0)
-	leg_switch.IkFk.set(e=1, keyable=True)
+	leg_switch.IkFk.set(e=1, keyable=1)
 
-	leg_switch.tx.set(lock=True, channelBox=False, keyable=False)
-	leg_switch.ty.set(lock=True, channelBox=False, keyable=False)
-	leg_switch.tz.set(lock=True, channelBox=False, keyable=False)
-	leg_switch.rx.set(lock=True, channelBox=False, keyable=False)
-	leg_switch.ry.set(lock=True, channelBox=False, keyable=False)
-	leg_switch.rz.set(lock=True, channelBox=False, keyable=False)
-	leg_switch.sx.set(lock=True, channelBox=False, keyable=False)
-	leg_switch.sy.set(lock=True, channelBox=False, keyable=False)
-	leg_switch.sz.set(lock=True, channelBox=False, keyable=False)
- 	leg_switch.v.set(lock=True, channelBox=False, keyable=False)
+	leg_switch.tx.set(lock=1, channelBox=0, keyable=0)
+	leg_switch.ty.set(lock=1, channelBox=0, keyable=0)
+	leg_switch.tz.set(lock=1, channelBox=0, keyable=0)
+	leg_switch.rx.set(lock=1, channelBox=0, keyable=0)
+	leg_switch.ry.set(lock=1, channelBox=0, keyable=0)
+	leg_switch.rz.set(lock=1, channelBox=0, keyable=0)
+	leg_switch.sx.set(lock=1, channelBox=0, keyable=0)
+	leg_switch.sy.set(lock=1, channelBox=0, keyable=0)
+	leg_switch.sz.set(lock=1, channelBox=0, keyable=0)
+ 	leg_switch.v.set(lock=1, channelBox=0, keyable=0)
  	ik_root.v.set(0)
  	fk_root.v.set(0)
 
@@ -1407,7 +1506,7 @@ def bipedLeg_system(*args):
 		print 'The right leg is not done'
 
 def rflPrep(*args):
-	name_selection = pm.ls(sl=True, dag=True)
+	name_selection = pm.ls(sl=1, dag=1)
 	root_joint = name_selection[0]
 	joint_2 = name_selection[1]
 	joint_3 = name_selection[2]
@@ -1465,15 +1564,15 @@ def rflPrep(*args):
 	loc6.rename(loc_name)
 
 def rflSystem(*args):
-	rflSelection = pm.ls(sl=True)
+	rflSelection = pm.ls(sl=1)
 	selection_1 = rflSelection[0]
 	selection_2 = rflSelection[1]
 	# print 'rfl selection', rflSelection
 	# print 'selection 1', selection_1
 	# print 'selection 2', selection_2
 
-	foot_icon = pm.ls(selection_1, dag=True)
-	locs = pm.ls(selection_2, dag=True)
+	foot_icon = pm.ls(selection_1, dag=1)
+	locs = pm.ls(selection_2, dag=1)
 
 	ikh_1 = foot_icon[3]
 	ikh_2 = foot_icon[5]
@@ -1573,38 +1672,38 @@ def rflSystem(*args):
 def bipedFootAttrs(*args):
 	if pm.objExists('lt_foot_icon'):
 		pm.addAttr('|lt_foot_icon', ln="roll", dv=0, at='double')
-		pm.setAttr('|lt_foot_icon.roll', e=1, keyable=True)
+		pm.setAttr('|lt_foot_icon.roll', e=1, keyable=1)
 		pm.addAttr('|lt_foot_icon', ln="bendLimitAngle", dv=45, at='double')
-		pm.setAttr('|lt_foot_icon.bendLimitAngle', e=1, keyable=True)
+		pm.setAttr('|lt_foot_icon.bendLimitAngle', e=1, keyable=1)
 		pm.addAttr('|lt_foot_icon', ln="toeStraightAngle", dv=75, at='double')
-		pm.setAttr('|lt_foot_icon.toeStraightAngle', e=1, keyable=True)
+		pm.setAttr('|lt_foot_icon.toeStraightAngle', e=1, keyable=1)
 		pm.addAttr('|lt_foot_icon', ln="tilt", dv=0, at='double')
-		pm.setAttr('|lt_foot_icon.tilt', e=1, keyable=True)
+		pm.setAttr('|lt_foot_icon.tilt', e=1, keyable=1)
 		pm.addAttr('|lt_foot_icon', ln="lean", dv=0, at='double')
-		pm.setAttr('|lt_foot_icon.lean', e=1, keyable=True)
+		pm.setAttr('|lt_foot_icon.lean', e=1, keyable=1)
 		pm.addAttr('|lt_foot_icon', ln="toeSpin", dv=0, at='double')
-		pm.setAttr('|lt_foot_icon.toeSpin', e=1, keyable=True)
+		pm.setAttr('|lt_foot_icon.toeSpin', e=1, keyable=1)
 		pm.addAttr('|lt_foot_icon', ln="toeTap", dv=0, at='double')
-		pm.setAttr('|lt_foot_icon.toeTap', e=1, keyable=True)
+		pm.setAttr('|lt_foot_icon.toeTap', e=1, keyable=1)
 
 	else:
 		print "Lt foot icon donesn't exists"
 
 	if pm.objExists('rt_foot_icon'):
 		pm.addAttr('|rt_foot_icon', ln="roll", dv=0, at='double')
-		pm.setAttr('|rt_foot_icon.roll', e=1, keyable=True)
+		pm.setAttr('|rt_foot_icon.roll', e=1, keyable=1)
 		pm.addAttr('|rt_foot_icon', ln="bendLimitAngle", dv=45, at='double')
-		pm.setAttr('|rt_foot_icon.bendLimitAngle', e=1, keyable=True)
+		pm.setAttr('|rt_foot_icon.bendLimitAngle', e=1, keyable=1)
 		pm.addAttr('|rt_foot_icon', ln="toeStraightAngle", dv=75, at='double')
-		pm.setAttr('|rt_foot_icon.toeStraightAngle', e=1, keyable=True)
+		pm.setAttr('|rt_foot_icon.toeStraightAngle', e=1, keyable=1)
 		pm.addAttr('|rt_foot_icon', ln="tirt", dv=0, at='double')
-		pm.setAttr('|rt_foot_icon.tirt', e=1, keyable=True)
+		pm.setAttr('|rt_foot_icon.tirt', e=1, keyable=1)
 		pm.addAttr('|rt_foot_icon', ln="lean", dv=0, at='double')
-		pm.setAttr('|rt_foot_icon.lean', e=1, keyable=True)
+		pm.setAttr('|rt_foot_icon.lean', e=1, keyable=1)
 		pm.addAttr('|rt_foot_icon', ln="toeSpin", dv=0, at='double')
-		pm.setAttr('|rt_foot_icon.toeSpin', e=1, keyable=True)
+		pm.setAttr('|rt_foot_icon.toeSpin', e=1, keyable=1)
 		pm.addAttr('|rt_foot_icon', ln="toeTap", dv=0, at='double')
-		pm.setAttr('|rt_foot_icon.toeTap', e=1, keyable=True)
+		pm.setAttr('|rt_foot_icon.toeTap', e=1, keyable=1)
 
 	else:
 		print "Rt foot icon donesn't exists"
@@ -1648,10 +1747,10 @@ def rflSetupPartA(*args):
 		'''
 		Toe Tap Setup
 		'''
-		toeTap_pad = pm.group(empty=True, n='lt_toeTap_pivot')
+		toeTap_pad = pm.group(empty=1, n='lt_toeTap_pivot')
 		temp_constraint = pm.parentConstraint('lt_leg_04_bind', toeTap_pad)
 		pm.delete(temp_constraint)
-		pm.makeIdentity(toeTap_pad, apply=True, t=1, r=1, s=1, n=0, pn=1)
+		pm.makeIdentity(toeTap_pad, apply=1, t=1, r=1, s=1, n=0, pn=1)
 		pm.parent('lt_toe_ikh', toeTap_pad)
 		pm.parent(toeTap_pad, 'lt_toe_loc')
 		pm.setAttr('lt_toeTap_invert_mult.input2X', -1)
@@ -1690,17 +1789,17 @@ def quadHind_fkLeg_icons():
 	The root joint of the hind fk leg
 	'''
 
-	joint_systems = pm.ls(selection=True)
+	joint_systems = pm.ls(selection=1)
 
 	leg_root = joint_systems[0]
 	ik_root = joint_systems[1]
 	helper_root = joint_systems[2]
 	fk_root = joint_systems[3]
 
-	leg_joints = pm.ls(leg_root, dag=True)
-	ik_joints = pm.ls(ik_root, dag=True)
-	helper_joints = pm.ls(helper_root, dag=True)
-	fk_joints = pm.ls(fk_root, dag=True)
+	leg_joints = pm.ls(leg_root, dag=1)
+	ik_joints = pm.ls(ik_root, dag=1)
+	helper_joints = pm.ls(helper_root, dag=1)
+	fk_joints = pm.ls(fk_root, dag=1)
 
 	print 'Leg System:', leg_joints
 	print 'IK System:', ik_joints
@@ -1776,11 +1875,11 @@ def quadHind_fkLeg_icons():
 	orbCurve_4.ry.set(45)
 	orbCurve_5 = pm.duplicate(rr=1)[0]
 	orbCurve_5.ry.set(-45)
-	pm.makeIdentity(orbCurve_1, orbCurve_2, orbCurve_3, orbCurve_4, orbCurve_5, n=0,s=1,r=1,t=1, apply=True,pn=1)
-	orbIcon = pm.group(empty=True)
+	pm.makeIdentity(orbCurve_1, orbCurve_2, orbCurve_3, orbCurve_4, orbCurve_5, n=0,s=1,r=1,t=1, apply=1,pn=1)
+	orbIcon = pm.group(empty=1)
 	temp_grp = pm.group(orbCurve_1, orbCurve_2, orbCurve_3, orbCurve_4, orbCurve_5)
 
-	orbShapes = pm.ls(sl=True, dag=True)
+	orbShapes = pm.ls(sl=1, dag=1)
 	shape_1 = orbShapes[2]
 	shape_2 = orbShapes[4]
 	shape_3 = orbShapes[6]
@@ -1921,7 +2020,7 @@ def quadHind_fkLeg_icons():
 	pm.parent(local_pad_3, control_icon_2)
 
 def quad_hLeg_joints(*args):
-	joint_system = pm.ls(selection=True, dag=True)
+	joint_system = pm.ls(selection=1, dag=1)
 
 	root_joint = joint_system[0]
 	joint_2 = joint_system[1]
@@ -1942,7 +2041,7 @@ def helper_hJointRenamer():
 	'''
 	Get Selected
 	'''
-	joint_chain = pm.ls(selection=True, dag=True)
+	joint_chain = pm.ls(selection=1, dag=1)
 
 	'''
 	Figure out naming convention
@@ -1963,7 +2062,7 @@ def helper_hJointRenamer():
 		current_joint.rename(new_name)
 	new_name = '{0},{1},0{2};{3}'.format(ori,system_name,count, 'helper')
 
-	joint_system = pm.ls(selection=True, dag=True)
+	joint_system = pm.ls(selection=1, dag=1)
 
 	root_joint = joint_system[0]
 	joint_2 = joint_system[1]
@@ -1974,17 +2073,17 @@ def helper_hJointRenamer():
 	pm.delete(joint_5)
 
 def quad_hIKFK_system(*args):
-	joint_systems = pm.ls(selection=True)
+	joint_systems = pm.ls(selection=1)
 	
 	leg_root = joint_systems[0]
 	ik_root = joint_systems[1]
 	helper_root = joint_systems[2]
 	fk_root = joint_systems[3]
 
-	leg_joints = pm.ls(leg_root, dag=True)
-	ik_joints = pm.ls(ik_root, dag=True)
-	helper_joints = pm.ls(helper_root, dag=True)
-	fk_joints = pm.ls(fk_root, dag=True)
+	leg_joints = pm.ls(leg_root, dag=1)
+	ik_joints = pm.ls(ik_root, dag=1)
+	helper_joints = pm.ls(helper_root, dag=1)
+	fk_joints = pm.ls(fk_root, dag=1)
 
 	print 'Leg System:', leg_joints
 	print 'IK System:', ik_joints
@@ -2171,11 +2270,11 @@ def quad_hIKFK_system(*args):
 	orbCurve2_4.ry.set(45)
 	orbCurve2_5 = pm.duplicate(rr=1)[0]
 	orbCurve2_5.ry.set(-45)
-	pm.makeIdentity(orbCurve2_1, orbCurve2_2, orbCurve2_3, orbCurve2_4, orbCurve2_5, n=0,s=1,r=1,t=1, apply=True,pn=1)
-	ik_thigh_icon = pm.group(empty=True)
+	pm.makeIdentity(orbCurve2_1, orbCurve2_2, orbCurve2_3, orbCurve2_4, orbCurve2_5, n=0,s=1,r=1,t=1, apply=1,pn=1)
+	ik_thigh_icon = pm.group(empty=1)
 	temp_grp = pm.group(orbCurve2_1, orbCurve2_2, orbCurve2_3, orbCurve2_4, orbCurve2_5)
 
-	orb2Shapes = pm.ls(sl=True, dag=True)
+	orb2Shapes = pm.ls(sl=1, dag=1)
 	shape2_1 = orb2Shapes[2]
 	shape2_2 = orb2Shapes[4]
 	shape2_3 = orb2Shapes[6]
@@ -2200,7 +2299,7 @@ def quad_hIKFK_system(*args):
 	Pad the icon
 	'''
 
-	ik_thigh_pad = pm.group(empty=True)
+	ik_thigh_pad = pm.group(empty=1)
 	temp_constraint = pm.parentConstraint(ik_root_joint, ik_thigh_pad)
 	pm.delete(temp_constraint)
 	pm.parent(ik_thigh_icon, ik_thigh_pad)
@@ -2235,7 +2334,7 @@ def quad_hIKFK_system(*args):
 	shape_2 = 'ikfk_curveShape2'
 	shape_3 = 'ikfk_curveShape3'
 	shape_4 = 'ikfk_curveShape4'
-	switch = pm.group(empty=True)
+	switch = pm.group(empty=1)
 	print 'Shape 1:', shape_1
 	print 'Switch:', switch
 
@@ -2243,13 +2342,13 @@ def quad_hIKFK_system(*args):
 	pm.select(shape_2, shape_3)
 
 	pm.cmds.scale(0.768552, 0.768552, 0.768552)
-	pm.makeIdentity(n=0, s=1, r=1, t=1, apply=True, pn=1)
+	pm.makeIdentity(n=0, s=1, r=1, t=1, apply=1, pn=1)
 
 
 
 	pm.parent(shape_1, shape_2, shape_3, shape_4, switch, s=1, r=1)
 
-	pm.makeIdentity(n=0, s=1, r=1, t=1, apply=True, pn=1)
+	pm.makeIdentity(n=0, s=1, r=1, t=1, apply=1, pn=1)
 	shape_1 = 'ikfk_curve1'
 	shape_2 = 'ikfk_curve2'
 	shape_3 = 'ikfk_curve3'
@@ -2271,18 +2370,18 @@ def quad_hIKFK_system(*args):
 	Add IkFk attribute
 	'''
 	pm.addAttr(switch, ln="IkFk", max=10, dv=0, at='double', min=0)
-	switch.IkFk.set(e=1, keyable=True)
+	switch.IkFk.set(e=1, keyable=1)
 
-	switch.tx.set(lock=True, channelBox=False, keyable=False)
-	switch.ty.set(lock=True, channelBox=False, keyable=False)
-	switch.tz.set(lock=True, channelBox=False, keyable=False)
-	switch.rx.set(lock=True, channelBox=False, keyable=False)
-	switch.ry.set(lock=True, channelBox=False, keyable=False)
-	switch.rz.set(lock=True, channelBox=False, keyable=False)
-	switch.sx.set(lock=True, channelBox=False, keyable=False)
-	switch.sy.set(lock=True, channelBox=False, keyable=False)
-	switch.sz.set(lock=True, channelBox=False, keyable=False)
- 	switch.v.set(lock=True, channelBox=False, keyable=False)
+	switch.tx.set(lock=1, channelBox=0, keyable=0)
+	switch.ty.set(lock=1, channelBox=0, keyable=0)
+	switch.tz.set(lock=1, channelBox=0, keyable=0)
+	switch.rx.set(lock=1, channelBox=0, keyable=0)
+	switch.ry.set(lock=1, channelBox=0, keyable=0)
+	switch.rz.set(lock=1, channelBox=0, keyable=0)
+	switch.sx.set(lock=1, channelBox=0, keyable=0)
+	switch.sy.set(lock=1, channelBox=0, keyable=0)
+	switch.sz.set(lock=1, channelBox=0, keyable=0)
+ 	switch.v.set(lock=1, channelBox=0, keyable=0)
 
 	'''
 	Fk set up
@@ -2321,11 +2420,11 @@ def quad_hIKFK_system(*args):
 	orbCurve_4.ry.set(45)
 	orbCurve_5 = pm.duplicate(rr=1)[0]
 	orbCurve_5.ry.set(-45)
-	pm.makeIdentity(orbCurve_1, orbCurve_2, orbCurve_3, orbCurve_4, orbCurve_5, n=0,s=1,r=1,t=1, apply=True,pn=1)
-	fk_thigh_icon = pm.group(empty=True)
+	pm.makeIdentity(orbCurve_1, orbCurve_2, orbCurve_3, orbCurve_4, orbCurve_5, n=0,s=1,r=1,t=1, apply=1,pn=1)
+	fk_thigh_icon = pm.group(empty=1)
 	temp_grp = pm.group(orbCurve_1, orbCurve_2, orbCurve_3, orbCurve_4, orbCurve_5)
 
-	orbShapes = pm.ls(sl=True, dag=True)
+	orbShapes = pm.ls(sl=1, dag=1)
 	shape_1 = orbShapes[2]
 	shape_2 = orbShapes[4]
 	shape_3 = orbShapes[6]
@@ -2345,13 +2444,13 @@ def quad_hIKFK_system(*args):
 	'''
 	temp_constraint = pm.parentConstraint(fk_root_joint, fk_thigh_icon)
 	pm.delete(temp_constraint)
-	pm.makeIdentity(fk_thigh_icon, n=0,s=1,r=1,t=1, apply=True,pn=1)
+	pm.makeIdentity(fk_thigh_icon, n=0,s=1,r=1,t=1, apply=1,pn=1)
 
 	'''
 	Pad the icon
 	'''
 
-	fk_thigh_pad = pm.group(empty=True)
+	fk_thigh_pad = pm.group(empty=1)
 	temp_constraint = pm.parentConstraint(fk_root_joint, fk_thigh_pad)
 	pm.delete(temp_constraint)
 	pm.parent(fk_thigh_icon, fk_thigh_pad)
@@ -2598,8 +2697,8 @@ def quad_hIKFK_system(*args):
 	Create the flex pivot and offset.
 	'''
 
-	flex_pivot = pm.group(empty=True)
-	flex_offset = pm.group(empty=True)
+	flex_pivot = pm.group(empty=1)
+	flex_offset = pm.group(empty=1)
 
 	flex_pivot_name = leg_root.replace('hLeg_01_bind', 'flex_pivot')
 	flex_pivot.rename(flex_pivot_name)
@@ -2610,7 +2709,7 @@ def quad_hIKFK_system(*args):
 
 	temp_constraint = pm.pointConstraint(loc1, flex_pivot)
 	pm.delete(temp_constraint)
-	pm.makeIdentity(flex_pivot, n=0, s=1, r=1, t=1, apply=True, pn=1)
+	pm.makeIdentity(flex_pivot, n=0, s=1, r=1, t=1, apply=1, pn=1)
 
 
 	temp_constraint = pm.pointConstraint(loc1, flex_offset)
@@ -2624,7 +2723,7 @@ def quad_hIKFK_system(*args):
 	Create the toeTap pivot.
 	'''
 
-	toeTap_pivot = pm.group(empty=True)
+	toeTap_pivot = pm.group(empty=1)
 
 	temp_constraint = pm.pointConstraint(loc2, toeTap_pivot)
 	pm.delete(temp_constraint)
@@ -2641,13 +2740,13 @@ def quad_hIKFK_system(*args):
 	Add custom attributes.
 	'''
 	pm.addAttr(foot_icon, ln="flex", dv=0, at='double')
-	foot_icon.flex.set(e=1, keyable=True)
+	foot_icon.flex.set(e=1, keyable=1)
 	pm.addAttr(foot_icon, ln="swivel", dv=0, at='double')
-	foot_icon.swivel.set(e=1, keyable=True)
+	foot_icon.swivel.set(e=1, keyable=1)
 	pm.addAttr(foot_icon, ln="toeTap", dv=0, at='double')
-	foot_icon.toeTap.set(e=1, keyable=True)
+	foot_icon.toeTap.set(e=1, keyable=1)
 	pm.addAttr(foot_icon, ln="toeTip", dv=0, at='double')
-	foot_icon.toeTip.set(e=1, keyable=True)
+	foot_icon.toeTip.set(e=1, keyable=1)
 
 	'''
 	Connect the flex attribute
@@ -2874,6 +2973,6 @@ def setZeroSc(*args):
 
 def windowResize(*args):
 	if pm.window('ByrdRigs_interface_toolset', q=1, exists=1):
-		pm.window('ByrdRigs_interface_toolset', e=1, wh=(240, 110), rtf=True)
+		pm.window('ByrdRigs_interface_toolset', e=1, wh=(240, 110), rtf=1)
 	else:
 		pm.warming('ByrdRigs_interface_toolset does not exist')

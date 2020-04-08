@@ -340,6 +340,36 @@ def back():
 	pm.parent(loc_1, dnt_grp)
 	pm.parent(dnt_grp, bind_pad)
 
+	'''
+	Back space
+	'''
+	back_loc = pm.spaceLocator(p=(0, 0, 0))
+
+	temp_constraint = pm.parentConstraint(joint_7, back_loc, mo=0)
+	pm.delete(temp_constraint)
+	freezeTransform(back_loc)
+
+	loc_name = joint_7.replace('back_07_waste', 'headBody_space_loc')
+	back_loc.rename(loc_name)
+
+	pm.parent(back_loc, dnt_grp)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 def freezeTransform(*args):
 	pm.makeIdentity(apply=True, t=1, r=1, s=1, n=0, pn=1)
 	# print 'Transform Frozen'
