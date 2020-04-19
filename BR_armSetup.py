@@ -1,9 +1,17 @@
+'''
+Arm Setup 
+
+How to run:
+import BR_Interface_Toolset.BR_armSetup as BR_armSetup
+reload(BR_armSetup)
+BR_armSetup.setup()
+'''
 import pymel.core as pm
 import maya.cmds as cmds
 import maya.mel as mel
 
 
-def armSetup(*args):
+def setup(*args):
 	arm_system = pm.ls(sl=True, dag=True)
 	main_root = arm_system[0]
 	mJ_2 = arm_system[1]

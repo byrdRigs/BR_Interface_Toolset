@@ -88,8 +88,6 @@ def gui():
 	pm.frameLayout(w=win_width, label='Tools', bgc=color_3, cl=1, cll=1, ann='Different Tools', cc=windowResize)
 	pm.columnLayout()
 	pm.iconTextButton(w=win_width, st='iconAndTextHorizontal', image1='kinJoint.png', label='Create Joint Tool', c=jointTool)
-	pm.iconTextButton(w=win_width, st='iconAndTextHorizontal', image1='kinMirrorJoint_S.png', label='Mirror Joint Tool-Behavior', c=mirrorToolB)
-	pm.iconTextButton(w=win_width, st='iconAndTextHorizontal', image1='kinMirrorJoint_S.png', label='Mirror Joint Tool-Orientation', c=mirrorToolO)
 	pm.iconTextButton(w=win_width, st='iconAndTextHorizontal', image1='menuIconDisplay.png', label='Joint Size', c=jointSize)
 	pm.iconTextButton(w=win_width, st='iconAndTextHorizontal', image1='kinInsert.png', label='Insert Joint', c=insertJoint)
 	pm.iconTextButton(w=win_width, st='iconAndTextHorizontal', image1='menuIconDisplay.png', label='IK Handle Size', c=IkSize)
@@ -99,15 +97,15 @@ def gui():
 	pm.iconTextButton(w=win_width, st='iconAndTextHorizontal', image1='circle.png', label='Curve Tool Window', c=curveWindow)
 	pm.separator(w=win_width, bgc=color_3, st='in')
 	pm.rowColumnLayout(nc=3, cw=[[1, win_width*.5], [2, win_width*.25],[3, win_width*.25]])
+	pm.text(label='Mirror Joints')
+	pm.button(label='B' , c=mirrorToolB)
+	pm.button(label='Ori', c=mirrorToolO)
 	pm.text(label='IK Handle Tool')
 	pm.button(label='RP', c=RP_IkHandle)
 	pm.button(label='SC', c=SC_IkHandle)
 	pm.text(label='Padding')
 	pm.button(label='Jnt' , c=jointPadding)
 	pm.button(label='Ctrl', c=ctrlPadding)
-	# pm.text('Renamer')
-	# pm.button(label='Jnt', c=jointRenamer)
-	# pm.button(label='Ctrl',c=ctrlRenamer, ann='For control chains')
 
 	pm.setParent(main_layout)
 	pm.separator(w=win_width, bgc=color_3, st='in')
@@ -140,9 +138,20 @@ def gui():
 	biped_layout = pm.columnLayout(w=win_width)
 
 
-	pm.frameLayout(w=win_width, label='Head/Eyes/Jaws', bgc=color_6, cl=0, cll=1, cc=windowResize)
+	pm.frameLayout(w=win_width, label='Head/Eyes/Jaw', bgc=color_6, cl=0, cll=1, cc=windowResize)
 	pm.text(label='Select the head bind joints', w=win_width)
 	pm.button(label='Head Space locator and icon', w=win_width, c=headSetup)
+
+	pm.separator(w=win_width, bgc=color_6, st='in')
+
+	pm.text(label='Select the lt_eye_01_bind, rt_eye_01_bind, and head_bind', ww=1)
+	pm.button(label='Eye Setup', w=win_width, c=eyeSetup)
+
+	pm.separator(w=win_width, bgc=color_7, st='in')
+
+	pm.text(label='Select the head_bind, head_icon, and jaw_bind', ww=1)
+	pm.button(label='Jaw Setup', w=win_width, c=jawSetup)
+
 
 	pm.setParent(biped_layout)
 	pm.separator(w=win_width, bgc=color_6, st='in')
@@ -157,9 +166,10 @@ def gui():
 	pm.separator(w=win_width, bgc=color_7, st='in')
 
 
-	pm.frameLayout(w=win_width, label='Shoulders/Arms', bgc=color_8, cl=1, cll=1, cc=windowResize)
+	pm.frameLayout(w=win_width, label='Shoulders/Arms/Hands', bgc=color_8, cl=1, cll=1, cc=windowResize)
 	pm.text(label='Select the clav and arm bind', w=win_width)
 	pm.button(label='Create shoulder system', w=win_width, c=shoulderSetup)
+	pm.separator(w=win_width, bgc=color_9, st='in')
 	pm.text(label='Select the arm bind', w=win_width)
 	pm.button(label='IK/FK System', w=win_width, c=bipedArm_system)
 
@@ -182,6 +192,8 @@ def gui():
 	pm.text(label='Select the main root joint', w=win_width)
 	pm.button(label='Space Locator', w=win_width, c=rootLoc)
 	
+	pm.separator(w=win_width, bgc=color_10, st='in')
+
 	pm.text(label='Select the main hip joint', w=win_width)
 	pm.button(label='Space Locator', w=win_width, c=hipLoc)
 	
@@ -447,15 +459,15 @@ def hierarchy(*args):
 	pm.mel.SelectHierarchy()
 
 def renamerWindow(*args):
-	mel.eval("source Quick_rename_tool;")
-	mel.eval("Quick_rename_tool;")
-
+	renamer = 'Quick_rename_tool'
+	mel.eval(renamer)
+	
 	# Not my script, I downloaded it from highend3d.com I changed the colors though.
 
 def curveWindow(*args):
-	import BR_curve_tool
-	reload (BR_curve_tool)
-	BR_curve_tool.windowCreation()
+	import BR_Interface_Toolset.BR_curveTool as BR_curveTool
+	reload(BR_curveTool)
+	BR_curveTool.curve_gui()
 
 def RP_IkHandle(*args):
 	print 'RP IK Handle Tool.'
@@ -555,7 +567,6 @@ def poleVector(*args):
 	driven = selection[1]
 	pm.poleVectorConstraint(driver, driven)
 
-
 def headSetup(*args):
 	joints = pm.ls(sl=1, dag=1)
 	head_bind = joints[0]
@@ -605,9 +616,82 @@ def headSetup(*args):
 	head_icon.overrideColor.set(17)
 
 def eyeSetup(*args):
+	import BR_Interface_Toolset.BR_eyeSetup as BR_eyeSetup
+	reload(BR_eyeSetup)
+	BR_eyeSetup.setup()
 	
+def jawSetup(*args):
+	selection = pm.ls(sl=1)
+	head_joints = selection[0]
+	head_icon = selection[1]
+	jaw_joints = selection[2]
+
+	head_root = pm.ls(head_joints, sl=1)[0]
+
+	jaw_root = pm.ls(jaw_joints, sl=1)[0]
+	# print 'Jaw root:', jaw_root
+
+	pm.parent(jaw_root, head_root)
+	jaw_icon = pm.curve(p=[(-3, 0, -2), (-1, 0, -2), (-1, 0, -2), (-1, 0, -2), (0, 0, -1), (1, 0, -2), (1, 0, -2), (1, 0, -2), (3, 0, -2), (3, 0, -2), (3, 0, -2), (3, 0, -2), (1, 0, 0), (0, 0, 2), (0, 0, 2), (0, 0, 2), (0, 0, 2), (-1, 0, 0), (-3, 0, -2)], k=[0, 0, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 16, 16], d=3)
+	pm.select('curve1.cv[1]',
+			  'curve1.cv[2]', 
+			  'curve1.cv[3]', 
+			  'curve1.cv[5]',
+			  'curve1.cv[6]', 
+			  'curve1.cv[7]')
+	pm.cmds.scale(2, 1, 1, p=(0, 0, -2), r=1)
 
 
+	pm.xform(jaw_icon + '.cv[4]', t=(0, .5, .5))
+
+	pm.xform(jaw_icon + '.cv[12]', t=(.5, .5, 0))
+
+	pm.xform(jaw_icon + '.cv[17]', t=(-.5, .5, 0))
+
+	pm.select(jaw_icon)
+	centerPivot()
+	deleteHistory()
+
+
+	jaw_icon.ry.set(90)
+	freezeTransform()
+	temp_constraint = pm.parentConstraint(jaw_root, jaw_icon, mo=0)
+	pm.delete(temp_constraint)
+	freezeTransform()
+	jaw_icon.rx.set(90)
+	freezeTransform()
+	jaw_icon.tz.set(20)
+	freezeTransform()
+
+	icon_pad = pm.group(empty=1)
+	temp_constraint = pm.parentConstraint(jaw_root, icon_pad, mo=0)
+	pm.delete(temp_constraint)
+
+	jaw_icon.ty.set(-2)
+	pm.select(jaw_icon)
+	freezeTransform()
+
+	pm.parent(jaw_icon, icon_pad)
+	
+	bind_pivots = jaw_root.getTranslation(ws=1)
+	# print bind_pivots
+	jaw_icon.setPivots(bind_pivots)
+
+	pm.select(jaw_icon)
+	freezeTransform()
+
+	icon_name = jaw_root.replace('01_bind', 'icon')
+	jaw_icon.rename(icon_name)
+
+	pad_name = jaw_icon.replace('icon', 'local')
+	icon_pad.rename(pad_name)
+
+	pm.parentConstraint(jaw_icon, jaw_root, mo=1)
+
+	pm.parent(icon_pad, head_icon)
+
+	jaw_icon.overrideEnabled.set(1)
+	jaw_icon.overrideColor.set(18)
 
 def rootLoc(*args):
 	selection = pm.ls(sl=1)
@@ -638,19 +722,19 @@ def hipLoc(*args):
 	pm.parent(loc_2, hip_joint)
 
 def backSetup(*args):
-	import BR_7Joint_backSetup
-	reload (BR_7Joint_backSetup)
-	BR_7Joint_backSetup.back()
+	import BR_Interface_Toolset.BR_7Joint_backSetup as BR_7Joint_backSetup
+	reload(BR_7Joint_backSetup)
+	BR_7Joint_backSetup.setup()
 
 def neckSetup(*args):
-	import BR_4Joint_neckSetup
+	import BR_Interface_Toolset.BR_4Joint_neckSetup as BR_4Joint_neckSetup
 	reload (BR_4Joint_neckSetup)
 	BR_4Joint_neckSetup.setup()
 
 def bipedArm_system(*args):
-	import BR_armSetup
-	reload (BR_armSetup)
-	BR_armSetup.armSetup()
+	import BR_Interface_Toolset.BR_armSetup as BR_armSetup
+	reload(BR_armSetup)
+	BR_armSetup.setup()
 
 def shoulderSetup(*args):
 	joint_system = pm.ls(sl=1)

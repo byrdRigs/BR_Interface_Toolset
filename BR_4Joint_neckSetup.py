@@ -1,5 +1,10 @@
 '''
 4 Joint neck Ik spline setup
+
+How to run:
+import BR_Interface_Toolset.BR_4Joint_neckSetup as BR_4Joint_neckSetup
+reload(BR_4Joint_neckSetup)
+BR_4Joint_neckSetup.setup()
 '''
 
 import pymel.core as pm 
