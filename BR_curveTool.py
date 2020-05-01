@@ -39,7 +39,7 @@ color_6 = (.224, .259, .894)
 color_7 = (.475, .278, .925)
 color_8 = (.447, .145, .965)
 color_9 = (.475, .078, .678)
-color_10 = (.529, .078, .678)
+color_10 = (.576, .039, .839)
 
 def curve_gui():
 	if pm.window('ByrdRigs_Curve_Tool', q=1, exists=1):

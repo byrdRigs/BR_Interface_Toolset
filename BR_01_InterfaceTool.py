@@ -26,7 +26,7 @@ color_6 = (.224, .259, .894)
 color_7 = (.475, .278, .925)
 color_8 = (.447, .145, .965)
 color_9 = (.475, .078, .678)
-color_10 = (.529, .078, .678)
+color_10 = (.576, .039, .839)
 
 
 def gui():
@@ -138,7 +138,7 @@ def gui():
 	biped_layout = pm.columnLayout(w=win_width)
 
 
-	pm.frameLayout(w=win_width, label='Head/Eyes/Jaw', bgc=color_6, cl=0, cll=1, cc=windowResize)
+	pm.frameLayout(w=win_width, label='Head/Eyes/Jaw', bgc=color_6, cl=1, cll=1, cc=windowResize)
 	pm.text(label='Select the head bind joints', w=win_width)
 	pm.button(label='Head Space locator and icon', w=win_width, c=headSetup)
 
@@ -166,12 +166,15 @@ def gui():
 	pm.separator(w=win_width, bgc=color_7, st='in')
 
 
-	pm.frameLayout(w=win_width, label='Shoulders/Arms/Hands', bgc=color_8, cl=1, cll=1, cc=windowResize)
+	pm.frameLayout(w=win_width, label='Shoulders/Arms/Hands', bgc=color_8, cl=0, cll=1, cc=windowResize)
 	pm.text(label='Select the clav and arm bind', w=win_width)
 	pm.button(label='Create shoulder system', w=win_width, c=shoulderSetup)
 	pm.separator(w=win_width, bgc=color_9, st='in')
 	pm.text(label='Select the arm bind', w=win_width)
 	pm.button(label='IK/FK System', w=win_width, c=bipedArm_system)
+	pm.separator(w=win_width, bgc=color_10, st='in')
+	pm.text(label='Open Hand Window', w=win_width)
+	pm.button(label='Hand Window', w=win_width, c=handWindow)
 
 	
 	pm.setParent(biped_layout)
@@ -282,6 +285,26 @@ def centerPivot(*args):
 def freezeTransform(*agrs):
 	pm.makeIdentity(apply=1, t=1, r=1, s=1, n=0, pn=1)
 	# print 'Transform Frozen'
+
+def lock_and_hide(icon, attrs):
+	for current_attr in attrs:
+		attr = icon.attr(current_attr)
+		attr.set(lock=1, keyable=0)
+
+def lockAttrs(icon, attrs):
+	for current_attr in attrs:
+		attr = icon.attr(current_attr)
+		attr.set(lock=1)
+
+def unlock_and_unhide(icon, attrs):
+	for current_attr in attrs:
+		attr = icon.attr(current_attr)
+		attr.set(lock=0, keyable=1)
+
+def unlockAttrs(icon, attrs):
+	for current_attr in attrs:
+		attr = icon.attr(current_attr)
+		attr.set(lock=0)
 
 panel_1 = 'modelPanel1' 
 panel_2 =  'modelPanel2' 
@@ -983,6 +1006,11 @@ def armConnection_1(*args):
 	pm.setDrivenKeyframe(const_target_2, currentDriver=switch + '.IkFk')
 
 	pm.pointConstraint(space_loc, fk_icons, mo=1)
+
+def handWindow(*args):
+	import BR_Interface_Toolset.BR_handFinger_setup as BR_handWindow
+	reload(BR_handWindow)
+	BR_handWindow.gui()
 
 def twistWindow(*args):
 	import BR_Arm_twist_window
