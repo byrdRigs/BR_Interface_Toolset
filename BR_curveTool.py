@@ -51,22 +51,22 @@ def curve_gui():
 
 	main = pm.columnLayout()
 
-	pm.frameLayout(label='Creation', w=win_width, bgc=color_1, cl=1, cll=1, cc=windowResize)
+	pm.frameLayout(l='Creation', w=win_width, bgc=color_1, cl=1, cll=1, cc=windowResize)
 	curveCreation_gui()
 	pm.setParent(main)
 	pm.separator(w=win_width, bgc=color_1, st='in')
 
-	pm.frameLayout(label='Coloring', w=win_width, bgc=color_2, cl=1, cll=1, cc=windowResize)
+	pm.frameLayout(l='Coloring', w=win_width, bgc=color_2, cl=1, cll=1, cc=windowResize)
 	coloring_gui()
 	pm.setParent(main)
 	pm.separator(w=win_width, bgc=color_2, st='in')
 
-	pm.frameLayout(label='Attributes', w=win_width, bgc=color_3, cl=1, cll=1, cc=windowResize)
+	pm.frameLayout(l='Attributes', w=win_width, bgc=color_3, cl=1, cll=1, cc=windowResize)
 	attr_gui()
 	pm.setParent(main)
 	pm.separator(w=win_width, bgc=color_3, st='in')
 
-	pm.frameLayout(label='Lock and Hide', w=win_width, bgc=color_4, cl=1, cll=1, cc=windowResize)
+	pm.frameLayout(l='Lock and Hide', w=win_width, bgc=color_4, cl=1, cll=1, cc=windowResize)
 	lock_and_hide_gui_creation()
 	pm.setParent(main)
 	pm.separator(w=win_width, bgc=color_4, st='in')
