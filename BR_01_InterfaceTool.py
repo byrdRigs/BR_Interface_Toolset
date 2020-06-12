@@ -14,8 +14,8 @@ import maya.mel as mel
 # Still needs the control tab with the icons 
 # Working on the quad and biped setups
 
-tab_bgc=(0.4718592, 0.13568, 239)
-subTab_bgc = (0.4915200, 0.32256, 241)
+tab_bgc=(0.472, 0.136, 239)
+subTab_bgc = (0.492, 0.323, 241)
 window_bgc = (.2,.2,.2)
 color_1 = (.141,.725,.627)
 color_2 = (.078, .678, .557)
@@ -54,7 +54,7 @@ def gui():
 		#ByrdRigs_interface_toolset
 
 	win_width = 240
-	window_object = pm.window('ByrdRigs_interface_toolset', title="ByrdRigs_interface_toolset", w=win_width, bgc=window_bgc)
+	window_object = pm.window('ByrdRigs_interface_toolset', title="ByrdRigs' Toolset", w=win_width, bgc=window_bgc)
 	main_layout = pm.columnLayout()
 
 

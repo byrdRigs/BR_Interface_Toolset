@@ -110,7 +110,6 @@ def gui():
 
 	print('Window Created:', window_object)
 
-
 def windowResize(*args):
 	if pm.window('ByrdRigs_Hand_Window', q=1, exists=1):
 		pm.window('ByrdRigs_Hand_Window', e=1, wh=(240, 45), rtf=1)

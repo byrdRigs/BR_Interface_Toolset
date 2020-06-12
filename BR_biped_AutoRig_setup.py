@@ -17,7 +17,8 @@ Description
 		Root Setup 
 		Hip Setup
 		Leg Setup
-		Extra Limbs
+		RFL Setup
+		# Extra Limbs
 How to run:
 	import BR_Interface_Toolset.BR_biped_AutoRig_setup as BR_biped_setup
 	reload (BR_biped_setup)
@@ -89,6 +90,7 @@ def gui():
 	pm.text('locatorMoveStatement', l="Move the locators where you want the joints to be placed, this can be changed until you are ready to build the rig.", w=win_width, ww=1, bgc=color_15)
 	pm.text(l="***Please keep all locators even if you aren't using the joints***", w=win_width, ww=1, bgc=color_16)
 	pm.text(l="You can delete the ones you don't want after converting them", w=win_width, ww=1, bgc=color_17)
+	pm.text(l='***If auto-biulding, keep all the joints***', w=win_width, ww=1, bgc=color_18)
 	pm.separator(w=win_width, bgc=color_1, st='in')
 	pm.button('locConvert', l='Convert Locators to Joints.', w=win_width, bgc=color_2, c=jointConvert)
 	pm.separator('locConvert_sep', w=win_width, bgc=color_2, st='in')
@@ -133,29 +135,29 @@ def gui():
 	Neck
 	'''
 	pm.setParent(manual_sub_layout)
-	neck_layout = pm.frameLayout(w=win_width, l='Neck (Based on 4 joints)', bgc=color_5, cl=1, cll=1, cc=windowResize)
+	neck_layout = pm.frameLayout(w=win_width, l='Neck', bgc=color_9, cl=1, cll=1, cc=windowResize)
 	pm.columnLayout()
-	pm.button('neckSetup_button', l='Ik/Fk System', w=win_width, bgc=color_6, c=neckSetup)
-	pm.separator(w=win_width, bgc=color_6, st='in')
+	pm.button('neckSetup_button', l='Ik/Fk System', w=win_width, bgc=color_10, c=neckSetup)
+	pm.separator(w=win_width, bgc=color_10, st='in')
 
 
 	pm.setParent(manual_sub_layout)
-	pm.separator('neckFrame_sep', w=win_width, bgc=color_5, st='in')
+	pm.separator('neckFrame_sep', w=win_width, bgc=color_9, st='in')
 
 	'''
 	Shoulder
 	'''
 	pm.setParent(manual_sub_layout)
-	shoulder_layout = pm.frameLayout(w=win_width, l='Shoulder/Arms/Hand/Fingers', bgc=color_6, cl=1, cll=1, cc=windowResize)
+	shoulder_layout = pm.frameLayout(w=win_width, l='Shoulder/Arms/Hand/Fingers', bgc=color_10, cl=1, cll=1, cc=windowResize)
 	pm.text(l='Please go in order from top to bottom', w=win_width, ww=1)
 	pm.rowColumnLayout(nc=4, cw=([1,65], [2, 65], [3, 65], [4, 65]))
 	pm.text('shoulder_orientationText', l='Ori:')
 	pm.radioButtonGrp('shoulder_orientationOption', w=win_width, cw=([1, 65], [2, 65], [3, 65]), labelArray3=['Lt', 'Rt', 'Both'], numberOfRadioButtons=3, sl=3)
 	pm.setParent(shoulder_layout)
 	pm.columnLayout(w=win_width)
-	pm.button(l='Shoulder Setup', w=win_width, bgc=color_7, c= shoulderSystem)
+	pm.button(l='Shoulder Setup', w=win_width, bgc=color_11, c= shoulderSystem)
 
-	pm.separator('shoulderSetup_sep', w=win_width, bgc=color_7, st='in')
+	pm.separator('shoulderSetup_sep', w=win_width, bgc=color_11, st='in')
 
 	'''
 	Arm
@@ -165,10 +167,11 @@ def gui():
 	pm.radioButtonGrp('arm_orientationOption', labelArray3=['Lt', 'Rt', 'Both'], numberOfRadioButtons=3, vr=1, sl=3)
 	pm.text('armSystem_text', l='System')
 	pm.radioButtonGrp('arm_systemOption', labelArray3=['Fk', 'Ik', 'Ik/Fk'], numberOfRadioButtons=3, vr=1, sl=3)
+	pm.setParent(shoulder_layout)
 	pm.columnLayout(w=win_width)
-	pm.button('armSetup_button', l='Arm Setup', w=win_width, bgc=color_8, c=armSystem)
+	pm.button('armSetup_button', l='Arm Setup', w=win_width, bgc=color_12, c=armSystem)
 
-	pm.separator('armSetup_sep', w=win_width, bgc=color_8, st='in')
+	pm.separator('armSetup_sep', w=win_width, bgc=color_12, st='in')
 
 	'''
 	Hand
@@ -178,12 +181,25 @@ def gui():
 	pm.radioButtonGrp('hand_orientationOption', w=win_width, cw=([1, 65], [2, 65], [3, 65]), labelArray3=['Lt', 'Rt', 'Both'], numberOfRadioButtons=3, sl=3)
 	pm.setParent(shoulder_layout)
 	pm.columnLayout(w=win_width)
-	pm.button(l='Hand Setup', w=win_width, bgc=color_9, c= handSystem)
+	pm.button(l='Hand Setup', w=win_width, bgc=color_13, c= handSystem)
 
-	pm.separator('handSetup_sep', w=win_width, bgc=color_9, st='in')
+	pm.separator('handSetup_sep', w=win_width, bgc=color_13, st='in')
+
+	'''
+	Fingers
+	'''
+	pm.rowColumnLayout(nc=3, cw=([1, 40], [2, 70], [3, 170]))
+	pm.text('finger_orientationText', l='Ori:')
+	pm.radioButtonGrp('finger_orientationOption', labelArray3=['Lt', 'Rt', 'Both'], numberOfRadioButtons=3, vr=1, sl=3)
+	finger_selection_grp = pm.radioButtonGrp('fingerSelection_option', labelArray3=['Two Fingers and Thumb', 'Three Fingers and Thumb', 'Five Fingers'], numberOfRadioButtons=3, vr=1, sl=3, w=win_width)
+	pm.setParent(shoulder_layout)
+	pm.columnLayout()
+	pm.button(l='Finger Setup', bgc=color_14, w=win_width, c=fingerSystem)
+
 
 	pm.setParent(manual_sub_layout)
-	pm.separator('sh_a_hFrame_sep', w=win_width, bgc=color_6, st='in')
+	pm.separator('sh_a_hFrame_sep', w=win_width, bgc=color_10, st='in')
+
 
 	'''
 	Back
@@ -253,6 +269,14 @@ def gui():
 	pm.separator(w=win_width, bgc=color_11, st='in')
 	pm.button(l='Bind Eyes', w=win_width, bgc=color_12, c=eyeBind)
 	pm.separator(w=win_width, bgc=color_12, st='in')
+	pm.setParent(manual_sub_layout)
+
+
+	'''
+	Color Icons
+	'''
+	pm.columnLayout(w=win_width)
+	pm.button(l='Color Icons', w=win_width, bgc=color_11, c=colorIcons)
 
 
 	pm.setParent(main_layout)
@@ -265,17 +289,16 @@ def gui():
 	'''
 	pm.frameLayout(w=win_width, l='Auto Build-Best to manually build first', bgc=color_4, cl=1, cll=1, cc=windowResize)
 	pm.columnLayout(w=win_width)
+	pm.text(l="Auto building is based off of having all of the joints from the beginning. If any of the joints were  deleted this will not work", ww=1, w=win_width, bgc=color_27)
 	pm.text(l='Create and move rfl locators', ww=1, w=win_width)
 	pm.button(l='RFL Prep', bgc=color_4, w=win_width, c=rflPrep)
+	pm.text(l="Auto building doosn't create the finger and toe setup", ww=1, w=win_width)
 	pm.button('autoBuild_button', l='Build Rig', w=win_width, bgc=color_5, c=autoBuild)
 
 
 	pm.setParent(main_layout)
 	pm.separator('autoBuild_sep', w=win_width, bgc=color_4, st='in')
 	pm.columnLayout()
-
-	'''
-	'''
 
 	pm.setParent(main_layout)
 	pm.button('closeButton', l='Close', w=win_width, c=deleteUI)
@@ -530,10 +553,10 @@ def biped_locImport(*args):
 def jointConvert(*args):
 	global ct_root_waste, ct_hip_bind, lt_leg_01_bind, lt_toeA_01_bind, lt_toeB_01_bind, lt_toeC_01_bind, lt_toeD_01_bind
 	global lt_toeE_01_bind, back_01_bind, lt_eye_01_bind, jaw_01_bind, lt_clav_01_bind
-	global lt_arm_01_bind, lt_hand_01_bind, lt_index_01_bind, lt_middle_01_bind, lt_pinky_01_bind, lt_ring_01_bind 
+	global lt_arm_01_bind, lt_hand_01_bind, lt_index_01_bind, lt_middle_01_bind, lt_pinky_01_bind, lt_ring_01_bind, lt_thumb_01_pivot
 	global lt_thumb_01_bind, rt_leg_01_bind, rt_toeA_01_bind, rt_toeB_01_bind, rt_toeC_01_bind, rt_toeD_01_bind
 	global rt_toeE_01_bind, rt_eye_01_bind, jaw_01_bind, rt_clav_01_bind
-	global rt_arm_01_bind, rt_hand_01_bind, rt_index_01_bind, rt_middle_01_bind, rt_pinky_01_bind, rt_ring_01_bind 
+	global rt_arm_01_bind, rt_hand_01_bind, rt_index_01_bind, rt_middle_01_bind, rt_pinky_01_bind, rt_ring_01_bind, rt_thumb_01_pivot
 	global rt_thumb_01_bind, ct_head_01_bind, ct_neck_01_bind, ct_jaw_01_bind, ct_back_01_bind
 	pm.parent('*_01_loc', icon)
 	
@@ -1373,11 +1396,13 @@ def autoBuild(*args):
 	shoulderSystem()
 	armSystem()
 	handSystem()
+	lt_fiveFingerSelection()
+	rt_fiveFingerSelection()
 	backSetup()
 	hipSetup()
 	legSetup()
-	rflPrep()
 	rflSetup()
+	colorIcons()
 	pm.select(cl=1)
 
 	print 'Biped Auto-Rig Finished'
@@ -1437,11 +1462,10 @@ def headSetup(*args):
 
 def eyeSetup(*args):
 	global lt_eye_root, lt_eye_joint_2, rt_eye_root, rt_eye_joint_2, ct_eye_icon, lt_eye_icon, rt_eye_icon, eye_local
-	pm.select(lt_eye_01_bind, rt_leg_01_bind)
+	pm.select(lt_eye_01_bind, rt_eye_01_bind)
 	selection = pm.ls(sl=1)
 	lt_eye_joints = selection[0]
 	rt_eye_joints = selection[1]
-	
 
 	lt_eye = pm.ls(lt_eye_joints, sl=1, dag=1)
 	lt_eye_root = lt_eye[0]
@@ -1451,6 +1475,14 @@ def eyeSetup(*args):
 	rt_eye = pm.ls(rt_eye_joints, sl=1, dag=1)
 	rt_eye_root = rt_eye[0]
 	rt_eye_joint_2  = rt_eye[1]
+
+	pm.joint(selection, zso=1, ch=1, e=1, oj='xyz', secondaryAxisOrient='yup')
+	lt_eye_joint_2.jointOrientX.set(0)
+	lt_eye_joint_2.jointOrientY.set(0)
+
+	rt_eye_joint_2.jointOrientX.set(0)
+	rt_eye_joint_2.jointOrientY.set(0)
+
 
 	ct_eye_icon = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=1, tol=0.01, nr=(0, 1, 0))[0]
 
@@ -1606,7 +1638,7 @@ def jawSetup(*args):
 	jaw_icon.overrideColor.set(cyan)
 
 def neckSetup(*args):
-	global neck_root, neck_joint_1, neck_joint_3, neck_joint_4, neck_pad, head_loc, neck_ik_icon, neck_fk_icon
+	global neck_root, neck_joint_1, neck_joint_3, neck_joint_4, neck_pad, head_loc, neck_neck_ik_icon, neck_neck_fk_icon
 	pm.select(ct_neck_01_bind)
 	joint_system = pm.ls(sl=True, dag=True)
 	neck_root  = joint_system[0]
@@ -1637,8 +1669,6 @@ def neckSetup(*args):
 	pm.parent(neck_root, neck_pad)
 
 	# renaming
-	# ct_tail_01_bind
-	# ct_tail_00_pad
 	pad_name = neck_root.replace('01_bind', '00_pad')
 	neck_pad.rename(pad_name)
 
@@ -1647,49 +1677,49 @@ def neckSetup(*args):
 	curve_name = neck_root.replace('01_bind', 'crv')
 	neck_curve.rename(curve_name)
 
-	ik_jointChain = pm.duplicate(neck_root)
-	pm.select(ik_jointChain)
+	neck_ik_jointChain = pm.duplicate(neck_root)
+	pm.select(neck_ik_jointChain)
 
-	ik_joints = pm.ls(sl=True, dag=True)
+	neck_ik_joints = pm.ls(sl=True, dag=True)
 
-	ik_root = ik_joints[0]
-	ik_joint_2 = ik_joints[1]
-	ik_joint_3 = ik_joints[2]
-	ik_joint_4 = ik_joints[3]
+	neck_ik_root = neck_ik_joints[0]
+	neck_ik_joint_2 = neck_ik_joints[1]
+	neck_ik_joint_3 = neck_ik_joints[2]
+	neck_ik_joint_4 = neck_ik_joints[3]
 
-	joint_name = ik_root.replace('bind1', 'ik')
-	ik_root.rename(joint_name)
+	joint_name = neck_ik_root.replace('bind1', 'ik')
+	neck_ik_root.rename(joint_name)
 
-	joint_name = ik_root.replace('01', '02')
-	ik_joint_2.rename(joint_name)
+	joint_name = neck_ik_root.replace('01', '02')
+	neck_ik_joint_2.rename(joint_name)
 
-	joint_name = ik_root.replace('01', '03')
-	ik_joint_3.rename(joint_name)
+	joint_name = neck_ik_root.replace('01', '03')
+	neck_ik_joint_3.rename(joint_name)
 
-	joint_name = ik_joint_4.replace('waste', 'ik')
-	ik_joint_4.rename(joint_name)
-
-
-	fk_jointChain = pm.duplicate(neck_root)
-	pm.select(fk_jointChain)
-
-	fk_joints = pm.ls(sl=True, dag=True)
-
-	fk_root_joint = fk_joints[0]
-	fk_joint_2 = fk_joints[3]
-	fk_joint_3 = fk_joints[1]
+	joint_name = neck_ik_joint_4.replace('waste', 'ik')
+	neck_ik_joint_4.rename(joint_name)
 
 
-	pm.parent(fk_joint_2, fk_root_joint)
-	pm.delete(fk_joint_3)
+	neck_fk_jointChain = pm.duplicate(neck_root)
+	pm.select(neck_fk_jointChain)
 
-	joint_name = ik_root.replace('ik', 'fk')
-	fk_root_joint.rename(joint_name)
+	neck_fk_joints = pm.ls(sl=True, dag=True)
 
-	joint_name = ik_joint_2.replace('ik', 'fk')
-	fk_joint_2.rename(joint_name)
+	neck_fk_root_joint = neck_fk_joints[0]
+	neck_fk_joint_2 = neck_fk_joints[3]
+	neck_fk_joint_3 = neck_fk_joints[1]
 
-	fk_root_joint.rotateOrder.set(1)
+
+	pm.parent(neck_fk_joint_2, neck_fk_root_joint)
+	pm.delete(neck_fk_joint_3)
+
+	joint_name = neck_ik_root.replace('ik', 'fk')
+	neck_fk_root_joint.rename(joint_name)
+
+	joint_name = neck_ik_joint_2.replace('ik', 'fk')
+	neck_fk_joint_2.rename(joint_name)
+
+	neck_fk_root_joint.rotateOrder.set(1)
 
 
 
@@ -1697,11 +1727,11 @@ def neckSetup(*args):
 	Create the ikSpline
 	'''
 
-	pm.select(ik_root, ik_joint_4, neck_curve)
+	pm.select(neck_ik_root, neck_ik_joint_4, neck_curve)
 	neck_ikh= pm.ikHandle(sol='ikSplineSolver', ccv=False, pcv=False)[0]
 
-	ik_name = neck_curve.replace('crv', 'ikh')
-	neck_ikh.rename(ik_name)
+	neck_ik_name = neck_curve.replace('crv', 'ikh')
+	neck_ikh.rename(neck_ik_name)
 
 	'''
 	Create the curveBind joints
@@ -1740,35 +1770,35 @@ def neckSetup(*args):
 	Create the ik and fk curve
 	'''
 
-	neck_ik_icon = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=1, tol=0.01, nr=(1, 0, 0))[0]
+	neck_neck_ik_icon = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=1, tol=0.01, nr=(1, 0, 0))[0]
 
-	temp_constraint = pm.parentConstraint(ik_joint_4, neck_ik_icon)
+	temp_constraint = pm.parentConstraint(neck_ik_joint_4, neck_neck_ik_icon)
 	pm.delete(temp_constraint)
-	freezeTransform(neck_ik_icon)
-	deleteHistory(neck_ik_icon)
+	freezeTransform(neck_neck_ik_icon)
+	deleteHistory(neck_neck_ik_icon)
 
 	curve_name = neck_ikh.replace('h', '_icon')
-	neck_ik_icon.rename(curve_name)
+	neck_neck_ik_icon.rename(curve_name)
 
-	pm.parentConstraint(neck_ik_icon, cb_joint_2, mo=1)
+	pm.parentConstraint(neck_neck_ik_icon, cb_joint_2, mo=1)
 
 
 
-	neck_fk_icon = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=1, tol=0.01, nr=(1, 0, 0))[0]
-	temp_constraint = pm.parentConstraint(fk_root_joint, neck_fk_icon)
+	neck_neck_fk_icon = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=1, tol=0.01, nr=(1, 0, 0))[0]
+	temp_constraint = pm.parentConstraint(neck_fk_root_joint, neck_neck_fk_icon)
 	pm.delete(temp_constraint)
-	freezeTransform(neck_fk_icon)
-	deleteHistory(neck_fk_icon)
+	freezeTransform(neck_neck_fk_icon)
+	deleteHistory(neck_neck_fk_icon)
 
-	curve_name = neck_ik_icon.replace('ik', 'fk')
-	neck_fk_icon.rename(curve_name)
+	curve_name = neck_neck_ik_icon.replace('ik', 'fk')
+	neck_neck_fk_icon.rename(curve_name)
 
-	pm.parentConstraint(neck_fk_icon, fk_root_joint, mo=1)
+	pm.parentConstraint(neck_neck_fk_icon, neck_fk_root_joint, mo=1)
 
 	attrs = ['tx', 'ty','tz', 'sx', 'sy', 'sz']
 
 	for current_attr in attrs:
-		attr = neck_fk_icon.attr(current_attr)
+		attr = neck_neck_fk_icon.attr(current_attr)
 		attr.set(lock=1, keyable=0, channelBox=0)
 
 
@@ -1821,17 +1851,17 @@ def neckSetup(*args):
 		pm.delete(moveAll_circle, xAxis, zAxis)
 
 
-	ik_local = pm.group(empty=True)
-	temp_constraint = pm.parentConstraint(neck_ik_icon, ik_local)
+	neck_ik_local = pm.group(empty=True)
+	temp_constraint = pm.parentConstraint(neck_neck_ik_icon, neck_ik_local)
 	pm.delete(temp_constraint)
 
-	pm.parent(neck_ik_icon, ik_local)
-	freezeTransform(neck_ik_icon)
-	local_name = neck_ik_icon.replace('icon', 'local')
-	ik_local.rename(local_name)
+	pm.parent(neck_neck_ik_icon, neck_ik_local)
+	freezeTransform(neck_neck_ik_icon)
+	local_name = neck_neck_ik_icon.replace('icon', 'local')
+	neck_ik_local.rename(local_name)
 
 
-	pm.parentConstraint(neck_fk_icon, ik_local, mo=1)
+	pm.parentConstraint(neck_neck_fk_icon, neck_ik_local, mo=1)
 
 
 	curve_info = pm.shadingNode('curveInfo', asUtility=1)
@@ -1855,23 +1885,19 @@ def neckSetup(*args):
 	pm.connectAttr(moveAll + '.scaleY', global_scale + '.input2X')
 	global_scale.operation.set(2)
 
-	pm.connectAttr(stretch_percent_div + '.outputX', ik_root + '.scaleX')
-	pm.connectAttr(stretch_percent_div + '.outputX', ik_joint_2 + '.scaleX')
-	pm.connectAttr(stretch_percent_div + '.outputX', ik_joint_3 + '.scaleX')
-
 	pm.connectAttr(global_scale + '.outputX', stretch_percent_div + '.input1X')
 
 
-	pm.parentConstraint(ik_root, neck_root)
-	pm.parentConstraint(ik_joint_2, neck_joint_2)
-	pm.parentConstraint(ik_joint_3, neck_joint_3)
+	pm.parentConstraint(neck_ik_root, neck_root)
+	pm.parentConstraint(neck_ik_joint_2, neck_joint_2)
+	pm.parentConstraint(neck_ik_joint_3, neck_joint_3)
 
 	global_grp = pm.group(empty=True)
 	temp_constraint = pm.parentConstraint(neck_root, global_grp)
 	pm.delete(temp_constraint)
 	freezeTransform(global_grp)
 
-	pm.parent(neck_curve, neck_ikh, cb_joint_1, cb_joint_2, neck_fk_icon, ik_local, global_grp)
+	pm.parent(neck_curve, neck_ikh, cb_joint_1, cb_joint_2, neck_neck_fk_icon, neck_ik_local, global_grp)
 
 	group_name = neck_root.replace('01_bind', 'global_grp')
 	global_grp.rename(group_name)
@@ -1886,7 +1912,7 @@ def neckSetup(*args):
 	attrs = ['sx', 'sy', 'sz']
 
 	for current_attr in attrs:
-		attr = neck_ik_icon.attr(current_attr)
+		attr = neck_neck_ik_icon.attr(current_attr)
 		attr.set(lock=1, keyable=0, channelBox=0)
 
 
@@ -1907,26 +1933,34 @@ def neckSetup(*args):
 	pm.delete(temp_constraint)
 	freezeTransform(head_loc)
 
-	pm.select(neck_ikh, fk_root_joint, ik_root, head_loc, neck_curve)
+	pm.select(neck_ikh, neck_fk_root_joint, neck_ik_root, head_loc, neck_curve)
 	selection = pm.ls(sl=1)
 
 	for each in selection:
 		pm.setAttr(each + '.visibility', 0)
 
-	pm.parent(head_icon, neck_ik_icon)
+	pm.parent(head_icon, neck_neck_ik_icon)
+
+	# pm.connectAttr(ct_neck_stretchBlend + '.outputR', neck_ik_root + '.sx')
+	# pm.connectAttr(ct_neck_stretchBlend + '.outputG', ikjoi + '.sx')
+	# pm.connectAttr(ct_neck_stretchBlend + '.outputB', neck_ik_root + '.sx')
+
+	# pm.connectAttr(stretch_percent_div + '.outputX', neck_ik_root + '.scaleX')
+	# pm.connectAttr(stretch_percent_div + '.outputX', neck_ik_joint_2 + '.scaleX')
+	# pm.connectAttr(stretch_percent_div + '.outputX', neck_ik_joint_3 + '.scaleX')
 
 def lt_shoulderSetup(*args):
-	global clav_root, clav_joint_2, arm_root, arm_joint_2, arm_joint_3, shoulder_icon, clav_space_loc
+	global lt_clav_root, lt_clav_joint_2, arm_root, arm_joint_2, arm_joint_3, lt_shoulder_icon, lt_clav_space_lt_loc
 	pm.select(lt_clav_01_bind, lt_arm_01_bind)
 	joint_system = pm.ls(sl=1)
-	clav_system = joint_system[0]
+	lt_clav_system = joint_system[0]
 	arm_system = joint_system[1] 
 
-	clav_joints = pm.ls(clav_system, sl=1, dag=1)
-	clav_root = clav_joints[0]
-	clav_joint_2 = clav_joints[1]
-	print 'Clav root joint:', clav_root
-	print 'Clav waste joint:', clav_joint_2
+	lt_clav_joints = pm.ls(lt_clav_system, sl=1, dag=1)
+	lt_clav_root = lt_clav_joints[0]
+	lt_clav_joint_2 = lt_clav_joints[1]
+	print 'Clav root joint:', lt_clav_root
+	print 'Clav waste joint:', lt_clav_joint_2
 
 	armJoints = pm.ls(arm_system, sl=1, dag=1)
 	arm_root = armJoints[0]
@@ -1936,112 +1970,112 @@ def lt_shoulderSetup(*args):
 	print 'Arm joint 2:', arm_joint_2
 	print 'Arm joint 3:', arm_joint_3
 
-	pm.select(clav_root, clav_joint_2)
+	pm.select(lt_clav_root, lt_clav_joint_2)
 	ikh = pm.ikHandle(sol='ikSCsolver')[0]
 
-	ik_name = clav_root.replace('bind', 'ikh')
+	ik_name = lt_clav_root.replace('bind', 'ikh')
 	ikh.rename(ik_name)
 
-	loc_1 = pm.spaceLocator(p=(0, 0, 0))
-	temp_constraint = pm.pointConstraint(arm_root, loc_1, mo=0)
+	lt_loc_1 = pm.spaceLocator(p=(0, 0, 0))
+	temp_constraint = pm.pointConstraint(arm_root, lt_loc_1, mo=0)
 	pm.delete(temp_constraint)
-	freezeTransform(loc_1)
+	freezeTransform(lt_loc_1)
 
-	loc_name = ikh.replace('ikh', 'loc')
-	loc_1.rename(loc_name)
-	pm.parent(ikh, loc_1)
+	lt_loc_name = ikh.replace('ikh', 'loc')
+	lt_loc_1.rename(lt_loc_name)
+	pm.parent(ikh, lt_loc_1)
 
-	loc_2 =	pm.spaceLocator(p=(0, 0, 0))
-	temp_constraint = pm.parentConstraint(clav_root, loc_2, mo=0)
+	lt_loc_2 =	pm.spaceLocator(p=(0, 0, 0))
+	temp_constraint = pm.parentConstraint(lt_clav_root, lt_loc_2, mo=0)
 	pm.delete(temp_constraint)
-	freezeTransform(loc_2)
-	loc_name = loc_1.replace('loc', 'startLoc')
-	loc_2.rename(loc_name)
+	freezeTransform(lt_loc_2)
+	lt_loc_name = lt_loc_1.replace('loc', 'startLoc')
+	lt_loc_2.rename(lt_loc_name)
 
-	loc_3 =	pm.spaceLocator(p=(0, 0, 0))
-	temp_constraint = pm.parentConstraint(clav_joint_2, loc_3, mo=0)
+	lt_loc_3 =	pm.spaceLocator(p=(0, 0, 0))
+	temp_constraint = pm.parentConstraint(lt_clav_joint_2, lt_loc_3, mo=0)
 	pm.delete(temp_constraint)
-	freezeTransform(loc_3)
-	loc_name = loc_2.replace('start', 'end')
-	loc_3.rename(loc_name)
+	freezeTransform(lt_loc_3)
+	lt_loc_name = lt_loc_2.replace('start', 'end')
+	lt_loc_3.rename(lt_loc_name)
 
-	clav_dist = pm.shadingNode('distanceDimShape', asUtility=1)
+	lt_clav_dist = pm.shadingNode('distanceDimShape', asUtility=1)
 
-	pm.select(clav_dist)
+	pm.select(lt_clav_dist)
 	selection = pm.ls(sl=1, s=0)
 	shape = selection[0]
 	pm.pickWalk(d='up')
 	transform = pm.ls(sl=1)[0]
 
-	node_name = loc_1.replace('loc', 'dist')
+	node_name = lt_loc_1.replace('loc', 'dist')
 	transform.rename(node_name)
-	temp_constraint = pm.parentConstraint(clav_root, transform, mo=0)
+	temp_constraint = pm.parentConstraint(lt_clav_root, transform, mo=0)
 	pm.delete(temp_constraint)
 
-	pm.connectAttr(loc_2 + '.worldPosition', clav_dist + '.startPoint')
-	pm.connectAttr(loc_3 + '.worldPosition', clav_dist + '.endPoint')
+	pm.connectAttr(lt_loc_2 + '.worldPosition', lt_clav_dist + '.startPoint')
+	pm.connectAttr(lt_loc_3 + '.worldPosition', lt_clav_dist + '.endPoint')
 
-	pm.parent(loc_3, loc_1)
+	pm.parent(lt_loc_3, lt_loc_1)
 
-	driver = clav_dist + '.distance'
-	length = pm.getAttr(clav_joint_2 + '.tx')
+	driver = lt_clav_dist + '.distance'
+	length = pm.getAttr(lt_clav_joint_2 + '.tx')
 
 
-	pm.setDrivenKeyframe(clav_joint_2 + '.tx', currentDriver=driver, driverValue=length, value=length)
+	pm.setDrivenKeyframe(lt_clav_joint_2 + '.tx', currentDriver=driver, driverValue=length, value=length)
 
-	pm.setDrivenKeyframe(clav_joint_2 + '.tx', currentDriver=driver, driverValue=(2 * length), value=(2 * length))
-	pm.keyTangent(clav_joint_2, itt='clamped', ott='clamped')
-	pm.setInfinity(clav_joint_2, poi='linear')
+	pm.setDrivenKeyframe(lt_clav_joint_2 + '.tx', currentDriver=driver, driverValue=(2 * length), value=(2 * length))
+	pm.keyTangent(lt_clav_joint_2, itt='clamped', ott='clamped')
+	pm.setInfinity(lt_clav_joint_2, poi='linear')
 
-	shoulder_icon = pm.curve(d=1, p=[(0, 1.003235, 0),(0.668823, 0, 0),(0.334412, 0, 0),(0.334412, -0.167206, 0),(0.334412, -0.501617, 0),(0.334412, -1.003235, 0),(-0.334412, -1.003235, 0),(-0.334412, -0.501617, 0),(-0.334412, -0.167206, 0),(-0.334412, 0, 0),(-0.668823, 0, 0),(0, 1.003235, 0),(0, 0, -0.668823),(0, 0, -0.334412),(0, -0.167206, -0.334412),(0, -0.501617, -0.334412),(0, -1.003235, -0.334412),(0, -1.003235, 0.334412),(0, -0.501617, 0.334412),(0, -0.167206, 0.334412),(0, 0, 0.334412),(0, 0, 0.668823),(0, 1.003235, 0)], k=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22])
-	shoulder_icon.rx.set(180)
-	temp_constraint = pm.pointConstraint(clav_joint_2, shoulder_icon, mo=0)
+	lt_shoulder_icon = pm.curve(d=1, p=[(0, 1.003235, 0),(0.668823, 0, 0),(0.334412, 0, 0),(0.334412, -0.167206, 0),(0.334412, -0.501617, 0),(0.334412, -1.003235, 0),(-0.334412, -1.003235, 0),(-0.334412, -0.501617, 0),(-0.334412, -0.167206, 0),(-0.334412, 0, 0),(-0.668823, 0, 0),(0, 1.003235, 0),(0, 0, -0.668823),(0, 0, -0.334412),(0, -0.167206, -0.334412),(0, -0.501617, -0.334412),(0, -1.003235, -0.334412),(0, -1.003235, 0.334412),(0, -0.501617, 0.334412),(0, -0.167206, 0.334412),(0, 0, 0.334412),(0, 0, 0.668823),(0, 1.003235, 0)], k=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22])
+	lt_shoulder_icon.rx.set(180)
+	temp_constraint = pm.pointConstraint(lt_clav_joint_2, lt_shoulder_icon, mo=0)
 	pm.delete(temp_constraint)
-	freezeTransform(shoulder_icon)
-	shoulder_icon.ty.set(3)
-	freezeTransform(shoulder_icon)
+	freezeTransform(lt_shoulder_icon)
+	lt_shoulder_icon.ty.set(3)
+	freezeTransform(lt_shoulder_icon)
 
-	icon_name = clav_root.replace('clav_01_bind', 'shoulder_icon')
-	shoulder_icon.rename(icon_name)
-	pm.parent(loc_1, shoulder_icon)
+	icon_name = lt_clav_root.replace('clav_01_bind', 'shoulder_icon')
+	lt_shoulder_icon.rename(icon_name)
+	pm.parent(lt_loc_1, lt_shoulder_icon)
 
 	dnt_grp = pm.group(empty=1)
-	temp_constraint = pm.parentConstraint(clav_root, dnt_grp, mo=0)
+	temp_constraint = pm.parentConstraint(lt_clav_root, dnt_grp, mo=0)
 	pm.delete(temp_constraint)
 	freezeTransform(dnt_grp)
 
-	grp_name = clav_root.replace('01_bind', 'DO____NOT____TOUCH_grp')
+	grp_name = lt_clav_root.replace('01_bind', 'DO____NOT____TOUCH_grp')
 	dnt_grp.rename(grp_name)
 
-	pm.parent(transform, loc_2, dnt_grp)
+	pm.parent(transform, lt_loc_2, dnt_grp)
 
 	global_grp = pm.group(empty=1)
-	temp_constraint = pm.pointConstraint(clav_root, global_grp, mo=0)
+	temp_constraint = pm.pointConstraint(lt_clav_root, global_grp, mo=0)
 	pm.delete(temp_constraint)
 	freezeTransform(global_grp)
 
-	grp_name = clav_root.replace('01_bind', 'global_grp')
+	grp_name = lt_clav_root.replace('01_bind', 'global_grp')
 	global_grp.rename(grp_name)
 
 	pad = pm.group(empty=1)
-	temp_constraint= pm.pointConstraint(clav_root, pad, mo=0)
+	temp_constraint= pm.pointConstraint(lt_clav_root, pad, mo=0)
 	pm.delete(temp_constraint)
 	freezeTransform(pad)
 
-	pad_name = clav_root.replace('01_bind', '00_pad')
+	pad_name = lt_clav_root.replace('01_bind', '00_pad')
 	pad.rename(pad_name)
 
-	pm.parent(clav_root, pad)
+	pm.parent(lt_clav_root, pad)
 
-	pm.parent(pad, dnt_grp, shoulder_icon, global_grp)
+	pm.parent(pad, dnt_grp, lt_shoulder_icon, global_grp)
 
 
 	dnt_grp.overrideEnabled.set(1)
 	dnt_grp.overrideDisplayType.set(2)
 	dnt_grp.v.set(0)
-	loc_1.v.set(0)
-	loc_2.v.set(0)
-	loc_3.v.set(0)
+	lt_loc_1.v.set(0)
+	lt_loc_2.v.set(0)
+	lt_loc_3.v.set(0)
 
 	if pm.objExists('*moveAll'):
 		pm.select('*moveAll')
@@ -2099,7 +2133,7 @@ def lt_shoulderSetup(*args):
 
 	else:
 		jnt_grp = pm.group(empty=1)
-		grp_name = clav_root.replace('lt_clav_01_bind', 'joint_grp')
+		grp_name = lt_clav_root.replace('lt_clav_01_bind', 'joint_grp')
 		jnt_grp.rename(grp_name)
 		print jnt_grp
 		# pm.parent(pad, jnt_grp)
@@ -2109,38 +2143,61 @@ def lt_shoulderSetup(*args):
 		pm.select('*icon_grp')
 		icon_grp = pm.ls(sl=1)[0] 
 		pm.parent(moveAll, icon_grp)
-		# pm.parent(shoulder_icon, moveAll)
+		# pm.parent(lt_shoulder_icon, moveAll)
 
 	else:
 		icon_grp = pm.group(empty=1)
 		pm.parent(moveAll, icon_grp)
 		group_name = jnt_grp.replace('joint', 'icon')
 		icon_grp.rename(group_name)
-		# pm.parent(shoulder_icon, moveAll)
+		# pm.parent(lt_shoulder_icon, moveAll)
 
-	clav_space_loc = pm.spaceLocator(p=(0, 0, 0))
-	temp_constraint = pm.parentConstraint(clav_joint_2, clav_space_loc)
+	lt_clav_space_lt_loc = pm.spaceLocator(p=(0, 0, 0))
+	temp_constraint = pm.parentConstraint(lt_clav_joint_2, lt_clav_space_lt_loc)
 	pm.delete(temp_constraint)
-	freezeTransform(clav_space_loc)
+	freezeTransform(lt_clav_space_lt_loc)
 
-	loc_name = shoulder_icon.replace('_icon', '_space_loc')
-	clav_space_loc.rename(loc_name)
+	lt_loc_name = lt_shoulder_icon.replace('_icon', '_space_lt_loc')
+	lt_clav_space_lt_loc.rename(lt_loc_name)
 
-	pm.parent(clav_space_loc, clav_joint_2)
-	freezeTransform(clav_space_loc)
+	pm.parent(lt_clav_space_lt_loc, lt_clav_joint_2)
+	freezeTransform(lt_clav_space_lt_loc)
+
+	lt_clav_stretchBlend = pm.shadingNode('blendColors', asUtility=1)
+
+	node_name = lt_shoulder_icon.replace('icon', 'stretchBlend')
+	lt_clav_stretchBlend.rename(node_name)
+
+	pm.disconnectAttr(lt_clav_joint_2 + '_translateX.output', lt_clav_joint_2 + '.tx')
+
+	pm.connectAttr(lt_clav_joint_2 + '_translateX.output', lt_clav_stretchBlend + '.color1R')
+
+	lt_clav_len = pm.getAttr(lt_clav_joint_2 + '.tx')
+
+	pm.setAttr(lt_clav_stretchBlend + '.color2R', lt_clav_len)
+
+	pm.connectAttr(lt_clav_stretchBlend + '.outputR', lt_clav_joint_2 + '.tx')
+
+	pm.addAttr(lt_shoulder_icon, ln='stretch', at='bool')
+
+	pm.connectAttr(lt_shoulder_icon + '.stretch', lt_clav_stretchBlend + '.blender')
+
+	lt_shoulder_icon.stretch.set(e=1, keyable=1)
+
+	lock_and_hide(lt_shoulder_icon, ['rx', 'ry', 'rz', 'sx', 'sy', 'sz', 'v'])
 
 def rt_shoulderSetup(*args):
-	global clav_root, clav_joint_2, arm_root, arm_joint_2, arm_joint_3, shoulder_icon, clav_space_loc
+	global rt_clav_root, rt_clav_joint_2, arm_root, arm_joint_2, arm_joint_3, rt_shoulder_icon, rt_clav_space_rt_loc
 	pm.select(rt_clav_01_bind, rt_arm_01_bind)
 	joint_system = pm.ls(sl=1)
-	clav_system = joint_system[0]
+	rt_clav_system = joint_system[0]
 	arm_system = joint_system[1] 
 
-	clav_joints = pm.ls(clav_system, sl=1, dag=1)
-	clav_root = clav_joints[0]
-	clav_joint_2 = clav_joints[1]
-	print 'Clav root joint:', clav_root
-	print 'Clav waste joint:', clav_joint_2
+	rt_clav_joints = pm.ls(rt_clav_system, sl=1, dag=1)
+	rt_clav_root = rt_clav_joints[0]
+	rt_clav_joint_2 = rt_clav_joints[1]
+	print 'Clav root joint:', rt_clav_root
+	print 'Clav waste joint:', rt_clav_joint_2
 
 	armJoints = pm.ls(arm_system, sl=1, dag=1)
 	arm_root = armJoints[0]
@@ -2150,112 +2207,112 @@ def rt_shoulderSetup(*args):
 	print 'Arm joint 2:', arm_joint_2
 	print 'Arm joint 3:', arm_joint_3
 
-	pm.select(clav_root, clav_joint_2)
+	pm.select(rt_clav_root, rt_clav_joint_2)
 	ikh = pm.ikHandle(sol='ikSCsolver')[0]
 
-	ik_name = clav_root.replace('bind', 'ikh')
+	ik_name = rt_clav_root.replace('bind', 'ikh')
 	ikh.rename(ik_name)
 
-	loc_1 = pm.spaceLocator(p=(0, 0, 0))
-	temp_constraint = pm.pointConstraint(arm_root, loc_1, mo=0)
+	rt_loc_1 = pm.spaceLocator(p=(0, 0, 0))
+	temp_constraint = pm.pointConstraint(arm_root, rt_loc_1, mo=0)
 	pm.delete(temp_constraint)
-	freezeTransform(loc_1)
+	freezeTransform(rt_loc_1)
 
-	loc_name = ikh.replace('ikh', 'loc')
-	loc_1.rename(loc_name)
-	pm.parent(ikh, loc_1)
+	rt_loc_name = ikh.replace('ikh', 'loc')
+	rt_loc_1.rename(rt_loc_name)
+	pm.parent(ikh, rt_loc_1)
 
-	loc_2 =	pm.spaceLocator(p=(0, 0, 0))
-	temp_constraint = pm.parentConstraint(clav_root, loc_2, mo=0)
+	rt_loc_2 =	pm.spaceLocator(p=(0, 0, 0))
+	temp_constraint = pm.parentConstraint(rt_clav_root, rt_loc_2, mo=0)
 	pm.delete(temp_constraint)
-	freezeTransform(loc_2)
-	loc_name = loc_1.replace('loc', 'startLoc')
-	loc_2.rename(loc_name)
+	freezeTransform(rt_loc_2)
+	rt_loc_name = rt_loc_1.replace('loc', 'startLoc')
+	rt_loc_2.rename(rt_loc_name)
 
-	loc_3 =	pm.spaceLocator(p=(0, 0, 0))
-	temp_constraint = pm.parentConstraint(clav_joint_2, loc_3, mo=0)
+	rt_loc_3 =	pm.spaceLocator(p=(0, 0, 0))
+	temp_constraint = pm.parentConstraint(rt_clav_joint_2, rt_loc_3, mo=0)
 	pm.delete(temp_constraint)
-	freezeTransform(loc_3)
-	loc_name = loc_2.replace('start', 'end')
-	loc_3.rename(loc_name)
+	freezeTransform(rt_loc_3)
+	rt_loc_name = rt_loc_2.replace('start', 'end')
+	rt_loc_3.rename(rt_loc_name)
 
-	clav_dist = pm.shadingNode('distanceDimShape', asUtility=1)
+	rt_clav_dist = pm.shadingNode('distanceDimShape', asUtility=1)
 
-	pm.select(clav_dist)
+	pm.select(rt_clav_dist)
 	selection = pm.ls(sl=1, s=0)
 	shape = selection[0]
 	pm.pickWalk(d='up')
 	transform = pm.ls(sl=1)[0]
 
-	node_name = loc_1.replace('loc', 'dist')
+	node_name = rt_loc_1.replace('loc', 'dist')
 	transform.rename(node_name)
-	temp_constraint = pm.parentConstraint(clav_root, transform, mo=0)
+	temp_constraint = pm.parentConstraint(rt_clav_root, transform, mo=0)
 	pm.delete(temp_constraint)
 
-	pm.connectAttr(loc_2 + '.worldPosition', clav_dist + '.startPoint')
-	pm.connectAttr(loc_3 + '.worldPosition', clav_dist + '.endPoint')
+	pm.connectAttr(rt_loc_2 + '.worldPosition', rt_clav_dist + '.startPoint')
+	pm.connectAttr(rt_loc_3 + '.worldPosition', rt_clav_dist + '.endPoint')
 
-	pm.parent(loc_3, loc_1)
+	pm.parent(rt_loc_3, rt_loc_1)
 
-	driver = clav_dist + '.distance'
-	length = pm.getAttr(clav_joint_2 + '.tx')
+	driver = rt_clav_dist + '.distance'
+	length = pm.getAttr(rt_clav_joint_2 + '.tx')
 
 
-	pm.setDrivenKeyframe(clav_joint_2 + '.tx', currentDriver=driver, driverValue=length, value=length)
+	pm.setDrivenKeyframe(rt_clav_joint_2 + '.tx', currentDriver=driver, driverValue=length, value=length)
 
-	pm.setDrivenKeyframe(clav_joint_2 + '.tx', currentDriver=driver, driverValue=(2 * length), value=(2 * length))
-	pm.keyTangent(clav_joint_2, itt='clamped', ott='clamped')
-	pm.setInfinity(clav_joint_2, poi='linear')
+	pm.setDrivenKeyframe(rt_clav_joint_2 + '.tx', currentDriver=driver, driverValue=(2 * length), value=(2 * length))
+	pm.keyTangent(rt_clav_joint_2, itt='clamped', ott='clamped')
+	pm.setInfinity(rt_clav_joint_2, poi='linear')
 
-	shoulder_icon = pm.curve(d=1, p=[(0, 1.003235, 0),(0.668823, 0, 0),(0.334412, 0, 0),(0.334412, -0.167206, 0),(0.334412, -0.501617, 0),(0.334412, -1.003235, 0),(-0.334412, -1.003235, 0),(-0.334412, -0.501617, 0),(-0.334412, -0.167206, 0),(-0.334412, 0, 0),(-0.668823, 0, 0),(0, 1.003235, 0),(0, 0, -0.668823),(0, 0, -0.334412),(0, -0.167206, -0.334412),(0, -0.501617, -0.334412),(0, -1.003235, -0.334412),(0, -1.003235, 0.334412),(0, -0.501617, 0.334412),(0, -0.167206, 0.334412),(0, 0, 0.334412),(0, 0, 0.668823),(0, 1.003235, 0)], k=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22])
-	shoulder_icon.rx.set(180)
-	temp_constraint = pm.pointConstraint(clav_joint_2, shoulder_icon, mo=0)
+	rt_shoulder_icon = pm.curve(d=1, p=[(0, 1.003235, 0),(0.668823, 0, 0),(0.334412, 0, 0),(0.334412, -0.167206, 0),(0.334412, -0.501617, 0),(0.334412, -1.003235, 0),(-0.334412, -1.003235, 0),(-0.334412, -0.501617, 0),(-0.334412, -0.167206, 0),(-0.334412, 0, 0),(-0.668823, 0, 0),(0, 1.003235, 0),(0, 0, -0.668823),(0, 0, -0.334412),(0, -0.167206, -0.334412),(0, -0.501617, -0.334412),(0, -1.003235, -0.334412),(0, -1.003235, 0.334412),(0, -0.501617, 0.334412),(0, -0.167206, 0.334412),(0, 0, 0.334412),(0, 0, 0.668823),(0, 1.003235, 0)], k=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22])
+	rt_shoulder_icon.rx.set(180)
+	temp_constraint = pm.pointConstraint(rt_clav_joint_2, rt_shoulder_icon, mo=0)
 	pm.delete(temp_constraint)
-	freezeTransform(shoulder_icon)
-	shoulder_icon.ty.set(3)
-	freezeTransform(shoulder_icon)
+	freezeTransform(rt_shoulder_icon)
+	rt_shoulder_icon.ty.set(3)
+	freezeTransform(rt_shoulder_icon)
 
-	icon_name = clav_root.replace('clav_01_bind', 'shoulder_icon')
-	shoulder_icon.rename(icon_name)
-	pm.parent(loc_1, shoulder_icon)
+	icon_name = rt_clav_root.replace('clav_01_bind', 'shoulder_icon')
+	rt_shoulder_icon.rename(icon_name)
+	pm.parent(rt_loc_1, rt_shoulder_icon)
 
 	dnt_grp = pm.group(empty=1)
-	temp_constraint = pm.parentConstraint(clav_root, dnt_grp, mo=0)
+	temp_constraint = pm.parentConstraint(rt_clav_root, dnt_grp, mo=0)
 	pm.delete(temp_constraint)
 	freezeTransform(dnt_grp)
 
-	grp_name = clav_root.replace('01_bind', 'DO____NOT____TOUCH_grp')
+	grp_name = rt_clav_root.replace('01_bind', 'DO____NOT____TOUCH_grp')
 	dnt_grp.rename(grp_name)
 
-	pm.parent(transform, loc_2, dnt_grp)
+	pm.parent(transform, rt_loc_2, dnt_grp)
 
 	global_grp = pm.group(empty=1)
-	temp_constraint = pm.pointConstraint(clav_root, global_grp, mo=0)
+	temp_constraint = pm.pointConstraint(rt_clav_root, global_grp, mo=0)
 	pm.delete(temp_constraint)
 	freezeTransform(global_grp)
 
-	grp_name = clav_root.replace('01_bind', 'global_grp')
+	grp_name = rt_clav_root.replace('01_bind', 'global_grp')
 	global_grp.rename(grp_name)
 
 	pad = pm.group(empty=1)
-	temp_constraint= pm.pointConstraint(clav_root, pad, mo=0)
+	temp_constraint= pm.pointConstraint(rt_clav_root, pad, mo=0)
 	pm.delete(temp_constraint)
 	freezeTransform(pad)
 
-	pad_name = clav_root.replace('01_bind', '00_pad')
+	pad_name = rt_clav_root.replace('01_bind', '00_pad')
 	pad.rename(pad_name)
 
-	pm.parent(clav_root, pad)
+	pm.parent(rt_clav_root, pad)
 
-	pm.parent(pad, dnt_grp, shoulder_icon, global_grp)
+	pm.parent(pad, dnt_grp, rt_shoulder_icon, global_grp)
 
 
 	dnt_grp.overrideEnabled.set(1)
 	dnt_grp.overrideDisplayType.set(2)
 	dnt_grp.v.set(0)
-	loc_1.v.set(0)
-	loc_2.v.set(0)
-	loc_3.v.set(0)
+	rt_loc_1.v.set(0)
+	rt_loc_2.v.set(0)
+	rt_loc_3.v.set(0)
 
 	if pm.objExists('*moveAll'):
 		pm.select('*moveAll')
@@ -2313,7 +2370,7 @@ def rt_shoulderSetup(*args):
 
 	else:
 		jnt_grp = pm.group(empty=1)
-		grp_name = clav_root.replace('rt_clav_01_bind', 'joint_grp')
+		grp_name = rt_clav_root.replace('rt_clav_01_bind', 'joint_grp')
 		jnt_grp.rename(grp_name)
 		print jnt_grp
 		# pm.parent(pad, jnt_grp)
@@ -2323,25 +2380,48 @@ def rt_shoulderSetup(*args):
 		pm.select('*icon_grp')
 		icon_grp = pm.ls(sl=1)[0] 
 		pm.parent(moveAll, icon_grp)
-		# pm.parent(shoulder_icon, moveAll)
+		# pm.parent(rt_shoulder_icon, moveAll)
 
 	else:
 		icon_grp = pm.group(empty=1)
 		pm.parent(moveAll, icon_grp)
 		group_name = jnt_grp.replace('joint', 'icon')
 		icon_grp.rename(group_name)
-		# pm.parent(shoulder_icon, moveAll)
+		# pm.parent(rt_shoulder_icon, moveAll)
 
-	clav_space_loc = pm.spaceLocator(p=(0, 0, 0))
-	temp_constraint = pm.parentConstraint(clav_joint_2, clav_space_loc)
+	rt_clav_space_rt_loc = pm.spaceLocator(p=(0, 0, 0))
+	temp_constraint = pm.parentConstraint(rt_clav_joint_2, rt_clav_space_rt_loc)
 	pm.delete(temp_constraint)
-	freezeTransform(clav_space_loc)
+	freezeTransform(rt_clav_space_rt_loc)
 
-	loc_name = shoulder_icon.replace('_icon', '_space_loc')
-	clav_space_loc.rename(loc_name)
+	rt_loc_name = rt_shoulder_icon.replace('_icon', '_space_rt_loc')
+	rt_clav_space_rt_loc.rename(rt_loc_name)
 
-	pm.parent(clav_space_loc, clav_joint_2)
-	freezeTransform(clav_space_loc)
+	pm.parent(rt_clav_space_rt_loc, rt_clav_joint_2)
+	freezeTransform(rt_clav_space_rt_loc)
+
+	rt_clav_stretchBlend = pm.shadingNode('blendColors', asUtility=1)
+
+	node_name = rt_shoulder_icon.replace('icon', 'stretchBlend')
+	rt_clav_stretchBlend.rename(node_name)
+
+	pm.disconnectAttr(rt_clav_joint_2 + '_translateX.output', rt_clav_joint_2 + '.tx')
+
+	pm.connectAttr(rt_clav_joint_2 + '_translateX.output', rt_clav_stretchBlend + '.color1R')
+
+	rt_clav_len = pm.getAttr(rt_clav_joint_2 + '.tx')
+
+	pm.setAttr(rt_clav_stretchBlend + '.color2R', rt_clav_len)
+
+	pm.connectAttr(rt_clav_stretchBlend + '.outputR', rt_clav_joint_2 + '.tx')
+
+	pm.addAttr(rt_shoulder_icon, ln='stretch', at='bool')
+
+	pm.connectAttr(rt_shoulder_icon + '.stretch', rt_clav_stretchBlend + '.blender')
+
+	rt_shoulder_icon.stretch.set(e=1, keyable=1)
+
+	lock_and_hide(rt_shoulder_icon, ['rx', 'ry', 'rz', 'sx', 'sy', 'sz', 'v'])
 
 def shoulderSetup(*args):
 	lt_shoulderSetup()
@@ -2378,11 +2458,11 @@ def lt_armSetup(*args):
 	ik_joints = pm.duplicate(lt_arm_root)
 	ik_joints = pm.ls(sl=True, dag=True)
 	lt_ik_root = ik_joints[0]
-	ik_joint_2 = ik_joints[1]
-	ik_joint_3 = ik_joints[2]
+	lt_arm_ik_joint_2 = ik_joints[1]
+	lt_arm_ik_joint_3 = ik_joints[2]
 	# print 'Ik Root:', lt_ik_root
-	# print 'Ik Joint 2:', ik_joint_2
-	# print 'Ik Joint 3:', ik_joint_3
+	# print 'Ik Joint 2:', lt_arm_ik_joint_2
+	# print 'Ik Joint 3:', lt_arm_ik_joint_3
 
 	
 	for each in ik_joints:
@@ -2390,10 +2470,10 @@ def lt_armSetup(*args):
 		lt_ik_root.rename(joint_name)
 
 	joint_name = lt_ik_root.replace('1', '2')
-	ik_joint_2.rename(joint_name)
+	lt_arm_ik_joint_2.rename(joint_name)
 
-	joint_name = ik_joint_2.replace('2', '3')
-	ik_joint_3.rename(joint_name)
+	joint_name = lt_arm_ik_joint_2.replace('2', '3')
+	lt_arm_ik_joint_3.rename(joint_name)
 
 	fk_joints = pm.duplicate(lt_arm_root)
 	pm.select(fk_joints)
@@ -2409,10 +2489,10 @@ def lt_armSetup(*args):
 	joint_name = lt_ik_root.replace('ik', 'fk')
 	lt_fk_root.rename(joint_name)
 
-	joint_name = ik_joint_2.replace('ik', 'fk')
+	joint_name = lt_arm_ik_joint_2.replace('ik', 'fk')
 	fk_joint_2.rename(joint_name)
 
-	joint_name = ik_joint_3.replace('ik', 'fk')
+	joint_name = lt_arm_ik_joint_3.replace('ik', 'fk')
 	fk_joint_3.rename(joint_name)
 
 	hybrid_fk_joints = pm.duplicate(fk_joint_2)
@@ -2707,7 +2787,7 @@ def lt_armSetup(*args):
 	node_name = root_rot_ikfk.replace('1', '2')
 	arm_joint_2_rot_ikfk.rename(node_name)
 
-	pm.connectAttr(ik_joint_2 + '.rotate', arm_joint_2_rot_ikfk + '.color2')
+	pm.connectAttr(lt_arm_ik_joint_2 + '.rotate', arm_joint_2_rot_ikfk + '.color2')
 	pm.connectAttr(fk_joint_2 + '.rotate', arm_joint_2_rot_ikfk + '.color1')
 	pm.connectAttr(arm_joint_2_rot_ikfk + '.output', arm_joint_2 + '.rotate')
 
@@ -2715,7 +2795,7 @@ def lt_armSetup(*args):
 	node_name = root_rot_ikfk.replace('1', '3')
 	arm_joint_3_rot_ikfk.rename(node_name)
 
-	pm.connectAttr(ik_joint_3 + '.rotate', arm_joint_3_rot_ikfk + '.color2')
+	pm.connectAttr(lt_arm_ik_joint_3 + '.rotate', arm_joint_3_rot_ikfk + '.color2')
 	pm.connectAttr(fk_joint_3 + '.rotate', arm_joint_3_rot_ikfk + '.color1')
 	pm.connectAttr(arm_joint_3_rot_ikfk + '.output', arm_joint_3 + '.rotate')
 
@@ -2731,7 +2811,7 @@ def lt_armSetup(*args):
 	node_name = root_trans_ikfk.replace('1', '2')
 	arm_joint_2_trans_ikfk.rename(node_name)
 
-	pm.connectAttr(ik_joint_2 + '.translate', arm_joint_2_trans_ikfk + '.color2')
+	pm.connectAttr(lt_arm_ik_joint_2 + '.translate', arm_joint_2_trans_ikfk + '.color2')
 	pm.connectAttr(fk_joint_2 + '.translate', arm_joint_2_trans_ikfk + '.color1')
 	pm.connectAttr(arm_joint_2_trans_ikfk + '.output', arm_joint_2 + '.translate')
 
@@ -2739,11 +2819,11 @@ def lt_armSetup(*args):
 	node_name = root_trans_ikfk.replace('1', '3')
 	arm_joint_3_trans_ikfk.rename(node_name)
 
-	pm.connectAttr(ik_joint_3 + '.translate', arm_joint_3_trans_ikfk + '.color2')
+	pm.connectAttr(lt_arm_ik_joint_3 + '.translate', arm_joint_3_trans_ikfk + '.color2')
 	pm.connectAttr(fk_joint_3 + '.translate', arm_joint_3_trans_ikfk + '.color1')
 	pm.connectAttr(arm_joint_3_trans_ikfk + '.output', arm_joint_3 + '.translate')
 
-	if pm.objExists('lt_lt_arm_icon'):
+	if pm.objExists('lt_arm_icon'):
 		'''
 		Create the IK/FK switch
 		'''
@@ -2907,7 +2987,7 @@ def lt_armSetup(*args):
 		'''
 		Create the ik
 		'''
-		pm.select(lt_ik_root, ik_joint_3)
+		pm.select(lt_ik_root, lt_arm_ik_joint_3)
 		arm_ikh = pm.ikHandle()[0]
 
 		ikh_name = lt_arm_root.replace('bind', 'ikh')
@@ -3151,84 +3231,22 @@ def lt_armSetup(*args):
 
 		pm.parentConstraint(lt_arm_icon, loc_2)
 
-		upperArm_len = pm.getAttr(ik_joint_2 + '.tx')
+		upperArm_len = pm.getAttr(lt_arm_ik_joint_2 + '.tx')
 
-		foreArm_len = pm.getAttr(ik_joint_3 + '.tx')
+		foreArm_len = pm.getAttr(lt_arm_ik_joint_3 + '.tx')
 
 		sumLen = upperArm_len + foreArm_len
 
-		pm.setDrivenKeyframe(ik_joint_2 + '.tx', currentDriver=arm_dist + '.distance', value=upperArm_len, driverValue=sumLen)
+		pm.setDrivenKeyframe(lt_arm_ik_joint_2 + '.tx', currentDriver=arm_dist + '.distance', value=upperArm_len, driverValue=sumLen)
 
-		pm.setDrivenKeyframe(ik_joint_2 + '.tx',  currentDriver=arm_dist + '.distance', value=(upperArm_len*2), driverValue=(sumLen*2))
+		pm.setDrivenKeyframe(lt_arm_ik_joint_2 + '.tx',  currentDriver=arm_dist + '.distance', value=(upperArm_len*2), driverValue=(sumLen*2))
 
-		pm.setDrivenKeyframe(ik_joint_3 + '.tx', currentDriver=arm_dist + '.distance', value=foreArm_len, driverValue=sumLen)
+		pm.setDrivenKeyframe(lt_arm_ik_joint_3 + '.tx', currentDriver=arm_dist + '.distance', value=foreArm_len, driverValue=sumLen)
 
-		pm.setDrivenKeyframe(ik_joint_3 + '.tx', currentDriver=arm_dist + '.distance', value=(foreArm_len*2), driverValue=(sumLen*2))
+		pm.setDrivenKeyframe(lt_arm_ik_joint_3 + '.tx', currentDriver=arm_dist + '.distance', value=(foreArm_len*2), driverValue=(sumLen*2))
 
-		pm.keyTangent(ik_joint_2, ik_joint_3,'graphEditor1FromOutliner', itt='spline', animation='objects', ott='spline')
-		pm.setInfinity(ik_joint_2, ik_joint_3, poi='linear')
-
-		'''	This is to fix preserve the volumn, but it doesn't work at the moment
-		stretch_squareRoot = pm.shadingNode('multiplyDivide', asUtility=1)
-		node_name = arm_dist.replace('dist', '01_squareRoot')
-		stretch_squareRoot.rename(node_name)
-
-		pm.connectAttr(arm_dist + '.distance', stretch_squareRoot + '.input1X')
-		stretch_squareRoot.operation.set(3)
-		stretch_squareRoot.input2X.set(.5)
-
-		stretch_invert = pm.shadingNode('multiplyDivide', asUtility=1)
-		node_name = arm_dist.replace('dist', '01_invert')
-		stretch_invert.rename(node_name)
-
-		pm.connectAttr(stretch_squareRoot + '.outputX', stretch_invert + '.input2X')
-		stretch_invert.operation.set(2)
-		stretch_invert.input1X.set(1)
-
-
-		pm.connectAttr(stretch_invert + '.outputX', root_joint + '.sy')
-		pm.connectAttr(stretch_invert + '.outputX', splitJnt_1 + '.sy')
-		pm.connectAttr(stretch_invert + '.outputX', splitJnt_2 + '.sy')
-		pm.connectAttr(stretch_invert + '.outputX', splitJnt_3 + '.sy')
-		pm.connectAttr(stretch_invert + '.outputX', splitJnt_4 + '.sy')
-
-		pm.connectAttr(stretch_invert + '.outputX', root_joint + '.sz')
-		pm.connectAttr(stretch_invert + '.outputX', splitJnt_1 + '.sz')
-		pm.connectAttr(stretch_invert + '.outputX', splitJnt_2 + '.sz')
-		pm.connectAttr(stretch_invert + '.outputX', splitJnt_3 + '.sz')
-		pm.connectAttr(stretch_invert + '.outputX', splitJnt_4 + '.sz')
-
-		stretch_squareRoot = pm.shadingNode('multiplyDivide', asUtility=1)
-		node_name = arm_dist.replace('dist', '02_squareRoot')
-		stretch_squareRoot.rename(node_name)
-
-		pm.connectAttr(arm_dist + '.distance', stretch_squareRoot + '.input1X')
-		stretch_squareRoot.operation.set(3)
-		stretch_squareRoot.input2X.set(.5)
-
-		stretch_invert = pm.shadingNode('multiplyDivide', asUtility=1)
-		node_name = arm_dist.replace('dist', '02_invert')
-		stretch_invert.rename(node_name)
-
-		pm.connectAttr(stretch_squareRoot + '.outputX', stretch_invert + '.input2X')
-		stretch_invert.operation.set(2)
-		stretch_invert.input1X.set(1)
-
-		pm.connectAttr(stretch_invert + '.outputX', joint_7 + '.sy')
-		pm.connectAttr(stretch_invert + '.outputX', joint_8 + '.sy')
-		pm.connectAttr(stretch_invert + '.outputX', joint_9 + '.sy')
-		pm.connectAttr(stretch_invert + '.outputX', joint_10 + '.sy')
-		pm.connectAttr(stretch_invert + '.outputX', joint_11 + '.sy')
-		pm.connectAttr(stretch_invert + '.outputX', lt_joint_12 + '.sy')
-
-		pm.connectAttr(stretch_invert + '.outputX', joint_7 + '.sz')
-		pm.connectAttr(stretch_invert + '.outputX', joint_8 + '.sz')
-		pm.connectAttr(stretch_invert + '.outputX', joint_9 + '.sz')
-		pm.connectAttr(stretch_invert + '.outputX', joint_10 + '.sz')
-		pm.connectAttr(stretch_invert + '.outputX', joint_11 + '.sz')
-		pm.connectAttr(stretch_invert + '.outputX', lt_joint_12 + '.sz')
-		'''
-		'''==========================================================================================================================='''
+		pm.keyTangent(lt_arm_ik_joint_2, lt_arm_ik_joint_3,'graphEditor1FromOutliner', itt='spline', animation='objects', ott='spline')
+		pm.setInfinity(lt_arm_ik_joint_2, lt_arm_ik_joint_3, poi='linear')
 
 		loc_3 = pm.spaceLocator(p=(0, 0, 0))
 		temp_constraint = pm.parentConstraint(root_joint, loc_3, mo=0)
@@ -3299,24 +3317,24 @@ def lt_armSetup(*args):
 		elbow_icon.elbowSnap.set(e=1, keyable=True)
 
 		upperArm_stretch = pm.shadingNode('blendColors', asUtility=1)
-		node_name = upperArm_info.replace('info', 'stretch_blend')
+		node_name = upperArm_info.replace('info', 'stretch_blend_01')
 		upperArm_stretch.rename(node_name)
 
 		pm.connectAttr(elbow_icon + '.elbowSnap', upperArm_stretch + '.blender')
 		pm.connectAttr(snap_dist_1 + '.distance', upperArm_stretch + '.color1R')
-		pm.connectAttr(ik_joint_2 + '_translateX.output', upperArm_stretch + '.color2R')
-		pm.disconnectAttr(ik_joint_2 + '_translateX.output', ik_joint_2 + '.tx')
-		pm.connectAttr(upperArm_stretch + '.outputR', ik_joint_2 + '.tx')
+		pm.connectAttr(lt_arm_ik_joint_2 + '_translateX.output', upperArm_stretch + '.color2R')
+		pm.disconnectAttr(lt_arm_ik_joint_2 + '_translateX.output', lt_arm_ik_joint_2 + '.tx')
+		pm.connectAttr(upperArm_stretch + '.outputR', lt_arm_ik_joint_2 + '.tx')
 
 		foreArm_stretch = pm.shadingNode('blendColors', asUtility=1)
-		node_name = foreArm_info.replace('info', 'stretch_blend')
+		node_name = foreArm_info.replace('info', 'stretch_blend_02')
 		foreArm_stretch.rename(node_name)
 
 		pm.connectAttr(elbow_icon + '.elbowSnap', foreArm_stretch + '.blender')
 		pm.connectAttr(snap_dist_2 + '.distance', foreArm_stretch + '.color1R')
-		pm.connectAttr(ik_joint_3 + '_translateX.output', foreArm_stretch + '.color2R')
-		pm.disconnectAttr(ik_joint_3 + '_translateX.output', ik_joint_3 + '.tx')
-		pm.connectAttr(foreArm_stretch + '.outputR', ik_joint_3 + '.tx')
+		pm.connectAttr(lt_arm_ik_joint_3 + '_translateX.output', foreArm_stretch + '.color2R')
+		pm.disconnectAttr(lt_arm_ik_joint_3 + '_translateX.output', lt_arm_ik_joint_3 + '.tx')
+		pm.connectAttr(foreArm_stretch + '.outputR', lt_arm_ik_joint_3 + '.tx')
 
 		hybrid_fk_icons = pm.duplicate(fk_pad_2)
 		pm.parent(hybrid_fk_icons, w=1)
@@ -3766,7 +3784,7 @@ def lt_armSetup(*args):
 	'''
 	Create the ik
 	'''
-	pm.select(lt_ik_root, ik_joint_3)
+	pm.select(lt_ik_root, lt_arm_ik_joint_3)
 	arm_ikh = pm.ikHandle()[0]
 
 	ikh_name = lt_arm_root.replace('bind', 'ikh')
@@ -3874,7 +3892,7 @@ def lt_armSetup(*args):
 	switch.IkFk.set(0)
 
 	upperArm_info = pm.shadingNode('curveInfo', asUtility=1)
-	node_name = lt_arm_root.replace('01_bind', 'info')
+	node_name = lt_arm_root.replace('bind', 'info')
 	upperArm_info.rename(node_name)
 
 	upperArm_div = pm.shadingNode('multiplyDivide', asUtility=1)
@@ -4010,84 +4028,22 @@ def lt_armSetup(*args):
 
 	pm.parentConstraint(lt_arm_icon, loc_2)
 
-	upperArm_len = pm.getAttr(ik_joint_2 + '.tx')
+	upperArm_len = pm.getAttr(lt_arm_ik_joint_2 + '.tx')
 
-	foreArm_len = pm.getAttr(ik_joint_3 + '.tx')
+	foreArm_len = pm.getAttr(lt_arm_ik_joint_3 + '.tx')
 
 	sumLen = upperArm_len + foreArm_len
 
-	pm.setDrivenKeyframe(ik_joint_2 + '.tx', currentDriver=arm_dist + '.distance', value=upperArm_len, driverValue=sumLen)
+	pm.setDrivenKeyframe(lt_arm_ik_joint_2 + '.tx', currentDriver=arm_dist + '.distance', value=upperArm_len, driverValue=sumLen)
 
-	pm.setDrivenKeyframe(ik_joint_2 + '.tx',  currentDriver=arm_dist + '.distance', value=(upperArm_len*2), driverValue=(sumLen*2))
+	pm.setDrivenKeyframe(lt_arm_ik_joint_2 + '.tx',  currentDriver=arm_dist + '.distance', value=(upperArm_len*2), driverValue=(sumLen*2))
 
-	pm.setDrivenKeyframe(ik_joint_3 + '.tx', currentDriver=arm_dist + '.distance', value=foreArm_len, driverValue=sumLen)
+	pm.setDrivenKeyframe(lt_arm_ik_joint_3 + '.tx', currentDriver=arm_dist + '.distance', value=foreArm_len, driverValue=sumLen)
 
-	pm.setDrivenKeyframe(ik_joint_3 + '.tx', currentDriver=arm_dist + '.distance', value=(foreArm_len*2), driverValue=(sumLen*2))
+	pm.setDrivenKeyframe(lt_arm_ik_joint_3 + '.tx', currentDriver=arm_dist + '.distance', value=(foreArm_len*2), driverValue=(sumLen*2))
 
-	pm.keyTangent(ik_joint_2, ik_joint_3,'graphEditor1FromOutliner', itt='spline', animation='objects', ott='spline')
-	pm.setInfinity(ik_joint_2, ik_joint_3, poi='linear')
-
-	'''	This is to fix preserve the volumn, but it doesn't work at the moment
-	stretch_squareRoot = pm.shadingNode('multiplyDivide', asUtility=1)
-	node_name = arm_dist.replace('dist', '01_squareRoot')
-	stretch_squareRoot.rename(node_name)
-
-	pm.connectAttr(arm_dist + '.distance', stretch_squareRoot + '.input1X')
-	stretch_squareRoot.operation.set(3)
-	stretch_squareRoot.input2X.set(.5)
-
-	stretch_invert = pm.shadingNode('multiplyDivide', asUtility=1)
-	node_name = arm_dist.replace('dist', '01_invert')
-	stretch_invert.rename(node_name)
-
-	pm.connectAttr(stretch_squareRoot + '.outputX', stretch_invert + '.input2X')
-	stretch_invert.operation.set(2)
-	stretch_invert.input1X.set(1)
-
-
-	pm.connectAttr(stretch_invert + '.outputX', root_joint + '.sy')
-	pm.connectAttr(stretch_invert + '.outputX', splitJnt_1 + '.sy')
-	pm.connectAttr(stretch_invert + '.outputX', splitJnt_2 + '.sy')
-	pm.connectAttr(stretch_invert + '.outputX', splitJnt_3 + '.sy')
-	pm.connectAttr(stretch_invert + '.outputX', splitJnt_4 + '.sy')
-
-	pm.connectAttr(stretch_invert + '.outputX', root_joint + '.sz')
-	pm.connectAttr(stretch_invert + '.outputX', splitJnt_1 + '.sz')
-	pm.connectAttr(stretch_invert + '.outputX', splitJnt_2 + '.sz')
-	pm.connectAttr(stretch_invert + '.outputX', splitJnt_3 + '.sz')
-	pm.connectAttr(stretch_invert + '.outputX', splitJnt_4 + '.sz')
-
-	stretch_squareRoot = pm.shadingNode('multiplyDivide', asUtility=1)
-	node_name = arm_dist.replace('dist', '02_squareRoot')
-	stretch_squareRoot.rename(node_name)
-
-	pm.connectAttr(arm_dist + '.distance', stretch_squareRoot + '.input1X')
-	stretch_squareRoot.operation.set(3)
-	stretch_squareRoot.input2X.set(.5)
-
-	stretch_invert = pm.shadingNode('multiplyDivide', asUtility=1)
-	node_name = arm_dist.replace('dist', '02_invert')
-	stretch_invert.rename(node_name)
-
-	pm.connectAttr(stretch_squareRoot + '.outputX', stretch_invert + '.input2X')
-	stretch_invert.operation.set(2)
-	stretch_invert.input1X.set(1)
-
-	pm.connectAttr(stretch_invert + '.outputX', joint_7 + '.sy')
-	pm.connectAttr(stretch_invert + '.outputX', joint_8 + '.sy')
-	pm.connectAttr(stretch_invert + '.outputX', joint_9 + '.sy')
-	pm.connectAttr(stretch_invert + '.outputX', joint_10 + '.sy')
-	pm.connectAttr(stretch_invert + '.outputX', joint_11 + '.sy')
-	pm.connectAttr(stretch_invert + '.outputX', lt_joint_12 + '.sy')
-
-	pm.connectAttr(stretch_invert + '.outputX', joint_7 + '.sz')
-	pm.connectAttr(stretch_invert + '.outputX', joint_8 + '.sz')
-	pm.connectAttr(stretch_invert + '.outputX', joint_9 + '.sz')
-	pm.connectAttr(stretch_invert + '.outputX', joint_10 + '.sz')
-	pm.connectAttr(stretch_invert + '.outputX', joint_11 + '.sz')
-	pm.connectAttr(stretch_invert + '.outputX', lt_joint_12 + '.sz')
-	'''
-	'''==========================================================================================================================='''
+	pm.keyTangent(lt_arm_ik_joint_2, lt_arm_ik_joint_3,'graphEditor1FromOutliner', itt='spline', animation='objects', ott='spline')
+	pm.setInfinity(lt_arm_ik_joint_2, lt_arm_ik_joint_3, poi='linear')
 
 	loc_3 = pm.spaceLocator(p=(0, 0, 0))
 	temp_constraint = pm.parentConstraint(root_joint, loc_3, mo=0)
@@ -4158,24 +4114,24 @@ def lt_armSetup(*args):
 	elbow_icon.elbowSnap.set(e=1, keyable=True)
 
 	upperArm_stretch = pm.shadingNode('blendColors', asUtility=1)
-	node_name = upperArm_info.replace('info', 'stretch_blend')
+	node_name = upperArm_info.replace('info', 'stretch_blend_01')
 	upperArm_stretch.rename(node_name)
 
 	pm.connectAttr(elbow_icon + '.elbowSnap', upperArm_stretch + '.blender')
 	pm.connectAttr(snap_dist_1 + '.distance', upperArm_stretch + '.color1R')
-	pm.connectAttr(ik_joint_2 + '_translateX.output', upperArm_stretch + '.color2R')
-	pm.disconnectAttr(ik_joint_2 + '_translateX.output', ik_joint_2 + '.tx')
-	pm.connectAttr(upperArm_stretch + '.outputR', ik_joint_2 + '.tx')
+	pm.connectAttr(lt_arm_ik_joint_2 + '_translateX.output', upperArm_stretch + '.color2R')
+	pm.disconnectAttr(lt_arm_ik_joint_2 + '_translateX.output', lt_arm_ik_joint_2 + '.tx')
+	pm.connectAttr(upperArm_stretch + '.outputR', lt_arm_ik_joint_2 + '.tx')
 
 	foreArm_stretch = pm.shadingNode('blendColors', asUtility=1)
-	node_name = foreArm_info.replace('info', 'stretch_blend')
+	node_name = upperArm_stretch.replace('01', '02')
 	foreArm_stretch.rename(node_name)
 
 	pm.connectAttr(elbow_icon + '.elbowSnap', foreArm_stretch + '.blender')
 	pm.connectAttr(snap_dist_2 + '.distance', foreArm_stretch + '.color1R')
-	pm.connectAttr(ik_joint_3 + '_translateX.output', foreArm_stretch + '.color2R')
-	pm.disconnectAttr(ik_joint_3 + '_translateX.output', ik_joint_3 + '.tx')
-	pm.connectAttr(foreArm_stretch + '.outputR', ik_joint_3 + '.tx')
+	pm.connectAttr(lt_arm_ik_joint_3 + '_translateX.output', foreArm_stretch + '.color2R')
+	pm.disconnectAttr(lt_arm_ik_joint_3 + '_translateX.output', lt_arm_ik_joint_3 + '.tx')
+	pm.connectAttr(foreArm_stretch + '.outputR', lt_arm_ik_joint_3 + '.tx')
 
 	hybrid_fk_icons = pm.duplicate(fk_pad_2)
 	pm.parent(hybrid_fk_icons, w=1)
@@ -4446,6 +4402,32 @@ def lt_armSetup(*args):
 	for each in selection:
 		pm.setAttr(each + '.visibility', 0)
 
+	pm.addAttr(lt_arm_icon, ln='stretch', at='bool')
+	unhideAttrs(lt_arm_icon, ['stretch'])
+
+	pm.disconnectAttr(upperArm_stretch + '.outputR', lt_arm_ik_joint_2 + '.translateX')
+	pm.disconnectAttr(foreArm_stretch + '.outputR', lt_arm_ik_joint_3  + '.translateX')
+
+	lt_arm_stretchBlend_switch = pm.shadingNode('blendColors', asUtility=1)
+	node_name = lt_arm_icon.replace('icon', 'stretchBlend_switch')
+	lt_arm_stretchBlend_switch.rename(node_name)
+
+	pm.connectAttr(foreArm_stretch + '.outputR', lt_arm_stretchBlend_switch + '.color1R')
+	pm.connectAttr(upperArm_stretch + '.outputR', lt_arm_stretchBlend_switch + '.color1G')
+
+	upperArm_stretch_len = pm.getAttr(lt_arm_stretchBlend_switch + '.color1R')
+	# print upperArm_stretch_len
+	lt_arm_stretchBlend_switch.color2R.set(upperArm_stretch_len)
+
+	foreArm_stretch_len = pm.getAttr(lt_arm_stretchBlend_switch + '.color1G')
+	# print foreArm_stretch_len
+	lt_arm_stretchBlend_switch.color2G.set(foreArm_stretch_len)
+
+	pm.connectAttr(lt_arm_stretchBlend_switch + '.outputR', lt_arm_ik_joint_2 + '.translateX')
+	pm.connectAttr(lt_arm_stretchBlend_switch + '.outputG', lt_arm_ik_joint_3 + '.translateX')
+
+	pm.connectAttr(lt_arm_icon + '.stretch', lt_arm_stretchBlend_switch + '.blender')
+
 def lt_fkArmSetup(*args):
 	pm.select(lt_arm_01_bind)
 	arm_system = pm.ls(sl=True, dag=True)
@@ -4581,11 +4563,11 @@ def lt_ikArmSetup(*args):
 	ik_joints = pm.duplicate(lt_arm_root)
 	ik_joints = pm.ls(sl=True, dag=True)
 	lt_ik_root = ik_joints[0]
-	ik_joint_2 = ik_joints[1]
-	ik_joint_3 = ik_joints[2]
+	lt_arm_ik_joint_2 = ik_joints[1]
+	lt_arm_ik_joint_3 = ik_joints[2]
 	# print 'Ik Root:', lt_ik_root
-	# print 'Ik Joint 2:', ik_joint_2
-	# print 'Ik Joint 3:', ik_joint_3
+	# print 'Ik Joint 2:', lt_arm_ik_joint_2
+	# print 'Ik Joint 3:', lt_arm_ik_joint_3
 
 	
 	for each in ik_joints:
@@ -4593,10 +4575,10 @@ def lt_ikArmSetup(*args):
 		lt_ik_root.rename(joint_name)
 
 	joint_name = lt_ik_root.replace('1', '2')
-	ik_joint_2.rename(joint_name)
+	lt_arm_ik_joint_2.rename(joint_name)
 
-	joint_name = ik_joint_2.replace('2', '3')
-	ik_joint_3.rename(joint_name)
+	joint_name = lt_arm_ik_joint_2.replace('2', '3')
+	lt_arm_ik_joint_3.rename(joint_name)
 
 	twist_joints = pm.duplicate(lt_arm_root)
 	pm.select(twist_joints)
@@ -4861,12 +4843,12 @@ def lt_ikArmSetup(*args):
 
 	'''================================================================================================================'''
 	pm.connectAttr(lt_ik_root + '.rotate', lt_arm_root + '.rotate')
-	pm.connectAttr(ik_joint_2 + '.rotate', arm_joint_2 + '.rotate')
-	pm.connectAttr(ik_joint_3 + '.rotate', arm_joint_3 + '.rotate')
+	pm.connectAttr(lt_arm_ik_joint_2 + '.rotate', arm_joint_2 + '.rotate')
+	pm.connectAttr(lt_arm_ik_joint_3 + '.rotate', arm_joint_3 + '.rotate')
 
 	pm.connectAttr(lt_ik_root + '.translate', lt_arm_root + '.translate')
-	pm.connectAttr(ik_joint_2 + '.translate', arm_joint_2 + '.translate')
-	pm.connectAttr(ik_joint_3 + '.translate', arm_joint_3 + '.translate')
+	pm.connectAttr(lt_arm_ik_joint_2 + '.translate', arm_joint_2 + '.translate')
+	pm.connectAttr(lt_arm_ik_joint_3 + '.translate', arm_joint_3 + '.translate')
 
 	'''
 	Create the arm icon
@@ -4887,7 +4869,7 @@ def lt_ikArmSetup(*args):
 	'''
 	Create the ik
 	'''
-	pm.select(lt_ik_root, ik_joint_3)
+	pm.select(lt_ik_root, lt_arm_ik_joint_3)
 	arm_ikh = pm.ikHandle()[0]
 
 	ikh_name = lt_arm_root.replace('bind', 'ikh')
@@ -5103,22 +5085,22 @@ def lt_ikArmSetup(*args):
 
 	pm.parentConstraint(lt_arm_icon, loc_2)
 
-	upperArm_len = pm.getAttr(ik_joint_2 + '.tx')
+	upperArm_len = pm.getAttr(lt_arm_ik_joint_2 + '.tx')
 
-	foreArm_len = pm.getAttr(ik_joint_3 + '.tx')
+	foreArm_len = pm.getAttr(lt_arm_ik_joint_3 + '.tx')
 
 	sumLen = upperArm_len + foreArm_len
 
-	pm.setDrivenKeyframe(ik_joint_2 + '.tx', currentDriver=arm_dist + '.distance', value=upperArm_len, driverValue=sumLen)
+	pm.setDrivenKeyframe(lt_arm_ik_joint_2 + '.tx', currentDriver=arm_dist + '.distance', value=upperArm_len, driverValue=sumLen)
 
-	pm.setDrivenKeyframe(ik_joint_2 + '.tx',  currentDriver=arm_dist + '.distance', value=(upperArm_len*2), driverValue=(sumLen*2))
+	pm.setDrivenKeyframe(lt_arm_ik_joint_2 + '.tx',  currentDriver=arm_dist + '.distance', value=(upperArm_len*2), driverValue=(sumLen*2))
 
-	pm.setDrivenKeyframe(ik_joint_3 + '.tx', currentDriver=arm_dist + '.distance', value=foreArm_len, driverValue=sumLen)
+	pm.setDrivenKeyframe(lt_arm_ik_joint_3 + '.tx', currentDriver=arm_dist + '.distance', value=foreArm_len, driverValue=sumLen)
 
-	pm.setDrivenKeyframe(ik_joint_3 + '.tx', currentDriver=arm_dist + '.distance', value=(foreArm_len*2), driverValue=(sumLen*2))
+	pm.setDrivenKeyframe(lt_arm_ik_joint_3 + '.tx', currentDriver=arm_dist + '.distance', value=(foreArm_len*2), driverValue=(sumLen*2))
 
-	pm.keyTangent(ik_joint_2, ik_joint_3,'graphEditor1FromOutliner', itt='spline', animation='objects', ott='spline')
-	pm.setInfinity(ik_joint_2, ik_joint_3, poi='linear')
+	pm.keyTangent(lt_arm_ik_joint_2, lt_arm_ik_joint_3,'graphEditor1FromOutliner', itt='spline', animation='objects', ott='spline')
+	pm.setInfinity(lt_arm_ik_joint_2, lt_arm_ik_joint_3, poi='linear')
 
 
 	'''==========================================================================================================================='''
@@ -5197,9 +5179,9 @@ def lt_ikArmSetup(*args):
 
 	pm.connectAttr(elbow_icon + '.elbowSnap', upperArm_stretch + '.blender')
 	pm.connectAttr(snap_dist_1 + '.distance', upperArm_stretch + '.color1R')
-	pm.connectAttr(ik_joint_2 + '_translateX.output', upperArm_stretch + '.color2R')
-	pm.disconnectAttr(ik_joint_2 + '_translateX.output', ik_joint_2 + '.tx')
-	pm.connectAttr(upperArm_stretch + '.outputR', ik_joint_2 + '.tx')
+	pm.connectAttr(lt_arm_ik_joint_2 + '_translateX.output', upperArm_stretch + '.color2R')
+	pm.disconnectAttr(lt_arm_ik_joint_2 + '_translateX.output', lt_arm_ik_joint_2 + '.tx')
+	pm.connectAttr(upperArm_stretch + '.outputR', lt_arm_ik_joint_2 + '.tx')
 
 	foreArm_stretch = pm.shadingNode('blendColors', asUtility=1)
 	node_name = foreArm_info.replace('info', 'stretch_blend')
@@ -5207,11 +5189,11 @@ def lt_ikArmSetup(*args):
 
 	pm.connectAttr(elbow_icon + '.elbowSnap', foreArm_stretch + '.blender')
 	pm.connectAttr(snap_dist_2 + '.distance', foreArm_stretch + '.color1R')
-	pm.connectAttr(ik_joint_3 + '_translateX.output', foreArm_stretch + '.color2R')
-	pm.disconnectAttr(ik_joint_3 + '_translateX.output', ik_joint_3 + '.tx')
-	pm.connectAttr(foreArm_stretch + '.outputR', ik_joint_3 + '.tx')
+	pm.connectAttr(lt_arm_ik_joint_3 + '_translateX.output', foreArm_stretch + '.color2R')
+	pm.disconnectAttr(lt_arm_ik_joint_3 + '_translateX.output', lt_arm_ik_joint_3 + '.tx')
+	pm.connectAttr(foreArm_stretch + '.outputR', lt_arm_ik_joint_3 + '.tx')
 
-	hybrid_fk_joints = pm.duplicate(ik_joint_2)
+	hybrid_fk_joints = pm.duplicate(lt_arm_ik_joint_2)
 	pm.parent(hybrid_fk_joints, w=1)
 
 	pm.select(hybrid_fk_joints)
@@ -5221,7 +5203,7 @@ def lt_ikArmSetup(*args):
 	# print hJ_1
 	# print hJ_2
 
-	jnt_name = ik_joint_2.replace('ik', 'hybridFk')
+	jnt_name = lt_arm_ik_joint_2.replace('ik', 'hybridFk')
 	hJ_1.rename(jnt_name)
 
 	jnt_name = hJ_1.replace('02', '03')
@@ -5230,10 +5212,10 @@ def lt_ikArmSetup(*args):
 
 	hybridFk_icon = pm.circle(c=(0, 0, 0), ch=2, d=3, ut=0, sw=360, s=8, r=2, tol=.02, nr=(2, 0, 0))[0]
 	# print 'Fk icon 2:', hybridFk_icon
-	temp_constraint = pm.parentConstraint(ik_joint_2, hybridFk_icon)
+	temp_constraint = pm.parentConstraint(lt_arm_ik_joint_2, hybridFk_icon)
 	pm.delete(temp_constraint)
 	hybridFk_pad = pm.group(empty=True)
-	temp_constraint = pm.parentConstraint(ik_joint_2, hybridFk_pad)
+	temp_constraint = pm.parentConstraint(lt_arm_ik_joint_2, hybridFk_pad)
 	pm.delete(temp_constraint)
 	pm.parent(hybridFk_icon, hybridFk_pad)
 	pm.select(hybridFk_icon)
@@ -5254,13 +5236,13 @@ def lt_ikArmSetup(*args):
 	'''
 	pm.addAttr(hybridFk_icon, ln='length', at='double', min=0, dv=1)
 	hybridFk_icon.length.set(e=1, keyable=True)
-	pm.setDrivenKeyframe(ik_joint_3 + '.tx', currentDriver=hybridFk_icon + '.length')
+	pm.setDrivenKeyframe(lt_arm_ik_joint_3 + '.tx', currentDriver=hybridFk_icon + '.length')
 	hybridFk_icon.length.set(0)
-	ik_joint_3.tx.set(0)
-	pm.setDrivenKeyframe(ik_joint_3 + '.tx', currentDriver=hybridFk_icon + '.length')
+	lt_arm_ik_joint_3.tx.set(0)
+	pm.setDrivenKeyframe(lt_arm_ik_joint_3 + '.tx', currentDriver=hybridFk_icon + '.length')
 	hybridFk_icon.length.set(1)
-	pm.keyTangent(ik_joint_3, 'graphEditor1FromOutliner', itt='spline', animation='objects', ott='spline')
-	pm.mel.selectKey(ik_joint_3 + '.tx', add=1, k=1, f=1)
+	pm.keyTangent(lt_arm_ik_joint_3, 'graphEditor1FromOutliner', itt='spline', animation='objects', ott='spline')
+	pm.mel.selectKey(lt_arm_ik_joint_3 + '.tx', add=1, k=1, f=1)
 	pm.setInfinity(poi='linear')
 
 	temp_constraint = pm.pointConstraint(elbow_icon, hJ_1, mo=0)
@@ -5336,11 +5318,11 @@ def rt_armSetup(*args):
 	ik_joints = pm.duplicate(rt_arm_root)
 	ik_joints = pm.ls(sl=True, dag=True)
 	rt_ik_root = ik_joints[0]
-	ik_joint_2 = ik_joints[1]
-	ik_joint_3 = ik_joints[2]
+	rt_arm_ik_joint_2 = ik_joints[1]
+	rt_arm_ik_joint_3 = ik_joints[2]
 	# print 'Ik Root:', rt_ik_root
-	# print 'Ik Joint 2:', ik_joint_2
-	# print 'Ik Joint 3:', ik_joint_3
+	# print 'Ik Joint 2:', rt_arm_ik_joint_2
+	# print 'Ik Joint 3:', rt_arm_ik_joint_3
 
 	
 	for each in ik_joints:
@@ -5348,10 +5330,10 @@ def rt_armSetup(*args):
 		rt_ik_root.rename(joint_name)
 
 	joint_name = rt_ik_root.replace('1', '2')
-	ik_joint_2.rename(joint_name)
+	rt_arm_ik_joint_2.rename(joint_name)
 
-	joint_name = ik_joint_2.replace('2', '3')
-	ik_joint_3.rename(joint_name)
+	joint_name = rt_arm_ik_joint_2.replace('2', '3')
+	rt_arm_ik_joint_3.rename(joint_name)
 
 	fk_joints = pm.duplicate(rt_arm_root)
 	pm.select(fk_joints)
@@ -5367,10 +5349,10 @@ def rt_armSetup(*args):
 	joint_name = rt_ik_root.replace('ik', 'fk')
 	rt_fk_root.rename(joint_name)
 
-	joint_name = ik_joint_2.replace('ik', 'fk')
+	joint_name = rt_arm_ik_joint_2.replace('ik', 'fk')
 	fk_joint_2.rename(joint_name)
 
-	joint_name = ik_joint_3.replace('ik', 'fk')
+	joint_name = rt_arm_ik_joint_3.replace('ik', 'fk')
 	fk_joint_3.rename(joint_name)
 
 	hybrid_fk_joints = pm.duplicate(fk_joint_2)
@@ -5665,7 +5647,7 @@ def rt_armSetup(*args):
 	node_name = root_rot_ikfk.replace('1', '2')
 	arm_joint_2_rot_ikfk.rename(node_name)
 
-	pm.connectAttr(ik_joint_2 + '.rotate', arm_joint_2_rot_ikfk + '.color2')
+	pm.connectAttr(rt_arm_ik_joint_2 + '.rotate', arm_joint_2_rot_ikfk + '.color2')
 	pm.connectAttr(fk_joint_2 + '.rotate', arm_joint_2_rot_ikfk + '.color1')
 	pm.connectAttr(arm_joint_2_rot_ikfk + '.output', arm_joint_2 + '.rotate')
 
@@ -5673,7 +5655,7 @@ def rt_armSetup(*args):
 	node_name = root_rot_ikfk.replace('1', '3')
 	arm_joint_3_rot_ikfk.rename(node_name)
 
-	pm.connectAttr(ik_joint_3 + '.rotate', arm_joint_3_rot_ikfk + '.color2')
+	pm.connectAttr(rt_arm_ik_joint_3 + '.rotate', arm_joint_3_rot_ikfk + '.color2')
 	pm.connectAttr(fk_joint_3 + '.rotate', arm_joint_3_rot_ikfk + '.color1')
 	pm.connectAttr(arm_joint_3_rot_ikfk + '.output', arm_joint_3 + '.rotate')
 
@@ -5689,7 +5671,7 @@ def rt_armSetup(*args):
 	node_name = root_trans_ikfk.replace('1', '2')
 	arm_joint_2_trans_ikfk.rename(node_name)
 
-	pm.connectAttr(ik_joint_2 + '.translate', arm_joint_2_trans_ikfk + '.color2')
+	pm.connectAttr(rt_arm_ik_joint_2 + '.translate', arm_joint_2_trans_ikfk + '.color2')
 	pm.connectAttr(fk_joint_2 + '.translate', arm_joint_2_trans_ikfk + '.color1')
 	pm.connectAttr(arm_joint_2_trans_ikfk + '.output', arm_joint_2 + '.translate')
 
@@ -5697,11 +5679,11 @@ def rt_armSetup(*args):
 	node_name = root_trans_ikfk.replace('1', '3')
 	arm_joint_3_trans_ikfk.rename(node_name)
 
-	pm.connectAttr(ik_joint_3 + '.translate', arm_joint_3_trans_ikfk + '.color2')
+	pm.connectAttr(rt_arm_ik_joint_3 + '.translate', arm_joint_3_trans_ikfk + '.color2')
 	pm.connectAttr(fk_joint_3 + '.translate', arm_joint_3_trans_ikfk + '.color1')
 	pm.connectAttr(arm_joint_3_trans_ikfk + '.output', arm_joint_3 + '.translate')
 
-	if pm.objExists('rt_rt_arm_icon'):
+	if pm.objExists('rt_arm_icon'):
 		'''
 		Create the IK/FK switch
 		'''
@@ -5865,7 +5847,7 @@ def rt_armSetup(*args):
 		'''
 		Create the ik
 		'''
-		pm.select(rt_ik_root, ik_joint_3)
+		pm.select(rt_ik_root, rt_arm_ik_joint_3)
 		arm_ikh = pm.ikHandle()[0]
 
 		ikh_name = rt_arm_root.replace('bind', 'ikh')
@@ -6109,84 +6091,22 @@ def rt_armSetup(*args):
 
 		pm.parentConstraint(rt_arm_icon, loc_2)
 
-		upperArm_len = pm.getAttr(ik_joint_2 + '.tx')
+		upperArm_len = pm.getAttr(rt_arm_ik_joint_2 + '.tx')
 
-		foreArm_len = pm.getAttr(ik_joint_3 + '.tx')
+		foreArm_len = pm.getAttr(rt_arm_ik_joint_3 + '.tx')
 
 		sumLen = upperArm_len + foreArm_len
 
-		pm.setDrivenKeyframe(ik_joint_2 + '.tx', currentDriver=arm_dist + '.distance', value=upperArm_len, driverValue=sumLen)
+		pm.setDrivenKeyframe(rt_arm_ik_joint_2 + '.tx', currentDriver=arm_dist + '.distance', value=upperArm_len, driverValue=sumLen)
 
-		pm.setDrivenKeyframe(ik_joint_2 + '.tx',  currentDriver=arm_dist + '.distance', value=(upperArm_len*2), driverValue=(sumLen*2))
+		pm.setDrivenKeyframe(rt_arm_ik_joint_2 + '.tx',  currentDriver=arm_dist + '.distance', value=(upperArm_len*2), driverValue=(sumLen*2))
 
-		pm.setDrivenKeyframe(ik_joint_3 + '.tx', currentDriver=arm_dist + '.distance', value=foreArm_len, driverValue=sumLen)
+		pm.setDrivenKeyframe(rt_arm_ik_joint_3 + '.tx', currentDriver=arm_dist + '.distance', value=foreArm_len, driverValue=sumLen)
 
-		pm.setDrivenKeyframe(ik_joint_3 + '.tx', currentDriver=arm_dist + '.distance', value=(foreArm_len*2), driverValue=(sumLen*2))
+		pm.setDrivenKeyframe(rt_arm_ik_joint_3 + '.tx', currentDriver=arm_dist + '.distance', value=(foreArm_len*2), driverValue=(sumLen*2))
 
-		pm.keyTangent(ik_joint_2, ik_joint_3,'graphEditor1FromOutliner', itt='spline', animation='objects', ott='spline')
-		pm.setInfinity(ik_joint_2, ik_joint_3, poi='linear')
-
-		'''	This is to fix preserve the volumn, but it doesn't work at the moment
-		stretch_squareRoot = pm.shadingNode('multiplyDivide', asUtility=1)
-		node_name = arm_dist.replace('dist', '01_squareRoot')
-		stretch_squareRoot.rename(node_name)
-
-		pm.connectAttr(arm_dist + '.distance', stretch_squareRoot + '.input1X')
-		stretch_squareRoot.operation.set(3)
-		stretch_squareRoot.input2X.set(.5)
-
-		stretch_invert = pm.shadingNode('multiplyDivide', asUtility=1)
-		node_name = arm_dist.replace('dist', '01_invert')
-		stretch_invert.rename(node_name)
-
-		pm.connectAttr(stretch_squareRoot + '.outputX', stretch_invert + '.input2X')
-		stretch_invert.operation.set(2)
-		stretch_invert.input1X.set(1)
-
-
-		pm.connectAttr(stretch_invert + '.outputX', root_joint + '.sy')
-		pm.connectAttr(stretch_invert + '.outputX', splitJnt_1 + '.sy')
-		pm.connectAttr(stretch_invert + '.outputX', splitJnt_2 + '.sy')
-		pm.connectAttr(stretch_invert + '.outputX', splitJnt_3 + '.sy')
-		pm.connectAttr(stretch_invert + '.outputX', splitJnt_4 + '.sy')
-
-		pm.connectAttr(stretch_invert + '.outputX', root_joint + '.sz')
-		pm.connectAttr(stretch_invert + '.outputX', splitJnt_1 + '.sz')
-		pm.connectAttr(stretch_invert + '.outputX', splitJnt_2 + '.sz')
-		pm.connectAttr(stretch_invert + '.outputX', splitJnt_3 + '.sz')
-		pm.connectAttr(stretch_invert + '.outputX', splitJnt_4 + '.sz')
-
-		stretch_squareRoot = pm.shadingNode('multiplyDivide', asUtility=1)
-		node_name = arm_dist.replace('dist', '02_squareRoot')
-		stretch_squareRoot.rename(node_name)
-
-		pm.connectAttr(arm_dist + '.distance', stretch_squareRoot + '.input1X')
-		stretch_squareRoot.operation.set(3)
-		stretch_squareRoot.input2X.set(.5)
-
-		stretch_invert = pm.shadingNode('multiplyDivide', asUtility=1)
-		node_name = arm_dist.replace('dist', '02_invert')
-		stretch_invert.rename(node_name)
-
-		pm.connectAttr(stretch_squareRoot + '.outputX', stretch_invert + '.input2X')
-		stretch_invert.operation.set(2)
-		stretch_invert.input1X.set(1)
-
-		pm.connectAttr(stretch_invert + '.outputX', joint_7 + '.sy')
-		pm.connectAttr(stretch_invert + '.outputX', joint_8 + '.sy')
-		pm.connectAttr(stretch_invert + '.outputX', joint_9 + '.sy')
-		pm.connectAttr(stretch_invert + '.outputX', joint_10 + '.sy')
-		pm.connectAttr(stretch_invert + '.outputX', joint_11 + '.sy')
-		pm.connectAttr(stretch_invert + '.outputX', rt_joint_12 + '.sy')
-
-		pm.connectAttr(stretch_invert + '.outputX', joint_7 + '.sz')
-		pm.connectAttr(stretch_invert + '.outputX', joint_8 + '.sz')
-		pm.connectAttr(stretch_invert + '.outputX', joint_9 + '.sz')
-		pm.connectAttr(stretch_invert + '.outputX', joint_10 + '.sz')
-		pm.connectAttr(stretch_invert + '.outputX', joint_11 + '.sz')
-		pm.connectAttr(stretch_invert + '.outputX', rt_joint_12 + '.sz')
-		'''
-		'''==========================================================================================================================='''
+		pm.keyTangent(rt_arm_ik_joint_2, rt_arm_ik_joint_3,'graphEditor1FromOutliner', itt='spline', animation='objects', ott='spline')
+		pm.setInfinity(rt_arm_ik_joint_2, rt_arm_ik_joint_3, poi='linear')
 
 		loc_3 = pm.spaceLocator(p=(0, 0, 0))
 		temp_constraint = pm.parentConstraint(root_joint, loc_3, mo=0)
@@ -6257,24 +6177,24 @@ def rt_armSetup(*args):
 		elbow_icon.elbowSnap.set(e=1, keyable=True)
 
 		upperArm_stretch = pm.shadingNode('blendColors', asUtility=1)
-		node_name = upperArm_info.replace('info', 'stretch_blend')
+		node_name = upperArm_info.replace('info', 'stretch_blend_01')
 		upperArm_stretch.rename(node_name)
 
 		pm.connectAttr(elbow_icon + '.elbowSnap', upperArm_stretch + '.blender')
 		pm.connectAttr(snap_dist_1 + '.distance', upperArm_stretch + '.color1R')
-		pm.connectAttr(ik_joint_2 + '_translateX.output', upperArm_stretch + '.color2R')
-		pm.disconnectAttr(ik_joint_2 + '_translateX.output', ik_joint_2 + '.tx')
-		pm.connectAttr(upperArm_stretch + '.outputR', ik_joint_2 + '.tx')
+		pm.connectAttr(rt_arm_ik_joint_2 + '_translateX.output', upperArm_stretch + '.color2R')
+		pm.disconnectAttr(rt_arm_ik_joint_2 + '_translateX.output', rt_arm_ik_joint_2 + '.tx')
+		pm.connectAttr(upperArm_stretch + '.outputR', rt_arm_ik_joint_2 + '.tx')
 
 		foreArm_stretch = pm.shadingNode('blendColors', asUtility=1)
-		node_name = foreArm_info.replace('info', 'stretch_blend')
+		node_name = foreArm_info.replace('info', 'stretch_blend_02')
 		foreArm_stretch.rename(node_name)
 
 		pm.connectAttr(elbow_icon + '.elbowSnap', foreArm_stretch + '.blender')
 		pm.connectAttr(snap_dist_2 + '.distance', foreArm_stretch + '.color1R')
-		pm.connectAttr(ik_joint_3 + '_translateX.output', foreArm_stretch + '.color2R')
-		pm.disconnectAttr(ik_joint_3 + '_translateX.output', ik_joint_3 + '.tx')
-		pm.connectAttr(foreArm_stretch + '.outputR', ik_joint_3 + '.tx')
+		pm.connectAttr(rt_arm_ik_joint_3 + '_translateX.output', foreArm_stretch + '.color2R')
+		pm.disconnectAttr(rt_arm_ik_joint_3 + '_translateX.output', rt_arm_ik_joint_3 + '.tx')
+		pm.connectAttr(foreArm_stretch + '.outputR', rt_arm_ik_joint_3 + '.tx')
 
 		hybrid_fk_icons = pm.duplicate(fk_pad_2)
 		pm.parent(hybrid_fk_icons, w=1)
@@ -6724,7 +6644,7 @@ def rt_armSetup(*args):
 	'''
 	Create the ik
 	'''
-	pm.select(rt_ik_root, ik_joint_3)
+	pm.select(rt_ik_root, rt_arm_ik_joint_3)
 	arm_ikh = pm.ikHandle()[0]
 
 	ikh_name = rt_arm_root.replace('bind', 'ikh')
@@ -6832,7 +6752,7 @@ def rt_armSetup(*args):
 	switch.IkFk.set(0)
 
 	upperArm_info = pm.shadingNode('curveInfo', asUtility=1)
-	node_name = rt_arm_root.replace('01_bind', 'info')
+	node_name = rt_arm_root.replace('bind', 'info')
 	upperArm_info.rename(node_name)
 
 	upperArm_div = pm.shadingNode('multiplyDivide', asUtility=1)
@@ -6968,84 +6888,22 @@ def rt_armSetup(*args):
 
 	pm.parentConstraint(rt_arm_icon, loc_2)
 
-	upperArm_len = pm.getAttr(ik_joint_2 + '.tx')
+	upperArm_len = pm.getAttr(rt_arm_ik_joint_2 + '.tx')
 
-	foreArm_len = pm.getAttr(ik_joint_3 + '.tx')
+	foreArm_len = pm.getAttr(rt_arm_ik_joint_3 + '.tx')
 
 	sumLen = upperArm_len + foreArm_len
 
-	pm.setDrivenKeyframe(ik_joint_2 + '.tx', currentDriver=arm_dist + '.distance', value=upperArm_len, driverValue=sumLen)
+	pm.setDrivenKeyframe(rt_arm_ik_joint_2 + '.tx', currentDriver=arm_dist + '.distance', value=upperArm_len, driverValue=sumLen)
 
-	pm.setDrivenKeyframe(ik_joint_2 + '.tx',  currentDriver=arm_dist + '.distance', value=(upperArm_len*2), driverValue=(sumLen*2))
+	pm.setDrivenKeyframe(rt_arm_ik_joint_2 + '.tx',  currentDriver=arm_dist + '.distance', value=(upperArm_len*2), driverValue=(sumLen*2))
 
-	pm.setDrivenKeyframe(ik_joint_3 + '.tx', currentDriver=arm_dist + '.distance', value=foreArm_len, driverValue=sumLen)
+	pm.setDrivenKeyframe(rt_arm_ik_joint_3 + '.tx', currentDriver=arm_dist + '.distance', value=foreArm_len, driverValue=sumLen)
 
-	pm.setDrivenKeyframe(ik_joint_3 + '.tx', currentDriver=arm_dist + '.distance', value=(foreArm_len*2), driverValue=(sumLen*2))
+	pm.setDrivenKeyframe(rt_arm_ik_joint_3 + '.tx', currentDriver=arm_dist + '.distance', value=(foreArm_len*2), driverValue=(sumLen*2))
 
-	pm.keyTangent(ik_joint_2, ik_joint_3,'graphEditor1FromOutliner', itt='spline', animation='objects', ott='spline')
-	pm.setInfinity(ik_joint_2, ik_joint_3, poi='linear')
-
-	'''	This is to fix preserve the volumn, but it doesn't work at the moment
-	stretch_squareRoot = pm.shadingNode('multiplyDivide', asUtility=1)
-	node_name = arm_dist.replace('dist', '01_squareRoot')
-	stretch_squareRoot.rename(node_name)
-
-	pm.connectAttr(arm_dist + '.distance', stretch_squareRoot + '.input1X')
-	stretch_squareRoot.operation.set(3)
-	stretch_squareRoot.input2X.set(.5)
-
-	stretch_invert = pm.shadingNode('multiplyDivide', asUtility=1)
-	node_name = arm_dist.replace('dist', '01_invert')
-	stretch_invert.rename(node_name)
-
-	pm.connectAttr(stretch_squareRoot + '.outputX', stretch_invert + '.input2X')
-	stretch_invert.operation.set(2)
-	stretch_invert.input1X.set(1)
-
-
-	pm.connectAttr(stretch_invert + '.outputX', root_joint + '.sy')
-	pm.connectAttr(stretch_invert + '.outputX', splitJnt_1 + '.sy')
-	pm.connectAttr(stretch_invert + '.outputX', splitJnt_2 + '.sy')
-	pm.connectAttr(stretch_invert + '.outputX', splitJnt_3 + '.sy')
-	pm.connectAttr(stretch_invert + '.outputX', splitJnt_4 + '.sy')
-
-	pm.connectAttr(stretch_invert + '.outputX', root_joint + '.sz')
-	pm.connectAttr(stretch_invert + '.outputX', splitJnt_1 + '.sz')
-	pm.connectAttr(stretch_invert + '.outputX', splitJnt_2 + '.sz')
-	pm.connectAttr(stretch_invert + '.outputX', splitJnt_3 + '.sz')
-	pm.connectAttr(stretch_invert + '.outputX', splitJnt_4 + '.sz')
-
-	stretch_squareRoot = pm.shadingNode('multiplyDivide', asUtility=1)
-	node_name = arm_dist.replace('dist', '02_squareRoot')
-	stretch_squareRoot.rename(node_name)
-
-	pm.connectAttr(arm_dist + '.distance', stretch_squareRoot + '.input1X')
-	stretch_squareRoot.operation.set(3)
-	stretch_squareRoot.input2X.set(.5)
-
-	stretch_invert = pm.shadingNode('multiplyDivide', asUtility=1)
-	node_name = arm_dist.replace('dist', '02_invert')
-	stretch_invert.rename(node_name)
-
-	pm.connectAttr(stretch_squareRoot + '.outputX', stretch_invert + '.input2X')
-	stretch_invert.operation.set(2)
-	stretch_invert.input1X.set(1)
-
-	pm.connectAttr(stretch_invert + '.outputX', joint_7 + '.sy')
-	pm.connectAttr(stretch_invert + '.outputX', joint_8 + '.sy')
-	pm.connectAttr(stretch_invert + '.outputX', joint_9 + '.sy')
-	pm.connectAttr(stretch_invert + '.outputX', joint_10 + '.sy')
-	pm.connectAttr(stretch_invert + '.outputX', joint_11 + '.sy')
-	pm.connectAttr(stretch_invert + '.outputX', rt_joint_12 + '.sy')
-
-	pm.connectAttr(stretch_invert + '.outputX', joint_7 + '.sz')
-	pm.connectAttr(stretch_invert + '.outputX', joint_8 + '.sz')
-	pm.connectAttr(stretch_invert + '.outputX', joint_9 + '.sz')
-	pm.connectAttr(stretch_invert + '.outputX', joint_10 + '.sz')
-	pm.connectAttr(stretch_invert + '.outputX', joint_11 + '.sz')
-	pm.connectAttr(stretch_invert + '.outputX', rt_joint_12 + '.sz')
-	'''
-	'''==========================================================================================================================='''
+	pm.keyTangent(rt_arm_ik_joint_2, rt_arm_ik_joint_3,'graphEditor1FromOutliner', itt='spline', animation='objects', ott='spline')
+	pm.setInfinity(rt_arm_ik_joint_2, rt_arm_ik_joint_3, poi='linear')
 
 	loc_3 = pm.spaceLocator(p=(0, 0, 0))
 	temp_constraint = pm.parentConstraint(root_joint, loc_3, mo=0)
@@ -7116,24 +6974,24 @@ def rt_armSetup(*args):
 	elbow_icon.elbowSnap.set(e=1, keyable=True)
 
 	upperArm_stretch = pm.shadingNode('blendColors', asUtility=1)
-	node_name = upperArm_info.replace('info', 'stretch_blend')
+	node_name = upperArm_info.replace('info', 'stretch_blend_01')
 	upperArm_stretch.rename(node_name)
 
 	pm.connectAttr(elbow_icon + '.elbowSnap', upperArm_stretch + '.blender')
 	pm.connectAttr(snap_dist_1 + '.distance', upperArm_stretch + '.color1R')
-	pm.connectAttr(ik_joint_2 + '_translateX.output', upperArm_stretch + '.color2R')
-	pm.disconnectAttr(ik_joint_2 + '_translateX.output', ik_joint_2 + '.tx')
-	pm.connectAttr(upperArm_stretch + '.outputR', ik_joint_2 + '.tx')
+	pm.connectAttr(rt_arm_ik_joint_2 + '_translateX.output', upperArm_stretch + '.color2R')
+	pm.disconnectAttr(rt_arm_ik_joint_2 + '_translateX.output', rt_arm_ik_joint_2 + '.tx')
+	pm.connectAttr(upperArm_stretch + '.outputR', rt_arm_ik_joint_2 + '.tx')
 
 	foreArm_stretch = pm.shadingNode('blendColors', asUtility=1)
-	node_name = foreArm_info.replace('info', 'stretch_blend')
+	node_name = upperArm_stretch.replace('01', '02')
 	foreArm_stretch.rename(node_name)
 
 	pm.connectAttr(elbow_icon + '.elbowSnap', foreArm_stretch + '.blender')
 	pm.connectAttr(snap_dist_2 + '.distance', foreArm_stretch + '.color1R')
-	pm.connectAttr(ik_joint_3 + '_translateX.output', foreArm_stretch + '.color2R')
-	pm.disconnectAttr(ik_joint_3 + '_translateX.output', ik_joint_3 + '.tx')
-	pm.connectAttr(foreArm_stretch + '.outputR', ik_joint_3 + '.tx')
+	pm.connectAttr(rt_arm_ik_joint_3 + '_translateX.output', foreArm_stretch + '.color2R')
+	pm.disconnectAttr(rt_arm_ik_joint_3 + '_translateX.output', rt_arm_ik_joint_3 + '.tx')
+	pm.connectAttr(foreArm_stretch + '.outputR', rt_arm_ik_joint_3 + '.tx')
 
 	hybrid_fk_icons = pm.duplicate(fk_pad_2)
 	pm.parent(hybrid_fk_icons, w=1)
@@ -7404,6 +7262,32 @@ def rt_armSetup(*args):
 	for each in selection:
 		pm.setAttr(each + '.visibility', 0)
 
+	pm.addAttr(rt_arm_icon, ln='stretch', at='bool')
+	unhideAttrs(rt_arm_icon, ['stretch'])
+
+	pm.disconnectAttr(upperArm_stretch + '.outputR', rt_arm_ik_joint_2 + '.translateX')
+	pm.disconnectAttr(foreArm_stretch + '.outputR', rt_arm_ik_joint_3  + '.translateX')
+
+	rt_arm_stretchBlend_switch = pm.shadingNode('blendColors', asUtility=1)
+	node_name = rt_arm_icon.replace('icon', 'stretchBlend_switch')
+	rt_arm_stretchBlend_switch.rename(node_name)
+
+	pm.connectAttr(foreArm_stretch + '.outputR', rt_arm_stretchBlend_switch + '.color1R')
+	pm.connectAttr(upperArm_stretch + '.outputR', rt_arm_stretchBlend_switch + '.color1G')
+
+	upperArm_stretch_len = pm.getAttr(rt_arm_stretchBlend_switch + '.color1R')
+	# print upperArm_stretch_len
+	rt_arm_stretchBlend_switch.color2R.set(upperArm_stretch_len)
+
+	foreArm_stretch_len = pm.getAttr(rt_arm_stretchBlend_switch + '.color1G')
+	# print foreArm_stretch_len
+	rt_arm_stretchBlend_switch.color2G.set(foreArm_stretch_len)
+
+	pm.connectAttr(rt_arm_stretchBlend_switch + '.outputR', rt_arm_ik_joint_2 + '.translateX')
+	pm.connectAttr(rt_arm_stretchBlend_switch + '.outputG', rt_arm_ik_joint_3 + '.translateX')
+
+	pm.connectAttr(rt_arm_icon + '.stretch', rt_arm_stretchBlend_switch + '.blender')
+
 def rt_fkArmSetup(*args):
 	pm.select(rt_arm_01_bind)
 	arm_system = pm.ls(sl=True, dag=True)
@@ -7539,11 +7423,11 @@ def rt_ikArmSetup(*args):
 	ik_joints = pm.duplicate(rt_arm_root)
 	ik_joints = pm.ls(sl=True, dag=True)
 	rt_ik_root = ik_joints[0]
-	ik_joint_2 = ik_joints[1]
-	ik_joint_3 = ik_joints[2]
+	lt_arm_ik_joint_2 = ik_joints[1]
+	lt_arm_ik_joint_3 = ik_joints[2]
 	# print 'Ik Root:', rt_ik_root
-	# print 'Ik Joint 2:', ik_joint_2
-	# print 'Ik Joint 3:', ik_joint_3
+	# print 'Ik Joint 2:', lt_arm_ik_joint_2
+	# print 'Ik Joint 3:', lt_arm_ik_joint_3
 
 	
 	for each in ik_joints:
@@ -7551,10 +7435,10 @@ def rt_ikArmSetup(*args):
 		rt_ik_root.rename(joint_name)
 
 	joint_name = rt_ik_root.replace('1', '2')
-	ik_joint_2.rename(joint_name)
+	lt_arm_ik_joint_2.rename(joint_name)
 
-	joint_name = ik_joint_2.replace('2', '3')
-	ik_joint_3.rename(joint_name)
+	joint_name = lt_arm_ik_joint_2.replace('2', '3')
+	lt_arm_ik_joint_3.rename(joint_name)
 
 	twist_joints = pm.duplicate(rt_arm_root)
 	pm.select(twist_joints)
@@ -7819,12 +7703,12 @@ def rt_ikArmSetup(*args):
 
 	'''================================================================================================================'''
 	pm.connectAttr(rt_ik_root + '.rotate', rt_arm_root + '.rotate')
-	pm.connectAttr(ik_joint_2 + '.rotate', arm_joint_2 + '.rotate')
-	pm.connectAttr(ik_joint_3 + '.rotate', arm_joint_3 + '.rotate')
+	pm.connectAttr(lt_arm_ik_joint_2 + '.rotate', arm_joint_2 + '.rotate')
+	pm.connectAttr(lt_arm_ik_joint_3 + '.rotate', arm_joint_3 + '.rotate')
 
 	pm.connectAttr(rt_ik_root + '.translate', rt_arm_root + '.translate')
-	pm.connectAttr(ik_joint_2 + '.translate', arm_joint_2 + '.translate')
-	pm.connectAttr(ik_joint_3 + '.translate', arm_joint_3 + '.translate')
+	pm.connectAttr(lt_arm_ik_joint_2 + '.translate', arm_joint_2 + '.translate')
+	pm.connectAttr(lt_arm_ik_joint_3 + '.translate', arm_joint_3 + '.translate')
 
 	'''
 	Create the arm icon
@@ -7845,7 +7729,7 @@ def rt_ikArmSetup(*args):
 	'''
 	Create the ik
 	'''
-	pm.select(rt_ik_root, ik_joint_3)
+	pm.select(rt_ik_root, lt_arm_ik_joint_3)
 	arm_ikh = pm.ikHandle()[0]
 
 	ikh_name = rt_arm_root.replace('bind', 'ikh')
@@ -8061,22 +7945,22 @@ def rt_ikArmSetup(*args):
 
 	pm.parentConstraint(rt_arm_icon, loc_2)
 
-	upperArm_len = pm.getAttr(ik_joint_2 + '.tx')
+	upperArm_len = pm.getAttr(lt_arm_ik_joint_2 + '.tx')
 
-	foreArm_len = pm.getAttr(ik_joint_3 + '.tx')
+	foreArm_len = pm.getAttr(lt_arm_ik_joint_3 + '.tx')
 
 	sumLen = upperArm_len + foreArm_len
 
-	pm.setDrivenKeyframe(ik_joint_2 + '.tx', currentDriver=arm_dist + '.distance', value=upperArm_len, driverValue=sumLen)
+	pm.setDrivenKeyframe(lt_arm_ik_joint_2 + '.tx', currentDriver=arm_dist + '.distance', value=upperArm_len, driverValue=sumLen)
 
-	pm.setDrivenKeyframe(ik_joint_2 + '.tx',  currentDriver=arm_dist + '.distance', value=(upperArm_len*2), driverValue=(sumLen*2))
+	pm.setDrivenKeyframe(lt_arm_ik_joint_2 + '.tx',  currentDriver=arm_dist + '.distance', value=(upperArm_len*2), driverValue=(sumLen*2))
 
-	pm.setDrivenKeyframe(ik_joint_3 + '.tx', currentDriver=arm_dist + '.distance', value=foreArm_len, driverValue=sumLen)
+	pm.setDrivenKeyframe(lt_arm_ik_joint_3 + '.tx', currentDriver=arm_dist + '.distance', value=foreArm_len, driverValue=sumLen)
 
-	pm.setDrivenKeyframe(ik_joint_3 + '.tx', currentDriver=arm_dist + '.distance', value=(foreArm_len*2), driverValue=(sumLen*2))
+	pm.setDrivenKeyframe(lt_arm_ik_joint_3 + '.tx', currentDriver=arm_dist + '.distance', value=(foreArm_len*2), driverValue=(sumLen*2))
 
-	pm.keyTangent(ik_joint_2, ik_joint_3,'graphEditor1FromOutliner', itt='spline', animation='objects', ott='spline')
-	pm.setInfinity(ik_joint_2, ik_joint_3, poi='linear')
+	pm.keyTangent(lt_arm_ik_joint_2, lt_arm_ik_joint_3,'graphEditor1FromOutliner', itt='spline', animation='objects', ott='spline')
+	pm.setInfinity(lt_arm_ik_joint_2, lt_arm_ik_joint_3, poi='linear')
 
 
 	'''==========================================================================================================================='''
@@ -8150,26 +8034,26 @@ def rt_ikArmSetup(*args):
 	elbow_icon.elbowSnap.set(e=1, keyable=True)
 
 	upperArm_stretch = pm.shadingNode('blendColors', asUtility=1)
-	node_name = upperArm_info.replace('info', 'stretch_blend')
+	node_name = upperArm_info.replace('info', 'stretch_blend_01')
 	upperArm_stretch.rename(node_name)
 
 	pm.connectAttr(elbow_icon + '.elbowSnap', upperArm_stretch + '.blender')
 	pm.connectAttr(snap_dist_1 + '.distance', upperArm_stretch + '.color1R')
-	pm.connectAttr(ik_joint_2 + '_translateX.output', upperArm_stretch + '.color2R')
-	pm.disconnectAttr(ik_joint_2 + '_translateX.output', ik_joint_2 + '.tx')
-	pm.connectAttr(upperArm_stretch + '.outputR', ik_joint_2 + '.tx')
+	pm.connectAttr(lt_arm_ik_joint_2 + '_translateX.output', upperArm_stretch + '.color2R')
+	pm.disconnectAttr(lt_arm_ik_joint_2 + '_translateX.output', lt_arm_ik_joint_2 + '.tx')
+	pm.connectAttr(upperArm_stretch + '.outputR', lt_arm_ik_joint_2 + '.tx')
 
 	foreArm_stretch = pm.shadingNode('blendColors', asUtility=1)
-	node_name = foreArm_info.replace('info', 'stretch_blend')
+	node_name = foreArm_info.replace('info', 'stretch_blend_02')
 	foreArm_stretch.rename(node_name)
 
 	pm.connectAttr(elbow_icon + '.elbowSnap', foreArm_stretch + '.blender')
 	pm.connectAttr(snap_dist_2 + '.distance', foreArm_stretch + '.color1R')
-	pm.connectAttr(ik_joint_3 + '_translateX.output', foreArm_stretch + '.color2R')
-	pm.disconnectAttr(ik_joint_3 + '_translateX.output', ik_joint_3 + '.tx')
-	pm.connectAttr(foreArm_stretch + '.outputR', ik_joint_3 + '.tx')
+	pm.connectAttr(lt_arm_ik_joint_3 + '_translateX.output', foreArm_stretch + '.color2R')
+	pm.disconnectAttr(lt_arm_ik_joint_3 + '_translateX.output', lt_arm_ik_joint_3 + '.tx')
+	pm.connectAttr(foreArm_stretch + '.outputR', lt_arm_ik_joint_3 + '.tx')
 
-	hybrid_fk_joints = pm.duplicate(ik_joint_2)
+	hybrid_fk_joints = pm.duplicate(lt_arm_ik_joint_2)
 	pm.parent(hybrid_fk_joints, w=1)
 
 	pm.select(hybrid_fk_joints)
@@ -8179,7 +8063,7 @@ def rt_ikArmSetup(*args):
 	# print hJ_1
 	# print hJ_2
 
-	jnt_name = ik_joint_2.replace('ik', 'hybridFk')
+	jnt_name = lt_arm_ik_joint_2.replace('ik', 'hybridFk')
 	hJ_1.rename(jnt_name)
 
 	jnt_name = hJ_1.replace('02', '03')
@@ -8188,10 +8072,10 @@ def rt_ikArmSetup(*args):
 
 	hybridFk_icon = pm.circle(c=(0, 0, 0), ch=2, d=3, ut=0, sw=360, s=8, r=2, tol=.02, nr=(2, 0, 0))[0]
 	# print 'Fk icon 2:', hybridFk_icon
-	temp_constraint = pm.parentConstraint(ik_joint_2, hybridFk_icon)
+	temp_constraint = pm.parentConstraint(lt_arm_ik_joint_2, hybridFk_icon)
 	pm.delete(temp_constraint)
 	hybridFk_pad = pm.group(empty=True)
-	temp_constraint = pm.parentConstraint(ik_joint_2, hybridFk_pad)
+	temp_constraint = pm.parentConstraint(lt_arm_ik_joint_2, hybridFk_pad)
 	pm.delete(temp_constraint)
 	pm.parent(hybridFk_icon, hybridFk_pad)
 	pm.select(hybridFk_icon)
@@ -8212,13 +8096,13 @@ def rt_ikArmSetup(*args):
 	'''
 	pm.addAttr(hybridFk_icon, ln='length', at='double', min=0, dv=1)
 	hybridFk_icon.length.set(e=1, keyable=True)
-	pm.setDrivenKeyframe(ik_joint_3 + '.tx', currentDriver=hybridFk_icon + '.length')
+	pm.setDrivenKeyframe(lt_arm_ik_joint_3 + '.tx', currentDriver=hybridFk_icon + '.length')
 	hybridFk_icon.length.set(0)
-	ik_joint_3.tx.set(0)
-	pm.setDrivenKeyframe(ik_joint_3 + '.tx', currentDriver=hybridFk_icon + '.length')
+	lt_arm_ik_joint_3.tx.set(0)
+	pm.setDrivenKeyframe(lt_arm_ik_joint_3 + '.tx', currentDriver=hybridFk_icon + '.length')
 	hybridFk_icon.length.set(1)
-	pm.keyTangent(ik_joint_3, 'graphEditor1FromOutliner', itt='spline', animation='objects', ott='spline')
-	pm.mel.selectKey(ik_joint_3 + '.tx', add=1, k=1, f=1)
+	pm.keyTangent(lt_arm_ik_joint_3, 'graphEditor1FromOutliner', itt='spline', animation='objects', ott='spline')
+	pm.mel.selectKey(lt_arm_ik_joint_3 + '.tx', add=1, k=1, f=1)
 	pm.setInfinity(poi='linear')
 
 	temp_constraint = pm.pointConstraint(elbow_icon, hJ_1, mo=0)
@@ -8272,7 +8156,20 @@ def rt_ikArmSetup(*args):
 	for each in selection:
 		pm.setAttr(each + '.visibility', 0)
 
-	pm.select(cl=1)
+	pm.disconnectAttr(upperArm_stretch + '.outputR', rt_arm_ik_joint_2 + '.translateX')
+	pm.disconnectAttr(foreArm_stretch + 'outputR', rt_arm_ik_joint_3  + '.translateX')
+
+	rt_arm_stretchBlend_switch = pm.shadingNode('blendColors', asUtility=1)
+	node_name = rt_arm_icon.replace('icon', 'stretchBlend_switch')
+	rt_arm_stretchBlend_switch.rename(node_name)
+
+	pm.connectAttr(foreArm_stretch + '.outputR', rt_arm_stretchBlend_switch + '.color1R')
+	pm.connectAttr(upperArm_stretch + '.outputR', rt_arm_stretchBlend_switch + '.output1G')
+
+	upperArm_stretch_len = pm.getAttr(upperArm_stretch + '.distance')
+	print upperArm_stretch_len
+	rt_arm_stretchBlend_switch.color2R.set(upperArm_stretch_len)
+	# pm.select(cl=1)
 
 def armSetup(*args):
 	lt_armSetup()
@@ -8446,8 +8343,8 @@ def lt_handSetup(*args):
 		lt_hand_local.rename(local_name)
 
 		pm.parent(lt_hand_icon, lt_hand_local)
-		freezeTransform(icon)
-		deleteHistory(icon)
+		freezeTransform(lt_hand_icon)
+		deleteHistory(lt_hand_icon)
 
 		local_const = pm.pointConstraint(lt_arm_joint_3, lt_hand_local)
 
@@ -8473,14 +8370,14 @@ def lt_handSetup(*args):
 		icon.localWorld.set(e=1, keyable=True)
 
 		world_const.set(0)
-		pm.setDrivenKeyframe(world_const, local_const, currentDriver= icon + '.localWorld')
+		pm.setDrivenKeyframe(world_const, local_const, currentDriver= lt_hand_icon + '.localWorld')
 		icon.localWorld.set(10)
 		world_const.set(1)
 		local_const.set(0)
-		pm.setDrivenKeyframe(world_const, local_const, currentDriver= icon + '.localWorld')
+		pm.setDrivenKeyframe(world_const, local_const, currentDriver= lt_hand_icon + '.localWorld')
 
 		pm.addAttr(lt_hand_icon, ln="fkVis", at='bool')
-		icon.fkVis.set(e=1, keyable=True)
+		lt_hand_icon.fkVis.set(e=1, keyable=True)
 
 def rt_handSetup(*args):
 	global rt_arm_joint_12, rt_arm_joint_3, rt_hand_root, rt_hand_joint_2, rt_hand_icon, rt_world_pad, rt_hand_local
@@ -8597,8 +8494,8 @@ def rt_handSetup(*args):
 		rt_hand_local.rename(local_name)
 
 		pm.parent(rt_hand_icon, rt_hand_local)
-		freezeTransform(icon)
-		deleteHistory(icon)
+		freezeTransform(rt_hand_icon)
+		deleteHistory(rt_hand_icon)
 
 		local_const = pm.pointConstraint(rt_arm_joint_3, rt_hand_local)
 
@@ -8624,14 +8521,14 @@ def rt_handSetup(*args):
 		icon.localWorld.set(e=1, keyable=True)
 
 		world_const.set(0)
-		pm.setDrivenKeyframe(world_const, local_const, currentDriver= icon + '.localWorld')
+		pm.setDrivenKeyframe(world_const, local_const, currentDriver= rt_hand_icon + '.localWorld')
 		icon.localWorld.set(10)
 		world_const.set(1)
 		local_const.set(0)
-		pm.setDrivenKeyframe(world_const, local_const, currentDriver= icon + '.localWorld')
+		pm.setDrivenKeyframe(world_const, local_const, currentDriver= rt_hand_icon + '.localWorld')
 
 		pm.addAttr(rt_hand_icon, ln="fkVis", at='bool')
-		icon.fkVis.set(e=1, keyable=True)
+		rt_hand_icon.fkVis.set(e=1, keyable=True)
 
 def handSetup(*args):
 	lt_handSetup()
@@ -8647,6 +8544,7868 @@ def handSystem(*args):
 		rt_handSetup()
 	if ori_selection_type == 3:
 		handSetup()
+
+def lt_twoFingerSelection(*args):
+	global lt_index_root, lt_index_joint_2, lt_index_joint_3, lt_index_joint_4, lt_index_joint_5 
+	global lt_pinky_root, lt_pinky_joint_2, lt_pinky_joint_3, lt_pinky_joint_4, lt_pinky_joint_5
+	global lt_thumb_pivot, lt_thumb_joint_1, lt_thumb_joint_2, lt_thumb_joint_3, lt_thumb_joint_4
+	pm.select(lt_index_01_bind, lt_pinky_01_bind, lt_thumb_01_pivot)
+	lt_twoFinger_selection = pm.ls(sl=1)
+	# print 'Two Finger Selection:', lt_twoFinger_selection
+
+	lt_index_joint_selection = lt_twoFinger_selection[0]
+	lt_pinky_joint_selection = lt_twoFinger_selection[1]
+	lt_thumb_joint_selection = lt_twoFinger_selection[2]
+	# print 'Index Joints:', lt_index_joint_selection
+	# print 'Pinky Joints:', lt_pinky_joint_selection
+	# print 'Thumb Joints:', lt_thumb_joint_selection
+	
+
+	lt_index_joints = pm.ls(lt_index_joint_selection, sl=1, dag=1)
+	lt_index_root = lt_index_joints[0]
+	lt_index_joint_2 = lt_index_joints[1]
+	lt_index_joint_3 = lt_index_joints[2]
+	lt_index_joint_4 = lt_index_joints[3]
+	lt_index_joint_5 = lt_index_joints[4]
+	# print 'Index Root:', lt_index_root
+	# print 'Index Joint 2:', lt_index_joint_2
+	# print 'Index Joint 3:', lt_index_joint_3
+	# print 'Index Joint 4:', lt_index_joint_4
+	# print 'Index Joint 5:', lt_index_joint_5
+
+	lt_pinky_joints = pm.ls(lt_pinky_joint_selection, sl=1, dag=1)
+	lt_pinky_root = lt_pinky_joints[0]
+	lt_pinky_joint_2 = lt_pinky_joints[1]
+	lt_pinky_joint_3 = lt_pinky_joints[2]
+	lt_pinky_joint_4 = lt_pinky_joints[3]
+	lt_pinky_joint_5 = lt_pinky_joints[4]
+	# print 'Pinky Root:', lt_pinky_root
+	# print 'Pinky Joint 2:', lt_pinky_joint_2
+	# print 'Pinky Joint 3:', lt_pinky_joint_3
+	# print 'Pinky Joint 4:', lt_pinky_joint_4
+	# print 'Pinky Joint 5:', lt_pinky_joint_5
+	
+
+	lt_thumb_joints = pm.ls(lt_thumb_joint_selection, sl=1, dag=1)
+	lt_thumb_pivot = lt_thumb_joints[0]
+	lt_thumb_joint_1 = lt_thumb_joints[1]
+	lt_thumb_joint_2 = lt_thumb_joints[2]
+	lt_thumb_joint_3 = lt_thumb_joints[3]
+	lt_thumb_joint_4 = lt_thumb_joints[4]
+	# print 'Thumb Pivot:', lt_thumb_pivot
+	# print 'Thumb Joint 2:', lt_thumb_joint_1
+	# print 'Thumb Joint 3:', lt_thumb_joint_2
+	# print 'Thumb Joint 4:', lt_thumb_joint_3
+	# print 'Thumb Joint 5:', lt_thumb_joint_4
+	
+
+	pm.select(cl=1)
+	lt_ik_twoFinger_setup()
+
+def lt_threeFingerSelection(*args):
+	global lt_index_root, lt_index_joint_2, lt_index_joint_3, lt_index_joint_4, lt_index_joint_5
+	global lt_middle_root, lt_middle_joint_2, lt_middle_joint_3, lt_middle_joint_4, lt_middle_joint_5  
+	global lt_pinky_root, lt_pinky_joint_2, lt_pinky_joint_3, lt_pinky_joint_4, lt_pinky_joint_5
+	global lt_thumb_pivot, lt_thumb_joint_1, lt_thumb_joint_2, lt_thumb_joint_3, lt_thumb_joint_4
+	pm.select(lt_index_01_bind, lt_middle_01_bind, lt_pinky_01_bind, lt_thumb_01_pivot)
+	lt_threeFinger_selection = pm.ls(sl=1)
+	# print 'Three Finger Selection:', lt_threeFinger_selection
+
+	lt_index_joint_selection = lt_threeFinger_selection[0]
+	lt_middle_joint_selection = lt_threeFinger_selection[1]
+	lt_pinky_joint_selection = lt_threeFinger_selection[2]
+	lt_thumb_joint_selection = lt_threeFinger_selection[3]
+	# print 'Index Joints:', lt_index_joint_selection
+	# print 'Middle Joints:', lt_middle_joint_selection
+	# print 'Pinky Joints:', lt_pinky_joint_selection
+	# print 'Thumb Joints:', lt_thumb_joint_selection
+	
+	lt_index_joints = pm.ls(lt_index_joint_selection, sl=1, dag=1)
+	lt_index_root = lt_index_joints[0]
+	lt_index_joint_2 = lt_index_joints[1]
+	lt_index_joint_3 = lt_index_joints[2]
+	lt_index_joint_4 = lt_index_joints[3]
+	lt_index_joint_5 = lt_index_joints[4]
+	# print 'Index Root:', lt_index_root
+	# print 'Index Joint 2:', lt_index_joint_2
+	# print 'Index Joint 3:', lt_index_joint_3
+	# print 'Index Joint 4:', lt_index_joint_4
+	# print 'Index Joint 5:', lt_index_joint_5
+
+	lt_middle_joints = pm.ls(lt_middle_joint_selection, sl=1, dag=1)
+	lt_middle_root = lt_middle_joints[0]
+	lt_middle_joint_2 = lt_middle_joints[1]
+	lt_middle_joint_3 = lt_middle_joints[2]
+	lt_middle_joint_4 = lt_middle_joints[3]
+	lt_middle_joint_5 = lt_middle_joints[4]
+	# print 'Middle Root:', lt_middle_root
+	# print 'Middle Joint 2:', lt_middle_joint_2
+	# print 'Middle Joint 3:', lt_middle_joint_3
+	# print 'Middle Joint 4:', lt_middle_joint_4
+	# print 'Middle Joint 5:', lt_middle_joint_5
+
+	lt_pinky_joints = pm.ls(lt_pinky_joint_selection, sl=1, dag=1)
+	lt_pinky_root = lt_pinky_joints[0]
+	lt_pinky_joint_2 = lt_pinky_joints[1]
+	lt_pinky_joint_3 = lt_pinky_joints[2]
+	lt_pinky_joint_4 = lt_pinky_joints[3]
+	lt_pinky_joint_5 = lt_pinky_joints[4]
+	# print 'Pinky Root:', lt_pinky_root
+	# print 'Pinky Joint 2:', lt_pinky_joint_2
+	# print 'Pinky Joint 3:', lt_pinky_joint_3
+	# print 'Pinky Joint 4:', lt_pinky_joint_4
+	# print 'Pinky Joint 5:', lt_pinky_joint_5
+	
+
+	lt_thumb_joints = pm.ls(lt_thumb_joint_selection, sl=1, dag=1)
+	lt_thumb_pivot = lt_thumb_joints[0]
+	lt_thumb_joint_1 = lt_thumb_joints[1]
+	lt_thumb_joint_2 = lt_thumb_joints[2]
+	lt_thumb_joint_3 = lt_thumb_joints[3]
+	lt_thumb_joint_4 = lt_thumb_joints[4]
+	# print 'Thumb Pivot:', lt_thumb_pivot
+	# print 'Thumb Joint 2:', lt_thumb_joint_1
+	# print 'Thumb Joint 3:', lt_thumb_joint_2
+	# print 'Thumb Joint 4:', lt_thumb_joint_3
+	# print 'Thumb Joint 5:', lt_thumb_joint_4
+
+	pm.select(cl=1)
+	lt_ik_threeFinger_setup()
+
+def lt_fiveFingerSelection(*args):
+	global lt_index_root, lt_index_joint_2, lt_index_joint_3, lt_index_joint_4, lt_index_joint_5
+	global lt_middle_root, lt_middle_joint_2, lt_middle_joint_3, lt_middle_joint_4, lt_middle_joint_5
+	global lt_ring_root, lt_ring_joint_2, lt_ring_joint_3, lt_ring_joint_4, lt_ring_joint_5  
+	global lt_pinky_root, lt_pinky_joint_2, lt_pinky_joint_3, lt_pinky_joint_4, lt_pinky_joint_5
+	global lt_thumb_pivot, lt_thumb_joint_1, lt_thumb_joint_2, lt_thumb_joint_3, lt_thumb_joint_4
+	pm.select(lt_index_01_bind, lt_middle_01_bind, lt_ring_01_bind, lt_pinky_01_bind, lt_thumb_01_pivot)
+	lt_fiveFinger_selection = pm.ls(sl=1)
+	# print 'Five Finger Selection:', lt_fiveFinger_selection
+
+	lt_index_joint_selection = lt_fiveFinger_selection[0]
+	lt_middle_joint_selection = lt_fiveFinger_selection[1]
+	lt_ring_joint_selection = lt_fiveFinger_selection[2]
+	lt_pinky_joint_selection = lt_fiveFinger_selection[3]
+	lt_thumb_joint_selection = lt_fiveFinger_selection[4]
+	# print 'Index Joints:', lt_index_joint_selection
+	# print 'Middle Joints:', lt_middle_joint_selection
+	# print 'Ring Joints:', lt_ring_joint_selection
+	# print 'Pinky Joints:', lt_pinky_joint_selection
+	# print 'Thumb Joints:', lt_thumb_joint_selection
+	
+	lt_index_joints = pm.ls(lt_index_joint_selection, sl=1, dag=1)
+	lt_index_root = lt_index_joints[0]
+	lt_index_joint_2 = lt_index_joints[1]
+	lt_index_joint_3 = lt_index_joints[2]
+	lt_index_joint_4 = lt_index_joints[3]
+	lt_index_joint_5 = lt_index_joints[4]
+	# print 'Index Root:', lt_index_root
+	# print 'Index Joint 2:', lt_index_joint_2
+	# print 'Index Joint 3:', lt_index_joint_3
+	# print 'Index Joint 4:', lt_index_joint_4
+	# print 'Index Joint 5:', lt_index_joint_5
+
+	lt_middle_joints = pm.ls(lt_middle_joint_selection, sl=1, dag=1)
+	lt_middle_root = lt_middle_joints[0]
+	lt_middle_joint_2 = lt_middle_joints[1]
+	lt_middle_joint_3 = lt_middle_joints[2]
+	lt_middle_joint_4 = lt_middle_joints[3]
+	lt_middle_joint_5 = lt_middle_joints[4]
+	# print 'Middle Root:', lt_middle_root
+	# print 'Middle Joint 2:', lt_middle_joint_2
+	# print 'Middle Joint 3:', lt_middle_joint_3
+	# print 'Middle Joint 4:', lt_middle_joint_4
+	# print 'Middle Joint 5:', lt_middle_joint_5
+
+	lt_ring_joints = pm.ls(lt_ring_joint_selection, sl=1, dag=1)
+	lt_ring_root = lt_ring_joints[0]
+	lt_ring_joint_2 = lt_ring_joints[1]
+	lt_ring_joint_3 = lt_ring_joints[2]
+	lt_ring_joint_4 = lt_ring_joints[3]
+	lt_ring_joint_5 = lt_ring_joints[4]
+	# print 'Ring Root:', lt_ring_root
+	# print 'Ring Joint 2:', lt_ring_joint_2
+	# print 'Ring Joint 3:', lt_ring_joint_3
+	# print 'Ring Joint 4:', lt_ring_joint_4
+	# print 'Ring Joint 5:', lt_ring_joint_5
+
+	lt_pinky_joints = pm.ls(lt_pinky_joint_selection, sl=1, dag=1)
+	lt_pinky_root = lt_pinky_joints[0]
+	lt_pinky_joint_2 = lt_pinky_joints[1]
+	lt_pinky_joint_3 = lt_pinky_joints[2]
+	lt_pinky_joint_4 = lt_pinky_joints[3]
+	lt_pinky_joint_5 = lt_pinky_joints[4]
+	# print 'Pinky Root:', lt_pinky_root
+	# print 'Pinky Joint 2:', lt_pinky_joint_2
+	# print 'Pinky Joint 3:', lt_pinky_joint_3
+	# print 'Pinky Joint 4:', lt_pinky_joint_4
+	# print 'Pinky Joint 5:', lt_pinky_joint_5
+
+	lt_thumb_joints = pm.ls(lt_thumb_joint_selection, sl=1, dag=1)
+	lt_thumb_pivot = lt_thumb_joints[0]
+	lt_thumb_joint_1 = lt_thumb_joints[1]
+	lt_thumb_joint_2 = lt_thumb_joints[2]
+	lt_thumb_joint_3 = lt_thumb_joints[3]
+	lt_thumb_joint_4 = lt_thumb_joints[4]
+	# print 'Thumb Pivot:', lt_thumb_pivot
+	# print 'Thumb Joint 2:', lt_thumb_joint_1
+	# print 'Thumb Joint 3:', lt_thumb_joint_2
+	# print 'Thumb Joint 4:', lt_thumb_joint_3
+	# print 'Thumb Joint 5:', lt_thumb_joint_4
+
+	pm.select(cl=1)
+	lt_ik_fiveFinger_setup()
+
+def lt_ik_twoFinger_setup(*args):
+	global lt_hand_base
+	'''
+	Create the finger parent joint
+	'''
+	lt_hand_base = pm.joint()
+
+	temp_constraint = pm.parentConstraint(lt_hand_root, lt_hand_base, mo=0)
+	pm.delete(temp_constraint)
+
+	joint_name = lt_hand_root.replace('01_bind', 'temp')
+	lt_hand_base.rename(joint_name)
+
+	pm.parent(lt_hand_base, w=1)
+
+	'''
+	Unparent the lt_thumb_01 from the pivot
+	'''
+	pm.parent(lt_thumb_joint_1, w=1)
+	pm.select(lt_hand_base)
+	freezeTransform()
+	'''
+	Parent the finger joints under the base joint
+	'''
+	pm.parent(lt_index_root, lt_pinky_root, lt_thumb_01_pivot, lt_hand_base)
+	
+	'''
+	Orient the Joints
+	'''
+	pm.joint(lt_hand_base, zso=1, ch=1, e=1, oj='xyz', secondaryAxisOrient='ydown')
+	
+	
+	'''
+	Parent the lt_thumb_01 back to the pivot
+	'''
+	pm.parent(lt_thumb_joint_1, lt_thumb_pivot)
+	pm.parent(lt_thumb_pivot, lt_hand_base)
+
+	pm.parent(lt_index_root, lt_pinky_root, lt_thumb_pivot, w=1)
+
+	lt_twoFingers_and_thumb()	
+
+def lt_ik_threeFinger_setup(*args):
+	global lt_hand_base
+	'''
+	Create the finger parent joint
+	'''
+	lt_hand_base = pm.joint()
+
+	temp_constraint = pm.parentConstraint(lt_hand_root, lt_hand_base, mo=0)
+	pm.delete(temp_constraint)
+
+	joint_name = lt_hand_root.replace('01_bind', 'temp')
+	lt_hand_base.rename(joint_name)
+
+	pm.parent(lt_hand_base, w=1)
+
+	'''
+	Un=parent the lt_thumb_01 from the pivot
+	'''
+	pm.parent(lt_thumb_joint_1, w=1)
+	pm.select(lt_hand_base)
+	freezeTransform()
+	'''
+	Parent the finger joints under the base joint
+	'''
+	pm.parent(lt_index_root, lt_middle_root, lt_pinky_root, lt_thumb_joint_1, lt_hand_base)
+	
+	'''
+	Orient the Joints
+	'''
+	pm.joint(lt_hand_base, zso=1, ch=1, e=1, oj='xyz', secondaryAxisOrient='ydown')
+	
+	
+	'''
+	Parent the lt_thumb_01 back to the pivot
+	'''
+	pm.parent(lt_thumb_joint_1, lt_thumb_pivot)
+	pm.parent(lt_thumb_pivot, lt_hand_base)
+
+	pm.parent(lt_index_root, lt_middle_root, lt_pinky_root, lt_thumb_pivot, w=1)
+
+	lt_threeFingers_and_thumb()
+
+def lt_ik_fiveFinger_setup(*args):
+	global lt_hand_base
+	'''
+	Create the finger parent joint
+	'''
+	lt_hand_base = pm.joint()
+
+	temp_constraint = pm.parentConstraint(lt_hand_root, lt_hand_base, mo=0)
+	pm.delete(temp_constraint)
+
+	joint_name = lt_hand_root.replace('01_bind', 'temp')
+	lt_hand_base.rename(joint_name)
+
+	pm.parent(lt_hand_base, w=1)
+
+	'''
+	Un=parent the lt_thumb_01 from the pivot
+	'''
+	pm.parent(lt_thumb_joint_1, w=1)
+	pm.select(lt_hand_base)
+	freezeTransform()
+	'''
+	Parent the finger joints under the base joint
+	'''
+	pm.parent(lt_index_root, lt_middle_root, lt_ring_root, lt_pinky_root, lt_thumb_joint_1, lt_hand_base)
+	
+	'''
+	Orient the Joints
+	'''
+	pm.joint(lt_hand_base, zso=1, ch=1, e=1, oj='xyz', secondaryAxisOrient='ydown')
+	
+	
+	'''
+	Parent the lt_thumb_01 back to the pivot
+	'''
+	pm.parent(lt_thumb_joint_1, lt_thumb_pivot)
+	pm.parent(lt_thumb_pivot, lt_hand_base)
+
+	pm.parent(lt_index_root, lt_middle_root, lt_ring_root, lt_pinky_root, lt_thumb_pivot, w=1)
+
+	lt_five_finger_setup()
+
+def lt_indexSetup(*args):
+	global lt_index_fk_root, lt_index_fk_joint_2, lt_index_fk_joint_3, lt_index_fk_joint_4, lt_index_fk_joint_5
+	global lt_index_fkOri_root, lt_index_fkOri_joint_2, lt_index_fkOri_joint_3, lt_index_fkOri_joint_4, lt_index_fkOri_joint_5
+	global lt_index_01_local
+	pm.select()
+	'''
+	Index
+	'''
+
+	lt_index_joint_5.jointOrientX.set(0)
+	lt_index_root.rotateOrder.set(5)
+	lt_index_joint_2.rotateOrder.set(5)
+	lt_index_joint_3.rotateOrder.set(5)
+	lt_index_joint_4.rotateOrder.set(5)
+	lt_index_joint_5.rotateOrder.set(5)
+	'''
+	Duplicate the bind for the "Ori" joints
+	'''
+	lt_index_ori_joint_system = pm.duplicate(lt_index_root)
+	lt_index_ori_joints = pm.ls(lt_index_ori_joint_system, sl=1, dag=1)
+	# print 'Index Ori Joints:', lt_index_ori_joints
+	lt_index_ori_root = lt_index_ori_joints[0]
+	lt_index_ori_joint_2 = lt_index_ori_joints[1]
+	lt_index_ori_joint_3 = lt_index_ori_joints[2]
+	lt_index_ori_joint_4 = lt_index_ori_joints[3]
+	lt_index_ori_joint_5 = lt_index_ori_joints[4]
+
+	pm.mel.searchReplaceNames('bind', 'ori', 'hierarchy')
+	pm.mel.searchReplaceNames('waste', 'ori', 'hierarchy')
+	joint_name = lt_index_root.replace('bind', 'ori')
+	lt_index_ori_root.rename(joint_name)
+
+	'''
+	Parent the ori and bind
+	'''
+
+	pm.parent(lt_index_ori_root, lt_index_root)
+	pm.parent(lt_index_ori_joint_2, lt_index_joint_2)
+	pm.parent(lt_index_joint_2, lt_index_ori_root)
+
+	pm.parent(lt_index_ori_joint_3, lt_index_joint_3)
+	pm.parent(lt_index_joint_3, lt_index_ori_joint_2)
+
+	pm.parent(lt_index_ori_joint_4, lt_index_joint_4)
+	pm.parent(lt_index_joint_4, lt_index_ori_joint_3)
+
+	pm.parent(lt_index_ori_joint_5, lt_index_joint_5)
+	pm.parent(lt_index_joint_5, lt_index_ori_joint_4)
+
+	'''
+	Creat the fk joints
+	'''
+
+	lt_index_fk_joint_system = pm.duplicate(lt_index_root)
+	pm.select(lt_index_fk_joint_system)
+	lt_index_fk_joints = pm.ls(lt_index_fk_joint_system, sl=1, dag=1)
+	# print 'Index Fk Joints:', lt_index_fk_joints
+	lt_index_fk_root = lt_index_fk_joints[0]
+	lt_index_fkOri_root = lt_index_fk_joints[1]
+
+	lt_index_fk_joint_2 = lt_index_fk_joints[2]
+	lt_index_fkOri_joint_2 = lt_index_fk_joints[3]
+
+	lt_index_fk_joint_3 = lt_index_fk_joints[4]
+	lt_index_fkOri_joint_3 = lt_index_fk_joints[5]
+
+	lt_index_fk_joint_4 = lt_index_fk_joints[6]
+	lt_index_fkOri_joint_4 = lt_index_fk_joints[7]
+
+	lt_index_fk_joint_5 = lt_index_fk_joints[8]
+	lt_index_fkOri_joint_5 = lt_index_fk_joints[9]
+
+	pm.mel.searchReplaceNames('bind', 'fk', 'hierarchy')
+	pm.mel.searchReplaceNames('waste', 'fk', 'hierarchy')
+	pm.mel.searchReplaceNames('ori', 'fkOri', 'hierarchy')
+	joint_name = lt_index_root.replace('bind', 'fk')
+	lt_index_fk_root.rename(joint_name)
+	# print 'Fk Ori Root Joint:', lt_index_fkOri_root
+
+	'''
+	Create the fk icons
+	'''
+
+	# Icon I
+	lt_index_01_icon = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=1, tol=0.01, nr=(0, 0, 1))[0]
+
+	temp_constraint = pm.parentConstraint(lt_index_fk_root, lt_index_01_icon, mo=0)
+	pm.delete(temp_constraint)
+	freezeTransform()
+
+	icon_name = lt_index_fk_root.replace('fk', 'icon')
+	lt_index_01_icon.rename(icon_name)
+
+	lt_index_01_local = pm.group(empty=1)
+	temp_constraint = pm.parentConstraint(lt_index_fk_root, lt_index_01_local, mo=0)
+	pm.delete(temp_constraint)
+
+	local_name = lt_index_01_icon.replace('icon', 'local')
+	lt_index_01_local.rename(local_name)
+
+	pm.parent(lt_index_01_icon, lt_index_01_local)
+	freezeTransform()
+
+	pm.parent(lt_index_fk_root, lt_index_01_icon)
+
+	# Icon II
+	lt_index_02_icon = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=1, tol=0.01, nr=(0, 0, 1))[0]
+	temp_constraint = pm.parentConstraint(lt_index_fk_joint_2, lt_index_02_icon, mo=0)
+	pm.delete(temp_constraint)
+	freezeTransform()
+
+	icon_name = lt_index_01_icon.replace('01', '02')
+	lt_index_02_icon.rename(icon_name)
+
+
+	lt_index_02_local = pm.group(empty=1)
+	temp_constraint = pm.parentConstraint(lt_index_fk_joint_2, lt_index_02_local, mo=0)
+	pm.delete(temp_constraint)
+
+	local_name = lt_index_02_icon.replace('icon', 'local')
+	lt_index_02_local.rename(local_name)
+
+	pm.parent(lt_index_02_local, lt_index_fkOri_root)
+
+	pm.parent(lt_index_02_icon, lt_index_02_local)
+	freezeTransform()
+
+	pm.parent(lt_index_02_local, lt_index_fkOri_root)
+
+	pm.parent(lt_index_fk_joint_2, lt_index_02_icon)
+
+	# Icon III
+	lt_index_03_icon = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=1, tol=0.01, nr=(0, 0, 1))[0]
+	temp_constraint = pm.parentConstraint(lt_index_fk_joint_3, lt_index_03_icon, mo=0)
+	pm.delete(temp_constraint)
+	freezeTransform()
+
+	icon_name = lt_index_02_icon.replace('02', '03')
+	lt_index_03_icon.rename(icon_name)
+
+
+	lt_index_03_local = pm.group(empty=1)
+	temp_constraint = pm.parentConstraint(lt_index_fk_joint_3, lt_index_03_local, mo=0)
+	pm.delete(temp_constraint)
+
+	local_name = lt_index_03_icon.replace('icon', 'local')
+	lt_index_03_local.rename(local_name)
+
+	pm.parent(lt_index_03_local, lt_index_fkOri_joint_2)
+
+	pm.parent(lt_index_03_icon, lt_index_03_local)
+	freezeTransform()
+
+	pm.parent(lt_index_03_local, lt_index_fkOri_joint_2)
+
+	pm.parent(lt_index_fk_joint_3, lt_index_03_icon)
+
+	# Icon IV
+	lt_index_04_icon = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=1, tol=0.01, nr=(0, 0, 1))[0]
+	temp_constraint = pm.parentConstraint(lt_index_fk_joint_4, lt_index_04_icon, mo=0)
+	pm.delete(temp_constraint)
+	freezeTransform()
+
+	icon_name = lt_index_03_icon.replace('03', '04')
+	lt_index_04_icon.rename(icon_name)
+
+
+	lt_index_04_local = pm.group(empty=1)
+	temp_constraint = pm.parentConstraint(lt_index_fk_joint_4, lt_index_04_local, mo=0)
+	pm.delete(temp_constraint)
+
+	local_name = lt_index_04_icon.replace('icon', 'local')
+	lt_index_04_local.rename(local_name)
+
+	pm.parent(lt_index_04_local, lt_index_fkOri_joint_2)
+
+	pm.parent(lt_index_04_icon, lt_index_04_local)
+	freezeTransform()
+
+	pm.parent(lt_index_04_local, lt_index_fkOri_joint_3)
+
+	pm.parent(lt_index_fk_joint_4, lt_index_04_icon)
+
+
+	'''
+	Delete History on icons
+	'''
+	pm.select(lt_index_01_icon)
+	deleteHistory()
+
+
+	'''
+	Connect the fk joints to the bind
+	'''
+	pm.orientConstraint(lt_index_01_icon, lt_index_root, mo=1)
+	pm.orientConstraint(lt_index_02_icon, lt_index_joint_2, mo=1)
+	pm.orientConstraint(lt_index_03_icon, lt_index_joint_3, mo=1)
+	pm.orientConstraint(lt_index_04_icon, lt_index_joint_4, mo=1)
+	pm.orientConstraint(lt_index_04_icon, lt_index_joint_5, mo=1)
+
+	'''
+	Connect the fkOri joints to the ori
+	'''
+	pm.connectAttr(lt_index_fkOri_root + '.rotate', lt_index_ori_root + '.rotate')
+	pm.connectAttr(lt_index_fkOri_joint_2 + '.rotate', lt_index_ori_joint_2 + '.rotate')
+	pm.connectAttr(lt_index_fkOri_joint_3 + '.rotate', lt_index_ori_joint_3 + '.rotate')
+	pm.connectAttr(lt_index_fkOri_joint_4 + '.rotate', lt_index_ori_joint_4 + '.rotate')
+	pm.connectAttr(lt_index_fkOri_joint_5 + '.rotate', lt_index_ori_joint_5 + '.rotate')
+
+	pm.connectAttr(lt_index_fkOri_joint_2 + '.translate', lt_index_ori_joint_2 + '.translate')
+	pm.connectAttr(lt_index_fkOri_joint_3 + '.translate', lt_index_ori_joint_3 + '.translate')
+	pm.connectAttr(lt_index_fkOri_joint_4 + '.translate', lt_index_ori_joint_4 + '.translate')
+
+def lt_middleSetup(*args):
+	global lt_middle_fk_root, lt_middle_fk_joint_2, lt_middle_fk_joint_3, lt_middle_fk_joint_4, lt_middle_fk_joint_5
+	global lt_middle_fkOri_root, lt_middle_fkOri_joint_2, lt_middle_fkOri_joint_3, lt_middle_fkOri_joint_4, lt_middle_fkOri_joint_5
+	global lt_middle_01_local
+	'''
+	Middle
+	'''
+
+	lt_middle_joint_5.jointOrientX.set(0)
+	lt_middle_root.rotateOrder.set(5)
+	lt_middle_joint_2.rotateOrder.set(5)
+	lt_middle_joint_3.rotateOrder.set(5)
+	lt_middle_joint_4.rotateOrder.set(5)
+	lt_middle_joint_5.rotateOrder.set(5)
+	'''
+	Duplicate the bind for the "Ori" joints
+	'''
+	lt_middle_joint_dups = pm.duplicate(lt_middle_root)
+	pm.select(lt_middle_joint_dups)
+	lt_middle_ori_joint_system = pm.ls(sl=1,dag=1)
+	print 'Middle ori joint system:', lt_middle_ori_joint_system
+	lt_middle_ori_joints = pm.ls(lt_middle_ori_joint_system, sl=1, dag=1)
+	print 'Middle Ori Joints:', lt_middle_ori_joints
+	lt_middle_ori_root = lt_middle_ori_joints[0]
+	lt_middle_ori_joint_2 = lt_middle_ori_joints[1]
+	lt_middle_ori_joint_3 = lt_middle_ori_joints[2]
+	lt_middle_ori_joint_4 = lt_middle_ori_joints[3]
+	lt_middle_ori_joint_5 = lt_middle_ori_joints[4]
+
+	pm.mel.searchReplaceNames('bind', 'ori', 'hierarchy')
+	pm.mel.searchReplaceNames('waste', 'ori', 'hierarchy')
+	joint_name = lt_middle_root.replace('bind', 'ori')
+	lt_middle_ori_root.rename(joint_name)
+
+	'''
+	Parent the ori and bind
+	'''
+
+	pm.parent(lt_middle_ori_root, lt_middle_root)
+	pm.parent(lt_middle_ori_joint_2, lt_middle_joint_2)
+	pm.parent(lt_middle_joint_2, lt_middle_ori_root)
+
+	pm.parent(lt_middle_ori_joint_3, lt_middle_joint_3)
+	pm.parent(lt_middle_joint_3, lt_middle_ori_joint_2)
+
+	pm.parent(lt_middle_ori_joint_4, lt_middle_joint_4)
+	pm.parent(lt_middle_joint_4, lt_middle_ori_joint_3)
+
+	pm.parent(lt_middle_ori_joint_5, lt_middle_joint_5)
+	pm.parent(lt_middle_joint_5, lt_middle_ori_joint_4)
+
+	'''
+	Creat the fk joints
+	'''
+
+	lt_middle_fk_joint_system = pm.duplicate(lt_middle_root)
+	pm.select(lt_middle_fk_joint_system)
+	lt_middle_fk_joints = pm.ls(lt_middle_fk_joint_system, sl=1, dag=1)
+	# print 'Index Fk Joints:', lt_middle_fk_joints
+	lt_middle_fk_root = lt_middle_fk_joints[0]
+	lt_middle_fkOri_root = lt_middle_fk_joints[1]
+
+	lt_middle_fk_joint_2 = lt_middle_fk_joints[2]
+	lt_middle_fkOri_joint_2 = lt_middle_fk_joints[3]
+
+	lt_middle_fk_joint_3 = lt_middle_fk_joints[4]
+	lt_middle_fkOri_joint_3 = lt_middle_fk_joints[5]
+
+	lt_middle_fk_joint_4 = lt_middle_fk_joints[6]
+	lt_middle_fkOri_joint_4 = lt_middle_fk_joints[7]
+
+	lt_middle_fk_joint_5 = lt_middle_fk_joints[8]
+	lt_middle_fkOri_joint_5 = lt_middle_fk_joints[9]
+
+	pm.mel.searchReplaceNames('bind', 'fk', 'hierarchy')
+	pm.mel.searchReplaceNames('waste', 'fk', 'hierarchy')
+	pm.mel.searchReplaceNames('ori', 'fkOri', 'hierarchy')
+	joint_name = lt_middle_root.replace('bind', 'fk')
+	lt_middle_fk_root.rename(joint_name)
+	# print 'Fk Ori Root Joint:', lt_middle_fkOri_root
+
+	'''
+	Create the fk icons
+	'''
+
+	# Icon I
+	lt_middle_01_icon = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=1, tol=0.01, nr=(0, 0, 1))[0]
+
+	temp_constraint = pm.parentConstraint(lt_middle_fk_root, lt_middle_01_icon, mo=0)
+	pm.delete(temp_constraint)
+	freezeTransform()
+
+	icon_name = lt_middle_fk_root.replace('fk', 'icon')
+	lt_middle_01_icon.rename(icon_name)
+
+	lt_middle_01_local = pm.group(empty=1)
+	temp_constraint = pm.parentConstraint(lt_middle_fk_root, lt_middle_01_local, mo=0)
+	pm.delete(temp_constraint)
+
+	local_name = lt_middle_01_icon.replace('icon', 'local')
+	lt_middle_01_local.rename(local_name)
+
+	pm.parent(lt_middle_01_icon, lt_middle_01_local)
+	freezeTransform()
+
+	pm.parent(lt_middle_fk_root, lt_middle_01_icon)
+
+	# Icon II
+	lt_middle_02_icon = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=1, tol=0.01, nr=(0, 0, 1))[0]
+	temp_constraint = pm.parentConstraint(lt_middle_fk_joint_2, lt_middle_02_icon, mo=0)
+	pm.delete(temp_constraint)
+	freezeTransform()
+
+	icon_name = lt_middle_01_icon.replace('01', '02')
+	lt_middle_02_icon.rename(icon_name)
+
+
+	lt_middle_02_local = pm.group(empty=1)
+	temp_constraint = pm.parentConstraint(lt_middle_fk_joint_2, lt_middle_02_local, mo=0)
+	pm.delete(temp_constraint)
+
+	local_name = lt_middle_02_icon.replace('icon', 'local')
+	lt_middle_02_local.rename(local_name)
+
+	pm.parent(lt_middle_02_local, lt_middle_fkOri_root)
+
+	pm.parent(lt_middle_02_icon, lt_middle_02_local)
+	freezeTransform()
+
+	pm.parent(lt_middle_02_local, lt_middle_fkOri_root)
+
+	pm.parent(lt_middle_fk_joint_2, lt_middle_02_icon)
+
+	# Icon III
+	lt_middle_03_icon = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=1, tol=0.01, nr=(0, 0, 1))[0]
+	temp_constraint = pm.parentConstraint(lt_middle_fk_joint_3, lt_middle_03_icon, mo=0)
+	pm.delete(temp_constraint)
+	freezeTransform()
+
+	icon_name = lt_middle_02_icon.replace('02', '03')
+	lt_middle_03_icon.rename(icon_name)
+
+
+	lt_middle_03_local = pm.group(empty=1)
+	temp_constraint = pm.parentConstraint(lt_middle_fk_joint_3, lt_middle_03_local, mo=0)
+	pm.delete(temp_constraint)
+
+	local_name = lt_middle_03_icon.replace('icon', 'local')
+	lt_middle_03_local.rename(local_name)
+
+	pm.parent(lt_middle_03_local, lt_middle_fkOri_joint_2)
+
+	pm.parent(lt_middle_03_icon, lt_middle_03_local)
+	freezeTransform()
+
+	pm.parent(lt_middle_03_local, lt_middle_fkOri_joint_2)
+
+	pm.parent(lt_middle_fk_joint_3, lt_middle_03_icon)
+
+	# Icon IV
+	lt_middle_04_icon = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=1, tol=0.01, nr=(0, 0, 1))[0]
+	temp_constraint = pm.parentConstraint(lt_middle_fk_joint_4, lt_middle_04_icon, mo=0)
+	pm.delete(temp_constraint)
+	freezeTransform()
+
+	icon_name = lt_middle_03_icon.replace('03', '04')
+	lt_middle_04_icon.rename(icon_name)
+
+
+	lt_middle_04_local = pm.group(empty=1)
+	temp_constraint = pm.parentConstraint(lt_middle_fk_joint_4, lt_middle_04_local, mo=0)
+	pm.delete(temp_constraint)
+
+	local_name = lt_middle_04_icon.replace('icon', 'local')
+	lt_middle_04_local.rename(local_name)
+
+	pm.parent(lt_middle_04_local, lt_middle_fkOri_joint_2)
+
+	pm.parent(lt_middle_04_icon, lt_middle_04_local)
+	freezeTransform()
+
+	pm.parent(lt_middle_04_local, lt_middle_fkOri_joint_3)
+
+	pm.parent(lt_middle_fk_joint_4, lt_middle_04_icon)
+
+
+	'''
+	Delete History on icons
+	'''
+	pm.select(lt_middle_01_icon)
+	deleteHistory()
+
+
+	'''
+	Connect the fk joints to the bind
+	'''
+	pm.orientConstraint(lt_middle_01_icon, lt_middle_root, mo=1)
+	pm.orientConstraint(lt_middle_02_icon, lt_middle_joint_2, mo=1)
+	pm.orientConstraint(lt_middle_03_icon, lt_middle_joint_3, mo=1)
+	pm.orientConstraint(lt_middle_04_icon, lt_middle_joint_4, mo=1)
+	pm.orientConstraint(lt_middle_04_icon, lt_middle_joint_5, mo=1)
+
+	'''
+	Connect the fkOri joints to the ori
+	'''
+	pm.connectAttr(lt_middle_fkOri_root + '.rotate', lt_middle_ori_root + '.rotate')
+	pm.connectAttr(lt_middle_fkOri_joint_2 + '.rotate', lt_middle_ori_joint_2 + '.rotate')
+	pm.connectAttr(lt_middle_fkOri_joint_3 + '.rotate', lt_middle_ori_joint_3 + '.rotate')
+	pm.connectAttr(lt_middle_fkOri_joint_4 + '.rotate', lt_middle_ori_joint_4 + '.rotate')
+	pm.connectAttr(lt_middle_fkOri_joint_5 + '.rotate', lt_middle_ori_joint_5 + '.rotate')
+
+	pm.connectAttr(lt_middle_fkOri_joint_2 + '.translate', lt_middle_ori_joint_2 + '.translate')
+	pm.connectAttr(lt_middle_fkOri_joint_3 + '.translate', lt_middle_ori_joint_3 + '.translate')
+	pm.connectAttr(lt_middle_fkOri_joint_4 + '.translate', lt_middle_ori_joint_4 + '.translate')
+
+def lt_ringSetup(*args):
+	global lt_ring_fk_root, lt_ring_fk_joint_2, lt_ring_fk_joint_3, lt_ring_fk_joint_4, lt_ring_fk_joint_5
+	global lt_ring_fkOri_root, lt_ring_fkOri_joint_2, lt_ring_fkOri_joint_3, lt_ring_fkOri_joint_4, lt_ring_fkOri_joint_5
+	global lt_ring_01_local
+	'''
+	Ring
+	'''
+
+	lt_ring_joint_5.jointOrientX.set(0)
+	lt_ring_root.rotateOrder.set(5)
+	lt_ring_joint_2.rotateOrder.set(5)
+	lt_ring_joint_3.rotateOrder.set(5)
+	lt_ring_joint_4.rotateOrder.set(5)
+	lt_ring_joint_5.rotateOrder.set(5)
+	'''
+	Duplicate the bind for the "Ori" joints
+	'''
+	lt_ring_joint_dups = pm.duplicate(lt_ring_root)
+	pm.select(lt_ring_joint_dups)
+	lt_ring_ori_joint_system = pm.ls(sl=1,dag=1)
+	print 'Ring ori joint system:', lt_ring_ori_joint_system
+	lt_ring_ori_joints = pm.ls(lt_ring_ori_joint_system, sl=1, dag=1)
+	print 'Ring Ori Joints:', lt_ring_ori_joints
+	lt_ring_ori_root = lt_ring_ori_joints[0]
+	lt_ring_ori_joint_2 = lt_ring_ori_joints[1]
+	lt_ring_ori_joint_3 = lt_ring_ori_joints[2]
+	lt_ring_ori_joint_4 = lt_ring_ori_joints[3]
+	lt_ring_ori_joint_5 = lt_ring_ori_joints[4]
+
+	pm.mel.searchReplaceNames('bind', 'ori', 'hierarchy')
+	pm.mel.searchReplaceNames('waste', 'ori', 'hierarchy')
+	joint_name = lt_ring_root.replace('bind', 'ori')
+	lt_ring_ori_root.rename(joint_name)
+
+	'''
+	Parent the ori and bind
+	'''
+
+	pm.parent(lt_ring_ori_root, lt_ring_root)
+	pm.parent(lt_ring_ori_joint_2, lt_ring_joint_2)
+	pm.parent(lt_ring_joint_2, lt_ring_ori_root)
+
+	pm.parent(lt_ring_ori_joint_3, lt_ring_joint_3)
+	pm.parent(lt_ring_joint_3, lt_ring_ori_joint_2)
+
+	pm.parent(lt_ring_ori_joint_4, lt_ring_joint_4)
+	pm.parent(lt_ring_joint_4, lt_ring_ori_joint_3)
+
+	pm.parent(lt_ring_ori_joint_5, lt_ring_joint_5)
+	pm.parent(lt_ring_joint_5, lt_ring_ori_joint_4)
+
+	'''
+	Creat the fk joints
+	'''
+
+	lt_ring_fk_joint_system = pm.duplicate(lt_ring_root)
+	pm.select(lt_ring_fk_joint_system)
+	lt_ring_fk_joints = pm.ls(lt_ring_fk_joint_system, sl=1, dag=1)
+	# print 'Index Fk Joints:', lt_ring_fk_joints
+	lt_ring_fk_root = lt_ring_fk_joints[0]
+	lt_ring_fkOri_root = lt_ring_fk_joints[1]
+
+	lt_ring_fk_joint_2 = lt_ring_fk_joints[2]
+	lt_ring_fkOri_joint_2 = lt_ring_fk_joints[3]
+
+	lt_ring_fk_joint_3 = lt_ring_fk_joints[4]
+	lt_ring_fkOri_joint_3 = lt_ring_fk_joints[5]
+
+	lt_ring_fk_joint_4 = lt_ring_fk_joints[6]
+	lt_ring_fkOri_joint_4 = lt_ring_fk_joints[7]
+
+	lt_ring_fk_joint_5 = lt_ring_fk_joints[8]
+	lt_ring_fkOri_joint_5 = lt_ring_fk_joints[9]
+
+	pm.mel.searchReplaceNames('bind', 'fk', 'hierarchy')
+	pm.mel.searchReplaceNames('waste', 'fk', 'hierarchy')
+	pm.mel.searchReplaceNames('ori', 'fkOri', 'hierarchy')
+	joint_name = lt_ring_root.replace('bind', 'fk')
+	lt_ring_fk_root.rename(joint_name)
+	# print 'Fk Ori Root Joint:', lt_ring_fkOri_root
+
+	'''
+	Create the fk icons
+	'''
+
+	# Icon I
+	lt_ring_01_icon = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=1, tol=0.01, nr=(0, 0, 1))[0]
+
+	temp_constraint = pm.parentConstraint(lt_ring_fk_root, lt_ring_01_icon, mo=0)
+	pm.delete(temp_constraint)
+	freezeTransform()
+
+	icon_name = lt_ring_fk_root.replace('fk', 'icon')
+	lt_ring_01_icon.rename(icon_name)
+
+	lt_ring_01_local = pm.group(empty=1)
+	temp_constraint = pm.parentConstraint(lt_ring_fk_root, lt_ring_01_local, mo=0)
+	pm.delete(temp_constraint)
+
+	local_name = lt_ring_01_icon.replace('icon', 'local')
+	lt_ring_01_local.rename(local_name)
+
+	pm.parent(lt_ring_01_icon, lt_ring_01_local)
+	freezeTransform()
+
+	pm.parent(lt_ring_fk_root, lt_ring_01_icon)
+
+	# Icon II
+	lt_ring_02_icon = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=1, tol=0.01, nr=(0, 0, 1))[0]
+	temp_constraint = pm.parentConstraint(lt_ring_fk_joint_2, lt_ring_02_icon, mo=0)
+	pm.delete(temp_constraint)
+	freezeTransform()
+
+	icon_name = lt_ring_01_icon.replace('01', '02')
+	lt_ring_02_icon.rename(icon_name)
+
+
+	lt_ring_02_local = pm.group(empty=1)
+	temp_constraint = pm.parentConstraint(lt_ring_fk_joint_2, lt_ring_02_local, mo=0)
+	pm.delete(temp_constraint)
+
+	local_name = lt_ring_02_icon.replace('icon', 'local')
+	lt_ring_02_local.rename(local_name)
+
+	pm.parent(lt_ring_02_local, lt_ring_fkOri_root)
+
+	pm.parent(lt_ring_02_icon, lt_ring_02_local)
+	freezeTransform()
+
+	pm.parent(lt_ring_02_local, lt_ring_fkOri_root)
+
+	pm.parent(lt_ring_fk_joint_2, lt_ring_02_icon)
+
+	# Icon III
+	lt_ring_03_icon = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=1, tol=0.01, nr=(0, 0, 1))[0]
+	temp_constraint = pm.parentConstraint(lt_ring_fk_joint_3, lt_ring_03_icon, mo=0)
+	pm.delete(temp_constraint)
+	freezeTransform()
+
+	icon_name = lt_ring_02_icon.replace('02', '03')
+	lt_ring_03_icon.rename(icon_name)
+
+
+	lt_ring_03_local = pm.group(empty=1)
+	temp_constraint = pm.parentConstraint(lt_ring_fk_joint_3, lt_ring_03_local, mo=0)
+	pm.delete(temp_constraint)
+
+	local_name = lt_ring_03_icon.replace('icon', 'local')
+	lt_ring_03_local.rename(local_name)
+
+	pm.parent(lt_ring_03_local, lt_ring_fkOri_joint_2)
+
+	pm.parent(lt_ring_03_icon, lt_ring_03_local)
+	freezeTransform()
+
+	pm.parent(lt_ring_03_local, lt_ring_fkOri_joint_2)
+
+	pm.parent(lt_ring_fk_joint_3, lt_ring_03_icon)
+
+	# Icon IV
+	lt_ring_04_icon = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=1, tol=0.01, nr=(0, 0, 1))[0]
+	temp_constraint = pm.parentConstraint(lt_ring_fk_joint_4, lt_ring_04_icon, mo=0)
+	pm.delete(temp_constraint)
+	freezeTransform()
+
+	icon_name = lt_ring_03_icon.replace('03', '04')
+	lt_ring_04_icon.rename(icon_name)
+
+
+	lt_ring_04_local = pm.group(empty=1)
+	temp_constraint = pm.parentConstraint(lt_ring_fk_joint_4, lt_ring_04_local, mo=0)
+	pm.delete(temp_constraint)
+
+	local_name = lt_ring_04_icon.replace('icon', 'local')
+	lt_ring_04_local.rename(local_name)
+
+	pm.parent(lt_ring_04_local, lt_ring_fkOri_joint_2)
+
+	pm.parent(lt_ring_04_icon, lt_ring_04_local)
+	freezeTransform()
+
+	pm.parent(lt_ring_04_local, lt_ring_fkOri_joint_3)
+
+	pm.parent(lt_ring_fk_joint_4, lt_ring_04_icon)
+
+
+	'''
+	Delete History on icons
+	'''
+	pm.select(lt_ring_01_icon)
+	deleteHistory()
+
+
+	'''
+	Connect the fk joints to the bind
+	'''
+	pm.orientConstraint(lt_ring_01_icon, lt_ring_root, mo=1)
+	pm.orientConstraint(lt_ring_02_icon, lt_ring_joint_2, mo=1)
+	pm.orientConstraint(lt_ring_03_icon, lt_ring_joint_3, mo=1)
+	pm.orientConstraint(lt_ring_04_icon, lt_ring_joint_4, mo=1)
+	pm.orientConstraint(lt_ring_04_icon, lt_ring_joint_5, mo=1)
+
+	'''
+	Connect the fkOri joints to the ori
+	'''
+	pm.connectAttr(lt_ring_fkOri_root + '.rotate', lt_ring_ori_root + '.rotate')
+	pm.connectAttr(lt_ring_fkOri_joint_2 + '.rotate', lt_ring_ori_joint_2 + '.rotate')
+	pm.connectAttr(lt_ring_fkOri_joint_3 + '.rotate', lt_ring_ori_joint_3 + '.rotate')
+	pm.connectAttr(lt_ring_fkOri_joint_4 + '.rotate', lt_ring_ori_joint_4 + '.rotate')
+	pm.connectAttr(lt_ring_fkOri_joint_5 + '.rotate', lt_ring_ori_joint_5 + '.rotate')
+
+	pm.connectAttr(lt_ring_fkOri_joint_2 + '.translate', lt_ring_ori_joint_2 + '.translate')
+	pm.connectAttr(lt_ring_fkOri_joint_3 + '.translate', lt_ring_ori_joint_3 + '.translate')
+	pm.connectAttr(lt_ring_fkOri_joint_4 + '.translate', lt_ring_ori_joint_4 + '.translate')
+
+def lt_pinkySetup(*args):
+	global lt_pinky_fk_root, lt_pinky_fk_joint_2, lt_pinky_fk_joint_3, lt_pinky_fk_joint_4, lt_pinky_fk_joint_5
+	global lt_pinky_fkOri_root, lt_pinky_fkOri_joint_2, lt_pinky_fkOri_joint_3, lt_pinky_fkOri_joint_4, lt_pinky_fkOri_joint_5
+	global lt_pinky_01_local
+	'''
+	Pinky
+	'''
+
+	lt_pinky_joint_5.jointOrientX.set(0)
+	lt_pinky_root.rotateOrder.set(5)
+	lt_pinky_joint_2.rotateOrder.set(5)
+	lt_pinky_joint_3.rotateOrder.set(5)
+	lt_pinky_joint_4.rotateOrder.set(5)
+	lt_pinky_joint_5.rotateOrder.set(5)
+	'''
+	Duplicate the bind for the "Ori" joints
+	'''
+	lt_pinky_joint_dups = pm.duplicate(lt_pinky_root)
+	pm.select(lt_pinky_joint_dups)
+	lt_pinky_ori_joint_system = pm.ls(sl=1,dag=1)
+	print 'Pinky ori joint system:', lt_pinky_ori_joint_system
+	lt_pinky_ori_joints = pm.ls(lt_pinky_ori_joint_system, sl=1, dag=1)
+	print 'Pinky Ori Joints:', lt_pinky_ori_joints
+	lt_pinky_ori_root = lt_pinky_ori_joints[0]
+	lt_pinky_ori_joint_2 = lt_pinky_ori_joints[1]
+	lt_pinky_ori_joint_3 = lt_pinky_ori_joints[2]
+	lt_pinky_ori_joint_4 = lt_pinky_ori_joints[3]
+	lt_pinky_ori_joint_5 = lt_pinky_ori_joints[4]
+
+	pm.mel.searchReplaceNames('bind', 'ori', 'hierarchy')
+	pm.mel.searchReplaceNames('waste', 'ori', 'hierarchy')
+	joint_name = lt_pinky_root.replace('bind', 'ori')
+	lt_pinky_ori_root.rename(joint_name)
+
+	'''
+	Parent the ori and bind
+	'''
+
+	pm.parent(lt_pinky_ori_root, lt_pinky_root)
+	pm.parent(lt_pinky_ori_joint_2, lt_pinky_joint_2)
+	pm.parent(lt_pinky_joint_2, lt_pinky_ori_root)
+
+	pm.parent(lt_pinky_ori_joint_3, lt_pinky_joint_3)
+	pm.parent(lt_pinky_joint_3, lt_pinky_ori_joint_2)
+
+	pm.parent(lt_pinky_ori_joint_4, lt_pinky_joint_4)
+	pm.parent(lt_pinky_joint_4, lt_pinky_ori_joint_3)
+
+	pm.parent(lt_pinky_ori_joint_5, lt_pinky_joint_5)
+	pm.parent(lt_pinky_joint_5, lt_pinky_ori_joint_4)
+
+	'''
+	Creat the fk joints
+	'''
+
+	lt_pinky_fk_joint_system = pm.duplicate(lt_pinky_root)
+	pm.select(lt_pinky_fk_joint_system)
+	lt_pinky_fk_joints = pm.ls(lt_pinky_fk_joint_system, sl=1, dag=1)
+	# print 'Index Fk Joints:', lt_pinky_fk_joints
+	lt_pinky_fk_root = lt_pinky_fk_joints[0]
+	lt_pinky_fkOri_root = lt_pinky_fk_joints[1]
+
+	lt_pinky_fk_joint_2 = lt_pinky_fk_joints[2]
+	lt_pinky_fkOri_joint_2 = lt_pinky_fk_joints[3]
+
+	lt_pinky_fk_joint_3 = lt_pinky_fk_joints[4]
+	lt_pinky_fkOri_joint_3 = lt_pinky_fk_joints[5]
+
+	lt_pinky_fk_joint_4 = lt_pinky_fk_joints[6]
+	lt_pinky_fkOri_joint_4 = lt_pinky_fk_joints[7]
+
+	lt_pinky_fk_joint_5 = lt_pinky_fk_joints[8]
+	lt_pinky_fkOri_joint_5 = lt_pinky_fk_joints[9]
+
+	pm.mel.searchReplaceNames('bind', 'fk', 'hierarchy')
+	pm.mel.searchReplaceNames('waste', 'fk', 'hierarchy')
+	pm.mel.searchReplaceNames('ori', 'fkOri', 'hierarchy')
+	joint_name = lt_pinky_root.replace('bind', 'fk')
+	lt_pinky_fk_root.rename(joint_name)
+	# print 'Fk Ori Root Joint:', lt_pinky_fkOri_root
+
+	'''
+	Create the fk icons
+	'''
+
+	# Icon I
+	lt_pinky_01_icon = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=1, tol=0.01, nr=(0, 0, 1))[0]
+
+	temp_constraint = pm.parentConstraint(lt_pinky_fk_root, lt_pinky_01_icon, mo=0)
+	pm.delete(temp_constraint)
+	freezeTransform()
+
+	icon_name = lt_pinky_fk_root.replace('fk', 'icon')
+	lt_pinky_01_icon.rename(icon_name)
+
+	lt_pinky_01_local = pm.group(empty=1)
+	temp_constraint = pm.parentConstraint(lt_pinky_fk_root, lt_pinky_01_local, mo=0)
+	pm.delete(temp_constraint)
+
+	local_name = lt_pinky_01_icon.replace('icon', 'local')
+	lt_pinky_01_local.rename(local_name)
+
+	pm.parent(lt_pinky_01_icon, lt_pinky_01_local)
+	freezeTransform()
+
+	pm.parent(lt_pinky_fk_root, lt_pinky_01_icon)
+
+	# Icon II
+	lt_pinky_02_icon = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=1, tol=0.01, nr=(0, 0, 1))[0]
+	temp_constraint = pm.parentConstraint(lt_pinky_fk_joint_2, lt_pinky_02_icon, mo=0)
+	pm.delete(temp_constraint)
+	freezeTransform()
+
+	icon_name = lt_pinky_01_icon.replace('01', '02')
+	lt_pinky_02_icon.rename(icon_name)
+
+
+	lt_pinky_02_local = pm.group(empty=1)
+	temp_constraint = pm.parentConstraint(lt_pinky_fk_joint_2, lt_pinky_02_local, mo=0)
+	pm.delete(temp_constraint)
+
+	local_name = lt_pinky_02_icon.replace('icon', 'local')
+	lt_pinky_02_local.rename(local_name)
+
+	pm.parent(lt_pinky_02_local, lt_pinky_fkOri_root)
+
+	pm.parent(lt_pinky_02_icon, lt_pinky_02_local)
+	freezeTransform()
+
+	pm.parent(lt_pinky_02_local, lt_pinky_fkOri_root)
+
+	pm.parent(lt_pinky_fk_joint_2, lt_pinky_02_icon)
+
+	# Icon III
+	lt_pinky_03_icon = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=1, tol=0.01, nr=(0, 0, 1))[0]
+	temp_constraint = pm.parentConstraint(lt_pinky_fk_joint_3, lt_pinky_03_icon, mo=0)
+	pm.delete(temp_constraint)
+	freezeTransform()
+
+	icon_name = lt_pinky_02_icon.replace('02', '03')
+	lt_pinky_03_icon.rename(icon_name)
+
+
+	lt_pinky_03_local = pm.group(empty=1)
+	temp_constraint = pm.parentConstraint(lt_pinky_fk_joint_3, lt_pinky_03_local, mo=0)
+	pm.delete(temp_constraint)
+
+	local_name = lt_pinky_03_icon.replace('icon', 'local')
+	lt_pinky_03_local.rename(local_name)
+
+	pm.parent(lt_pinky_03_local, lt_pinky_fkOri_joint_2)
+
+	pm.parent(lt_pinky_03_icon, lt_pinky_03_local)
+	freezeTransform()
+
+	pm.parent(lt_pinky_03_local, lt_pinky_fkOri_joint_2)
+
+	pm.parent(lt_pinky_fk_joint_3, lt_pinky_03_icon)
+
+	# Icon IV
+	lt_pinky_04_icon = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=1, tol=0.01, nr=(0, 0, 1))[0]
+	temp_constraint = pm.parentConstraint(lt_pinky_fk_joint_4, lt_pinky_04_icon, mo=0)
+	pm.delete(temp_constraint)
+	freezeTransform()
+
+	icon_name = lt_pinky_03_icon.replace('03', '04')
+	lt_pinky_04_icon.rename(icon_name)
+
+
+	lt_pinky_04_local = pm.group(empty=1)
+	temp_constraint = pm.parentConstraint(lt_pinky_fk_joint_4, lt_pinky_04_local, mo=0)
+	pm.delete(temp_constraint)
+
+	local_name = lt_pinky_04_icon.replace('icon', 'local')
+	lt_pinky_04_local.rename(local_name)
+
+	pm.parent(lt_pinky_04_local, lt_pinky_fkOri_joint_2)
+
+	pm.parent(lt_pinky_04_icon, lt_pinky_04_local)
+	freezeTransform()
+
+	pm.parent(lt_pinky_04_local, lt_pinky_fkOri_joint_3)
+
+	pm.parent(lt_pinky_fk_joint_4, lt_pinky_04_icon)
+
+
+	'''
+	Delete History on icons
+	'''
+	pm.select(lt_pinky_01_icon)
+	deleteHistory()
+
+
+	'''
+	Connect the fk joints to the bind
+	'''
+	pm.orientConstraint(lt_pinky_01_icon, lt_pinky_root, mo=1)
+	pm.orientConstraint(lt_pinky_02_icon, lt_pinky_joint_2, mo=1)
+	pm.orientConstraint(lt_pinky_03_icon, lt_pinky_joint_3, mo=1)
+	pm.orientConstraint(lt_pinky_04_icon, lt_pinky_joint_4, mo=1)
+	pm.orientConstraint(lt_pinky_04_icon, lt_pinky_joint_5, mo=1)
+
+	'''
+	Connect the fkOri joints to the ori
+	'''
+	pm.connectAttr(lt_pinky_fkOri_root + '.rotate', lt_pinky_ori_root + '.rotate')
+	pm.connectAttr(lt_pinky_fkOri_joint_2 + '.rotate', lt_pinky_ori_joint_2 + '.rotate')
+	pm.connectAttr(lt_pinky_fkOri_joint_3 + '.rotate', lt_pinky_ori_joint_3 + '.rotate')
+	pm.connectAttr(lt_pinky_fkOri_joint_4 + '.rotate', lt_pinky_ori_joint_4 + '.rotate')
+	pm.connectAttr(lt_pinky_fkOri_joint_5 + '.rotate', lt_pinky_ori_joint_5 + '.rotate')
+
+	pm.connectAttr(lt_pinky_fkOri_joint_2 + '.translate', lt_pinky_ori_joint_2 + '.translate')
+	pm.connectAttr(lt_pinky_fkOri_joint_3 + '.translate', lt_pinky_ori_joint_3 + '.translate')
+	pm.connectAttr(lt_pinky_fkOri_joint_4 + '.translate', lt_pinky_ori_joint_4 + '.translate')
+
+def lt_thumbSetup(*args):
+	global lt_thumb_fk_pivot, lt_thumb_fk_joint_1, lt_thumb_fk_joint_2, lt_thumb_fk_joint_3
+	global lt_thumb_fkOri_pivot, lt_thumb_fkOri_joint_1, lt_thumb_fkOri_joint_2, lt_thumb_fkOri_joint_3
+	global lt_thumb_01_local, lt_thumb_02_local
+
+	'''
+	Thumb
+	'''
+	lt_thumb_joint_4.jointOrientX.set(0)
+
+	lt_thumb_joint_1.rotateOrder.set(5)
+	lt_thumb_joint_2.rotateOrder.set(5)
+	lt_thumb_joint_3.rotateOrder.set(5)
+	lt_thumb_joint_4.rotateOrder.set(5)
+
+	'''
+	Duplicate the bind for the "Ori" joints
+	'''
+	lt_thumb_joint_dups = pm.duplicate(lt_thumb_pivot)
+	pm.select(lt_thumb_joint_dups)
+	lt_thumb_ori_joint_system = pm.ls(sl=1, dag=1)
+	pm.select(lt_thumb_ori_joint_system)
+	lt_thumb_ori_joints = pm.ls(lt_thumb_ori_joint_system, sl=1, dag=1)
+	print 'Thumb Ori Joints:', lt_thumb_ori_joints
+	lt_thumb_ori_pivot = lt_thumb_ori_joints[0]
+	lt_thumb_ori_joint_1 = lt_thumb_ori_joints[1]
+	lt_thumb_ori_joint_2 = lt_thumb_ori_joints[2]
+	lt_thumb_ori_joint_3 = lt_thumb_ori_joints[3]
+	lt_thumb_ori_joint_4 = lt_thumb_ori_joints[4]
+
+	pm.mel.searchReplaceNames('pivot', 'ori', 'hierarchy')
+	pm.mel.searchReplaceNames('bind', 'ori', 'hierarchy')
+	pm.mel.searchReplaceNames('waste', 'ori', 'hierarchy')
+	joint_name = lt_thumb_pivot.replace('pivot', 'ori')
+	lt_thumb_ori_pivot.rename(joint_name)
+
+	pm.parent(lt_thumb_ori_pivot, lt_thumb_pivot)
+	pm.parent(lt_thumb_joint_1, lt_thumb_ori_pivot)
+
+	pm.parent(lt_thumb_ori_joint_1, lt_thumb_joint_1)
+	pm.parent(lt_thumb_joint_2, lt_thumb_ori_joint_1)
+
+	pm.parent(lt_thumb_ori_joint_2, lt_thumb_joint_2)
+	pm.parent(lt_thumb_joint_3, lt_thumb_ori_joint_2)
+
+	pm.parent(lt_thumb_ori_joint_3, lt_thumb_joint_3)
+	pm.parent(lt_thumb_joint_4, lt_thumb_ori_joint_3)
+
+
+	pm.parent(lt_thumb_ori_joint_4, lt_thumb_joint_4)
+	
+
+	'''
+	Creat the fk joints
+	'''
+
+	lt_thumb_fk_joint_system = pm.duplicate(lt_thumb_pivot)
+	pm.select(lt_thumb_fk_joint_system)
+	lt_thumb_fk_joints = pm.ls(lt_thumb_fk_joint_system, sl=1, dag=1)
+	print 'Index Fk Joints:', lt_thumb_fk_joints
+	lt_thumb_fk_pivot = lt_thumb_fk_joints[0]
+	lt_thumb_fkOri_pivot = lt_thumb_fk_joints[1]
+
+	lt_thumb_fk_joint_1 = lt_thumb_fk_joints[2]
+	lt_thumb_fkOri_joint_1 = lt_thumb_fk_joints[3]
+
+	lt_thumb_fk_joint_2 = lt_thumb_fk_joints[4]
+	lt_thumb_fkOri_joint_2 = lt_thumb_fk_joints[5]
+
+	lt_thumb_fk_joint_3 = lt_thumb_fk_joints[6]
+	lt_thumb_fkOri_joint_3 = lt_thumb_fk_joints[7]
+
+	lt_thumb_fk_joint_4 = lt_thumb_fk_joints[8]
+	lt_thumb_fkOri_joint_4 = lt_thumb_fk_joints[9]
+
+	pm.mel.searchReplaceNames('bind', 'fk', 'hierarchy')
+	pm.mel.searchReplaceNames('waste', 'fk', 'hierarchy')
+	pm.mel.searchReplaceNames('ori', 'fkOri', 'hierarchy')
+	joint_name = lt_thumb_pivot.replace('pivot', 'fk')
+	lt_thumb_fk_pivot.rename(joint_name)
+
+	'''
+	Create the fk icons
+	'''
+	
+	# Icon I
+	lt_thumb_01_icon = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=1, tol=0.01, nr=(0, 1, 0))[0]
+	temp_constraint = pm.parentConstraint(lt_thumb_fk_pivot, lt_thumb_01_icon, mo=0)
+	pm.delete(temp_constraint)
+	freezeTransform()
+
+	icon_name = lt_thumb_fk_pivot.replace('fk', 'icon')
+	lt_thumb_01_icon.rename(icon_name)
+
+	lt_thumb_01_local = pm.group(empty=1)
+	temp_constraint = pm.parentConstraint(lt_thumb_fk_pivot, lt_thumb_01_local, mo=0)
+	pm.delete(temp_constraint)
+
+	local_name = lt_thumb_01_icon.replace('icon', 'local')
+	lt_thumb_01_local.rename(local_name)
+
+	pm.parent(lt_thumb_01_icon, lt_thumb_01_local)
+	freezeTransform()
+
+	pm.parent(lt_thumb_fk_pivot, lt_thumb_01_icon)
+
+
+	# Icon II
+	lt_thumb_02_icon = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=1, tol=0.01, nr=(0, 0, 1))[0]
+	temp_constraint = pm.parentConstraint(lt_thumb_fk_joint_1, lt_thumb_02_icon, mo=0)
+	pm.delete(temp_constraint)
+	freezeTransform()
+
+	icon_name = lt_thumb_fk_joint_1.replace('fk', 'icon')
+	lt_thumb_02_icon.rename(icon_name)
+
+	lt_thumb_02_local = pm.group(empty=1)
+	temp_constraint = pm.parentConstraint(lt_thumb_fk_joint_1, lt_thumb_02_local, mo=0)
+	pm.delete(temp_constraint)
+
+	local_name = lt_thumb_02_icon.replace('icon', 'local')
+	lt_thumb_02_local.rename(local_name)
+
+	pm.parent(lt_thumb_02_icon, lt_thumb_02_local)
+	freezeTransform()
+
+	pm.parent(lt_thumb_fk_joint_1, lt_thumb_02_icon)
+
+	pm.parent(lt_thumb_02_local, lt_thumb_fkOri_pivot)
+	
+
+	# Icon III
+	lt_thumb_03_icon = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=1, tol=0.01, nr=(0, 0, 1))[0]
+	temp_constraint = pm.parentConstraint(lt_thumb_fk_joint_2, lt_thumb_03_icon, mo=0)
+	pm.delete(temp_constraint)
+	freezeTransform()
+
+	icon_name = lt_thumb_fk_joint_2.replace('fk', 'icon')
+	lt_thumb_03_icon.rename(icon_name)
+
+	lt_thumb_03_local = pm.group(empty=1)
+	temp_constraint = pm.parentConstraint(lt_thumb_fk_joint_2, lt_thumb_03_local, mo=0)
+	pm.delete(temp_constraint)
+
+	local_name = lt_thumb_03_icon.replace('icon', 'local')
+	lt_thumb_03_local.rename(local_name)
+
+	pm.parent(lt_thumb_03_icon, lt_thumb_03_local)
+	freezeTransform()
+
+	pm.parent(lt_thumb_fk_joint_2, lt_thumb_03_icon)
+
+	pm.parent(lt_thumb_03_local, lt_thumb_fkOri_joint_1)
+	
+
+	# Icon IV
+	lt_thumb_04_icon = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=1, tol=0.01, nr=(0, 0, 1))[0]
+	temp_constraint = pm.parentConstraint(lt_thumb_fk_joint_3, lt_thumb_04_icon, mo=0)
+	pm.delete(temp_constraint)
+	freezeTransform()
+
+	icon_name = lt_thumb_fk_joint_3.replace('fk', 'icon')
+	lt_thumb_04_icon.rename(icon_name)
+
+	lt_thumb_04_local = pm.group(empty=1)
+	temp_constraint = pm.parentConstraint(lt_thumb_fk_joint_3, lt_thumb_04_local, mo=0)
+	pm.delete(temp_constraint)
+
+	local_name = lt_thumb_04_icon.replace('icon', 'local')
+	lt_thumb_04_local.rename(local_name)
+
+	pm.parent(lt_thumb_04_icon, lt_thumb_04_local)
+	freezeTransform()
+
+	pm.parent(lt_thumb_fk_joint_3, lt_thumb_04_icon)
+
+	pm.parent(lt_thumb_04_local, lt_thumb_fkOri_joint_2)
+	
+
+	'''
+	Delete History on icons
+	'''
+	pm.select(lt_thumb_01_icon)
+	deleteHistory()
+
+	'''
+	Connect the fk joints to the bind
+	'''
+	pm.orientConstraint(lt_thumb_01_icon, lt_thumb_pivot, mo=1)
+	pm.orientConstraint(lt_thumb_02_icon, lt_thumb_joint_1, mo=1)
+	pm.orientConstraint(lt_thumb_03_icon, lt_thumb_joint_2, mo=1)
+	pm.orientConstraint(lt_thumb_04_icon, lt_thumb_joint_3, mo=1)
+	pm.orientConstraint(lt_thumb_04_icon, lt_thumb_joint_4, mo=1)
+
+	'''
+	Connect the fkOri joints to the ori
+	'''
+	pm.connectAttr(lt_thumb_fkOri_pivot + '.rotate', lt_thumb_ori_pivot + '.rotate')
+	pm.connectAttr(lt_thumb_fkOri_joint_1 + '.rotate', lt_thumb_ori_joint_1 + '.rotate')
+	pm.connectAttr(lt_thumb_fkOri_joint_2 + '.rotate', lt_thumb_ori_joint_2 + '.rotate')
+	pm.connectAttr(lt_thumb_fkOri_joint_3 + '.rotate', lt_thumb_ori_joint_3 + '.rotate')
+	pm.connectAttr(lt_thumb_fkOri_joint_4 + '.rotate', lt_thumb_ori_joint_4 + '.rotate')
+
+	pm.connectAttr(lt_thumb_fkOri_joint_1 + '.translate', lt_thumb_ori_joint_1 + '.translate')
+	pm.connectAttr(lt_thumb_fkOri_joint_2 + '.translate', lt_thumb_ori_joint_2 + '.translate')
+	pm.connectAttr(lt_thumb_fkOri_joint_3 + '.translate', lt_thumb_ori_joint_3 + '.translate')
+
+def lt_five_finger_setup(*args):
+	lt_indexSetup()
+	lt_middleSetup()
+	lt_ringSetup()
+	lt_pinkySetup()
+	lt_thumbSetup()
+	lt_fiveFinger_SDK_setup()
+
+def lt_threeFingers_and_thumb(*args):
+	global lt_index_joint_system, lt_index_root, lt_index_joint_2, lt_index_joint_3, lt_index_joint_4, lt_index_joint_5
+	global lt_middle_joint_system, lt_middle_root, lt_middle_joint_2, lt_middle_joint_3, lt_middle_joint_4, lt_middle_joint_5
+	global lt_pinky_joint_system, lt_pinky_root, lt_pinky_joint_2, lt_pinky_joint_3, lt_pinky_joint_4, lt_pinky_joint_5
+	global lt_thumb_joint_system, lt_thumb_pivot, lt_thumb_joint_1, lt_thumb_joint_2, lt_thumb_joint_3, lt_thumb_joint_4
+	global finger_selection
+	finger_selection = pm.ls(sl=1)
+	lt_index_joint_system = finger_selection[0]
+	lt_middle_joint_system = finger_selection[1]
+	lt_pinky_joint_system = finger_selection[2]
+	lt_thumb_joint_system = finger_selection[3]
+	# print 'Selection:', finger_selection
+	# print 'Index Joint System:', lt_index_joint_system
+	# print 'Middele Joint System:', lt_middle_joint_system
+	# print 'Pinky Joint System:', lt_pinky_joint_system
+	# print 'Thumb Joint System:', lt_thumb_joint_system
+
+	lt_index_joints = pm.ls(lt_index_joint_system, dag=1)
+	lt_index_root = lt_index_joints[0]
+	lt_index_joint_2 = lt_index_joints[1]
+	lt_index_joint_3 = lt_index_joints[2]
+	lt_index_joint_4 = lt_index_joints[3]
+	lt_index_joint_5 = lt_index_joints[4]
+	# print 'Index Root:', lt_index_root
+	# print 'Index Joint 2:', lt_index_joint_2
+	# print 'Index Joint 3:',  lt_index_joint_3
+	# print 'Index Joint 4:', lt_index_joint_4
+	# print 'Index Joint 5:', lt_index_joint_5 
+
+	lt_middle_joints = pm.ls(lt_middle_joint_system, dag=1)
+	lt_middle_root = lt_middle_joints[0]
+	lt_middle_joint_2 = lt_middle_joints[1]
+	lt_middle_joint_3 = lt_middle_joints[2]
+	lt_middle_joint_4 = lt_middle_joints[3]
+	lt_middle_joint_5 = lt_middle_joints[4]
+	# print 'Index Root:', lt_middle_root
+	# print 'Index Joint 2:', lt_middle_joint_2
+	# print 'Index Joint 3:',  lt_middle_joint_3
+	# print 'Index Joint 4:', lt_middle_joint_4
+	# print 'Index Joint 5:', lt_middle_joint_5 
+
+	lt_pinky_joints = pm.ls(lt_pinky_joint_system, dag=1)
+	lt_pinky_root = lt_pinky_joints[0]
+	lt_pinky_joint_2 = lt_pinky_joints[1]
+	lt_pinky_joint_3 = lt_pinky_joints[2]
+	lt_pinky_joint_4 = lt_pinky_joints[3]
+	lt_pinky_joint_5 = lt_pinky_joints[4]
+	# print 'Index Root:', lt_pinky_root
+	# print 'Index Joint 2:', lt_pinky_joint_2
+	# print 'Index Joint 3:',  lt_pinky_joint_3
+	# print 'Index Joint 4:', lt_pinky_joint_4
+	# print 'Index Joint 5:', lt_pinky_joint_5
+
+	lt_thumb_joints = pm.ls(lt_thumb_joint_system, dag=1)
+	lt_thumb_pivot = lt_thumb_joints[0]
+	lt_thumb_joint_1 = lt_thumb_joints[1]
+	lt_thumb_joint_2 = lt_thumb_joints[2]
+	lt_thumb_joint_3 = lt_thumb_joints[3]
+	lt_thumb_joint_4 = lt_thumb_joints[4]
+	# print 'Index Root:', lt_thumb_pivot
+	# print 'Index Joint 2:', lt_thumb_joint_1
+	# print 'Index Joint 3:',  lt_thumb_joint_2
+	# print 'Index Joint 4:', lt_thumb_joint_3
+	# print 'Index Joint 5:', lt_thumb_joint_4
+
+	pm.select(cl=1)
+
+	'''
+	Create the finger parent joint
+	'''
+	lt_hand_base = pm.joint()
+
+	temp_constraint = pm.parentConstraint(lt_hand_root, lt_hand_base, mo=0)
+	pm.delete(temp_constraint)
+
+	joint_name = lt_hand_root.replace('01_bind', 'temp')
+	lt_hand_base.rename(joint_name)
+
+	pm.parent(lt_hand_base, w=1)
+
+	'''
+	Un=parent the lt_thumb_01 from the pivot
+	'''
+	pm.parent(lt_thumb_joint_1, w=1)
+	pm.select(lt_hand_base)
+	freezeTransform()
+	'''
+	Parent the finger joints under the base joint
+	'''
+	pm.parent(lt_index_root, lt_middle_root, lt_pinky_root, lt_thumb_joint_1, lt_hand_base)
+	
+	'''
+	Orient the Joints
+	'''
+	pm.joint(lt_hand_base, zso=1, ch=1, e=1, oj='xyz', secondaryAxisOrient='ydown')
+	
+	
+	'''
+	Parent the lt_thumb_01 back to the pivot
+	'''
+	pm.parent(lt_thumb_joint_1, lt_thumb_pivot)
+	pm.parent(lt_thumb_pivot, lt_hand_base)
+
+	pm.parent(lt_index_root, lt_middle_root, lt_pinky_root, lt_thumb_pivot, w=1)
+
+	lt_indexSetup()
+	lt_middleSetup()
+	lt_pinkySetup()
+	lt_thumbSetup()
+
+
+	global lt_parent_icon, lt_index_icon, lt_middle_icon, lt_pinky_icon
+	lt_parent_icon = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=16, r=1, tol=0.01, nr=(1, 0, 0))[0]
+
+	pm.select(lt_parent_icon + '.cv[0]', lt_parent_icon + '.cv[1]', lt_parent_icon + '.cv[9]', lt_parent_icon + '.cv[10]', lt_parent_icon + '.cv[11]', lt_parent_icon + '.cv[12]', lt_parent_icon + '.cv[13]', lt_parent_icon + '.cv[14]', lt_parent_icon + '.cv[15]')            
+	first_cv_set = pm.ls(sl=1)
+	cmds.move(0, 0, -2, r=1, os=1, wd=1)
+
+	pm.select(lt_parent_icon + '.cv[0]', lt_parent_icon + '.cv[10]', lt_parent_icon + '.cv[11]', lt_parent_icon + '.cv[12]', lt_parent_icon + '.cv[13]', lt_parent_icon + '.cv[14]', lt_parent_icon + '.cv[15]')            
+	second_cv_set = pm.ls(sl=1)
+	cmds.move(0, 0, -4, r=1, os=1, wd=1)
+
+	lt_index_icon = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=1, tol=0.01, nr=(1, 0, 0))[0]
+	lt_index_icon.sy.set(.6)
+	lt_index_icon.sz.set(.6)
+
+	icon_name = lt_index_root.replace('01_bind', 'icon')
+	lt_index_icon.rename(icon_name)
+
+	icon_name = lt_index_icon.replace('index', 'fingers')
+	lt_parent_icon.rename(icon_name)
+
+	freezeTransform()
+	deleteHistory(lt_index_icon)
+
+	lt_middle_icon = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=1, tol=0.01, nr=(1, 0, 0))[0]
+	lt_middle_icon.tz.set(-3)
+	lt_middle_icon.sy.set(.6)
+	lt_middle_icon.sz.set(.6)
+	icon_name = lt_middle_root.replace('01_bind', 'icon')
+	lt_middle_icon.rename(icon_name)
+	freezeTransform()
+	deleteHistory(lt_middle_icon)
+
+	lt_pinky_icon = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=1, tol=0.01, nr=(1, 0, 0))[0]
+	lt_pinky_icon.tz.set(-6)
+	lt_pinky_icon.sy.set(.6)
+	lt_pinky_icon.sz.set(.6)
+	icon_name = lt_pinky_root.replace('01_bind', 'icon')
+	lt_pinky_icon.rename(icon_name)
+	freezeTransform()
+	deleteHistory(lt_pinky_icon)
+
+	pm.parent(lt_index_icon, lt_middle_icon, lt_pinky_icon, lt_parent_icon)
+	pm.select(lt_parent_icon)
+	centerPivot()
+
+	temp_constraint = pm.pointConstraint(lt_hand_joint_2, lt_parent_icon, mo=0)
+	pm.delete(temp_constraint)
+	pm.select(lt_parent_icon)
+	freezeTransform()
+	deleteHistory()
+
+	lt_parent_icon.ty.set(4)
+	pm.select(lt_parent_icon)
+	freezeTransform()
+
+	pm.parent(lt_parent_icon, 'lt_hand_icon')
+	freezeTransform()
+
+
+	pm.select(lt_index_icon, lt_middle_icon, lt_pinky_icon)
+	icon_selection = pm.ls(sl=1)
+
+	pm.addAttr(icon_selection, ln='fingerCtrl',  at='enum', en ='-------')
+	lt_index_icon.fingerCtrl.set(lock=1, e=1, keyable=1)
+	lt_middle_icon.fingerCtrl.set(lock=1, e=1, keyable=1)
+	lt_pinky_icon.fingerCtrl.set(lock=1, e=1, keyable=1)
+
+	pm.addAttr(icon_selection, ln='curl', max=10, dv=0, at='double', min=-10)
+	lt_index_icon.curl.set(e=1, keyable=1)
+	lt_middle_icon.curl.set(e=1, keyable=1)
+	lt_pinky_icon.curl.set(e=1, keyable=1)
+
+	pm.addAttr(icon_selection, ln='relax', max=10, dv=0, at='double', min=0)
+	lt_index_icon.relax.set(e=1, keyable=1)
+	lt_middle_icon.relax.set(e=1, keyable=1)
+	lt_pinky_icon.relax.set(e=1, keyable=1)
+
+	pm.addAttr(icon_selection, ln='scrunch', max=10, dv=0, at='double', min=-10)
+	lt_index_icon.scrunch.set(e=1, keyable=1)
+	lt_middle_icon.scrunch.set(e=1, keyable=1)
+	lt_pinky_icon.scrunch.set(e=1, keyable=1)
+
+	pm.addAttr(icon_selection, ln='spread', max=10, dv=0, at='double', min=-10)
+	lt_index_icon.spread.set(e=1, keyable=1)
+	lt_middle_icon.spread.set(e=1, keyable=1)
+	lt_pinky_icon.spread.set(e=1, keyable=1)
+
+	
+	pm.select(lt_parent_icon)
+	icon_selection = pm.ls(sl=1, dag=1)
+	lt_index_icon = icon_selection[2]
+	lt_middle_icon = icon_selection[4] 
+	lt_pinky_icon = icon_selection[6]
+	# print 'Index Icon:', lt_index_icon
+	# print 'Middle Icon:', lt_middle_icon
+	# print 'Pinky Icon:', lt_pinky_icon
+
+	lock_and_hide(lt_index_icon, ['tx', 'ty', 'tz', 'rx', 'ry', 'rz', 'sx', 'sy', 'sz', 'v'])
+	lock_and_hide(lt_middle_icon, ['tx', 'ty', 'tz', 'rx', 'ry', 'rz', 'sx', 'sy', 'sz', 'v'])
+	lock_and_hide(lt_pinky_icon, ['tx', 'ty', 'tz', 'rx', 'ry', 'rz', 'sx', 'sy', 'sz', 'v'])
+
+
+
+	'''
+	Index Curl
+	'''
+	lt_index_drivenAttr_curl = [lt_index_fkOri_root + '.rz', lt_index_fkOri_joint_2 + '.rz', lt_index_fkOri_joint_3 + '.rz', lt_index_fkOri_joint_4 + '.rz']
+	lt_index_driver_curl = (lt_index_icon + '.curl')
+	pm.setDrivenKeyframe(lt_index_drivenAttr_curl, currentDriver=lt_index_driver_curl)
+
+	# print "Driven:", lt_index_driven
+	lt_index_driven_curl= [lt_index_fkOri_root, lt_index_fkOri_joint_2, lt_index_fkOri_joint_3, lt_index_fkOri_joint_4]
+	lt_index_icon.curl.set(10)
+	pm.xform(lt_index_driven_curl, ro=(0, 0, 90))
+	lt_index_fkOri_root.rz.set(15)
+	lt_index_fkOri_joint_3.rz.set(75)
+	pm.setDrivenKeyframe(lt_index_drivenAttr_curl, currentDriver=lt_index_driver_curl)
+	lt_index_icon.curl.set(-10)
+	pm.xform(lt_index_driven_curl, ro=(0, 0, -10))
+	lt_index_fkOri_joint_2.rz.set(-20)
+	lt_index_fkOri_joint_3.rz.set(-25)
+	lt_index_fkOri_joint_4.rz.set(-30)
+	pm.setDrivenKeyframe(lt_index_drivenAttr_curl, currentDriver=lt_index_driver_curl)
+	lt_index_drivenKeyframes_curl = (lt_index_fkOri_root + '_rotateZ', lt_index_fkOri_joint_2 + '_rotateZ', lt_index_fkOri_joint_3 + '_rotateZ', lt_index_fkOri_joint_4 + '_rotateZ')
+	pm.keyTangent(lt_index_drivenKeyframes_curl, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+	lt_index_icon.curl.set(0)
+
+	'''
+	Index Scrunch
+	'''
+	lt_index_drivenAttr_allScrunch = [lt_index_fkOri_joint_2 + '.rz', lt_index_fkOri_joint_3 + '.rz', lt_index_fkOri_joint_4 + '.rz']
+	lt_index_driver_allScrunch = (lt_index_icon + '.scrunch')
+	pm.setDrivenKeyframe(lt_index_drivenAttr_allScrunch, currentDriver=lt_index_driver_allScrunch)
+	# print "Driven:", lt_index_driven
+	lt_index_driven_allScrunch= [lt_index_fkOri_joint_2, lt_index_fkOri_joint_3, lt_index_fkOri_joint_4]
+	lt_index_icon.scrunch.set(10)
+	lt_index_fkOri_joint_2.rz.set(-50)
+	lt_index_fkOri_joint_3.rz.set(110)
+	lt_index_fkOri_joint_4.rz.set(30)
+	pm.setDrivenKeyframe(lt_index_drivenAttr_allScrunch, currentDriver=lt_index_driver_allScrunch)
+	lt_index_icon.scrunch.set(-10)
+	lt_index_fkOri_joint_2.rz.set(-3)
+	lt_index_fkOri_joint_3.rz.set(-4)
+	lt_index_fkOri_joint_4.rz.set(-10)
+	pm.setDrivenKeyframe(lt_index_drivenAttr_allScrunch, currentDriver=lt_index_driver_allScrunch)
+	lt_index_drivenKeyframes_allScrunch = (lt_index_fkOri_root + '_rotateZ', lt_index_fkOri_joint_2 + '_rotateZ', lt_index_fkOri_joint_3 + '_rotateZ', lt_index_fkOri_joint_4 + '_rotateZ')
+	pm.keyTangent(lt_index_drivenKeyframes_allScrunch, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+	lt_index_icon.scrunch.set(0)
+
+
+	'''
+	Index Spread
+	'''
+	lt_index_drivenAttr_spread = (lt_index_fkOri_root + '.ry', lt_index_fkOri_joint_2 + '.ry')
+	lt_index_driven_spread= (lt_index_fkOri_root, lt_index_fkOri_joint_2)
+	lt_index_driver_spread = (lt_index_icon + '.spread')
+	pm.setDrivenKeyframe(lt_index_drivenAttr_spread, currentDriver=lt_index_driver_spread)
+	lt_index_icon.spread.set(10)
+	pm.xform(lt_index_driven_spread, ro=(0, 6, 0))
+	pm.setDrivenKeyframe(lt_index_drivenAttr_spread, currentDriver=lt_index_driver_spread)
+	lt_index_icon.spread.set(-10)
+	pm.xform(lt_index_driven_spread, ro=(0, -3, 0))
+	pm.setDrivenKeyframe(lt_index_drivenAttr_spread, currentDriver=lt_index_driver_spread)
+	lt_index_icon.spread.set(0)
+
+	lt_index_drivenKeyframes_spread = (lt_index_fkOri_root + '_rotateY', lt_index_fkOri_joint_2 + '_rotateY')
+	pm.keyTangent(lt_index_drivenKeyframes_spread, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+	'''
+	Index Relax
+	'''
+	lt_index_drivenAttr_relax = [lt_index_fkOri_root + '.rz', lt_index_fkOri_joint_2 + '.rz', lt_index_fkOri_joint_3 + '.rz', lt_index_fkOri_joint_4 + '.rz']
+	lt_index_driven_relax = [lt_index_fkOri_root, lt_index_fkOri_joint_2, lt_index_fkOri_joint_3, lt_index_fkOri_joint_4]
+	lt_index_driver_relax = (lt_index_icon + '.relax')
+	pm.setDrivenKeyframe(lt_index_drivenAttr_relax, currentDriver=lt_index_driver_relax)
+	lt_index_icon.relax.set(10)
+	lt_index_fkOri_root.rz.set(12)
+	lt_index_fkOri_joint_2.rz.set(15)
+	lt_index_fkOri_joint_3.rz.set(18)
+	lt_index_fkOri_joint_4.rz.set(21)
+	pm.setDrivenKeyframe(lt_index_drivenAttr_relax, currentDriver=lt_index_driver_relax)
+	lt_index_icon.relax.set(0)
+
+	pm.keyTangent(lt_index_driven_relax, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+	'''
+	Middle Curl
+	'''
+	lt_middle_drivenAttr_curl = [lt_middle_fkOri_root + '.rz', lt_middle_fkOri_joint_2 + '.rz', lt_middle_fkOri_joint_3 + '.rz', lt_middle_fkOri_joint_4 + '.rz']
+	lt_middle_driver_curl = (lt_middle_icon + '.curl')
+	pm.setDrivenKeyframe(lt_middle_drivenAttr_curl, currentDriver=lt_middle_driver_curl)
+
+	# print "Driven:", lt_middle_driven
+	lt_middle_driven_curl= [lt_middle_fkOri_root, lt_middle_fkOri_joint_2, lt_middle_fkOri_joint_3, lt_middle_fkOri_joint_4]
+	lt_middle_icon.curl.set(10)
+	pm.xform(lt_middle_driven_curl, ro=(0, 0, 90))
+	lt_middle_fkOri_root.rz.set(15)
+	lt_middle_fkOri_joint_3.rz.set(75)
+	pm.setDrivenKeyframe(lt_middle_drivenAttr_curl, currentDriver=lt_middle_driver_curl)
+	lt_middle_icon.curl.set(-10)
+	pm.xform(lt_middle_driven_curl, ro=(0, 0, -10))
+	lt_middle_fkOri_joint_2.rz.set(-20)
+	lt_middle_fkOri_joint_3.rz.set(-25)
+	lt_middle_fkOri_joint_4.rz.set(-30)
+	pm.setDrivenKeyframe(lt_middle_drivenAttr_curl, currentDriver=lt_middle_driver_curl)
+	lt_middle_drivenKeyframes_curl = (lt_middle_fkOri_root + '_rotateZ', lt_middle_fkOri_joint_2 + '_rotateZ', lt_middle_fkOri_joint_3 + '_rotateZ', lt_middle_fkOri_joint_4 + '_rotateZ')
+	pm.keyTangent(lt_middle_drivenKeyframes_curl, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+	lt_middle_icon.curl.set(0)
+
+	'''
+	Middle Scrunch
+	'''
+	lt_middle_drivenAttr_allScrunch = [lt_middle_fkOri_joint_2 + '.rz', lt_middle_fkOri_joint_3 + '.rz', lt_middle_fkOri_joint_4 + '.rz']
+	lt_middle_driver_allScrunch = (lt_middle_icon + '.scrunch')
+	pm.setDrivenKeyframe(lt_middle_drivenAttr_allScrunch, currentDriver=lt_middle_driver_allScrunch)
+	# print "Driven:", lt_middle_driven
+	lt_middle_driven_allScrunch= [lt_middle_fkOri_joint_2, lt_middle_fkOri_joint_3, lt_middle_fkOri_joint_4]
+	lt_middle_icon.scrunch.set(10)
+	lt_middle_fkOri_joint_2.rz.set(-50)
+	lt_middle_fkOri_joint_3.rz.set(110)
+	lt_middle_fkOri_joint_4.rz.set(30)
+	pm.setDrivenKeyframe(lt_middle_drivenAttr_allScrunch, currentDriver=lt_middle_driver_allScrunch)
+	lt_middle_icon.scrunch.set(-10)
+	lt_middle_fkOri_joint_2.rz.set(-3)
+	lt_middle_fkOri_joint_3.rz.set(-4)
+	lt_middle_fkOri_joint_4.rz.set(-10)
+	pm.setDrivenKeyframe(lt_middle_drivenAttr_allScrunch, currentDriver=lt_middle_driver_allScrunch)
+	lt_middle_drivenKeyframes_allScrunch = (lt_middle_fkOri_root + '_rotateZ', lt_middle_fkOri_joint_2 + '_rotateZ', lt_middle_fkOri_joint_3 + '_rotateZ', lt_middle_fkOri_joint_4 + '_rotateZ')
+	pm.keyTangent(lt_middle_drivenKeyframes_allScrunch, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+	lt_middle_icon.scrunch.set(0)
+
+	'''
+	Middle Spread
+	'''
+	lt_middle_drivenAttr_spread = (lt_middle_fkOri_root + '.ry', lt_middle_fkOri_joint_2 + '.ry')
+	lt_middle_driven_spread= (lt_middle_fkOri_root, lt_middle_fkOri_joint_2)
+	lt_middle_driver_spread = (lt_middle_icon + '.spread')
+	pm.setDrivenKeyframe(lt_middle_drivenAttr_spread, currentDriver=lt_middle_driver_spread)
+	lt_middle_icon.spread.set(10)
+	pm.xform(lt_middle_driven_spread, ro=(0, 6, 0))
+	pm.setDrivenKeyframe(lt_middle_drivenAttr_spread, currentDriver=lt_middle_driver_spread)
+	lt_middle_icon.spread.set(-10)
+	pm.xform(lt_middle_driven_spread, ro=(0, -3, 0))
+	pm.setDrivenKeyframe(lt_middle_drivenAttr_spread, currentDriver=lt_middle_driver_spread)
+	lt_middle_icon.spread.set(0)
+
+	lt_middle_drivenKeyframes_spread = (lt_middle_fkOri_root + '_rotateY', lt_middle_fkOri_joint_2 + '_rotateY')
+	pm.keyTangent(lt_middle_drivenKeyframes_spread, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+	'''
+	Middle Relax
+	'''
+	lt_middle_drivenAttr_relax = [lt_middle_fkOri_root + '.rz', lt_middle_fkOri_joint_2 + '.rz', lt_middle_fkOri_joint_3 + '.rz', lt_middle_fkOri_joint_4 + '.rz']
+	lt_middle_driven_relax = [lt_middle_fkOri_root, lt_middle_fkOri_joint_2, lt_middle_fkOri_joint_3, lt_middle_fkOri_joint_4]
+	lt_middle_driver_relax = (lt_middle_icon + '.relax')
+	pm.setDrivenKeyframe(lt_middle_drivenAttr_relax, currentDriver=lt_middle_driver_relax)
+	lt_middle_icon.relax.set(10)
+	lt_middle_fkOri_root.rz.set(12)
+	lt_middle_fkOri_joint_2.rz.set(15)
+	lt_middle_fkOri_joint_3.rz.set(18)
+	lt_middle_fkOri_joint_4.rz.set(21)
+	pm.setDrivenKeyframe(lt_middle_drivenAttr_relax, currentDriver=lt_middle_driver_relax)
+	lt_middle_icon.relax.set(0)
+
+	pm.keyTangent(lt_middle_driven_relax, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+	'''
+	Pinky Curl
+	'''
+	lt_pinky_drivenAttr_curl = [lt_pinky_fkOri_root + '.rz', lt_pinky_fkOri_joint_2 + '.rz', lt_pinky_fkOri_joint_3 + '.rz', lt_pinky_fkOri_joint_4 + '.rz']
+	lt_pinky_driver_curl = (lt_pinky_icon + '.curl')
+	pm.setDrivenKeyframe(lt_pinky_drivenAttr_curl, currentDriver=lt_pinky_driver_curl)
+
+	# print "Driven:", lt_pinky_driven
+	lt_pinky_driven_curl= [lt_pinky_fkOri_root, lt_pinky_fkOri_joint_2, lt_pinky_fkOri_joint_3, lt_pinky_fkOri_joint_4]
+	lt_pinky_icon.curl.set(10)
+	pm.xform(lt_pinky_driven_curl, ro=(0, 0, 90))
+	lt_pinky_fkOri_root.rz.set(15)
+	lt_pinky_fkOri_joint_3.rz.set(75)
+	pm.setDrivenKeyframe(lt_pinky_drivenAttr_curl, currentDriver=lt_pinky_driver_curl)
+	lt_pinky_icon.curl.set(-10)
+	pm.xform(lt_pinky_driven_curl, ro=(0, 0, -10))
+	lt_pinky_fkOri_joint_2.rz.set(-20)
+	lt_pinky_fkOri_joint_3.rz.set(-25)
+	lt_pinky_fkOri_joint_4.rz.set(-30)
+	pm.setDrivenKeyframe(lt_pinky_drivenAttr_curl, currentDriver=lt_pinky_driver_curl)
+	lt_pinky_drivenKeyframes_curl = (lt_pinky_fkOri_root + '_rotateZ', lt_pinky_fkOri_joint_2 + '_rotateZ', lt_pinky_fkOri_joint_3 + '_rotateZ', lt_pinky_fkOri_joint_4 + '_rotateZ')
+	pm.keyTangent(lt_pinky_drivenKeyframes_curl, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+	lt_pinky_icon.curl.set(0)
+
+	'''
+	Pinky Scrunch
+	'''
+	lt_pinky_drivenAttr_allScrunch = [lt_pinky_fkOri_joint_2 + '.rz', lt_pinky_fkOri_joint_3 + '.rz', lt_pinky_fkOri_joint_4 + '.rz']
+	lt_pinky_driver_allScrunch = (lt_pinky_icon + '.scrunch')
+	pm.setDrivenKeyframe(lt_pinky_drivenAttr_allScrunch, currentDriver=lt_pinky_driver_allScrunch)
+	# print "Driven:", lt_pinky_driven
+	lt_pinky_driven_allScrunch= [lt_pinky_fkOri_joint_2, lt_pinky_fkOri_joint_3, lt_pinky_fkOri_joint_4]
+	lt_pinky_icon.scrunch.set(10)
+	lt_pinky_fkOri_joint_2.rz.set(-50)
+	lt_pinky_fkOri_joint_3.rz.set(110)
+	lt_pinky_fkOri_joint_4.rz.set(30)
+	pm.setDrivenKeyframe(lt_pinky_drivenAttr_allScrunch, currentDriver=lt_pinky_driver_allScrunch)
+	lt_pinky_icon.scrunch.set(-10)
+	lt_pinky_fkOri_joint_2.rz.set(-3)
+	lt_pinky_fkOri_joint_3.rz.set(-4)
+	lt_pinky_fkOri_joint_4.rz.set(-10)
+	pm.setDrivenKeyframe(lt_pinky_drivenAttr_allScrunch, currentDriver=lt_pinky_driver_allScrunch)
+	lt_pinky_drivenKeyframes_allScrunch = (lt_pinky_fkOri_root + '_rotateZ', lt_pinky_fkOri_joint_2 + '_rotateZ', lt_pinky_fkOri_joint_3 + '_rotateZ', lt_pinky_fkOri_joint_4 + '_rotateZ')
+	pm.keyTangent(lt_pinky_drivenKeyframes_allScrunch, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+	lt_pinky_icon.scrunch.set(0)
+
+	'''
+	Pinky Spread
+	'''
+	lt_pinky_drivenAttr_spread = (lt_pinky_fkOri_root + '.ry', lt_pinky_fkOri_joint_2 + '.ry')
+	lt_pinky_driven_spread= (lt_pinky_fkOri_root, lt_pinky_fkOri_joint_2)
+	lt_pinky_driver_spread = (lt_pinky_icon + '.spread')
+	pm.setDrivenKeyframe(lt_pinky_drivenAttr_spread, currentDriver=lt_pinky_driver_spread)
+	lt_pinky_icon.spread.set(10)
+	pm.xform(lt_pinky_driven_spread, ro=(0, 6, 0))
+	pm.setDrivenKeyframe(lt_pinky_drivenAttr_spread, currentDriver=lt_pinky_driver_spread)
+	lt_pinky_icon.spread.set(-10)
+	pm.xform(lt_pinky_driven_spread, ro=(0, -3, 0))
+	pm.setDrivenKeyframe(lt_pinky_drivenAttr_spread, currentDriver=lt_pinky_driver_spread)
+	lt_pinky_icon.spread.set(0)
+
+	lt_pinky_drivenKeyframes_spread = (lt_pinky_fkOri_root + '_rotateY', lt_pinky_fkOri_joint_2 + '_rotateY')
+	pm.keyTangent(lt_pinky_drivenKeyframes_spread, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+
+	'''
+	Pinky Relax
+	'''
+	lt_pinky_drivenAttr_relax = [lt_pinky_fkOri_root + '.rz', lt_pinky_fkOri_joint_2 + '.rz', lt_pinky_fkOri_joint_3 + '.rz', lt_pinky_fkOri_joint_4 + '.rz']
+	lt_pinky_driven_relax = [lt_pinky_fkOri_root, lt_pinky_fkOri_joint_2, lt_pinky_fkOri_joint_3, lt_pinky_fkOri_joint_4]
+	lt_pinky_driver_relax = (lt_pinky_icon + '.relax')
+	pm.setDrivenKeyframe(lt_pinky_drivenAttr_relax, currentDriver=lt_pinky_driver_relax)
+	lt_pinky_icon.relax.set(10)
+	lt_pinky_fkOri_root.rz.set(12)
+	lt_pinky_fkOri_joint_2.rz.set(15)
+	lt_pinky_fkOri_joint_3.rz.set(18)
+	lt_pinky_fkOri_joint_4.rz.set(21)
+	pm.setDrivenKeyframe(lt_pinky_drivenAttr_relax, currentDriver=lt_pinky_driver_relax)
+	lt_pinky_icon.relax.set(0)
+
+	pm.keyTangent(lt_pinky_driven_relax, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+	pm.select(lt_index_icon, lt_middle_icon, lt_pinky_icon)
+	icon_selection = pm.ls(sl=1)
+
+	color_lt_index = 28
+
+	for each in icon_selection:
+		pm.setAttr(each + '.overrideEnabled', 1)
+		pm.setAttr(each + '.overrideColor', color_lt_index)
+		color_lt_index = color_lt_index + 1
+
+
+	'''
+	Parent Icon Things
+	'''
+
+	lock_and_hide(lt_parent_icon, ['tx', 'ty', 'tz', 'rx', 'ry', 'rz', 'sx', 'sy', 'sz', 'v'])
+
+	pm.addAttr(lt_parent_icon, ln='fingerCtrls',  at='enum', en ='-------')
+	lt_parent_icon.fingerCtrls.set(lock=1, e=1, keyable=1)
+
+	lockAttrs(lt_parent_icon, ['fingerCtrls'])
+
+	pm.addAttr(lt_parent_icon, ln='fist', at='double', max=10, min=0, dv=0)
+	unlock_and_unhide(lt_parent_icon, ['fist'])
+
+	pm.addAttr(lt_parent_icon, ln='relax', at='double', max=10, min=-10, dv=0)
+	unlock_and_unhide(lt_parent_icon, ['relax'])
+
+	pm.addAttr(lt_parent_icon, ln='scrunch', at='double', max=10, min=-10, dv=0)
+	unlock_and_unhide(lt_parent_icon, ['scrunch'])
+
+	pm.addAttr(lt_parent_icon, ln='spread', at='double', max=10, min=-10, dv=0)
+	unlock_and_unhide(lt_parent_icon, ['spread'])
+
+	pm.addAttr(lt_parent_icon, ln='lt_thumbCtrls',  at='enum', en ='-------')
+	lt_parent_icon.lt_thumbCtrls.set(lock=1, e=1, keyable=1)
+
+	lockAttrs(lt_parent_icon, ['lt_thumbCtrls'])
+
+	pm.addAttr(lt_parent_icon, ln='curl', at='double', max=10, min=-10, dv=0)
+	unlock_and_unhide(lt_parent_icon, ['curl'])
+
+	pm.addAttr(lt_parent_icon, ln='drop', at='double', min=0, max=10, dv=0)
+	unlock_and_unhide(lt_parent_icon, ['drop'])
+
+	pm.addAttr(lt_parent_icon, ln='lt_thumbRelax', nn='Relax', at='double', max=10, min=0, dv=0)
+	unlock_and_unhide(lt_parent_icon, ['lt_thumbRelax'])
+
+	pm.addAttr(lt_parent_icon, ln='lt_thumbSpread', nn='Spread', at='double', max=10, min=-10, dv=0)
+	unlock_and_unhide(lt_parent_icon, ['lt_thumbSpread'])
+
+
+	'''
+	Index Fist
+	'''
+	lt_index_drivenAttr_fist = [lt_index_fkOri_root + '.rz', lt_index_fkOri_joint_2 + '.rz', lt_index_fkOri_joint_3 + '.rz', lt_index_fkOri_joint_4 + '.rz']
+	lt_index_driver_fist = (lt_parent_icon + '.fist')
+	lt_index_driven_fist= [lt_index_fkOri_root, lt_index_fkOri_joint_2, lt_index_fkOri_joint_3, lt_index_fkOri_joint_4]
+	pm.setDrivenKeyframe(lt_index_drivenAttr_fist, currentDriver=lt_index_driver_fist)
+	lt_parent_icon.fist.set(10)
+	pm.xform(lt_index_driven_fist, ro=(0, 0, 90))
+	lt_index_fkOri_root.rz.set(15)
+	lt_index_fkOri_joint_3.rz.set(75)
+	lt_index_fkOri_joint_4.rz.set(25)
+	pm.setDrivenKeyframe(lt_index_drivenAttr_fist, currentDriver=lt_index_driver_fist)
+	lt_parent_icon.fist.set(0)
+
+
+	'''
+	Middle Fist
+	'''
+	lt_middle_drivenAttr_fist = [lt_middle_fkOri_root + '.rz', lt_middle_fkOri_joint_2 + '.rz', lt_middle_fkOri_joint_3 + '.rz', lt_middle_fkOri_joint_4 + '.rz']
+	lt_middle_driver_fist = (lt_parent_icon + '.fist')
+	lt_middle_driven_fist= [lt_middle_fkOri_root, lt_middle_fkOri_joint_2, lt_middle_fkOri_joint_3, lt_middle_fkOri_joint_4]
+	pm.setDrivenKeyframe(lt_middle_drivenAttr_fist, currentDriver=lt_middle_driver_fist)
+	lt_parent_icon.fist.set(10)
+	pm.xform(lt_middle_driven_fist, ro=(0, 0, 90))
+	lt_middle_fkOri_root.rz.set(15)
+	lt_middle_fkOri_joint_3.rz.set(75)
+	lt_middle_fkOri_joint_4.rz.set(25)
+	pm.setDrivenKeyframe(lt_middle_drivenAttr_fist, currentDriver=lt_middle_driver_fist)
+	lt_parent_icon.fist.set(0)
+
+	'''
+	Pinky Fist
+	'''
+	lt_pinky_drivenAttr_fist = [lt_pinky_fkOri_root + '.rz', lt_pinky_fkOri_joint_2 + '.rz', lt_pinky_fkOri_joint_3 + '.rz', lt_pinky_fkOri_joint_4 + '.rz']
+	lt_pinky_driver_fist = (lt_parent_icon + '.fist')
+	lt_pinky_driven_fist= [lt_pinky_fkOri_root, lt_pinky_fkOri_joint_2, lt_pinky_fkOri_joint_3, lt_pinky_fkOri_joint_4]
+	pm.setDrivenKeyframe(lt_pinky_drivenAttr_fist, currentDriver=lt_pinky_driver_fist)
+	lt_parent_icon.fist.set(10)
+	pm.xform(lt_pinky_driven_fist, ro=(0, 0, 90))
+	lt_pinky_fkOri_root.rz.set(15)
+	lt_pinky_fkOri_joint_3.rz.set(75)
+	lt_pinky_fkOri_joint_4.rz.set(25)
+	pm.setDrivenKeyframe(lt_pinky_drivenAttr_fist, currentDriver=lt_pinky_driver_fist)
+	lt_parent_icon.fist.set(0)
+
+	'''
+	Thumb fist
+	'''
+	lt_thumb_drivenAttr_fist = [lt_thumb_fkOri_pivot + '.rx', lt_thumb_fkOri_pivot + '.ry', lt_thumb_fkOri_pivot + '.rz', lt_thumb_fkOri_joint_1 + '.ry', lt_thumb_fkOri_joint_2 + '.ry', lt_thumb_fkOri_joint_3 + '.ry']
+	lt_thumb_driver_fist  = (lt_parent_icon + '.fist')
+	lt_thumb_driven_fist = [lt_thumb_fkOri_pivot, lt_thumb_fkOri_pivot, lt_thumb_fkOri_pivot, lt_thumb_fkOri_joint_1, lt_thumb_fkOri_joint_2, lt_thumb_fkOri_joint_3]
+	pm.setDrivenKeyframe(lt_thumb_drivenAttr_fist, currentDriver=lt_thumb_driver_fist)
+	lt_parent_icon.fist.set(10)
+	pm.xform(lt_thumb_fkOri_pivot, ro=(-32, -12, 7))
+	lt_thumb_fkOri_joint_1.ry.set(-16)
+	lt_thumb_fkOri_joint_2.ry.set(-25)
+	lt_thumb_fkOri_joint_3.ry.set(-8)
+	pm.setDrivenKeyframe(lt_thumb_drivenAttr_fist, currentDriver=lt_thumb_driver_fist)
+	lt_parent_icon.fist.set(0)
+
+	lt_thumb_drivenKeyframes_allSpread = (lt_thumb_fkOri_pivot + '_rotateX', lt_thumb_fkOri_pivot + '_rotateY', lt_thumb_fkOri_pivot + '_rotateZ', lt_thumb_fkOri_joint_1 + '_rotateY', lt_thumb_fkOri_joint_2 + '_rotateY', lt_thumb_fkOri_joint_3 + '_rotateY')
+	pm.keyTangent(lt_thumb_drivenKeyframes_allSpread, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+
+	'''
+	Index allScrunch
+	'''
+	lt_index_drivenAttr_allScrunch = [lt_index_fkOri_joint_2 + '.rz', lt_index_fkOri_joint_3 + '.rz', lt_index_fkOri_joint_4 + '.rz']
+	lt_index_driver_allScrunch = (lt_parent_icon + '.scrunch')
+	pm.setDrivenKeyframe(lt_index_drivenAttr_allScrunch, currentDriver=lt_index_driver_allScrunch)
+	# print "Driven:", lt_index_driven
+	lt_index_driven_allScrunch= [lt_index_fkOri_joint_2, lt_index_fkOri_joint_3, lt_index_fkOri_joint_4]
+	lt_parent_icon.scrunch.set(10)
+	lt_index_fkOri_joint_2.rz.set(-50)
+	lt_index_fkOri_joint_3.rz.set(110)
+	lt_index_fkOri_joint_4.rz.set(30)
+	pm.setDrivenKeyframe(lt_index_drivenAttr_allScrunch, currentDriver=lt_index_driver_allScrunch)
+	lt_parent_icon.scrunch.set(-10)
+	lt_index_fkOri_joint_2.rz.set(-3)
+	lt_index_fkOri_joint_3.rz.set(-4)
+	lt_index_fkOri_joint_4.rz.set(-10)
+	pm.setDrivenKeyframe(lt_index_drivenAttr_allScrunch, currentDriver=lt_index_driver_allScrunch)
+	lt_index_drivenKeyframes_allScrunch = (lt_index_fkOri_root + '_rotateZ', lt_index_fkOri_joint_2 + '_rotateZ', lt_index_fkOri_joint_3 + '_rotateZ', lt_index_fkOri_joint_4 + '_rotateZ')
+	pm.keyTangent(lt_index_drivenKeyframes_allScrunch, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+	lt_parent_icon.scrunch.set(0)
+
+	'''
+	Middle allScrunch
+	'''
+	lt_middle_drivenAttr_allScrunch = [lt_middle_fkOri_joint_2 + '.rz', lt_middle_fkOri_joint_3 + '.rz', lt_middle_fkOri_joint_4 + '.rz']
+	lt_middle_driver_allScrunch = (lt_parent_icon + '.scrunch')
+	pm.setDrivenKeyframe(lt_middle_drivenAttr_allScrunch, currentDriver=lt_middle_driver_allScrunch)
+	# print "Driven:", lt_middle_driven
+	lt_middle_driven_allScrunch= [lt_middle_fkOri_joint_2, lt_middle_fkOri_joint_3, lt_middle_fkOri_joint_4]
+	lt_parent_icon.scrunch.set(10)
+	lt_middle_fkOri_joint_2.rz.set(-50)
+	lt_middle_fkOri_joint_3.rz.set(110)
+	lt_middle_fkOri_joint_4.rz.set(30)
+	pm.setDrivenKeyframe(lt_middle_drivenAttr_allScrunch, currentDriver=lt_middle_driver_allScrunch)
+	lt_parent_icon.scrunch.set(-10)
+	lt_middle_fkOri_joint_2.rz.set(-3)
+	lt_middle_fkOri_joint_3.rz.set(-4)
+	lt_middle_fkOri_joint_4.rz.set(-10)
+	pm.setDrivenKeyframe(lt_middle_drivenAttr_allScrunch, currentDriver=lt_middle_driver_allScrunch)
+	lt_middle_drivenKeyframes_allScrunch = (lt_middle_fkOri_root + '_rotateZ', lt_middle_fkOri_joint_2 + '_rotateZ', lt_middle_fkOri_joint_3 + '_rotateZ', lt_middle_fkOri_joint_4 + '_rotateZ')
+	pm.keyTangent(lt_middle_drivenKeyframes_allScrunch, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+	lt_parent_icon.scrunch.set(0)
+
+	'''
+	Pinky allScrunch
+	'''
+	lt_pinky_drivenAttr_allScrunch = [lt_pinky_fkOri_joint_2 + '.rz', lt_pinky_fkOri_joint_3 + '.rz', lt_pinky_fkOri_joint_4 + '.rz']
+	lt_pinky_driver_allScrunch = (lt_parent_icon + '.scrunch')
+	pm.setDrivenKeyframe(lt_pinky_drivenAttr_allScrunch, currentDriver=lt_pinky_driver_allScrunch)
+	# print "Driven:", lt_pinky_driven
+	lt_pinky_driven_allScrunch= [lt_pinky_fkOri_joint_2, lt_pinky_fkOri_joint_3, lt_pinky_fkOri_joint_4]
+	lt_parent_icon.scrunch.set(10)
+	lt_pinky_fkOri_joint_2.rz.set(-50)
+	lt_pinky_fkOri_joint_3.rz.set(110)
+	lt_pinky_fkOri_joint_4.rz.set(30)
+	pm.setDrivenKeyframe(lt_pinky_drivenAttr_allScrunch, currentDriver=lt_pinky_driver_allScrunch)
+	lt_parent_icon.scrunch.set(-10)
+	lt_pinky_fkOri_joint_2.rz.set(-3)
+	lt_pinky_fkOri_joint_3.rz.set(-4)
+	lt_pinky_fkOri_joint_4.rz.set(-10)
+	pm.setDrivenKeyframe(lt_pinky_drivenAttr_allScrunch, currentDriver=lt_pinky_driver_allScrunch)
+	lt_pinky_drivenKeyframes_allScrunch = (lt_pinky_fkOri_root + '_rotateZ', lt_pinky_fkOri_joint_2 + '_rotateZ', lt_pinky_fkOri_joint_3 + '_rotateZ', lt_pinky_fkOri_joint_4 + '_rotateZ')
+	pm.keyTangent(lt_pinky_drivenKeyframes_allScrunch, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+	lt_parent_icon.scrunch.set(0)
+
+
+	'''
+	Index allSpread
+	'''
+	lt_index_drivenAttr_allSpread = (lt_index_fkOri_root + '.ry', lt_index_fkOri_joint_2 + '.ry')
+	lt_index_driven_allSpread= (lt_index_fkOri_root, lt_index_fkOri_joint_2)
+	lt_index_driver_allSpread = (lt_parent_icon + '.spread')
+	pm.setDrivenKeyframe(lt_index_drivenAttr_allSpread, currentDriver=lt_index_driver_allSpread)
+	lt_parent_icon.spread.set(10)
+	pm.xform(lt_index_driven_allSpread, ro=(0, 6, 0))
+	pm.setDrivenKeyframe(lt_index_drivenAttr_allSpread, currentDriver=lt_index_driver_allSpread)
+	lt_parent_icon.spread.set(-10)
+	pm.xform(lt_index_driven_allSpread, ro=(0, -3, 0))
+	pm.setDrivenKeyframe(lt_index_drivenAttr_allSpread, currentDriver=lt_index_driver_allSpread)
+	lt_parent_icon.spread.set(0)
+
+	lt_index_drivenKeyframes_allSpread = (lt_index_fkOri_root + '_rotateY', lt_index_fkOri_joint_2 + '_rotateY')
+	pm.keyTangent(lt_index_drivenKeyframes_allSpread, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+
+	'''
+	Middle allSpread
+	'''
+	lt_middle_drivenAttr_allSpread = (lt_middle_fkOri_root + '.ry', lt_middle_fkOri_joint_2 + '.ry')
+	lt_middle_driven_allSpread= (lt_middle_fkOri_root, lt_middle_fkOri_joint_2)
+	lt_middle_driver_allSpread = (lt_parent_icon + '.spread')
+	pm.setDrivenKeyframe(lt_middle_drivenAttr_allSpread, currentDriver=lt_middle_driver_allSpread)
+	lt_parent_icon.spread.set(10)
+	pm.xform(lt_middle_driven_allSpread, ro=(0, 3, 0))
+	pm.setDrivenKeyframe(lt_middle_drivenAttr_allSpread, currentDriver=lt_middle_driver_allSpread)
+	lt_parent_icon.spread.set(-10)
+	pm.xform(lt_middle_driven_allSpread, ro=(0, 0, 0))
+	pm.setDrivenKeyframe(lt_middle_drivenAttr_allSpread, currentDriver=lt_middle_driver_allSpread)
+	lt_parent_icon.spread.set(0)
+
+	lt_middle_drivenKeyframes_allSpread = (lt_middle_fkOri_root + '_rotateY', lt_middle_fkOri_joint_2 + '_rotateY')
+	pm.keyTangent(lt_middle_drivenKeyframes_allSpread, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+
+	'''
+	Pinky allSpread
+	'''
+	lt_pinky_drivenAttr_allSpread = (lt_pinky_fkOri_root + '.ry', lt_pinky_fkOri_joint_2 + '.ry')
+	lt_pinky_driven_allSpread= (lt_pinky_fkOri_root, lt_pinky_fkOri_joint_2)
+	lt_pinky_driver_allSpread = (lt_parent_icon + '.spread')
+	pm.setDrivenKeyframe(lt_pinky_drivenAttr_allSpread, currentDriver=lt_pinky_driver_allSpread)
+	lt_parent_icon.spread.set(10)
+	pm.xform(lt_pinky_driven_allSpread, ro=(0, -6, 0))
+	pm.setDrivenKeyframe(lt_pinky_drivenAttr_allSpread, currentDriver=lt_pinky_driver_allSpread)
+	lt_parent_icon.spread.set(-10)
+	pm.xform(lt_pinky_driven_allSpread, ro=(0, 3, 0))
+	pm.setDrivenKeyframe(lt_pinky_drivenAttr_allSpread, currentDriver=lt_pinky_driver_allSpread)
+	lt_parent_icon.spread.set(0)
+
+	lt_pinky_drivenKeyframes_allSpread = (lt_pinky_fkOri_root + '_rotateY', lt_pinky_fkOri_joint_2 + '_rotateY')
+	pm.keyTangent(lt_pinky_drivenKeyframes_allSpread, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+
+	'''
+	Thumb allSpread
+	'''
+	lt_thumb_drivenAttr_allSpread = [lt_thumb_fkOri_joint_1 + '.ry']
+	lt_thumb_driver_allSpread  = (lt_parent_icon + '.spread')
+	lt_thumb_driven_allSpread = [lt_thumb_fkOri_pivot, lt_thumb_fkOri_pivot, lt_thumb_fkOri_pivot, lt_thumb_fkOri_joint_1, lt_thumb_fkOri_joint_2, lt_thumb_fkOri_joint_3]
+	pm.setDrivenKeyframe(lt_thumb_drivenAttr_allSpread, currentDriver=lt_thumb_driver_allSpread)
+	lt_parent_icon.spread.set(10)
+	lt_thumb_fkOri_joint_1.ry.set(30)
+	pm.setDrivenKeyframe(lt_thumb_drivenAttr_allSpread, currentDriver=lt_thumb_driver_allSpread)
+	lt_parent_icon.spread.set(-10)
+	lt_thumb_fkOri_joint_1.ry.set(-50)
+	pm.setDrivenKeyframe(lt_thumb_drivenAttr_allSpread, currentDriver=lt_thumb_driver_allSpread)
+	lt_parent_icon.spread.set(0)
+
+	lt_thumb_drivenKeyframes_allSpread = (lt_thumb_fkOri_joint_1 + '_rotateY')
+	pm.keyTangent(lt_thumb_drivenKeyframes_allSpread, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+
+
+	'''
+	Index allRelax
+	'''
+	lt_index_drivenAttr_allRelax = [lt_index_fkOri_root + '.rz', lt_index_fkOri_joint_2 + '.rz', lt_index_fkOri_joint_3 + '.rz', lt_index_fkOri_joint_4 + '.rz']
+	lt_index_driven_allRelax = [lt_index_fkOri_root, lt_index_fkOri_joint_2, lt_index_fkOri_joint_3, lt_index_fkOri_joint_4]
+	lt_index_driver_allRelax = (lt_parent_icon + '.relax')
+	pm.setDrivenKeyframe(lt_index_drivenAttr_allRelax, currentDriver=lt_index_driver_allRelax)
+	lt_parent_icon.relax.set(10)
+	lt_index_fkOri_root.rz.set(3)
+	lt_index_fkOri_joint_2.rz.set(3.75)
+	lt_index_fkOri_joint_3.rz.set(4.5)
+	lt_index_fkOri_joint_4.rz.set(8.4)
+	pm.setDrivenKeyframe(lt_index_drivenAttr_allRelax, currentDriver=lt_index_driver_allRelax)
+	lt_parent_icon.relax.set(-10)
+	lt_index_fkOri_root.rz.set(12)
+	lt_index_fkOri_joint_2.rz.set(15)
+	lt_index_fkOri_joint_3.rz.set(18)
+	lt_index_fkOri_joint_4.rz.set(21)
+	pm.setDrivenKeyframe(lt_index_drivenAttr_allRelax, currentDriver=lt_index_driver_allRelax)
+	lt_parent_icon.relax.set(0)
+
+	pm.keyTangent(lt_index_driven_allRelax, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+
+	'''
+	Middle allRelax
+	'''
+	lt_middle_drivenAttr_allRelax = [lt_middle_fkOri_root + '.rz', lt_middle_fkOri_joint_2 + '.rz', lt_middle_fkOri_joint_3 + '.rz', lt_middle_fkOri_joint_4 + '.rz']
+	lt_middle_driven_allRelax = [lt_middle_fkOri_root, lt_middle_fkOri_joint_2, lt_middle_fkOri_joint_3, lt_middle_fkOri_joint_4]
+	lt_middle_driver_allRelax = (lt_parent_icon + '.relax')
+	pm.setDrivenKeyframe(lt_middle_drivenAttr_allRelax, currentDriver=lt_middle_driver_allRelax)
+	lt_parent_icon.relax.set(10)
+	lt_middle_fkOri_root.rz.set(6)
+	lt_middle_fkOri_joint_2.rz.set(7.5)
+	lt_middle_fkOri_joint_3.rz.set(9)
+	lt_middle_fkOri_joint_4.rz.set(12.6)
+	pm.setDrivenKeyframe(lt_middle_drivenAttr_allRelax, currentDriver=lt_middle_driver_allRelax)
+	lt_parent_icon.relax.set(-10)
+	lt_middle_fkOri_root.rz.set(9)
+	lt_middle_fkOri_joint_2.rz.set(11.25)
+	lt_middle_fkOri_joint_3.rz.set(13.5)
+	lt_middle_fkOri_joint_4.rz.set(16.8)
+	pm.setDrivenKeyframe(lt_middle_drivenAttr_allRelax, currentDriver=lt_middle_driver_allRelax)
+	lt_parent_icon.relax.set(0)
+
+	pm.keyTangent(lt_middle_driven_allRelax, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+
+	'''
+	Pinky allRelax
+	'''
+	lt_pinky_drivenAttr_allRelax = [lt_pinky_fkOri_root + '.rz', lt_pinky_fkOri_joint_2 + '.rz', lt_pinky_fkOri_joint_3 + '.rz', lt_pinky_fkOri_joint_4 + '.rz']
+	lt_pinky_driven_allRelax = [lt_pinky_fkOri_root, lt_pinky_fkOri_joint_2, lt_pinky_fkOri_joint_3, lt_pinky_fkOri_joint_4]
+	lt_pinky_driver_allRelax = (lt_parent_icon + '.relax')
+	pm.setDrivenKeyframe(lt_pinky_drivenAttr_allRelax, currentDriver=lt_pinky_driver_allRelax)
+	lt_parent_icon.relax.set(10)
+	lt_pinky_fkOri_root.rz.set(12)
+	lt_pinky_fkOri_joint_2.rz.set(15)
+	lt_pinky_fkOri_joint_3.rz.set(18)
+	lt_pinky_fkOri_joint_4.rz.set(21)
+	pm.setDrivenKeyframe(lt_pinky_drivenAttr_allRelax, currentDriver=lt_pinky_driver_allRelax)
+	lt_parent_icon.relax.set(-10)
+	lt_pinky_fkOri_root.rz.set(3)
+	lt_pinky_fkOri_joint_2.rz.set(3.75)
+	lt_pinky_fkOri_joint_3.rz.set(4.5)
+	lt_pinky_fkOri_joint_4.rz.set(8.4)
+	pm.setDrivenKeyframe(lt_pinky_drivenAttr_allRelax, currentDriver=lt_pinky_driver_allRelax)
+	lt_parent_icon.relax.set(0)
+
+	pm.keyTangent(lt_pinky_driven_allRelax, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+
+	'''
+	Thumb Curl
+	'''
+	lt_thumb_drivenAttr_curl = [lt_thumb_fkOri_joint_1 + '.ry', lt_thumb_fkOri_joint_2 + '.ry', lt_thumb_fkOri_joint_3 + '.ry']
+	lt_thumb_driven_curl = [lt_thumb_fkOri_joint_1, lt_thumb_fkOri_joint_2, lt_thumb_fkOri_joint_3]
+	lt_thumb_driver_curl = (lt_parent_icon + '.curl')
+	pm.setDrivenKeyframe(lt_thumb_drivenAttr_curl, currentDriver=lt_thumb_driver_curl)
+	lt_parent_icon.curl.set(10)
+	lt_thumb_fkOri_joint_1.ry.set(-25)
+	lt_thumb_fkOri_joint_2.ry.set(-30)
+	lt_thumb_fkOri_joint_3.ry.set(-32)
+	pm.setDrivenKeyframe(lt_thumb_drivenAttr_curl, currentDriver=lt_thumb_driver_curl)
+	lt_parent_icon.curl.set(-10)
+	lt_thumb_fkOri_joint_1.ry.set(40)
+	lt_thumb_fkOri_joint_2.ry.set(30)
+	lt_thumb_fkOri_joint_3.ry.set(32)
+	pm.setDrivenKeyframe(lt_thumb_drivenAttr_curl, currentDriver=lt_thumb_driver_curl)
+	lt_parent_icon.curl.set(0)
+
+	pm.keyTangent(lt_thumb_driven_curl, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+
+	'''
+	Thumb Drop
+	'''
+	lt_thumb_drivenAttr_drop = [lt_thumb_fkOri_pivot + '.rx']
+	lt_thumb_driven_drop = [lt_thumb_fkOri_pivot]
+	lt_thumb_driver_drop = (lt_parent_icon + '.drop')
+	pm.setDrivenKeyframe(lt_thumb_drivenAttr_drop, currentDriver=lt_thumb_driver_drop)
+	lt_parent_icon.drop.set(10)
+	lt_thumb_fkOri_pivot.rx.set(-64)
+	pm.setDrivenKeyframe(lt_thumb_drivenAttr_drop, currentDriver=lt_thumb_driver_drop)
+	lt_parent_icon.drop.set(0)
+
+	pm.keyTangent(lt_thumb_driven_drop, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+
+	'''
+	Thumb Relax
+	'''
+	lt_thumb_drivenAttr_relax = [lt_thumb_fkOri_joint_1 + '.ry', lt_thumb_fkOri_joint_2 + '.ry', lt_thumb_fkOri_joint_3 + '.ry', lt_thumb_fkOri_joint_1 + '.rz', lt_thumb_fkOri_joint_2 + '.rz', lt_thumb_fkOri_joint_3 + '.rz']
+	lt_thumb_driven_relax = [lt_thumb_fkOri_joint_1, lt_thumb_fkOri_joint_2, lt_thumb_fkOri_joint_3]
+	lt_thumb_driver_relax = (lt_parent_icon + '.lt_thumbRelax')
+	pm.setDrivenKeyframe(lt_thumb_drivenAttr_relax, currentDriver=lt_thumb_driver_relax)
+	lt_parent_icon.lt_thumbRelax.set(10)
+	lt_thumb_fkOri_joint_1.ry.set(-9)
+	lt_thumb_fkOri_joint_2.ry.set(-6)
+	lt_thumb_fkOri_joint_3.ry.set(-12)
+	lt_thumb_fkOri_joint_1.rz.set(4)
+	lt_thumb_fkOri_joint_2.rz.set(7)
+	lt_thumb_fkOri_joint_3.rz.set(12)
+	pm.setDrivenKeyframe(lt_thumb_drivenAttr_relax, currentDriver=lt_thumb_driver_relax)
+	lt_parent_icon.lt_thumbRelax.set(0)
+
+	pm.keyTangent(lt_thumb_driven_relax, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+
+	'''
+	Thumb Spread
+	'''
+	lt_thumb_drivenAttr_spread = [lt_thumb_fkOri_joint_1 + '.ry']
+	lt_thumb_driven_spread = [lt_thumb_fkOri_joint_1]
+	lt_thumb_driver_spread = (lt_parent_icon + '.lt_thumbSpread')
+	pm.setDrivenKeyframe(lt_thumb_drivenAttr_spread, currentDriver=lt_thumb_driver_spread)
+	lt_parent_icon.lt_thumbSpread.set(10)
+	lt_thumb_fkOri_joint_1.ry.set(-45)
+	pm.setDrivenKeyframe(lt_thumb_drivenAttr_spread, currentDriver=lt_thumb_driver_spread)
+	lt_parent_icon.lt_thumbSpread.set(-10)
+	lt_thumb_fkOri_joint_1.ry.set(40)
+	pm.setDrivenKeyframe(lt_thumb_drivenAttr_spread, currentDriver=lt_thumb_driver_spread)
+	lt_parent_icon.lt_thumbSpread.set(0)
+
+	pm.keyTangent(lt_thumb_driven_spread, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+def lt_twoFingers_and_thumb(*args):
+	global lt_index_joint_system, lt_index_root, lt_index_joint_2, lt_index_joint_3, lt_index_joint_4, lt_index_joint_5
+	global lt_pinky_joint_system, lt_pinky_root, lt_pinky_joint_2, lt_pinky_joint_3, lt_pinky_joint_4, lt_pinky_joint_5
+	global lt_thumb_joint_system, lt_thumb_pivot, lt_thumb_joint_1, lt_thumb_joint_2, lt_thumb_joint_3, lt_thumb_joint_4
+	global finger_selection
+	finger_selection = pm.ls(sl=1)
+	lt_index_joint_system = finger_selection[0]
+	lt_pinky_joint_system = finger_selection[1]
+	lt_thumb_joint_system = finger_selection[2]
+	# print 'Selection:', finger_selection
+	# print 'Index Joint System:', lt_index_joint_system
+	# print 'Pinky Joint System:', lt_pinky_joint_system
+	# print 'Thumb Joint System:', lt_thumb_joint_system
+
+	lt_index_joints = pm.ls(lt_index_joint_system, dag=1)
+	lt_index_root = lt_index_joints[0]
+	lt_index_joint_2 = lt_index_joints[1]
+	lt_index_joint_3 = lt_index_joints[2]
+	lt_index_joint_4 = lt_index_joints[3]
+	lt_index_joint_5 = lt_index_joints[4]
+	# print 'Index Root:', lt_index_root
+	# print 'Index Joint 2:', lt_index_joint_2
+	# print 'Index Joint 3:',  lt_index_joint_3
+	# print 'Index Joint 4:', lt_index_joint_4
+	# print 'Index Joint 5:', lt_index_joint_5 
+
+	lt_pinky_joints = pm.ls(lt_pinky_joint_system, dag=1)
+	lt_pinky_root = lt_pinky_joints[0]
+	lt_pinky_joint_2 = lt_pinky_joints[1]
+	lt_pinky_joint_3 = lt_pinky_joints[2]
+	lt_pinky_joint_4 = lt_pinky_joints[3]
+	lt_pinky_joint_5 = lt_pinky_joints[4]
+	# print 'Index Root:', lt_pinky_root
+	# print 'Index Joint 2:', lt_pinky_joint_2
+	# print 'Index Joint 3:',  lt_pinky_joint_3
+	# print 'Index Joint 4:', lt_pinky_joint_4
+	# print 'Index Joint 5:', lt_pinky_joint_5
+
+	lt_thumb_joints = pm.ls(lt_thumb_joint_system, dag=1)
+	lt_thumb_pivot = lt_thumb_joints[0]
+	lt_thumb_joint_1 = lt_thumb_joints[1]
+	lt_thumb_joint_2 = lt_thumb_joints[2]
+	lt_thumb_joint_3 = lt_thumb_joints[3]
+	lt_thumb_joint_4 = lt_thumb_joints[4]
+	# print 'Index Root:', lt_thumb_pivot
+	# print 'Index Joint 2:', lt_thumb_joint_1
+	# print 'Index Joint 3:',  lt_thumb_joint_2
+	# print 'Index Joint 4:', lt_thumb_joint_3
+	# print 'Index Joint 5:', lt_thumb_joint_4
+
+	pm.select(cl=1)
+
+	'''
+	Create the finger parent joint
+	'''
+	lt_hand_base = pm.joint()
+
+	temp_constraint = pm.parentConstraint(lt_hand_root, lt_hand_base, mo=0)
+	pm.delete(temp_constraint)
+
+	joint_name = lt_hand_root.replace('01_bind', 'temp')
+	lt_hand_base.rename(joint_name)
+
+	pm.parent(lt_hand_base, w=1)
+
+	'''
+	Un=parent the lt_thumb_01 from the pivot
+	'''
+	pm.parent(lt_thumb_joint_1, w=1)
+	pm.select(lt_hand_base)
+	freezeTransform()
+	'''
+	Parent the finger joints under the base joint
+	'''
+	pm.parent(lt_index_root, lt_pinky_root, lt_thumb_joint_1, lt_hand_base)
+	
+	'''
+	Orient the Joints
+	'''
+	pm.joint(lt_hand_base, zso=1, ch=1, e=1, oj='xyz', secondaryAxisOrient='ydown')
+	
+	
+	'''
+	Parent the lt_thumb_01 back to the pivot
+	'''
+	pm.parent(lt_thumb_joint_1, lt_thumb_pivot)
+	pm.parent(lt_thumb_pivot, lt_hand_base)
+
+	pm.parent(lt_index_root, lt_pinky_root, lt_thumb_pivot, w=1)
+
+	lt_indexSetup()
+	lt_pinkySetup()
+	lt_thumbSetup()
+
+	global lt_parent_icon, lt_index_icon, lt_pinky_icon
+	lt_parent_icon = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=16, r=1, tol=0.01, nr=(1, 0, 0))[0]
+
+	pm.select(lt_parent_icon + '.cv[0]', lt_parent_icon + '.cv[1]', lt_parent_icon + '.cv[9]', lt_parent_icon + '.cv[10]', lt_parent_icon + '.cv[11]', lt_parent_icon + '.cv[12]', lt_parent_icon + '.cv[13]', lt_parent_icon + '.cv[14]', lt_parent_icon + '.cv[15]')            
+	first_cv_set = pm.ls(sl=1)
+	cmds.move(0, 0, -2, r=1, os=1, wd=1)
+
+	pm.select(lt_parent_icon + '.cv[0]', lt_parent_icon + '.cv[10]', lt_parent_icon + '.cv[11]', lt_parent_icon + '.cv[12]', lt_parent_icon + '.cv[13]', lt_parent_icon + '.cv[14]', lt_parent_icon + '.cv[15]')            
+	second_cv_set = pm.ls(sl=1)
+	cmds.move(0, 0, -4, r=1, os=1, wd=1)
+
+	lt_index_icon = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=1, tol=0.01, nr=(1, 0, 0))[0]
+	lt_index_icon.sy.set(.6)
+	lt_index_icon.sz.set(.6)
+
+	icon_name = lt_index_root.replace('01_bind', 'icon')
+	lt_index_icon.rename(icon_name)
+
+	icon_name = lt_index_icon.replace('index', 'fingers')
+	lt_parent_icon.rename(icon_name)
+
+	freezeTransform()
+	deleteHistory(lt_index_icon)
+
+	lt_pinky_icon = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=1, tol=0.01, nr=(1, 0, 0))[0]
+	lt_pinky_icon.tz.set(-6)
+	lt_pinky_icon.sy.set(.6)
+	lt_pinky_icon.sz.set(.6)
+	icon_name = lt_pinky_root.replace('01_bind', 'icon')
+	lt_pinky_icon.rename(icon_name)
+	freezeTransform()
+	deleteHistory(lt_pinky_icon)
+
+	pm.parent(lt_index_icon, lt_pinky_icon, lt_parent_icon)
+	pm.select(lt_parent_icon)
+	centerPivot()
+
+	temp_constraint = pm.pointConstraint(lt_hand_joint_2, lt_parent_icon, mo=0)
+	pm.delete(temp_constraint)
+	pm.select(lt_parent_icon)
+	freezeTransform()
+	deleteHistory()
+
+	lt_parent_icon.ty.set(4)
+	pm.select(lt_parent_icon)
+	freezeTransform()
+
+	pm.parent(lt_parent_icon, 'lt_hand_icon')
+	freezeTransform()
+	pm.select(lt_index_icon, lt_pinky_icon)
+	icon_selection = pm.ls(sl=1)
+
+	pm.addAttr(icon_selection, ln='fingerCtrl',  at='enum', en ='-------')
+	lt_index_icon.fingerCtrl.set(lock=1, e=1, keyable=1)
+	lt_pinky_icon.fingerCtrl.set(lock=1, e=1, keyable=1)
+
+	pm.addAttr(icon_selection, ln='curl', max=10, dv=0, at='double', min=-10)
+	lt_index_icon.curl.set(e=1, keyable=1)
+	lt_pinky_icon.curl.set(e=1, keyable=1)
+
+	pm.addAttr(icon_selection, ln='relax', max=10, dv=0, at='double', min=0)
+	lt_index_icon.relax.set(e=1, keyable=1)
+	lt_pinky_icon.relax.set(e=1, keyable=1)
+
+	pm.addAttr(icon_selection, ln='scrunch', max=10, dv=0, at='double', min=-10)
+	lt_index_icon.scrunch.set(e=1, keyable=1)
+	lt_pinky_icon.scrunch.set(e=1, keyable=1)
+
+	pm.addAttr(icon_selection, ln='spread', max=10, dv=0, at='double', min=-10)
+	lt_index_icon.spread.set(e=1, keyable=1)
+	lt_pinky_icon.spread.set(e=1, keyable=1)
+
+	
+	pm.select(lt_parent_icon)
+	icon_selection = pm.ls(sl=1, dag=1)
+	lt_index_icon = icon_selection[2]
+	lt_pinky_icon = icon_selection[4]
+	# print 'Index Icon:', lt_index_icon
+	# print 'Pinky Icon:', lt_pinky_icon
+
+	lock_and_hide(lt_index_icon, ['tx', 'ty', 'tz', 'rx', 'ry', 'rz', 'sx', 'sy', 'sz', 'v'])
+	lock_and_hide(lt_pinky_icon, ['tx', 'ty', 'tz', 'rx', 'ry', 'rz', 'sx', 'sy', 'sz', 'v'])
+
+
+
+	'''
+	Index Curl
+	'''
+	lt_index_drivenAttr_curl = [lt_index_fkOri_root + '.rz', lt_index_fkOri_joint_2 + '.rz', lt_index_fkOri_joint_3 + '.rz', lt_index_fkOri_joint_4 + '.rz']
+	lt_index_driver_curl = (lt_index_icon + '.curl')
+	pm.setDrivenKeyframe(lt_index_drivenAttr_curl, currentDriver=lt_index_driver_curl)
+
+	# print "Driven:", lt_index_driven
+	lt_index_driven_curl= [lt_index_fkOri_root, lt_index_fkOri_joint_2, lt_index_fkOri_joint_3, lt_index_fkOri_joint_4]
+	lt_index_icon.curl.set(10)
+	pm.xform(lt_index_driven_curl, ro=(0, 0, 90))
+	lt_index_fkOri_root.rz.set(15)
+	lt_index_fkOri_joint_3.rz.set(75)
+	pm.setDrivenKeyframe(lt_index_drivenAttr_curl, currentDriver=lt_index_driver_curl)
+	lt_index_icon.curl.set(-10)
+	pm.xform(lt_index_driven_curl, ro=(0, 0, -10))
+	lt_index_fkOri_joint_2.rz.set(-20)
+	lt_index_fkOri_joint_3.rz.set(-25)
+	lt_index_fkOri_joint_4.rz.set(-30)
+	pm.setDrivenKeyframe(lt_index_drivenAttr_curl, currentDriver=lt_index_driver_curl)
+	lt_index_drivenKeyframes_curl = (lt_index_fkOri_root + '_rotateZ', lt_index_fkOri_joint_2 + '_rotateZ', lt_index_fkOri_joint_3 + '_rotateZ', lt_index_fkOri_joint_4 + '_rotateZ')
+	pm.keyTangent(lt_index_drivenKeyframes_curl, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+	lt_index_icon.curl.set(0)
+
+	'''
+	Index Scrunch
+	'''
+	lt_index_drivenAttr_allScrunch = [lt_index_fkOri_joint_2 + '.rz', lt_index_fkOri_joint_3 + '.rz', lt_index_fkOri_joint_4 + '.rz']
+	lt_index_driver_allScrunch = (lt_index_icon + '.scrunch')
+	pm.setDrivenKeyframe(lt_index_drivenAttr_allScrunch, currentDriver=lt_index_driver_allScrunch)
+	# print "Driven:", lt_index_driven
+	lt_index_driven_allScrunch= [lt_index_fkOri_joint_2, lt_index_fkOri_joint_3, lt_index_fkOri_joint_4]
+	lt_index_icon.scrunch.set(10)
+	lt_index_fkOri_joint_2.rz.set(-50)
+	lt_index_fkOri_joint_3.rz.set(110)
+	lt_index_fkOri_joint_4.rz.set(30)
+	pm.setDrivenKeyframe(lt_index_drivenAttr_allScrunch, currentDriver=lt_index_driver_allScrunch)
+	lt_index_icon.scrunch.set(-10)
+	lt_index_fkOri_joint_2.rz.set(-3)
+	lt_index_fkOri_joint_3.rz.set(-4)
+	lt_index_fkOri_joint_4.rz.set(-10)
+	pm.setDrivenKeyframe(lt_index_drivenAttr_allScrunch, currentDriver=lt_index_driver_allScrunch)
+	lt_index_drivenKeyframes_allScrunch = (lt_index_fkOri_root + '_rotateZ', lt_index_fkOri_joint_2 + '_rotateZ', lt_index_fkOri_joint_3 + '_rotateZ', lt_index_fkOri_joint_4 + '_rotateZ')
+	pm.keyTangent(lt_index_drivenKeyframes_allScrunch, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+	lt_index_icon.scrunch.set(0)
+
+	'''
+	Index Spread
+	'''
+	lt_index_drivenAttr_spread = (lt_index_fkOri_root + '.ry', lt_index_fkOri_joint_2 + '.ry')
+	lt_index_driven_spread= (lt_index_fkOri_root, lt_index_fkOri_joint_2)
+	lt_index_driver_spread = (lt_index_icon + '.spread')
+	pm.setDrivenKeyframe(lt_index_drivenAttr_spread, currentDriver=lt_index_driver_spread)
+	lt_index_icon.spread.set(10)
+	pm.xform(lt_index_driven_spread, ro=(0, 6, 0))
+	pm.setDrivenKeyframe(lt_index_drivenAttr_spread, currentDriver=lt_index_driver_spread)
+	lt_index_icon.spread.set(-10)
+	pm.xform(lt_index_driven_spread, ro=(0, -3, 0))
+	pm.setDrivenKeyframe(lt_index_drivenAttr_spread, currentDriver=lt_index_driver_spread)
+	lt_index_icon.spread.set(0)
+
+	lt_index_drivenKeyframes_spread = (lt_index_fkOri_root + '_rotateY', lt_index_fkOri_joint_2 + '_rotateY')
+	pm.keyTangent(lt_index_drivenKeyframes_spread, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+	'''
+	Index Relax
+	'''
+	lt_index_drivenAttr_relax = [lt_index_fkOri_root + '.rz', lt_index_fkOri_joint_2 + '.rz', lt_index_fkOri_joint_3 + '.rz', lt_index_fkOri_joint_4 + '.rz']
+	lt_index_driven_relax = [lt_index_fkOri_root, lt_index_fkOri_joint_2, lt_index_fkOri_joint_3, lt_index_fkOri_joint_4]
+	lt_index_driver_relax = (lt_index_icon + '.relax')
+	pm.setDrivenKeyframe(lt_index_drivenAttr_relax, currentDriver=lt_index_driver_relax)
+	lt_index_icon.relax.set(10)
+	lt_index_fkOri_root.rz.set(12)
+	lt_index_fkOri_joint_2.rz.set(15)
+	lt_index_fkOri_joint_3.rz.set(18)
+	lt_index_fkOri_joint_4.rz.set(21)
+	pm.setDrivenKeyframe(lt_index_drivenAttr_relax, currentDriver=lt_index_driver_relax)
+	lt_index_icon.relax.set(0)
+
+	pm.keyTangent(lt_index_driven_relax, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+	'''
+	Pinky Curl
+	'''
+	lt_pinky_drivenAttr_curl = [lt_pinky_fkOri_root + '.rz', lt_pinky_fkOri_joint_2 + '.rz', lt_pinky_fkOri_joint_3 + '.rz', lt_pinky_fkOri_joint_4 + '.rz']
+	lt_pinky_driver_curl = (lt_pinky_icon + '.curl')
+	pm.setDrivenKeyframe(lt_pinky_drivenAttr_curl, currentDriver=lt_pinky_driver_curl)
+
+	# print "Driven:", lt_pinky_driven
+	lt_pinky_driven_curl= [lt_pinky_fkOri_root, lt_pinky_fkOri_joint_2, lt_pinky_fkOri_joint_3, lt_pinky_fkOri_joint_4]
+	lt_pinky_icon.curl.set(10)
+	pm.xform(lt_pinky_driven_curl, ro=(0, 0, 90))
+	lt_pinky_fkOri_root.rz.set(15)
+	lt_pinky_fkOri_joint_3.rz.set(75)
+	pm.setDrivenKeyframe(lt_pinky_drivenAttr_curl, currentDriver=lt_pinky_driver_curl)
+	lt_pinky_icon.curl.set(-10)
+	pm.xform(lt_pinky_driven_curl, ro=(0, 0, -10))
+	lt_pinky_fkOri_joint_2.rz.set(-20)
+	lt_pinky_fkOri_joint_3.rz.set(-25)
+	lt_pinky_fkOri_joint_4.rz.set(-30)
+	pm.setDrivenKeyframe(lt_pinky_drivenAttr_curl, currentDriver=lt_pinky_driver_curl)
+	lt_pinky_drivenKeyframes_curl = (lt_pinky_fkOri_root + '_rotateZ', lt_pinky_fkOri_joint_2 + '_rotateZ', lt_pinky_fkOri_joint_3 + '_rotateZ', lt_pinky_fkOri_joint_4 + '_rotateZ')
+	pm.keyTangent(lt_pinky_drivenKeyframes_curl, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+	lt_pinky_icon.curl.set(0)
+
+	'''
+	Pinky Scrunch
+	'''
+	lt_pinky_drivenAttr_allScrunch = [lt_pinky_fkOri_joint_2 + '.rz', lt_pinky_fkOri_joint_3 + '.rz', lt_pinky_fkOri_joint_4 + '.rz']
+	lt_pinky_driver_allScrunch = (lt_pinky_icon + '.scrunch')
+	pm.setDrivenKeyframe(lt_pinky_drivenAttr_allScrunch, currentDriver=lt_pinky_driver_allScrunch)
+	# print "Driven:", lt_pinky_driven
+	lt_pinky_driven_allScrunch= [lt_pinky_fkOri_joint_2, lt_pinky_fkOri_joint_3, lt_pinky_fkOri_joint_4]
+	lt_pinky_icon.scrunch.set(10)
+	lt_pinky_fkOri_joint_2.rz.set(-50)
+	lt_pinky_fkOri_joint_3.rz.set(110)
+	lt_pinky_fkOri_joint_4.rz.set(30)
+	pm.setDrivenKeyframe(lt_pinky_drivenAttr_allScrunch, currentDriver=lt_pinky_driver_allScrunch)
+	lt_pinky_icon.scrunch.set(-10)
+	lt_pinky_fkOri_joint_2.rz.set(-3)
+	lt_pinky_fkOri_joint_3.rz.set(-4)
+	lt_pinky_fkOri_joint_4.rz.set(-10)
+	pm.setDrivenKeyframe(lt_pinky_drivenAttr_allScrunch, currentDriver=lt_pinky_driver_allScrunch)
+	lt_pinky_drivenKeyframes_allScrunch = (lt_pinky_fkOri_root + '_rotateZ', lt_pinky_fkOri_joint_2 + '_rotateZ', lt_pinky_fkOri_joint_3 + '_rotateZ', lt_pinky_fkOri_joint_4 + '_rotateZ')
+	pm.keyTangent(lt_pinky_drivenKeyframes_allScrunch, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+	lt_pinky_icon.scrunch.set(0)
+
+	'''
+	Pinky Spread
+	'''
+	lt_pinky_drivenAttr_spread = (lt_pinky_fkOri_root + '.ry', lt_pinky_fkOri_joint_2 + '.ry')
+	lt_pinky_driven_spread= (lt_pinky_fkOri_root, lt_pinky_fkOri_joint_2)
+	lt_pinky_driver_spread = (lt_pinky_icon + '.spread')
+	pm.setDrivenKeyframe(lt_pinky_drivenAttr_spread, currentDriver=lt_pinky_driver_spread)
+	lt_pinky_icon.spread.set(10)
+	pm.xform(lt_pinky_driven_spread, ro=(0, 6, 0))
+	pm.setDrivenKeyframe(lt_pinky_drivenAttr_spread, currentDriver=lt_pinky_driver_spread)
+	lt_pinky_icon.spread.set(-10)
+	pm.xform(lt_pinky_driven_spread, ro=(0, -3, 0))
+	pm.setDrivenKeyframe(lt_pinky_drivenAttr_spread, currentDriver=lt_pinky_driver_spread)
+	lt_pinky_icon.spread.set(0)
+
+	lt_pinky_drivenKeyframes_spread = (lt_pinky_fkOri_root + '_rotateY', lt_pinky_fkOri_joint_2 + '_rotateY')
+	pm.keyTangent(lt_pinky_drivenKeyframes_spread, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+
+	'''
+	Pinky Relax
+	'''
+	lt_pinky_drivenAttr_relax = [lt_pinky_fkOri_root + '.rz', lt_pinky_fkOri_joint_2 + '.rz', lt_pinky_fkOri_joint_3 + '.rz', lt_pinky_fkOri_joint_4 + '.rz']
+	lt_pinky_driven_relax = [lt_pinky_fkOri_root, lt_pinky_fkOri_joint_2, lt_pinky_fkOri_joint_3, lt_pinky_fkOri_joint_4]
+	lt_pinky_driver_relax = (lt_pinky_icon + '.relax')
+	pm.setDrivenKeyframe(lt_pinky_drivenAttr_relax, currentDriver=lt_pinky_driver_relax)
+	lt_pinky_icon.relax.set(10)
+	lt_pinky_fkOri_root.rz.set(12)
+	lt_pinky_fkOri_joint_2.rz.set(15)
+	lt_pinky_fkOri_joint_3.rz.set(18)
+	lt_pinky_fkOri_joint_4.rz.set(21)
+	pm.setDrivenKeyframe(lt_pinky_drivenAttr_relax, currentDriver=lt_pinky_driver_relax)
+	lt_pinky_icon.relax.set(0)
+
+	pm.keyTangent(lt_pinky_driven_relax, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+	pm.select(lt_index_icon, lt_pinky_icon)
+	icon_selection = pm.ls(sl=1)
+
+	color_lt_index = 27
+
+	for each in icon_selection:
+		pm.setAttr(each + '.overrideEnabled', 1)
+		pm.setAttr(each + '.overrideColor', color_lt_index)
+		color_lt_index = color_lt_index + 1
+
+
+	'''
+	Parent Icon Things
+	'''
+
+	lock_and_hide(lt_parent_icon, ['tx', 'ty', 'tz', 'rx', 'ry', 'rz', 'sx', 'sy', 'sz', 'v'])
+
+	pm.addAttr(lt_parent_icon, ln='fingerCtrls',  at='enum', en ='-------')
+	lt_parent_icon.fingerCtrls.set(lock=1, e=1, keyable=1)
+
+	lockAttrs(lt_parent_icon, ['fingerCtrls'])
+
+	pm.addAttr(lt_parent_icon, ln='fist', at='double', max=10, min=0, dv=0)
+	unlock_and_unhide(lt_parent_icon, ['fist'])
+
+	pm.addAttr(lt_parent_icon, ln='relax', at='double', max=10, min=-10, dv=0)
+	unlock_and_unhide(lt_parent_icon, ['relax'])
+
+	pm.addAttr(lt_parent_icon, ln='scrunch', at='double', max=10, min=-10, dv=0)
+	unlock_and_unhide(lt_parent_icon, ['scrunch'])
+
+	pm.addAttr(lt_parent_icon, ln='spread', at='double', max=10, min=-10, dv=0)
+	unlock_and_unhide(lt_parent_icon, ['spread'])
+
+	pm.addAttr(lt_parent_icon, ln='lt_thumbCtrls',  at='enum', en ='-------')
+	lt_parent_icon.lt_thumbCtrls.set(lock=1, e=1, keyable=1)
+
+	lockAttrs(lt_parent_icon, ['lt_thumbCtrls'])
+
+	pm.addAttr(lt_parent_icon, ln='curl', at='double', max=10, min=-10, dv=0)
+	unlock_and_unhide(lt_parent_icon, ['curl'])
+
+	pm.addAttr(lt_parent_icon, ln='drop', at='double', min=0, max=10, dv=0)
+	unlock_and_unhide(lt_parent_icon, ['drop'])
+
+	pm.addAttr(lt_parent_icon, ln='lt_thumbRelax', nn='Relax', at='double', max=10, min=0, dv=0)
+	unlock_and_unhide(lt_parent_icon, ['lt_thumbRelax'])
+
+	pm.addAttr(lt_parent_icon, ln='lt_thumbSpread', nn='Spread', at='double', max=10, min=-10, dv=0)
+	unlock_and_unhide(lt_parent_icon, ['lt_thumbSpread'])
+
+
+	'''
+	Index Fist
+	'''
+	lt_index_drivenAttr_fist = [lt_index_fkOri_root + '.rz', lt_index_fkOri_joint_2 + '.rz', lt_index_fkOri_joint_3 + '.rz', lt_index_fkOri_joint_4 + '.rz']
+	lt_index_driver_fist = (lt_parent_icon + '.fist')
+	lt_index_driven_fist= [lt_index_fkOri_root, lt_index_fkOri_joint_2, lt_index_fkOri_joint_3, lt_index_fkOri_joint_4]
+	pm.setDrivenKeyframe(lt_index_drivenAttr_fist, currentDriver=lt_index_driver_fist)
+	lt_parent_icon.fist.set(10)
+	pm.xform(lt_index_driven_fist, ro=(0, 0, 90))
+	lt_index_fkOri_root.rz.set(15)
+	lt_index_fkOri_joint_3.rz.set(75)
+	lt_index_fkOri_joint_4.rz.set(25)
+	pm.setDrivenKeyframe(lt_index_drivenAttr_fist, currentDriver=lt_index_driver_fist)
+	lt_parent_icon.fist.set(0)
+
+
+	'''
+	Pinky Fist
+	'''
+	lt_pinky_drivenAttr_fist = [lt_pinky_fkOri_root + '.rz', lt_pinky_fkOri_joint_2 + '.rz', lt_pinky_fkOri_joint_3 + '.rz', lt_pinky_fkOri_joint_4 + '.rz']
+	lt_pinky_driver_fist = (lt_parent_icon + '.fist')
+	lt_pinky_driven_fist= [lt_pinky_fkOri_root, lt_pinky_fkOri_joint_2, lt_pinky_fkOri_joint_3, lt_pinky_fkOri_joint_4]
+	pm.setDrivenKeyframe(lt_pinky_drivenAttr_fist, currentDriver=lt_pinky_driver_fist)
+	lt_parent_icon.fist.set(10)
+	pm.xform(lt_pinky_driven_fist, ro=(0, 0, 90))
+	lt_pinky_fkOri_root.rz.set(15)
+	lt_pinky_fkOri_joint_3.rz.set(75)
+	lt_pinky_fkOri_joint_4.rz.set(25)
+	pm.setDrivenKeyframe(lt_pinky_drivenAttr_fist, currentDriver=lt_pinky_driver_fist)
+	lt_parent_icon.fist.set(0)
+
+	'''
+	Thumb fist
+	'''
+	lt_thumb_drivenAttr_fist = [lt_thumb_fkOri_pivot + '.rx', lt_thumb_fkOri_pivot + '.ry', lt_thumb_fkOri_pivot + '.rz', lt_thumb_fkOri_joint_1 + '.ry', lt_thumb_fkOri_joint_2 + '.ry', lt_thumb_fkOri_joint_3 + '.ry']
+	lt_thumb_driver_fist  = (lt_parent_icon + '.fist')
+	lt_thumb_driven_fist = [lt_thumb_fkOri_pivot, lt_thumb_fkOri_pivot, lt_thumb_fkOri_pivot, lt_thumb_fkOri_joint_1, lt_thumb_fkOri_joint_2, lt_thumb_fkOri_joint_3]
+	pm.setDrivenKeyframe(lt_thumb_drivenAttr_fist, currentDriver=lt_thumb_driver_fist)
+	lt_parent_icon.fist.set(10)
+	pm.xform(lt_thumb_fkOri_pivot, ro=(-32, -12, 7))
+	lt_thumb_fkOri_joint_1.ry.set(-16)
+	lt_thumb_fkOri_joint_2.ry.set(-25)
+	lt_thumb_fkOri_joint_3.ry.set(-8)
+	pm.setDrivenKeyframe(lt_thumb_drivenAttr_fist, currentDriver=lt_thumb_driver_fist)
+	lt_parent_icon.fist.set(0)
+
+	lt_thumb_drivenKeyframes_allSpread = (lt_thumb_fkOri_pivot + '_rotateX', lt_thumb_fkOri_pivot + '_rotateY', lt_thumb_fkOri_pivot + '_rotateZ', lt_thumb_fkOri_joint_1 + '_rotateY', lt_thumb_fkOri_joint_2 + '_rotateY', lt_thumb_fkOri_joint_3 + '_rotateY')
+	pm.keyTangent(lt_thumb_drivenKeyframes_allSpread, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+	'''
+	Index allScrunch
+	'''
+	lt_index_drivenAttr_allScrunch = [lt_index_fkOri_joint_2 + '.rz', lt_index_fkOri_joint_3 + '.rz', lt_index_fkOri_joint_4 + '.rz']
+	lt_index_driver_allScrunch = (lt_parent_icon + '.scrunch')
+	pm.setDrivenKeyframe(lt_index_drivenAttr_allScrunch, currentDriver=lt_index_driver_allScrunch)
+	# print "Driven:", lt_index_driven
+	lt_index_driven_allScrunch= [lt_index_fkOri_joint_2, lt_index_fkOri_joint_3, lt_index_fkOri_joint_4]
+	lt_parent_icon.scrunch.set(10)
+	lt_index_fkOri_joint_2.rz.set(-50)
+	lt_index_fkOri_joint_3.rz.set(110)
+	lt_index_fkOri_joint_4.rz.set(30)
+	pm.setDrivenKeyframe(lt_index_drivenAttr_allScrunch, currentDriver=lt_index_driver_allScrunch)
+	lt_parent_icon.scrunch.set(-10)
+	lt_index_fkOri_joint_2.rz.set(-3)
+	lt_index_fkOri_joint_3.rz.set(-4)
+	lt_index_fkOri_joint_4.rz.set(-10)
+	pm.setDrivenKeyframe(lt_index_drivenAttr_allScrunch, currentDriver=lt_index_driver_allScrunch)
+	lt_index_drivenKeyframes_allScrunch = (lt_index_fkOri_root + '_rotateZ', lt_index_fkOri_joint_2 + '_rotateZ', lt_index_fkOri_joint_3 + '_rotateZ', lt_index_fkOri_joint_4 + '_rotateZ')
+	pm.keyTangent(lt_index_drivenKeyframes_allScrunch, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+	lt_parent_icon.scrunch.set(0)
+
+	'''
+	Pinky allScrunch
+	'''
+	lt_pinky_drivenAttr_allScrunch = [lt_pinky_fkOri_joint_2 + '.rz', lt_pinky_fkOri_joint_3 + '.rz', lt_pinky_fkOri_joint_4 + '.rz']
+	lt_pinky_driver_allScrunch = (lt_parent_icon + '.scrunch')
+	pm.setDrivenKeyframe(lt_pinky_drivenAttr_allScrunch, currentDriver=lt_pinky_driver_allScrunch)
+	# print "Driven:", lt_pinky_driven
+	lt_pinky_driven_allScrunch= [lt_pinky_fkOri_joint_2, lt_pinky_fkOri_joint_3, lt_pinky_fkOri_joint_4]
+	lt_parent_icon.scrunch.set(10)
+	lt_pinky_fkOri_joint_2.rz.set(-50)
+	lt_pinky_fkOri_joint_3.rz.set(110)
+	lt_pinky_fkOri_joint_4.rz.set(30)
+	pm.setDrivenKeyframe(lt_pinky_drivenAttr_allScrunch, currentDriver=lt_pinky_driver_allScrunch)
+	lt_parent_icon.scrunch.set(-10)
+	lt_pinky_fkOri_joint_2.rz.set(-3)
+	lt_pinky_fkOri_joint_3.rz.set(-4)
+	lt_pinky_fkOri_joint_4.rz.set(-10)
+	pm.setDrivenKeyframe(lt_pinky_drivenAttr_allScrunch, currentDriver=lt_pinky_driver_allScrunch)
+	lt_pinky_drivenKeyframes_allScrunch = (lt_pinky_fkOri_root + '_rotateZ', lt_pinky_fkOri_joint_2 + '_rotateZ', lt_pinky_fkOri_joint_3 + '_rotateZ', lt_pinky_fkOri_joint_4 + '_rotateZ')
+	pm.keyTangent(lt_pinky_drivenKeyframes_allScrunch, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+	lt_parent_icon.scrunch.set(0)
+
+	'''
+	Index allSpread
+	'''
+	lt_index_drivenAttr_allSpread = (lt_index_fkOri_root + '.ry', lt_index_fkOri_joint_2 + '.ry')
+	lt_index_driven_allSpread= (lt_index_fkOri_root, lt_index_fkOri_joint_2)
+	lt_index_driver_allSpread = (lt_parent_icon + '.spread')
+	pm.setDrivenKeyframe(lt_index_drivenAttr_allSpread, currentDriver=lt_index_driver_allSpread)
+	lt_parent_icon.spread.set(10)
+	pm.xform(lt_index_driven_allSpread, ro=(0, 6, 0))
+	pm.setDrivenKeyframe(lt_index_drivenAttr_allSpread, currentDriver=lt_index_driver_allSpread)
+	lt_parent_icon.spread.set(-10)
+	pm.xform(lt_index_driven_allSpread, ro=(0, -3, 0))
+	pm.setDrivenKeyframe(lt_index_drivenAttr_allSpread, currentDriver=lt_index_driver_allSpread)
+	lt_parent_icon.spread.set(0)
+
+	lt_index_drivenKeyframes_allSpread = (lt_index_fkOri_root + '_rotateY', lt_index_fkOri_joint_2 + '_rotateY')
+	pm.keyTangent(lt_index_drivenKeyframes_allSpread, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+	'''
+	Pinky allSpread
+	'''
+	lt_pinky_drivenAttr_allSpread = (lt_pinky_fkOri_root + '.ry', lt_pinky_fkOri_joint_2 + '.ry')
+	lt_pinky_driven_allSpread= (lt_pinky_fkOri_root, lt_pinky_fkOri_joint_2)
+	lt_pinky_driver_allSpread = (lt_parent_icon + '.spread')
+	pm.setDrivenKeyframe(lt_pinky_drivenAttr_allSpread, currentDriver=lt_pinky_driver_allSpread)
+	lt_parent_icon.spread.set(10)
+	pm.xform(lt_pinky_driven_allSpread, ro=(0, -6, 0))
+	pm.setDrivenKeyframe(lt_pinky_drivenAttr_allSpread, currentDriver=lt_pinky_driver_allSpread)
+	lt_parent_icon.spread.set(-10)
+	pm.xform(lt_pinky_driven_allSpread, ro=(0, 3, 0))
+	pm.setDrivenKeyframe(lt_pinky_drivenAttr_allSpread, currentDriver=lt_pinky_driver_allSpread)
+	lt_parent_icon.spread.set(0)
+
+	lt_pinky_drivenKeyframes_allSpread = (lt_pinky_fkOri_root + '_rotateY', lt_pinky_fkOri_joint_2 + '_rotateY')
+	pm.keyTangent(lt_pinky_drivenKeyframes_allSpread, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+
+	'''
+	Thumb allSpread
+	'''
+	lt_thumb_drivenAttr_allSpread = [lt_thumb_fkOri_joint_1 + '.ry']
+	lt_thumb_driver_allSpread  = (lt_parent_icon + '.spread')
+	lt_thumb_driven_allSpread = [lt_thumb_fkOri_pivot, lt_thumb_fkOri_pivot, lt_thumb_fkOri_pivot, lt_thumb_fkOri_joint_1, lt_thumb_fkOri_joint_2, lt_thumb_fkOri_joint_3]
+	pm.setDrivenKeyframe(lt_thumb_drivenAttr_allSpread, currentDriver=lt_thumb_driver_allSpread)
+	lt_parent_icon.spread.set(10)
+	lt_thumb_fkOri_joint_1.ry.set(30)
+	pm.setDrivenKeyframe(lt_thumb_drivenAttr_allSpread, currentDriver=lt_thumb_driver_allSpread)
+	lt_parent_icon.spread.set(-10)
+	lt_thumb_fkOri_joint_1.ry.set(-50)
+	pm.setDrivenKeyframe(lt_thumb_drivenAttr_allSpread, currentDriver=lt_thumb_driver_allSpread)
+	lt_parent_icon.spread.set(0)
+
+	lt_thumb_drivenKeyframes_allSpread = (lt_thumb_fkOri_joint_1 + '_rotateY')
+	pm.keyTangent(lt_thumb_drivenKeyframes_allSpread, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+
+
+	'''
+	Index allRelax
+	'''
+	lt_index_drivenAttr_allRelax = [lt_index_fkOri_root + '.rz', lt_index_fkOri_joint_2 + '.rz', lt_index_fkOri_joint_3 + '.rz', lt_index_fkOri_joint_4 + '.rz']
+	lt_index_driven_allRelax = [lt_index_fkOri_root, lt_index_fkOri_joint_2, lt_index_fkOri_joint_3, lt_index_fkOri_joint_4]
+	lt_index_driver_allRelax = (lt_parent_icon + '.relax')
+	pm.setDrivenKeyframe(lt_index_drivenAttr_allRelax, currentDriver=lt_index_driver_allRelax)
+	lt_parent_icon.relax.set(10)
+	lt_index_fkOri_root.rz.set(3)
+	lt_index_fkOri_joint_2.rz.set(3.75)
+	lt_index_fkOri_joint_3.rz.set(4.5)
+	lt_index_fkOri_joint_4.rz.set(8.4)
+	pm.setDrivenKeyframe(lt_index_drivenAttr_allRelax, currentDriver=lt_index_driver_allRelax)
+	lt_parent_icon.relax.set(-10)
+	lt_index_fkOri_root.rz.set(12)
+	lt_index_fkOri_joint_2.rz.set(15)
+	lt_index_fkOri_joint_3.rz.set(18)
+	lt_index_fkOri_joint_4.rz.set(21)
+	pm.setDrivenKeyframe(lt_index_drivenAttr_allRelax, currentDriver=lt_index_driver_allRelax)
+	lt_parent_icon.relax.set(0)
+
+	pm.keyTangent(lt_index_driven_allRelax, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+	'''
+	Pinky allRelax
+	'''
+	lt_pinky_drivenAttr_allRelax = [lt_pinky_fkOri_root + '.rz', lt_pinky_fkOri_joint_2 + '.rz', lt_pinky_fkOri_joint_3 + '.rz', lt_pinky_fkOri_joint_4 + '.rz']
+	lt_pinky_driven_allRelax = [lt_pinky_fkOri_root, lt_pinky_fkOri_joint_2, lt_pinky_fkOri_joint_3, lt_pinky_fkOri_joint_4]
+	lt_pinky_driver_allRelax = (lt_parent_icon + '.relax')
+	pm.setDrivenKeyframe(lt_pinky_drivenAttr_allRelax, currentDriver=lt_pinky_driver_allRelax)
+	lt_parent_icon.relax.set(10)
+	lt_pinky_fkOri_root.rz.set(12)
+	lt_pinky_fkOri_joint_2.rz.set(15)
+	lt_pinky_fkOri_joint_3.rz.set(18)
+	lt_pinky_fkOri_joint_4.rz.set(21)
+	pm.setDrivenKeyframe(lt_pinky_drivenAttr_allRelax, currentDriver=lt_pinky_driver_allRelax)
+	lt_parent_icon.relax.set(-10)
+	lt_pinky_fkOri_root.rz.set(3)
+	lt_pinky_fkOri_joint_2.rz.set(3.75)
+	lt_pinky_fkOri_joint_3.rz.set(4.5)
+	lt_pinky_fkOri_joint_4.rz.set(8.4)
+	pm.setDrivenKeyframe(lt_pinky_drivenAttr_allRelax, currentDriver=lt_pinky_driver_allRelax)
+	lt_parent_icon.relax.set(0)
+
+	pm.keyTangent(lt_pinky_driven_allRelax, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+
+	'''
+	Thumb Curl
+	'''
+	lt_thumb_drivenAttr_curl = [lt_thumb_fkOri_joint_1 + '.ry', lt_thumb_fkOri_joint_2 + '.ry', lt_thumb_fkOri_joint_3 + '.ry']
+	lt_thumb_driven_curl = [lt_thumb_fkOri_joint_1, lt_thumb_fkOri_joint_2, lt_thumb_fkOri_joint_3]
+	lt_thumb_driver_curl = (lt_parent_icon + '.curl')
+	pm.setDrivenKeyframe(lt_thumb_drivenAttr_curl, currentDriver=lt_thumb_driver_curl)
+	lt_parent_icon.curl.set(10)
+	lt_thumb_fkOri_joint_1.ry.set(-25)
+	lt_thumb_fkOri_joint_2.ry.set(-30)
+	lt_thumb_fkOri_joint_3.ry.set(-32)
+	pm.setDrivenKeyframe(lt_thumb_drivenAttr_curl, currentDriver=lt_thumb_driver_curl)
+	lt_parent_icon.curl.set(-10)
+	lt_thumb_fkOri_joint_1.ry.set(40)
+	lt_thumb_fkOri_joint_2.ry.set(30)
+	lt_thumb_fkOri_joint_3.ry.set(32)
+	pm.setDrivenKeyframe(lt_thumb_drivenAttr_curl, currentDriver=lt_thumb_driver_curl)
+	lt_parent_icon.curl.set(0)
+
+	pm.keyTangent(lt_thumb_driven_curl, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+
+	'''
+	Thumb Drop
+	'''
+	lt_thumb_drivenAttr_drop = [lt_thumb_fkOri_pivot + '.rx']
+	lt_thumb_driven_drop = [lt_thumb_fkOri_pivot]
+	lt_thumb_driver_drop = (lt_parent_icon + '.drop')
+	pm.setDrivenKeyframe(lt_thumb_drivenAttr_drop, currentDriver=lt_thumb_driver_drop)
+	lt_parent_icon.drop.set(10)
+	lt_thumb_fkOri_pivot.rx.set(-64)
+	pm.setDrivenKeyframe(lt_thumb_drivenAttr_drop, currentDriver=lt_thumb_driver_drop)
+	lt_parent_icon.drop.set(0)
+
+	pm.keyTangent(lt_thumb_driven_drop, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+
+	'''
+	Thumb Relax
+	'''
+	lt_thumb_drivenAttr_relax = [lt_thumb_fkOri_joint_1 + '.ry', lt_thumb_fkOri_joint_2 + '.ry', lt_thumb_fkOri_joint_3 + '.ry', lt_thumb_fkOri_joint_1 + '.rz', lt_thumb_fkOri_joint_2 + '.rz', lt_thumb_fkOri_joint_3 + '.rz']
+	lt_thumb_driven_relax = [lt_thumb_fkOri_joint_1, lt_thumb_fkOri_joint_2, lt_thumb_fkOri_joint_3]
+	lt_thumb_driver_relax = (lt_parent_icon + '.lt_thumbRelax')
+	pm.setDrivenKeyframe(lt_thumb_drivenAttr_relax, currentDriver=lt_thumb_driver_relax)
+	lt_parent_icon.lt_thumbRelax.set(10)
+	lt_thumb_fkOri_joint_1.ry.set(-9)
+	lt_thumb_fkOri_joint_2.ry.set(-6)
+	lt_thumb_fkOri_joint_3.ry.set(-12)
+	lt_thumb_fkOri_joint_1.rz.set(4)
+	lt_thumb_fkOri_joint_2.rz.set(7)
+	lt_thumb_fkOri_joint_3.rz.set(12)
+	pm.setDrivenKeyframe(lt_thumb_drivenAttr_relax, currentDriver=lt_thumb_driver_relax)
+	lt_parent_icon.lt_thumbRelax.set(0)
+
+	pm.keyTangent(lt_thumb_driven_relax, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+
+	'''
+	Thumb Spread
+	'''
+	lt_thumb_drivenAttr_spread = [lt_thumb_fkOri_joint_1 + '.ry']
+	lt_thumb_driven_spread = [lt_thumb_fkOri_joint_1]
+	lt_thumb_driver_spread = (lt_parent_icon + '.lt_thumbSpread')
+	pm.setDrivenKeyframe(lt_thumb_drivenAttr_spread, currentDriver=lt_thumb_driver_spread)
+	lt_parent_icon.lt_thumbSpread.set(10)
+	lt_thumb_fkOri_joint_1.ry.set(-45)
+	pm.setDrivenKeyframe(lt_thumb_drivenAttr_spread, currentDriver=lt_thumb_driver_spread)
+	lt_parent_icon.lt_thumbSpread.set(-10)
+	lt_thumb_fkOri_joint_1.ry.set(40)
+	pm.setDrivenKeyframe(lt_thumb_drivenAttr_spread, currentDriver=lt_thumb_driver_spread)
+	lt_parent_icon.lt_thumbSpread.set(0)
+
+	pm.keyTangent(lt_thumb_driven_spread, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+def lt_fiveFinger_SDK_setup(*args):
+	global lt_parent_icon, lt_index_icon, lt_middle_icon, lt_ring_icon, lt_pinky_icon
+	lt_parent_icon = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=16, r=1, tol=0.01, nr=(1, 0, 0))[0]
+
+	pm.select(lt_parent_icon + '.cv[0]', lt_parent_icon + '.cv[1]', lt_parent_icon + '.cv[9]', lt_parent_icon + '.cv[10]', lt_parent_icon + '.cv[11]', lt_parent_icon + '.cv[12]', lt_parent_icon + '.cv[13]', lt_parent_icon + '.cv[14]', lt_parent_icon + '.cv[15]')            
+	first_cv_set = pm.ls(sl=1)
+	cmds.move(0, 0, -2, r=1, os=1, wd=1)
+
+	pm.select(lt_parent_icon + '.cv[0]', lt_parent_icon + '.cv[10]', lt_parent_icon + '.cv[11]', lt_parent_icon + '.cv[12]', lt_parent_icon + '.cv[13]', lt_parent_icon + '.cv[14]', lt_parent_icon + '.cv[15]')            
+	second_cv_set = pm.ls(sl=1)
+	cmds.move(0, 0, -4, r=1, os=1, wd=1)
+
+	lt_index_icon = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=1, tol=0.01, nr=(1, 0, 0))[0]
+	lt_index_icon.sy.set(.6)
+	lt_index_icon.sz.set(.6)
+
+	icon_name = lt_index_root.replace('01_bind', 'icon')
+	lt_index_icon.rename(icon_name)
+
+	icon_name = lt_index_icon.replace('index', 'fingers')
+	lt_parent_icon.rename(icon_name)
+
+	freezeTransform()
+	deleteHistory(lt_index_icon)
+
+	lt_middle_icon = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=1, tol=0.01, nr=(1, 0, 0))[0]
+	lt_middle_icon.tz.set(-2)
+	lt_middle_icon.sy.set(.6)
+	lt_middle_icon.sz.set(.6)
+	icon_name = lt_middle_root.replace('01_bind', 'icon')
+	lt_middle_icon.rename(icon_name)
+	freezeTransform()
+	deleteHistory(lt_middle_icon)
+
+	lt_ring_icon = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=1, tol=0.01, nr=(1, 0, 0))[0]
+	lt_ring_icon.tz.set(-4)
+	lt_ring_icon.sy.set(.6)
+	lt_ring_icon.sz.set(.6)
+	icon_name = lt_ring_root.replace('01_bind', 'icon')
+	lt_ring_icon.rename(icon_name)
+	freezeTransform()
+	deleteHistory(lt_ring_icon)
+
+	lt_pinky_icon = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=1, tol=0.01, nr=(1, 0, 0))[0]
+	lt_pinky_icon.tz.set(-6)
+	lt_pinky_icon.sy.set(.6)
+	lt_pinky_icon.sz.set(.6)
+	icon_name = lt_pinky_root.replace('01_bind', 'icon')
+	lt_pinky_icon.rename(icon_name)
+	freezeTransform()
+	deleteHistory(lt_pinky_icon)
+
+	pm.parent(lt_index_icon, lt_middle_icon, lt_ring_icon, lt_pinky_icon, lt_parent_icon)
+	pm.select(lt_parent_icon)
+	centerPivot()
+
+	temp_constraint = pm.pointConstraint(lt_hand_joint_2, lt_parent_icon, mo=0)
+	pm.delete(temp_constraint)
+	pm.select(lt_parent_icon)
+	freezeTransform()
+	deleteHistory()
+
+	lt_parent_icon.ty.set(4)
+	pm.select(lt_parent_icon)
+	freezeTransform()
+
+	pm.parent(lt_parent_icon, 'lt_hand_icon')
+	freezeTransform()
+
+	pm.select(lt_index_icon, lt_middle_icon, lt_ring_icon, lt_pinky_icon)
+	icon_selection = pm.ls(sl=1)
+
+	pm.addAttr(icon_selection, ln='fingerCtrl',  at='enum', en ='-------')
+	lt_index_icon.fingerCtrl.set(lock=1, e=1, keyable=1)
+	lt_middle_icon.fingerCtrl.set(lock=1, e=1, keyable=1)
+	lt_ring_icon.fingerCtrl.set(lock=1, e=1, keyable=1)
+	lt_pinky_icon.fingerCtrl.set(lock=1, e=1, keyable=1)
+
+	pm.addAttr(icon_selection, ln='curl', max=10, dv=0, at='double', min=-10)
+	lt_index_icon.curl.set(e=1, keyable=1)
+	lt_middle_icon.curl.set(e=1, keyable=1)
+	lt_ring_icon.curl.set(e=1, keyable=1)
+	lt_pinky_icon.curl.set(e=1, keyable=1)
+
+	pm.addAttr(icon_selection, ln='relax', max=10, dv=0, at='double', min=0)
+	lt_index_icon.relax.set(e=1, keyable=1)
+	lt_middle_icon.relax.set(e=1, keyable=1)
+	lt_ring_icon.relax.set(e=1, keyable=1)
+	lt_pinky_icon.relax.set(e=1, keyable=1)
+
+	pm.addAttr(icon_selection, ln='scrunch', max=10, dv=0, at='double', min=-10)
+	lt_index_icon.scrunch.set(e=1, keyable=1)
+	lt_middle_icon.scrunch.set(e=1, keyable=1)
+	lt_ring_icon.scrunch.set(e=1, keyable=1)
+	lt_pinky_icon.scrunch.set(e=1, keyable=1)
+
+
+	pm.addAttr(icon_selection, ln='spread', max=10, dv=0, at='double', min=-10)
+	lt_index_icon.spread.set(e=1, keyable=1)
+	lt_middle_icon.spread.set(e=1, keyable=1)
+	lt_ring_icon.spread.set(e=1, keyable=1)
+	lt_pinky_icon.spread.set(e=1, keyable=1)
+
+	
+	pm.select(lt_parent_icon)
+	icon_selection = pm.ls(sl=1, dag=1)
+	lt_index_icon = icon_selection[2]
+	lt_middle_icon = icon_selection[4] 
+	lt_ring_icon = icon_selection[6]
+	lt_pinky_icon = icon_selection[8]
+	# print 'Index Icon:', lt_index_icon
+	# print 'Middle Icon:', lt_middle_icon
+	# print 'Ring Icon:', lt_ring_icon
+	# print 'Pinky Icon:', lt_pinky_icon
+
+	lock_and_hide(lt_index_icon, ['tx', 'ty', 'tz', 'rx', 'ry', 'rz', 'sx', 'sy', 'sz', 'v'])
+	lock_and_hide(lt_middle_icon, ['tx', 'ty', 'tz', 'rx', 'ry', 'rz', 'sx', 'sy', 'sz', 'v'])
+	lock_and_hide(lt_ring_icon, ['tx', 'ty', 'tz', 'rx', 'ry', 'rz', 'sx', 'sy', 'sz', 'v'])
+	lock_and_hide(lt_pinky_icon, ['tx', 'ty', 'tz', 'rx', 'ry', 'rz', 'sx', 'sy', 'sz', 'v'])
+
+	'''
+	Index Curl
+	'''
+	lt_index_drivenAttr_curl = [lt_index_fkOri_root + '.rz', lt_index_fkOri_joint_2 + '.rz', lt_index_fkOri_joint_3 + '.rz', lt_index_fkOri_joint_4 + '.rz']
+	lt_index_driver_curl = (lt_index_icon + '.curl')
+	pm.setDrivenKeyframe(lt_index_drivenAttr_curl, currentDriver=lt_index_driver_curl)
+
+	# print "Driven:", lt_index_driven
+	lt_index_driven_curl= [lt_index_fkOri_root, lt_index_fkOri_joint_2, lt_index_fkOri_joint_3, lt_index_fkOri_joint_4]
+	lt_index_icon.curl.set(10)
+	pm.xform(lt_index_driven_curl, ro=(0, 0, 90))
+	lt_index_fkOri_root.rz.set(15)
+	lt_index_fkOri_joint_3.rz.set(75)
+	pm.setDrivenKeyframe(lt_index_drivenAttr_curl, currentDriver=lt_index_driver_curl)
+	lt_index_icon.curl.set(-10)
+	pm.xform(lt_index_driven_curl, ro=(0, 0, -10))
+	lt_index_fkOri_joint_2.rz.set(-20)
+	lt_index_fkOri_joint_3.rz.set(-25)
+	lt_index_fkOri_joint_4.rz.set(-30)
+	pm.setDrivenKeyframe(lt_index_drivenAttr_curl, currentDriver=lt_index_driver_curl)
+	lt_index_drivenKeyframes_curl = (lt_index_fkOri_root + '_rotateZ', lt_index_fkOri_joint_2 + '_rotateZ', lt_index_fkOri_joint_3 + '_rotateZ', lt_index_fkOri_joint_4 + '_rotateZ')
+	pm.keyTangent(lt_index_drivenKeyframes_curl, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+	lt_index_icon.curl.set(0)
+
+	'''
+	Middle Curl
+	'''
+	lt_middle_drivenAttr_curl = [lt_middle_fkOri_root + '.rz', lt_middle_fkOri_joint_2 + '.rz', lt_middle_fkOri_joint_3 + '.rz', lt_middle_fkOri_joint_4 + '.rz']
+	lt_middle_driver_curl = (lt_middle_icon + '.curl')
+	pm.setDrivenKeyframe(lt_middle_drivenAttr_curl, currentDriver=lt_middle_driver_curl)
+
+	# print "Driven:", lt_middle_driven
+	lt_middle_driven_curl= [lt_middle_fkOri_root, lt_middle_fkOri_joint_2, lt_middle_fkOri_joint_3, lt_middle_fkOri_joint_4]
+	lt_middle_icon.curl.set(10)
+	pm.xform(lt_middle_driven_curl, ro=(0, 0, 90))
+	lt_middle_fkOri_root.rz.set(15)
+	lt_middle_fkOri_joint_3.rz.set(75)
+	pm.setDrivenKeyframe(lt_middle_drivenAttr_curl, currentDriver=lt_middle_driver_curl)
+	lt_middle_icon.curl.set(-10)
+	pm.xform(lt_middle_driven_curl, ro=(0, 0, -10))
+	lt_middle_fkOri_joint_2.rz.set(-20)
+	lt_middle_fkOri_joint_3.rz.set(-25)
+	lt_middle_fkOri_joint_4.rz.set(-30)
+	pm.setDrivenKeyframe(lt_middle_drivenAttr_curl, currentDriver=lt_middle_driver_curl)
+	lt_middle_drivenKeyframes_curl = (lt_middle_fkOri_root + '_rotateZ', lt_middle_fkOri_joint_2 + '_rotateZ', lt_middle_fkOri_joint_3 + '_rotateZ', lt_middle_fkOri_joint_4 + '_rotateZ')
+	pm.keyTangent(lt_middle_drivenKeyframes_curl, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+	lt_middle_icon.curl.set(0)
+
+	'''
+	Ring Curl
+	'''
+	lt_ring_drivenAttr_curl = [lt_ring_fkOri_root + '.rz', lt_ring_fkOri_joint_2 + '.rz', lt_ring_fkOri_joint_3 + '.rz', lt_ring_fkOri_joint_4 + '.rz']
+	lt_ring_driver_curl = (lt_ring_icon + '.curl')
+	pm.setDrivenKeyframe(lt_ring_drivenAttr_curl, currentDriver=lt_ring_driver_curl)
+
+	# print "Driven:", lt_ring_driven
+	lt_ring_driven_curl= [lt_ring_fkOri_root, lt_ring_fkOri_joint_2, lt_ring_fkOri_joint_3, lt_ring_fkOri_joint_4]
+	lt_ring_icon.curl.set(10)
+	pm.xform(lt_ring_driven_curl, ro=(0, 0, 90))
+	lt_ring_fkOri_root.rz.set(15)
+	lt_ring_fkOri_joint_3.rz.set(75)
+	pm.setDrivenKeyframe(lt_ring_drivenAttr_curl, currentDriver=lt_ring_driver_curl)
+	lt_ring_icon.curl.set(-10)
+	pm.xform(lt_ring_driven_curl, ro=(0, 0, -10))
+	lt_ring_fkOri_joint_2.rz.set(-20)
+	lt_ring_fkOri_joint_3.rz.set(-25)
+	lt_ring_fkOri_joint_4.rz.set(-30)
+	pm.setDrivenKeyframe(lt_ring_drivenAttr_curl, currentDriver=lt_ring_driver_curl)
+	lt_ring_drivenKeyframes_curl = (lt_ring_fkOri_root + '_rotateZ', lt_ring_fkOri_joint_2 + '_rotateZ', lt_ring_fkOri_joint_3 + '_rotateZ', lt_ring_fkOri_joint_4 + '_rotateZ')
+	pm.keyTangent(lt_ring_drivenKeyframes_curl, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+	lt_ring_icon.curl.set(0)
+
+	'''
+	Pinky Curl
+	'''
+	lt_pinky_drivenAttr_curl = [lt_pinky_fkOri_root + '.rz', lt_pinky_fkOri_joint_2 + '.rz', lt_pinky_fkOri_joint_3 + '.rz', lt_pinky_fkOri_joint_4 + '.rz']
+	lt_pinky_driver_curl = (lt_pinky_icon + '.curl')
+	pm.setDrivenKeyframe(lt_pinky_drivenAttr_curl, currentDriver=lt_pinky_driver_curl)
+
+	# print "Driven:", lt_pinky_driven
+	lt_pinky_driven_curl= [lt_pinky_fkOri_root, lt_pinky_fkOri_joint_2, lt_pinky_fkOri_joint_3, lt_pinky_fkOri_joint_4]
+	lt_pinky_icon.curl.set(10)
+	pm.xform(lt_pinky_driven_curl, ro=(0, 0, 90))
+	lt_pinky_fkOri_root.rz.set(15)
+	lt_pinky_fkOri_joint_3.rz.set(75)
+	pm.setDrivenKeyframe(lt_pinky_drivenAttr_curl, currentDriver=lt_pinky_driver_curl)
+	lt_pinky_icon.curl.set(-10)
+	pm.xform(lt_pinky_driven_curl, ro=(0, 0, -10))
+	lt_pinky_fkOri_joint_2.rz.set(-20)
+	lt_pinky_fkOri_joint_3.rz.set(-25)
+	lt_pinky_fkOri_joint_4.rz.set(-30)
+	pm.setDrivenKeyframe(lt_pinky_drivenAttr_curl, currentDriver=lt_pinky_driver_curl)
+	lt_pinky_drivenKeyframes_curl = (lt_pinky_fkOri_root + '_rotateZ', lt_pinky_fkOri_joint_2 + '_rotateZ', lt_pinky_fkOri_joint_3 + '_rotateZ', lt_pinky_fkOri_joint_4 + '_rotateZ')
+	pm.keyTangent(lt_pinky_drivenKeyframes_curl, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+	lt_pinky_icon.curl.set(0)
+
+	'''
+	Index Scrunch
+	'''
+	lt_index_drivenAttr_scrunch = [lt_index_fkOri_joint_2 + '.rz', lt_index_fkOri_joint_3 + '.rz', lt_index_fkOri_joint_4 + '.rz']
+	lt_index_driver_scrunch = (lt_index_icon + '.scrunch')
+	pm.setDrivenKeyframe(lt_index_drivenAttr_scrunch, currentDriver=lt_index_driver_scrunch)
+	# print "Driven:", lt_index_driven
+	lt_index_driven_scrunch= [lt_index_fkOri_joint_2, lt_index_fkOri_joint_3, lt_index_fkOri_joint_4]
+	lt_index_icon.scrunch.set(10)
+	lt_index_fkOri_joint_2.rz.set(-50)
+	lt_index_fkOri_joint_3.rz.set(110)
+	lt_index_fkOri_joint_4.rz.set(30)
+	pm.setDrivenKeyframe(lt_index_drivenAttr_scrunch, currentDriver=lt_index_driver_scrunch)
+	lt_index_icon.scrunch.set(-10)
+	lt_index_fkOri_joint_2.rz.set(-3)
+	lt_index_fkOri_joint_3.rz.set(-4)
+	lt_index_fkOri_joint_4.rz.set(-10)
+	pm.setDrivenKeyframe(lt_index_drivenAttr_scrunch, currentDriver=lt_index_driver_scrunch)
+	lt_index_drivenKeyframes_scrunch = (lt_index_fkOri_root + '_rotateZ', lt_index_fkOri_joint_2 + '_rotateZ', lt_index_fkOri_joint_3 + '_rotateZ', lt_index_fkOri_joint_4 + '_rotateZ')
+	pm.keyTangent(lt_index_drivenKeyframes_scrunch, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+	lt_index_icon.scrunch.set(0)
+
+	'''
+	Middle Scrunch
+	'''
+	lt_middle_drivenAttr_scrunch = [lt_middle_fkOri_joint_2 + '.rz', lt_middle_fkOri_joint_3 + '.rz', lt_middle_fkOri_joint_4 + '.rz']
+	lt_middle_driver_scrunch = (lt_middle_icon + '.scrunch')
+	pm.setDrivenKeyframe(lt_middle_drivenAttr_scrunch, currentDriver=lt_middle_driver_scrunch)
+	# print "Driven:", lt_middle_driven
+	lt_middle_driven_scrunch= [lt_middle_fkOri_joint_2, lt_middle_fkOri_joint_3, lt_middle_fkOri_joint_4]
+	lt_middle_icon.scrunch.set(10)
+	lt_middle_fkOri_joint_2.rz.set(-50)
+	lt_middle_fkOri_joint_3.rz.set(110)
+	lt_middle_fkOri_joint_4.rz.set(30)
+	pm.setDrivenKeyframe(lt_middle_drivenAttr_scrunch, currentDriver=lt_middle_driver_scrunch)
+	lt_middle_icon.scrunch.set(-10)
+	lt_middle_fkOri_joint_2.rz.set(-3)
+	lt_middle_fkOri_joint_3.rz.set(-4)
+	lt_middle_fkOri_joint_4.rz.set(-10)
+	pm.setDrivenKeyframe(lt_middle_drivenAttr_scrunch, currentDriver=lt_middle_driver_scrunch)
+	lt_middle_drivenKeyframes_scrunch = (lt_middle_fkOri_root + '_rotateZ', lt_middle_fkOri_joint_2 + '_rotateZ', lt_middle_fkOri_joint_3 + '_rotateZ', lt_middle_fkOri_joint_4 + '_rotateZ')
+	pm.keyTangent(lt_middle_drivenKeyframes_scrunch, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+	lt_middle_icon.scrunch.set(0)
+
+	'''
+	Ring Scrunch
+	'''
+	lt_ring_drivenAttr_scrunch = [lt_ring_fkOri_joint_2 + '.rz', lt_ring_fkOri_joint_3 + '.rz', lt_ring_fkOri_joint_4 + '.rz']
+	lt_ring_driver_scrunch = (lt_ring_icon + '.scrunch')
+	pm.setDrivenKeyframe(lt_ring_drivenAttr_scrunch, currentDriver=lt_ring_driver_scrunch)
+	# print "Driven:", lt_ring_driven
+	lt_ring_driven_scrunch= [lt_ring_fkOri_joint_2, lt_ring_fkOri_joint_3, lt_ring_fkOri_joint_4]
+	lt_ring_icon.scrunch.set(10)
+	lt_ring_fkOri_joint_2.rz.set(-50)
+	lt_ring_fkOri_joint_3.rz.set(110)
+	lt_ring_fkOri_joint_4.rz.set(30)
+	pm.setDrivenKeyframe(lt_ring_drivenAttr_scrunch, currentDriver=lt_ring_driver_scrunch)
+	lt_ring_icon.scrunch.set(-10)
+	lt_ring_fkOri_joint_2.rz.set(-3)
+	lt_ring_fkOri_joint_3.rz.set(-4)
+	lt_ring_fkOri_joint_4.rz.set(-10)
+	pm.setDrivenKeyframe(lt_ring_drivenAttr_scrunch, currentDriver=lt_ring_driver_scrunch)
+	lt_ring_drivenKeyframes_scrunch = (lt_ring_fkOri_root + '_rotateZ', lt_ring_fkOri_joint_2 + '_rotateZ', lt_ring_fkOri_joint_3 + '_rotateZ', lt_ring_fkOri_joint_4 + '_rotateZ')
+	pm.keyTangent(lt_ring_drivenKeyframes_scrunch, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+	lt_ring_icon.scrunch.set(0)
+
+	'''
+	Pinky Scrunch
+	'''
+	lt_pinky_drivenAttr_scrunch = [lt_pinky_fkOri_joint_2 + '.rz', lt_pinky_fkOri_joint_3 + '.rz', lt_pinky_fkOri_joint_4 + '.rz']
+	lt_pinky_driver_scrunch = (lt_pinky_icon + '.scrunch')
+	pm.setDrivenKeyframe(lt_pinky_drivenAttr_scrunch, currentDriver=lt_pinky_driver_scrunch)
+	# print "Driven:", lt_pinky_driven
+	lt_pinky_driven_scrunch= [lt_pinky_fkOri_joint_2, lt_pinky_fkOri_joint_3, lt_pinky_fkOri_joint_4]
+	lt_pinky_icon.scrunch.set(10)
+	lt_pinky_fkOri_joint_2.rz.set(-50)
+	lt_pinky_fkOri_joint_3.rz.set(110)
+	lt_pinky_fkOri_joint_4.rz.set(30)
+	pm.setDrivenKeyframe(lt_pinky_drivenAttr_scrunch, currentDriver=lt_pinky_driver_scrunch)
+	lt_pinky_icon.scrunch.set(-10)
+	lt_pinky_fkOri_joint_2.rz.set(-3)
+	lt_pinky_fkOri_joint_3.rz.set(-4)
+	lt_pinky_fkOri_joint_4.rz.set(-10)
+	pm.setDrivenKeyframe(lt_pinky_drivenAttr_scrunch, currentDriver=lt_pinky_driver_scrunch)
+	lt_pinky_drivenKeyframes_scrunch = (lt_pinky_fkOri_root + '_rotateZ', lt_pinky_fkOri_joint_2 + '_rotateZ', lt_pinky_fkOri_joint_3 + '_rotateZ', lt_pinky_fkOri_joint_4 + '_rotateZ')
+	pm.keyTangent(lt_pinky_drivenKeyframes_scrunch, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+	lt_pinky_icon.scrunch.set(0)
+
+	'''
+	Index Spread
+	'''
+	lt_index_drivenAttr_spread = (lt_index_fkOri_root + '.ry', lt_index_fkOri_joint_2 + '.ry')
+	lt_index_driven_spread= (lt_index_fkOri_root, lt_index_fkOri_joint_2)
+	lt_index_driver_spread = (lt_index_icon + '.spread')
+	pm.setDrivenKeyframe(lt_index_drivenAttr_spread, currentDriver=lt_index_driver_spread)
+	lt_index_icon.spread.set(10)
+	pm.xform(lt_index_driven_spread, ro=(0, 6, 0))
+	pm.setDrivenKeyframe(lt_index_drivenAttr_spread, currentDriver=lt_index_driver_spread)
+	lt_index_icon.spread.set(-10)
+	pm.xform(lt_index_driven_spread, ro=(0, -3, 0))
+	pm.setDrivenKeyframe(lt_index_drivenAttr_spread, currentDriver=lt_index_driver_spread)
+	lt_index_icon.spread.set(0)
+
+	lt_index_drivenKeyframes_spread = (lt_index_fkOri_root + '_rotateY', lt_index_fkOri_joint_2 + '_rotateY')
+	pm.keyTangent(lt_index_drivenKeyframes_spread, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+
+	'''
+	Middle Spread
+	'''
+	lt_middle_drivenAttr_spread = (lt_middle_fkOri_root + '.ry', lt_middle_fkOri_joint_2 + '.ry')
+	lt_middle_driven_spread= (lt_middle_fkOri_root, lt_middle_fkOri_joint_2)
+	lt_middle_driver_spread = (lt_middle_icon + '.spread')
+	pm.setDrivenKeyframe(lt_middle_drivenAttr_spread, currentDriver=lt_middle_driver_spread)
+	lt_middle_icon.spread.set(10)
+	pm.xform(lt_middle_driven_spread, ro=(0, 6, 0))
+	pm.setDrivenKeyframe(lt_middle_drivenAttr_spread, currentDriver=lt_middle_driver_spread)
+	lt_middle_icon.spread.set(-10)
+	pm.xform(lt_middle_driven_spread, ro=(0, -3, 0))
+	pm.setDrivenKeyframe(lt_middle_drivenAttr_spread, currentDriver=lt_middle_driver_spread)
+	lt_middle_icon.spread.set(0)
+
+	lt_middle_drivenKeyframes_spread = (lt_middle_fkOri_root + '_rotateY', lt_middle_fkOri_joint_2 + '_rotateY')
+	pm.keyTangent(lt_middle_drivenKeyframes_spread, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+
+	'''
+	Ring Spread
+	'''
+	lt_ring_drivenAttr_spread = (lt_ring_fkOri_root + '.ry', lt_ring_fkOri_joint_2 + '.ry')
+	lt_ring_driven_spread= (lt_ring_fkOri_root, lt_ring_fkOri_joint_2)
+	lt_ring_driver_spread = (lt_ring_icon + '.spread')
+	pm.setDrivenKeyframe(lt_ring_drivenAttr_spread, currentDriver=lt_ring_driver_spread)
+	lt_ring_icon.spread.set(10)
+	pm.xform(lt_ring_driven_spread, ro=(0, 6, 0))
+	pm.setDrivenKeyframe(lt_ring_drivenAttr_spread, currentDriver=lt_ring_driver_spread)
+	lt_ring_icon.spread.set(-10)
+	pm.xform(lt_ring_driven_spread, ro=(0, -3, 0))
+	pm.setDrivenKeyframe(lt_ring_drivenAttr_spread, currentDriver=lt_ring_driver_spread)
+	lt_ring_icon.spread.set(0)
+
+	lt_ring_drivenKeyframes_spread = (lt_ring_fkOri_root + '_rotateY', lt_ring_fkOri_joint_2 + '_rotateY')
+	pm.keyTangent(lt_ring_drivenKeyframes_spread, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+
+	'''
+	Pinky Spread
+	'''
+	lt_pinky_drivenAttr_spread = (lt_pinky_fkOri_root + '.ry', lt_pinky_fkOri_joint_2 + '.ry')
+	lt_pinky_driven_spread= (lt_pinky_fkOri_root, lt_pinky_fkOri_joint_2)
+	lt_pinky_driver_spread = (lt_pinky_icon + '.spread')
+	pm.setDrivenKeyframe(lt_pinky_drivenAttr_spread, currentDriver=lt_pinky_driver_spread)
+	lt_pinky_icon.spread.set(10)
+	pm.xform(lt_pinky_driven_spread, ro=(0, 6, 0))
+	pm.setDrivenKeyframe(lt_pinky_drivenAttr_spread, currentDriver=lt_pinky_driver_spread)
+	lt_pinky_icon.spread.set(-10)
+	pm.xform(lt_pinky_driven_spread, ro=(0, -3, 0))
+	pm.setDrivenKeyframe(lt_pinky_drivenAttr_spread, currentDriver=lt_pinky_driver_spread)
+	lt_pinky_icon.spread.set(0)
+
+	lt_pinky_drivenKeyframes_spread = (lt_pinky_fkOri_root + '_rotateY', lt_pinky_fkOri_joint_2 + '_rotateY')
+	pm.keyTangent(lt_pinky_drivenKeyframes_spread, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+
+
+	'''
+	Index Relax
+	'''
+	lt_index_drivenAttr_relax = [lt_index_fkOri_root + '.rz', lt_index_fkOri_joint_2 + '.rz', lt_index_fkOri_joint_3 + '.rz', lt_index_fkOri_joint_4 + '.rz']
+	lt_index_driven_relax = [lt_index_fkOri_root, lt_index_fkOri_joint_2, lt_index_fkOri_joint_3, lt_index_fkOri_joint_4]
+	lt_index_driver_relax = (lt_index_icon + '.relax')
+	pm.setDrivenKeyframe(lt_index_drivenAttr_relax, currentDriver=lt_index_driver_relax)
+	lt_index_icon.relax.set(10)
+	lt_index_fkOri_root.rz.set(12)
+	lt_index_fkOri_joint_2.rz.set(15)
+	lt_index_fkOri_joint_3.rz.set(18)
+	lt_index_fkOri_joint_4.rz.set(21)
+	pm.setDrivenKeyframe(lt_index_drivenAttr_relax, currentDriver=lt_index_driver_relax)
+	lt_index_icon.relax.set(0)
+
+	pm.keyTangent(lt_index_driven_relax, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+
+	'''
+	Middle Relax
+	'''
+	lt_middle_drivenAttr_relax = [lt_middle_fkOri_root + '.rz', lt_middle_fkOri_joint_2 + '.rz', lt_middle_fkOri_joint_3 + '.rz', lt_middle_fkOri_joint_4 + '.rz']
+	lt_middle_driven_relax = [lt_middle_fkOri_root, lt_middle_fkOri_joint_2, lt_middle_fkOri_joint_3, lt_middle_fkOri_joint_4]
+	lt_middle_driver_relax = (lt_middle_icon + '.relax')
+	pm.setDrivenKeyframe(lt_middle_drivenAttr_relax, currentDriver=lt_middle_driver_relax)
+	lt_middle_icon.relax.set(10)
+	lt_middle_fkOri_root.rz.set(12)
+	lt_middle_fkOri_joint_2.rz.set(15)
+	lt_middle_fkOri_joint_3.rz.set(18)
+	lt_middle_fkOri_joint_4.rz.set(21)
+	pm.setDrivenKeyframe(lt_middle_drivenAttr_relax, currentDriver=lt_middle_driver_relax)
+	lt_middle_icon.relax.set(0)
+
+	pm.keyTangent(lt_middle_driven_relax, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+
+	'''
+	Ring Relax
+	'''
+	lt_ring_drivenAttr_relax = [lt_ring_fkOri_root + '.rz', lt_ring_fkOri_joint_2 + '.rz', lt_ring_fkOri_joint_3 + '.rz', lt_ring_fkOri_joint_4 + '.rz']
+	lt_ring_driven_relax = [lt_ring_fkOri_root, lt_ring_fkOri_joint_2, lt_ring_fkOri_joint_3, lt_ring_fkOri_joint_4]
+	lt_ring_driver_relax = (lt_ring_icon + '.relax')
+	pm.setDrivenKeyframe(lt_ring_drivenAttr_relax, currentDriver=lt_ring_driver_relax)
+	lt_ring_icon.relax.set(10)
+	lt_ring_fkOri_root.rz.set(12)
+	lt_ring_fkOri_joint_2.rz.set(15)
+	lt_ring_fkOri_joint_3.rz.set(18)
+	lt_ring_fkOri_joint_4.rz.set(21)
+	pm.setDrivenKeyframe(lt_ring_drivenAttr_relax, currentDriver=lt_ring_driver_relax)
+	lt_ring_icon.relax.set(0)
+
+	pm.keyTangent(lt_ring_driven_relax, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+
+	'''
+	Pinky Relax
+	'''
+	lt_pinky_drivenAttr_relax = [lt_pinky_fkOri_root + '.rz', lt_pinky_fkOri_joint_2 + '.rz', lt_pinky_fkOri_joint_3 + '.rz', lt_pinky_fkOri_joint_4 + '.rz']
+	lt_pinky_driven_relax = [lt_pinky_fkOri_root, lt_pinky_fkOri_joint_2, lt_pinky_fkOri_joint_3, lt_pinky_fkOri_joint_4]
+	lt_pinky_driver_relax = (lt_pinky_icon + '.relax')
+	pm.setDrivenKeyframe(lt_pinky_drivenAttr_relax, currentDriver=lt_pinky_driver_relax)
+	lt_pinky_icon.relax.set(10)
+	lt_pinky_fkOri_root.rz.set(12)
+	lt_pinky_fkOri_joint_2.rz.set(15)
+	lt_pinky_fkOri_joint_3.rz.set(18)
+	lt_pinky_fkOri_joint_4.rz.set(21)
+	pm.setDrivenKeyframe(lt_pinky_drivenAttr_relax, currentDriver=lt_pinky_driver_relax)
+	lt_pinky_icon.relax.set(0)
+
+	pm.keyTangent(lt_pinky_driven_relax, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+	pm.select(lt_index_icon, lt_middle_icon, lt_ring_icon, lt_pinky_icon)
+	icon_selection = pm.ls(sl=1)
+
+	color_lt_index = 27
+
+	for each in icon_selection:
+		pm.setAttr(each + '.overrideEnabled', 1)
+		pm.setAttr(each + '.overrideColor', color_lt_index)
+		color_lt_index = color_lt_index + 1
+
+	'''
+	Parent Icon Things
+	'''
+
+	lock_and_hide(lt_parent_icon, ['tx', 'ty', 'tz', 'rx', 'ry', 'rz', 'sx', 'sy', 'sz', 'v'])
+
+	pm.addAttr(lt_parent_icon, ln='fingerCtrls',  at='enum', en ='-------')
+	lt_parent_icon.fingerCtrls.set(lock=1, e=1, keyable=1)
+
+	lockAttrs(lt_parent_icon, ['fingerCtrls'])
+
+	pm.addAttr(lt_parent_icon, ln='fist', at='double', max=10, min=0, dv=0)
+	unlock_and_unhide(lt_parent_icon, ['fist'])
+
+	pm.addAttr(lt_parent_icon, ln='relax', at='double', max=10, min=-10, dv=0)
+	unlock_and_unhide(lt_parent_icon, ['relax'])
+
+	pm.addAttr(lt_parent_icon, ln='scrunch', at='double', max=10, min=-10, dv=0)
+	unlock_and_unhide(lt_parent_icon, ['scrunch'])
+
+	pm.addAttr(lt_parent_icon, ln='spread', at='double', max=10, min=-10, dv=0)
+	unlock_and_unhide(lt_parent_icon, ['spread'])
+
+	pm.addAttr(lt_parent_icon, ln='lt_thumbCtrls',  at='enum', en ='-------')
+	lt_parent_icon.lt_thumbCtrls.set(lock=1, e=1, keyable=1)
+
+	lockAttrs(lt_parent_icon, ['lt_thumbCtrls'])
+
+	pm.addAttr(lt_parent_icon, ln='curl', at='double', max=10, min=-10, dv=0)
+	unlock_and_unhide(lt_parent_icon, ['curl'])
+
+	pm.addAttr(lt_parent_icon, ln='drop', at='double', min=0, max=10, dv=0)
+	unlock_and_unhide(lt_parent_icon, ['drop'])
+
+	pm.addAttr(lt_parent_icon, ln='lt_thumbRelax', nn='Relax', at='double', max=10, min=0, dv=0)
+	unlock_and_unhide(lt_parent_icon, ['lt_thumbRelax'])
+
+	pm.addAttr(lt_parent_icon, ln='lt_thumbSpread', nn='Spread', at='double', max=10, min=-10, dv=0)
+	unlock_and_unhide(lt_parent_icon, ['lt_thumbSpread'])
+
+
+	'''
+	Index Fist
+	'''
+	lt_index_drivenAttr_fist = [lt_index_fkOri_root + '.rz', lt_index_fkOri_joint_2 + '.rz', lt_index_fkOri_joint_3 + '.rz', lt_index_fkOri_joint_4 + '.rz']
+	lt_index_driver_fist = (lt_parent_icon + '.fist')
+	lt_index_driven_fist= [lt_index_fkOri_root, lt_index_fkOri_joint_2, lt_index_fkOri_joint_3, lt_index_fkOri_joint_4]
+	pm.setDrivenKeyframe(lt_index_drivenAttr_fist, currentDriver=lt_index_driver_fist)
+	lt_parent_icon.fist.set(10)
+	pm.xform(lt_index_driven_fist, ro=(0, 0, 90))
+	lt_index_fkOri_root.rz.set(15)
+	lt_index_fkOri_joint_3.rz.set(75)
+	lt_index_fkOri_joint_4.rz.set(25)
+	pm.setDrivenKeyframe(lt_index_drivenAttr_fist, currentDriver=lt_index_driver_fist)
+	lt_parent_icon.fist.set(0)
+
+
+	'''
+	Middle Fist
+	'''
+	lt_middle_drivenAttr_fist = [lt_middle_fkOri_root + '.rz', lt_middle_fkOri_joint_2 + '.rz', lt_middle_fkOri_joint_3 + '.rz', lt_middle_fkOri_joint_4 + '.rz']
+	lt_middle_driver_fist = (lt_parent_icon + '.fist')
+	lt_middle_driven_fist= [lt_middle_fkOri_root, lt_middle_fkOri_joint_2, lt_middle_fkOri_joint_3, lt_middle_fkOri_joint_4]
+	pm.setDrivenKeyframe(lt_middle_drivenAttr_fist, currentDriver=lt_middle_driver_fist)
+	lt_parent_icon.fist.set(10)
+	pm.xform(lt_middle_driven_fist, ro=(0, 0, 90))
+	lt_middle_fkOri_root.rz.set(15)
+	lt_middle_fkOri_joint_3.rz.set(75)
+	lt_middle_fkOri_joint_4.rz.set(25)
+	pm.setDrivenKeyframe(lt_middle_drivenAttr_fist, currentDriver=lt_middle_driver_fist)
+	lt_parent_icon.fist.set(0)
+
+
+	'''
+	Ring Fist
+	'''
+	lt_ring_drivenAttr_fist = [lt_ring_fkOri_root + '.rz', lt_ring_fkOri_joint_2 + '.rz', lt_ring_fkOri_joint_3 + '.rz', lt_ring_fkOri_joint_4 + '.rz']
+	lt_ring_driver_fist = (lt_parent_icon + '.fist')
+	lt_ring_driven_fist= [lt_ring_fkOri_root, lt_ring_fkOri_joint_2, lt_ring_fkOri_joint_3, lt_ring_fkOri_joint_4]
+	pm.setDrivenKeyframe(lt_ring_drivenAttr_fist, currentDriver=lt_ring_driver_fist)
+	lt_parent_icon.fist.set(10)
+	pm.xform(lt_ring_driven_fist, ro=(0, 0, 90))
+	lt_ring_fkOri_root.rz.set(15)
+	lt_ring_fkOri_joint_3.rz.set(75)
+	lt_ring_fkOri_joint_4.rz.set(25)
+	pm.setDrivenKeyframe(lt_ring_drivenAttr_fist, currentDriver=lt_ring_driver_fist)
+	lt_parent_icon.fist.set(0)
+
+	'''
+	Pinky Fist
+	'''
+	lt_pinky_drivenAttr_fist = [lt_pinky_fkOri_root + '.rz', lt_pinky_fkOri_joint_2 + '.rz', lt_pinky_fkOri_joint_3 + '.rz', lt_pinky_fkOri_joint_4 + '.rz']
+	lt_pinky_driver_fist = (lt_parent_icon + '.fist')
+	lt_pinky_driven_fist= [lt_pinky_fkOri_root, lt_pinky_fkOri_joint_2, lt_pinky_fkOri_joint_3, lt_pinky_fkOri_joint_4]
+	pm.setDrivenKeyframe(lt_pinky_drivenAttr_fist, currentDriver=lt_pinky_driver_fist)
+	lt_parent_icon.fist.set(10)
+	pm.xform(lt_pinky_driven_fist, ro=(0, 0, 90))
+	lt_pinky_fkOri_root.rz.set(15)
+	lt_pinky_fkOri_joint_3.rz.set(75)
+	lt_pinky_fkOri_joint_4.rz.set(25)
+	pm.setDrivenKeyframe(lt_pinky_drivenAttr_fist, currentDriver=lt_pinky_driver_fist)
+	lt_parent_icon.fist.set(0)
+
+	'''
+	Thumb fist
+	'''
+	lt_thumb_drivenAttr_fist = [lt_thumb_fkOri_pivot + '.rx', lt_thumb_fkOri_pivot + '.ry', lt_thumb_fkOri_pivot + '.rz', lt_thumb_fkOri_joint_1 + '.ry', lt_thumb_fkOri_joint_2 + '.ry', lt_thumb_fkOri_joint_3 + '.ry']
+	lt_thumb_driver_fist  = (lt_parent_icon + '.fist')
+	lt_thumb_driven_fist = [lt_thumb_fkOri_pivot, lt_thumb_fkOri_pivot, lt_thumb_fkOri_pivot, lt_thumb_fkOri_joint_1, lt_thumb_fkOri_joint_2, lt_thumb_fkOri_joint_3]
+	pm.setDrivenKeyframe(lt_thumb_drivenAttr_fist, currentDriver=lt_thumb_driver_fist)
+	lt_parent_icon.fist.set(10)
+	pm.xform(lt_thumb_fkOri_pivot, ro=(-32, -12, 7))
+	lt_thumb_fkOri_joint_1.ry.set(-16)
+	lt_thumb_fkOri_joint_2.ry.set(-25)
+	lt_thumb_fkOri_joint_3.ry.set(-8)
+	pm.setDrivenKeyframe(lt_thumb_drivenAttr_fist, currentDriver=lt_thumb_driver_fist)
+	lt_parent_icon.fist.set(0)
+
+	lt_thumb_drivenKeyframes_allSpread = (lt_thumb_fkOri_pivot + '_rotateX', lt_thumb_fkOri_pivot + '_rotateY', lt_thumb_fkOri_pivot + '_rotateZ', lt_thumb_fkOri_joint_1 + '_rotateY', lt_thumb_fkOri_joint_2 + '_rotateY', lt_thumb_fkOri_joint_3 + '_rotateY')
+	pm.keyTangent(lt_thumb_drivenKeyframes_allSpread, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+
+	'''
+	Index Scrunch
+	'''
+	lt_index_drivenAttr_allScrunch = [lt_index_fkOri_joint_2 + '.rz', lt_index_fkOri_joint_3 + '.rz', lt_index_fkOri_joint_4 + '.rz']
+	lt_index_driver_allScrunch = (lt_parent_icon + '.scrunch')
+	pm.setDrivenKeyframe(lt_index_drivenAttr_allScrunch, currentDriver=lt_index_driver_allScrunch)
+	# print "Driven:", lt_index_driven
+	lt_index_driven_allScrunch= [lt_index_fkOri_joint_2, lt_index_fkOri_joint_3, lt_index_fkOri_joint_4]
+	lt_parent_icon.scrunch.set(10)
+	lt_index_fkOri_joint_2.rz.set(-50)
+	lt_index_fkOri_joint_3.rz.set(110)
+	lt_index_fkOri_joint_4.rz.set(30)
+	pm.setDrivenKeyframe(lt_index_drivenAttr_allScrunch, currentDriver=lt_index_driver_allScrunch)
+	lt_parent_icon.scrunch.set(-10)
+	lt_index_fkOri_joint_2.rz.set(-3)
+	lt_index_fkOri_joint_3.rz.set(-4)
+	lt_index_fkOri_joint_4.rz.set(-10)
+	pm.setDrivenKeyframe(lt_index_drivenAttr_allScrunch, currentDriver=lt_index_driver_allScrunch)
+	lt_index_drivenKeyframes_allScrunch = (lt_index_fkOri_root + '_rotateZ', lt_index_fkOri_joint_2 + '_rotateZ', lt_index_fkOri_joint_3 + '_rotateZ', lt_index_fkOri_joint_4 + '_rotateZ')
+	pm.keyTangent(lt_index_drivenKeyframes_allScrunch, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+	lt_parent_icon.scrunch.set(0)
+
+	'''
+	Middle Scrunch
+	'''
+	lt_middle_drivenAttr_allScrunch = [lt_middle_fkOri_joint_2 + '.rz', lt_middle_fkOri_joint_3 + '.rz', lt_middle_fkOri_joint_4 + '.rz']
+	lt_middle_driver_allScrunch = (lt_parent_icon + '.scrunch')
+	pm.setDrivenKeyframe(lt_middle_drivenAttr_allScrunch, currentDriver=lt_middle_driver_allScrunch)
+	# print "Driven:", lt_middle_driven
+	lt_middle_driven_allScrunch= [lt_middle_fkOri_joint_2, lt_middle_fkOri_joint_3, lt_middle_fkOri_joint_4]
+	lt_parent_icon.scrunch.set(10)
+	lt_middle_fkOri_joint_2.rz.set(-50)
+	lt_middle_fkOri_joint_3.rz.set(110)
+	lt_middle_fkOri_joint_4.rz.set(30)
+	pm.setDrivenKeyframe(lt_middle_drivenAttr_allScrunch, currentDriver=lt_middle_driver_allScrunch)
+	lt_parent_icon.scrunch.set(-10)
+	lt_middle_fkOri_joint_2.rz.set(-3)
+	lt_middle_fkOri_joint_3.rz.set(-4)
+	lt_middle_fkOri_joint_4.rz.set(-10)
+	pm.setDrivenKeyframe(lt_middle_drivenAttr_allScrunch, currentDriver=lt_middle_driver_allScrunch)
+	lt_middle_drivenKeyframes_allScrunch = (lt_middle_fkOri_root + '_rotateZ', lt_middle_fkOri_joint_2 + '_rotateZ', lt_middle_fkOri_joint_3 + '_rotateZ', lt_middle_fkOri_joint_4 + '_rotateZ')
+	pm.keyTangent(lt_middle_drivenKeyframes_allScrunch, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+	lt_parent_icon.scrunch.set(0)
+
+	'''
+	Ring Scrunch
+	'''
+	lt_ring_drivenAttr_allScrunch = [lt_ring_fkOri_joint_2 + '.rz', lt_ring_fkOri_joint_3 + '.rz', lt_ring_fkOri_joint_4 + '.rz']
+	lt_ring_driver_allScrunch = (lt_parent_icon + '.scrunch')
+	pm.setDrivenKeyframe(lt_ring_drivenAttr_allScrunch, currentDriver=lt_ring_driver_allScrunch)
+	# print "Driven:", lt_ring_driven
+	lt_ring_driven_allScrunch= [lt_ring_fkOri_joint_2, lt_ring_fkOri_joint_3, lt_ring_fkOri_joint_4]
+	lt_parent_icon.scrunch.set(10)
+	lt_ring_fkOri_joint_2.rz.set(-50)
+	lt_ring_fkOri_joint_3.rz.set(110)
+	lt_ring_fkOri_joint_4.rz.set(30)
+	pm.setDrivenKeyframe(lt_ring_drivenAttr_allScrunch, currentDriver=lt_ring_driver_allScrunch)
+	lt_parent_icon.scrunch.set(-10)
+	lt_ring_fkOri_joint_2.rz.set(-3)
+	lt_ring_fkOri_joint_3.rz.set(-4)
+	lt_ring_fkOri_joint_4.rz.set(-10)
+	pm.setDrivenKeyframe(lt_ring_drivenAttr_allScrunch, currentDriver=lt_ring_driver_allScrunch)
+	lt_ring_drivenKeyframes_allScrunch = (lt_ring_fkOri_root + '_rotateZ', lt_ring_fkOri_joint_2 + '_rotateZ', lt_ring_fkOri_joint_3 + '_rotateZ', lt_ring_fkOri_joint_4 + '_rotateZ')
+	pm.keyTangent(lt_ring_drivenKeyframes_allScrunch, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+	lt_parent_icon.scrunch.set(0)
+
+	'''
+	Pinky Scrunch
+	'''
+	lt_pinky_drivenAttr_allScrunch = [lt_pinky_fkOri_joint_2 + '.rz', lt_pinky_fkOri_joint_3 + '.rz', lt_pinky_fkOri_joint_4 + '.rz']
+	lt_pinky_driver_allScrunch = (lt_parent_icon + '.scrunch')
+	pm.setDrivenKeyframe(lt_pinky_drivenAttr_allScrunch, currentDriver=lt_pinky_driver_allScrunch)
+	# print "Driven:", lt_pinky_driven
+	lt_pinky_driven_allScrunch= [lt_pinky_fkOri_joint_2, lt_pinky_fkOri_joint_3, lt_pinky_fkOri_joint_4]
+	lt_parent_icon.scrunch.set(10)
+	lt_pinky_fkOri_joint_2.rz.set(-50)
+	lt_pinky_fkOri_joint_3.rz.set(110)
+	lt_pinky_fkOri_joint_4.rz.set(30)
+	pm.setDrivenKeyframe(lt_pinky_drivenAttr_allScrunch, currentDriver=lt_pinky_driver_allScrunch)
+	lt_parent_icon.scrunch.set(-10)
+	lt_pinky_fkOri_joint_2.rz.set(-3)
+	lt_pinky_fkOri_joint_3.rz.set(-4)
+	lt_pinky_fkOri_joint_4.rz.set(-10)
+	pm.setDrivenKeyframe(lt_pinky_drivenAttr_allScrunch, currentDriver=lt_pinky_driver_allScrunch)
+	lt_pinky_drivenKeyframes_allScrunch = (lt_pinky_fkOri_root + '_rotateZ', lt_pinky_fkOri_joint_2 + '_rotateZ', lt_pinky_fkOri_joint_3 + '_rotateZ', lt_pinky_fkOri_joint_4 + '_rotateZ')
+	pm.keyTangent(lt_pinky_drivenKeyframes_allScrunch, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+	lt_parent_icon.scrunch.set(0)
+
+	'''
+	Index allSpread
+	'''
+	lt_index_drivenAttr_allSpread = (lt_index_fkOri_root + '.ry', lt_index_fkOri_joint_2 + '.ry')
+	lt_index_driven_allSpread= (lt_index_fkOri_root, lt_index_fkOri_joint_2)
+	lt_index_driver_allSpread = (lt_parent_icon + '.spread')
+	pm.setDrivenKeyframe(lt_index_drivenAttr_allSpread, currentDriver=lt_index_driver_allSpread)
+	lt_parent_icon.spread.set(10)
+	pm.xform(lt_index_driven_allSpread, ro=(0, 6, 0))
+	pm.setDrivenKeyframe(lt_index_drivenAttr_allSpread, currentDriver=lt_index_driver_allSpread)
+	lt_parent_icon.spread.set(-10)
+	pm.xform(lt_index_driven_allSpread, ro=(0, -3, 0))
+	pm.setDrivenKeyframe(lt_index_drivenAttr_allSpread, currentDriver=lt_index_driver_allSpread)
+	lt_parent_icon.spread.set(0)
+
+	lt_index_drivenKeyframes_allSpread = (lt_index_fkOri_root + '_rotateY', lt_index_fkOri_joint_2 + '_rotateY')
+	pm.keyTangent(lt_index_drivenKeyframes_allSpread, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+
+	'''
+	Middle allSpread
+	'''
+	lt_middle_drivenAttr_allSpread = (lt_middle_fkOri_root + '.ry', lt_middle_fkOri_joint_2 + '.ry')
+	lt_middle_driven_allSpread= (lt_middle_fkOri_root, lt_middle_fkOri_joint_2)
+	lt_middle_driver_allSpread = (lt_parent_icon + '.spread')
+	pm.setDrivenKeyframe(lt_middle_drivenAttr_allSpread, currentDriver=lt_middle_driver_allSpread)
+	lt_parent_icon.spread.set(10)
+	pm.xform(lt_middle_driven_allSpread, ro=(0, 3, 0))
+	pm.setDrivenKeyframe(lt_middle_drivenAttr_allSpread, currentDriver=lt_middle_driver_allSpread)
+	lt_parent_icon.spread.set(-10)
+	pm.xform(lt_middle_driven_allSpread, ro=(0, 0, 0))
+	pm.setDrivenKeyframe(lt_middle_drivenAttr_allSpread, currentDriver=lt_middle_driver_allSpread)
+	lt_parent_icon.spread.set(0)
+
+	lt_middle_drivenKeyframes_allSpread = (lt_middle_fkOri_root + '_rotateY', lt_middle_fkOri_joint_2 + '_rotateY')
+	pm.keyTangent(lt_middle_drivenKeyframes_allSpread, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+
+	'''
+	Ring allSpread
+	'''
+	lt_ring_drivenAttr_allSpread = (lt_ring_fkOri_root + '.ry', lt_ring_fkOri_joint_2 + '.ry')
+	lt_ring_driven_allSpread= (lt_ring_fkOri_root, lt_ring_fkOri_joint_2)
+	lt_ring_driver_allSpread = (lt_parent_icon + '.spread')
+	pm.setDrivenKeyframe(lt_ring_drivenAttr_allSpread, currentDriver=lt_ring_driver_allSpread)
+	lt_parent_icon.spread.set(10)
+	pm.xform(lt_ring_driven_allSpread, ro=(0, -3, 0))
+	pm.setDrivenKeyframe(lt_ring_drivenAttr_allSpread, currentDriver=lt_ring_driver_allSpread)
+	lt_parent_icon.spread.set(-10)
+	pm.xform(lt_ring_driven_allSpread, ro=(0, 3, 0))
+	pm.setDrivenKeyframe(lt_ring_drivenAttr_allSpread, currentDriver=lt_ring_driver_allSpread)
+	lt_parent_icon.spread.set(0)
+
+	lt_ring_drivenKeyframes_allSpread = (lt_ring_fkOri_root + '_rotateY', lt_ring_fkOri_joint_2 + '_rotateY')
+	pm.keyTangent(lt_ring_drivenKeyframes_allSpread, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+
+	'''
+	Pinky allSpread
+	'''
+	lt_pinky_drivenAttr_allSpread = (lt_pinky_fkOri_root + '.ry', lt_pinky_fkOri_joint_2 + '.ry')
+	lt_pinky_driven_allSpread= (lt_pinky_fkOri_root, lt_pinky_fkOri_joint_2)
+	lt_pinky_driver_allSpread = (lt_parent_icon + '.spread')
+	pm.setDrivenKeyframe(lt_pinky_drivenAttr_allSpread, currentDriver=lt_pinky_driver_allSpread)
+	lt_parent_icon.spread.set(10)
+	pm.xform(lt_pinky_driven_allSpread, ro=(0, -6, 0))
+	pm.setDrivenKeyframe(lt_pinky_drivenAttr_allSpread, currentDriver=lt_pinky_driver_allSpread)
+	lt_parent_icon.spread.set(-10)
+	pm.xform(lt_pinky_driven_allSpread, ro=(0, 3, 0))
+	pm.setDrivenKeyframe(lt_pinky_drivenAttr_allSpread, currentDriver=lt_pinky_driver_allSpread)
+	lt_parent_icon.spread.set(0)
+
+	lt_pinky_drivenKeyframes_allSpread = (lt_pinky_fkOri_root + '_rotateY', lt_pinky_fkOri_joint_2 + '_rotateY')
+	pm.keyTangent(lt_pinky_drivenKeyframes_allSpread, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+
+	'''
+	Thumb allSpread
+	'''
+	lt_thumb_drivenAttr_allSpread = [lt_thumb_fkOri_joint_1 + '.ry']
+	lt_thumb_driver_allSpread  = (lt_parent_icon + '.spread')
+	lt_thumb_driven_allSpread = [lt_thumb_fkOri_pivot, lt_thumb_fkOri_pivot, lt_thumb_fkOri_pivot, lt_thumb_fkOri_joint_1, lt_thumb_fkOri_joint_2, lt_thumb_fkOri_joint_3]
+	pm.setDrivenKeyframe(lt_thumb_drivenAttr_allSpread, currentDriver=lt_thumb_driver_allSpread)
+	lt_parent_icon.spread.set(10)
+	lt_thumb_fkOri_joint_1.ry.set(30)
+	pm.setDrivenKeyframe(lt_thumb_drivenAttr_allSpread, currentDriver=lt_thumb_driver_allSpread)
+	lt_parent_icon.spread.set(-10)
+	lt_thumb_fkOri_joint_1.ry.set(-50)
+	pm.setDrivenKeyframe(lt_thumb_drivenAttr_allSpread, currentDriver=lt_thumb_driver_allSpread)
+	lt_parent_icon.spread.set(0)
+
+	lt_thumb_drivenKeyframes_allSpread = (lt_thumb_fkOri_joint_1 + '_rotateY')
+	pm.keyTangent(lt_thumb_drivenKeyframes_allSpread, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+
+
+	'''
+	Index allRelax
+	'''
+	lt_index_drivenAttr_allRelax = [lt_index_fkOri_root + '.rz', lt_index_fkOri_joint_2 + '.rz', lt_index_fkOri_joint_3 + '.rz', lt_index_fkOri_joint_4 + '.rz']
+	lt_index_driven_allRelax = [lt_index_fkOri_root, lt_index_fkOri_joint_2, lt_index_fkOri_joint_3, lt_index_fkOri_joint_4]
+	lt_index_driver_allRelax = (lt_parent_icon + '.relax')
+	pm.setDrivenKeyframe(lt_index_drivenAttr_allRelax, currentDriver=lt_index_driver_allRelax)
+	lt_parent_icon.relax.set(10)
+	lt_index_fkOri_root.rz.set(3)
+	lt_index_fkOri_joint_2.rz.set(3.75)
+	lt_index_fkOri_joint_3.rz.set(4.5)
+	lt_index_fkOri_joint_4.rz.set(8.4)
+	pm.setDrivenKeyframe(lt_index_drivenAttr_allRelax, currentDriver=lt_index_driver_allRelax)
+	lt_parent_icon.relax.set(-10)
+	lt_index_fkOri_root.rz.set(12)
+	lt_index_fkOri_joint_2.rz.set(15)
+	lt_index_fkOri_joint_3.rz.set(18)
+	lt_index_fkOri_joint_4.rz.set(21)
+	pm.setDrivenKeyframe(lt_index_drivenAttr_allRelax, currentDriver=lt_index_driver_allRelax)
+	lt_parent_icon.relax.set(0)
+
+	pm.keyTangent(lt_index_driven_allRelax, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+
+	'''
+	Middle allRelax
+	'''
+	lt_middle_drivenAttr_allRelax = [lt_middle_fkOri_root + '.rz', lt_middle_fkOri_joint_2 + '.rz', lt_middle_fkOri_joint_3 + '.rz', lt_middle_fkOri_joint_4 + '.rz']
+	lt_middle_driven_allRelax = [lt_middle_fkOri_root, lt_middle_fkOri_joint_2, lt_middle_fkOri_joint_3, lt_middle_fkOri_joint_4]
+	lt_middle_driver_allRelax = (lt_parent_icon + '.relax')
+	pm.setDrivenKeyframe(lt_middle_drivenAttr_allRelax, currentDriver=lt_middle_driver_allRelax)
+	lt_parent_icon.relax.set(10)
+	lt_middle_fkOri_root.rz.set(6)
+	lt_middle_fkOri_joint_2.rz.set(7.5)
+	lt_middle_fkOri_joint_3.rz.set(9)
+	lt_middle_fkOri_joint_4.rz.set(12.6)
+	pm.setDrivenKeyframe(lt_middle_drivenAttr_allRelax, currentDriver=lt_middle_driver_allRelax)
+	lt_parent_icon.relax.set(-10)
+	lt_middle_fkOri_root.rz.set(9)
+	lt_middle_fkOri_joint_2.rz.set(11.25)
+	lt_middle_fkOri_joint_3.rz.set(13.5)
+	lt_middle_fkOri_joint_4.rz.set(16.8)
+	pm.setDrivenKeyframe(lt_middle_drivenAttr_allRelax, currentDriver=lt_middle_driver_allRelax)
+	lt_parent_icon.relax.set(0)
+
+	pm.keyTangent(lt_middle_driven_allRelax, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+
+	'''
+	Ring allRelax
+	'''
+	lt_ring_drivenAttr_allRelax = [lt_ring_fkOri_root + '.rz', lt_ring_fkOri_joint_2 + '.rz', lt_ring_fkOri_joint_3 + '.rz', lt_ring_fkOri_joint_4 + '.rz']
+	lt_ring_driven_allRelax = [lt_ring_fkOri_root, lt_ring_fkOri_joint_2, lt_ring_fkOri_joint_3, lt_ring_fkOri_joint_4]
+	lt_ring_driver_allRelax = (lt_parent_icon + '.relax')
+	pm.setDrivenKeyframe(lt_ring_drivenAttr_allRelax, currentDriver=lt_ring_driver_allRelax)
+	lt_parent_icon.relax.set(10)
+	lt_ring_fkOri_root.rz.set(9)
+	lt_ring_fkOri_joint_2.rz.set(11.25)
+	lt_ring_fkOri_joint_3.rz.set(13.5)
+	lt_ring_fkOri_joint_4.rz.set(16.8)
+	pm.setDrivenKeyframe(lt_ring_drivenAttr_allRelax, currentDriver=lt_ring_driver_allRelax)
+	lt_parent_icon.relax.set(-10)
+	lt_ring_fkOri_root.rz.set(6)
+	lt_ring_fkOri_joint_2.rz.set(7.5)
+	lt_ring_fkOri_joint_3.rz.set(9)
+	lt_ring_fkOri_joint_4.rz.set(12.6)
+	pm.setDrivenKeyframe(lt_ring_drivenAttr_allRelax, currentDriver=lt_ring_driver_allRelax)
+	lt_parent_icon.relax.set(0)
+
+	pm.keyTangent(lt_ring_driven_allRelax, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+
+	'''
+	Pinky allRelax
+	'''
+	lt_pinky_drivenAttr_allRelax = [lt_pinky_fkOri_root + '.rz', lt_pinky_fkOri_joint_2 + '.rz', lt_pinky_fkOri_joint_3 + '.rz', lt_pinky_fkOri_joint_4 + '.rz']
+	lt_pinky_driven_allRelax = [lt_pinky_fkOri_root, lt_pinky_fkOri_joint_2, lt_pinky_fkOri_joint_3, lt_pinky_fkOri_joint_4]
+	lt_pinky_driver_allRelax = (lt_parent_icon + '.relax')
+	pm.setDrivenKeyframe(lt_pinky_drivenAttr_allRelax, currentDriver=lt_pinky_driver_allRelax)
+	lt_parent_icon.relax.set(10)
+	lt_pinky_fkOri_root.rz.set(12)
+	lt_pinky_fkOri_joint_2.rz.set(15)
+	lt_pinky_fkOri_joint_3.rz.set(18)
+	lt_pinky_fkOri_joint_4.rz.set(21)
+	pm.setDrivenKeyframe(lt_pinky_drivenAttr_allRelax, currentDriver=lt_pinky_driver_allRelax)
+	lt_parent_icon.relax.set(-10)
+	lt_pinky_fkOri_root.rz.set(3)
+	lt_pinky_fkOri_joint_2.rz.set(3.75)
+	lt_pinky_fkOri_joint_3.rz.set(4.5)
+	lt_pinky_fkOri_joint_4.rz.set(8.4)
+	pm.setDrivenKeyframe(lt_pinky_drivenAttr_allRelax, currentDriver=lt_pinky_driver_allRelax)
+	lt_parent_icon.relax.set(0)
+
+	pm.keyTangent(lt_pinky_driven_allRelax, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+
+	'''
+	Thumb Curl
+	'''
+	lt_thumb_drivenAttr_curl = [lt_thumb_fkOri_joint_1 + '.ry', lt_thumb_fkOri_joint_2 + '.ry', lt_thumb_fkOri_joint_3 + '.ry']
+	lt_thumb_driven_curl = [lt_thumb_fkOri_joint_1, lt_thumb_fkOri_joint_2, lt_thumb_fkOri_joint_3]
+	lt_thumb_driver_curl = (lt_parent_icon + '.curl')
+	pm.setDrivenKeyframe(lt_thumb_drivenAttr_curl, currentDriver=lt_thumb_driver_curl)
+	lt_parent_icon.curl.set(10)
+	lt_thumb_fkOri_joint_1.ry.set(-25)
+	lt_thumb_fkOri_joint_2.ry.set(-30)
+	lt_thumb_fkOri_joint_3.ry.set(-32)
+	pm.setDrivenKeyframe(lt_thumb_drivenAttr_curl, currentDriver=lt_thumb_driver_curl)
+	lt_parent_icon.curl.set(-10)
+	lt_thumb_fkOri_joint_1.ry.set(40)
+	lt_thumb_fkOri_joint_2.ry.set(30)
+	lt_thumb_fkOri_joint_3.ry.set(32)
+	pm.setDrivenKeyframe(lt_thumb_drivenAttr_curl, currentDriver=lt_thumb_driver_curl)
+	lt_parent_icon.curl.set(0)
+
+	pm.keyTangent(lt_thumb_driven_curl, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+
+	'''
+	Thumb Drop
+	'''
+	lt_thumb_drivenAttr_drop = [lt_thumb_fkOri_pivot + '.rx']
+	lt_thumb_driven_drop = [lt_thumb_fkOri_pivot]
+	lt_thumb_driver_drop = (lt_parent_icon + '.drop')
+	pm.setDrivenKeyframe(lt_thumb_drivenAttr_drop, currentDriver=lt_thumb_driver_drop)
+	lt_parent_icon.drop.set(10)
+	lt_thumb_fkOri_pivot.rx.set(-64)
+	pm.setDrivenKeyframe(lt_thumb_drivenAttr_drop, currentDriver=lt_thumb_driver_drop)
+	lt_parent_icon.drop.set(0)
+
+	pm.keyTangent(lt_thumb_driven_drop, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+
+	'''
+	Thumb Relax
+	'''
+	lt_thumb_drivenAttr_relax = [lt_thumb_fkOri_joint_1 + '.ry', lt_thumb_fkOri_joint_2 + '.ry', lt_thumb_fkOri_joint_3 + '.ry', lt_thumb_fkOri_joint_1 + '.rz', lt_thumb_fkOri_joint_2 + '.rz', lt_thumb_fkOri_joint_3 + '.rz']
+	lt_thumb_driven_relax = [lt_thumb_fkOri_joint_1, lt_thumb_fkOri_joint_2, lt_thumb_fkOri_joint_3]
+	lt_thumb_driver_relax = (lt_parent_icon + '.lt_thumbRelax')
+	pm.setDrivenKeyframe(lt_thumb_drivenAttr_relax, currentDriver=lt_thumb_driver_relax)
+	lt_parent_icon.lt_thumbRelax.set(10)
+	lt_thumb_fkOri_joint_1.ry.set(-9)
+	lt_thumb_fkOri_joint_2.ry.set(-6)
+	lt_thumb_fkOri_joint_3.ry.set(-12)
+	lt_thumb_fkOri_joint_1.rz.set(4)
+	lt_thumb_fkOri_joint_2.rz.set(7)
+	lt_thumb_fkOri_joint_3.rz.set(12)
+	pm.setDrivenKeyframe(lt_thumb_drivenAttr_relax, currentDriver=lt_thumb_driver_relax)
+	lt_parent_icon.lt_thumbRelax.set(0)
+
+	pm.keyTangent(lt_thumb_driven_relax, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+
+	'''
+	Thumb Spread
+	'''
+	lt_thumb_drivenAttr_spread = [lt_thumb_fkOri_joint_1 + '.ry']
+	lt_thumb_driven_spread = [lt_thumb_fkOri_joint_1]
+	lt_thumb_driver_spread = (lt_parent_icon + '.lt_thumbSpread')
+	pm.setDrivenKeyframe(lt_thumb_drivenAttr_spread, currentDriver=lt_thumb_driver_spread)
+	lt_parent_icon.lt_thumbSpread.set(10)
+	lt_thumb_fkOri_joint_1.ry.set(-45)
+	pm.setDrivenKeyframe(lt_thumb_drivenAttr_spread, currentDriver=lt_thumb_driver_spread)
+	lt_parent_icon.lt_thumbSpread.set(-10)
+	lt_thumb_fkOri_joint_1.ry.set(40)
+	pm.setDrivenKeyframe(lt_thumb_drivenAttr_spread, currentDriver=lt_thumb_driver_spread)
+	lt_parent_icon.lt_thumbSpread.set(0)
+
+	pm.keyTangent(lt_thumb_driven_spread, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+def rt_twoFingerSelection(*args):
+	global rt_index_root, rt_index_joint_2, rt_index_joint_3, rt_index_joint_4, rt_index_joint_5 
+	global rt_pinky_root, rt_pinky_joint_2, rt_pinky_joint_3, rt_pinky_joint_4, rt_pinky_joint_5
+	global rt_thumb_pivot, rt_thumb_joint_1, rt_thumb_joint_2, rt_thumb_joint_3, rt_thumb_joint_4
+	pm.select(rt_index_01_bind, rt_pinky_01_bind, rt_thumb_01_pivot)
+	rt_twoFinger_selection = pm.ls(sl=1)
+	# print 'Two Finger Selection:', rt_twoFinger_selection
+
+	rt_index_joint_selection = rt_twoFinger_selection[0]
+	rt_pinky_joint_selection = rt_twoFinger_selection[1]
+	rt_thumb_joint_selection = rt_twoFinger_selection[2]
+	# print 'Index Joints:', rt_index_joint_selection
+	# print 'Pinky Joints:', rt_pinky_joint_selection
+	# print 'Thumb Joints:', rt_thumb_joint_selection
+	
+
+	rt_index_joints = pm.ls(rt_index_joint_selection, sl=1, dag=1)
+	rt_index_root = rt_index_joints[0]
+	rt_index_joint_2 = rt_index_joints[1]
+	rt_index_joint_3 = rt_index_joints[2]
+	rt_index_joint_4 = rt_index_joints[3]
+	rt_index_joint_5 = rt_index_joints[4]
+	# print 'Index Root:', rt_index_root
+	# print 'Index Joint 2:', rt_index_joint_2
+	# print 'Index Joint 3:', rt_index_joint_3
+	# print 'Index Joint 4:', rt_index_joint_4
+	# print 'Index Joint 5:', rt_index_joint_5
+
+	rt_pinky_joints = pm.ls(rt_pinky_joint_selection, sl=1, dag=1)
+	rt_pinky_root = rt_pinky_joints[0]
+	rt_pinky_joint_2 = rt_pinky_joints[1]
+	rt_pinky_joint_3 = rt_pinky_joints[2]
+	rt_pinky_joint_4 = rt_pinky_joints[3]
+	rt_pinky_joint_5 = rt_pinky_joints[4]
+	# print 'Pinky Root:', rt_pinky_root
+	# print 'Pinky Joint 2:', rt_pinky_joint_2
+	# print 'Pinky Joint 3:', rt_pinky_joint_3
+	# print 'Pinky Joint 4:', rt_pinky_joint_4
+	# print 'Pinky Joint 5:', rt_pinky_joint_5
+	
+
+	rt_thumb_joints = pm.ls(rt_thumb_joint_selection, sl=1, dag=1)
+	rt_thumb_pivot = rt_thumb_joints[0]
+	rt_thumb_joint_1 = rt_thumb_joints[1]
+	rt_thumb_joint_2 = rt_thumb_joints[2]
+	rt_thumb_joint_3 = rt_thumb_joints[3]
+	rt_thumb_joint_4 = rt_thumb_joints[4]
+	# print 'Thumb Pivot:', rt_thumb_pivot
+	# print 'Thumb Joint 2:', rt_thumb_joint_1
+	# print 'Thumb Joint 3:', rt_thumb_joint_2
+	# print 'Thumb Joint 4:', rt_thumb_joint_3
+	# print 'Thumb Joint 5:', rt_thumb_joint_4
+	
+
+	pm.select(cl=1)
+	rt_ik_twoFinger_setup()
+
+def rt_threeFingerSelection(*args):
+	global rt_index_root, rt_index_joint_2, rt_index_joint_3, rt_index_joint_4, rt_index_joint_5
+	global rt_middle_root, rt_middle_joint_2, rt_middle_joint_3, rt_middle_joint_4, rt_middle_joint_5  
+	global rt_pinky_root, rt_pinky_joint_2, rt_pinky_joint_3, rt_pinky_joint_4, rt_pinky_joint_5
+	global rt_thumb_pivot, rt_thumb_joint_1, rt_thumb_joint_2, rt_thumb_joint_3, rt_thumb_joint_4
+	pm.select(rt_index_01_bind, rt_middle_01_bind, rt_pinky_01_bind, rt_thumb_01_pivot)
+	rt_threeFinger_selection = pm.ls(sl=1)
+	# print 'Three Finger Selection:', rt_threeFinger_selection
+
+	rt_index_joint_selection = rt_threeFinger_selection[0]
+	rt_middle_joint_selection = rt_threeFinger_selection[1]
+	rt_pinky_joint_selection = rt_threeFinger_selection[2]
+	rt_thumb_joint_selection = rt_threeFinger_selection[3]
+	# print 'Index Joints:', rt_index_joint_selection
+	# print 'Middle Joints:', rt_middle_joint_selection
+	# print 'Pinky Joints:', rt_pinky_joint_selection
+	# print 'Thumb Joints:', rt_thumb_joint_selection
+	
+	rt_index_joints = pm.ls(rt_index_joint_selection, sl=1, dag=1)
+	rt_index_root = rt_index_joints[0]
+	rt_index_joint_2 = rt_index_joints[1]
+	rt_index_joint_3 = rt_index_joints[2]
+	rt_index_joint_4 = rt_index_joints[3]
+	rt_index_joint_5 = rt_index_joints[4]
+	# print 'Index Root:', rt_index_root
+	# print 'Index Joint 2:', rt_index_joint_2
+	# print 'Index Joint 3:', rt_index_joint_3
+	# print 'Index Joint 4:', rt_index_joint_4
+	# print 'Index Joint 5:', rt_index_joint_5
+
+	rt_middle_joints = pm.ls(rt_middle_joint_selection, sl=1, dag=1)
+	rt_middle_root = rt_middle_joints[0]
+	rt_middle_joint_2 = rt_middle_joints[1]
+	rt_middle_joint_3 = rt_middle_joints[2]
+	rt_middle_joint_4 = rt_middle_joints[3]
+	rt_middle_joint_5 = rt_middle_joints[4]
+	# print 'Middle Root:', rt_middle_root
+	# print 'Middle Joint 2:', rt_middle_joint_2
+	# print 'Middle Joint 3:', rt_middle_joint_3
+	# print 'Middle Joint 4:', rt_middle_joint_4
+	# print 'Middle Joint 5:', rt_middle_joint_5
+
+	rt_pinky_joints = pm.ls(rt_pinky_joint_selection, sl=1, dag=1)
+	rt_pinky_root = rt_pinky_joints[0]
+	rt_pinky_joint_2 = rt_pinky_joints[1]
+	rt_pinky_joint_3 = rt_pinky_joints[2]
+	rt_pinky_joint_4 = rt_pinky_joints[3]
+	rt_pinky_joint_5 = rt_pinky_joints[4]
+	# print 'Pinky Root:', rt_pinky_root
+	# print 'Pinky Joint 2:', rt_pinky_joint_2
+	# print 'Pinky Joint 3:', rt_pinky_joint_3
+	# print 'Pinky Joint 4:', rt_pinky_joint_4
+	# print 'Pinky Joint 5:', rt_pinky_joint_5
+	
+
+	rt_thumb_joints = pm.ls(rt_thumb_joint_selection, sl=1, dag=1)
+	rt_thumb_pivot = rt_thumb_joints[0]
+	rt_thumb_joint_1 = rt_thumb_joints[1]
+	rt_thumb_joint_2 = rt_thumb_joints[2]
+	rt_thumb_joint_3 = rt_thumb_joints[3]
+	rt_thumb_joint_4 = rt_thumb_joints[4]
+	# print 'Thumb Pivot:', rt_thumb_pivot
+	# print 'Thumb Joint 2:', rt_thumb_joint_1
+	# print 'Thumb Joint 3:', rt_thumb_joint_2
+	# print 'Thumb Joint 4:', rt_thumb_joint_3
+	# print 'Thumb Joint 5:', rt_thumb_joint_4
+
+	pm.select(cl=1)
+	rt_ik_threeFinger_setup()
+
+def rt_fiveFingerSelection(*args):
+	global rt_index_root, rt_index_joint_2, rt_index_joint_3, rt_index_joint_4, rt_index_joint_5
+	global rt_middle_root, rt_middle_joint_2, rt_middle_joint_3, rt_middle_joint_4, rt_middle_joint_5
+	global rt_ring_root, rt_ring_joint_2, rt_ring_joint_3, rt_ring_joint_4, rt_ring_joint_5  
+	global rt_pinky_root, rt_pinky_joint_2, rt_pinky_joint_3, rt_pinky_joint_4, rt_pinky_joint_5
+	global rt_thumb_pivot, rt_thumb_joint_1, rt_thumb_joint_2, rt_thumb_joint_3, rt_thumb_joint_4
+	pm.select(rt_index_01_bind, rt_middle_01_bind, rt_ring_01_bind, rt_pinky_01_bind, rt_thumb_01_pivot)
+	rt_fiveFinger_selection = pm.ls(sl=1)
+	# print 'Five Finger Selection:', rt_fiveFinger_selection
+
+	rt_index_joint_selection = rt_fiveFinger_selection[0]
+	rt_middle_joint_selection = rt_fiveFinger_selection[1]
+	rt_ring_joint_selection = rt_fiveFinger_selection[2]
+	rt_pinky_joint_selection = rt_fiveFinger_selection[3]
+	rt_thumb_joint_selection = rt_fiveFinger_selection[4]
+	# print 'Index Joints:', rt_index_joint_selection
+	# print 'Middle Joints:', rt_middle_joint_selection
+	# print 'Ring Joints:', rt_ring_joint_selection
+	# print 'Pinky Joints:', rt_pinky_joint_selection
+	# print 'Thumb Joints:', rt_thumb_joint_selection
+	
+	rt_index_joints = pm.ls(rt_index_joint_selection, sl=1, dag=1)
+	rt_index_root = rt_index_joints[0]
+	rt_index_joint_2 = rt_index_joints[1]
+	rt_index_joint_3 = rt_index_joints[2]
+	rt_index_joint_4 = rt_index_joints[3]
+	rt_index_joint_5 = rt_index_joints[4]
+	# print 'Index Root:', rt_index_root
+	# print 'Index Joint 2:', rt_index_joint_2
+	# print 'Index Joint 3:', rt_index_joint_3
+	# print 'Index Joint 4:', rt_index_joint_4
+	# print 'Index Joint 5:', rt_index_joint_5
+
+	rt_middle_joints = pm.ls(rt_middle_joint_selection, sl=1, dag=1)
+	rt_middle_root = rt_middle_joints[0]
+	rt_middle_joint_2 = rt_middle_joints[1]
+	rt_middle_joint_3 = rt_middle_joints[2]
+	rt_middle_joint_4 = rt_middle_joints[3]
+	rt_middle_joint_5 = rt_middle_joints[4]
+	# print 'Middle Root:', rt_middle_root
+	# print 'Middle Joint 2:', rt_middle_joint_2
+	# print 'Middle Joint 3:', rt_middle_joint_3
+	# print 'Middle Joint 4:', rt_middle_joint_4
+	# print 'Middle Joint 5:', rt_middle_joint_5
+
+	rt_ring_joints = pm.ls(rt_ring_joint_selection, sl=1, dag=1)
+	rt_ring_root = rt_ring_joints[0]
+	rt_ring_joint_2 = rt_ring_joints[1]
+	rt_ring_joint_3 = rt_ring_joints[2]
+	rt_ring_joint_4 = rt_ring_joints[3]
+	rt_ring_joint_5 = rt_ring_joints[4]
+	# print 'Ring Root:', rt_ring_root
+	# print 'Ring Joint 2:', rt_ring_joint_2
+	# print 'Ring Joint 3:', rt_ring_joint_3
+	# print 'Ring Joint 4:', rt_ring_joint_4
+	# print 'Ring Joint 5:', rt_ring_joint_5
+
+	rt_pinky_joints = pm.ls(rt_pinky_joint_selection, sl=1, dag=1)
+	rt_pinky_root = rt_pinky_joints[0]
+	rt_pinky_joint_2 = rt_pinky_joints[1]
+	rt_pinky_joint_3 = rt_pinky_joints[2]
+	rt_pinky_joint_4 = rt_pinky_joints[3]
+	rt_pinky_joint_5 = rt_pinky_joints[4]
+	# print 'Pinky Root:', rt_pinky_root
+	# print 'Pinky Joint 2:', rt_pinky_joint_2
+	# print 'Pinky Joint 3:', rt_pinky_joint_3
+	# print 'Pinky Joint 4:', rt_pinky_joint_4
+	# print 'Pinky Joint 5:', rt_pinky_joint_5
+
+	rt_thumb_joints = pm.ls(rt_thumb_joint_selection, sl=1, dag=1)
+	rt_thumb_pivot = rt_thumb_joints[0]
+	rt_thumb_joint_1 = rt_thumb_joints[1]
+	rt_thumb_joint_2 = rt_thumb_joints[2]
+	rt_thumb_joint_3 = rt_thumb_joints[3]
+	rt_thumb_joint_4 = rt_thumb_joints[4]
+	# print 'Thumb Pivot:', rt_thumb_pivot
+	# print 'Thumb Joint 2:', rt_thumb_joint_1
+	# print 'Thumb Joint 3:', rt_thumb_joint_2
+	# print 'Thumb Joint 4:', rt_thumb_joint_3
+	# print 'Thumb Joint 5:', rt_thumb_joint_4
+
+	pm.select(cl=1)
+	rt_ik_fiveFinger_setup()
+
+def rt_ik_twoFinger_setup(*args):
+	global rt_hand_base
+	'''
+	Create the finger parent joint
+	'''
+	rt_hand_base = pm.joint()
+
+	temp_constraint = pm.parentConstraint(rt_hand_root, rt_hand_base, mo=0)
+	pm.delete(temp_constraint)
+
+	joint_name = rt_hand_root.replace('01_bind', 'temp')
+	rt_hand_base.rename(joint_name)
+
+	pm.parent(rt_hand_base, w=1)
+
+	'''
+	Unparent the rt_thumb_01 from the pivot
+	'''
+	pm.parent(rt_thumb_joint_1, w=1)
+	pm.select(rt_hand_base)
+	freezeTransform()
+	'''
+	Parent the finger joints under the base joint
+	'''
+	pm.parent(rt_index_root, rt_pinky_root, rt_thumb_01_pivot, rt_hand_base)
+	
+	'''
+	Orient the Joints
+	'''
+	pm.joint(rt_hand_base, zso=1, ch=1, e=1, oj='xyz', secondaryAxisOrient='ydown')
+	
+	
+	'''
+	Parent the rt_thumb_01 back to the pivot
+	'''
+	pm.parent(rt_thumb_joint_1, rt_thumb_pivot)
+	pm.parent(rt_thumb_pivot, rt_hand_base)
+
+	pm.parent(rt_index_root, rt_pinky_root, rt_thumb_pivot, w=1)
+
+	rt_twoFingers_and_thumb()	
+
+def rt_ik_threeFinger_setup(*args):
+	global rt_hand_base
+	'''
+	Create the finger parent joint
+	'''
+	rt_hand_base = pm.joint()
+
+	temp_constraint = pm.parentConstraint(rt_hand_root, rt_hand_base, mo=0)
+	pm.delete(temp_constraint)
+
+	joint_name = rt_hand_root.replace('01_bind', 'temp')
+	rt_hand_base.rename(joint_name)
+
+	pm.parent(rt_hand_base, w=1)
+
+	'''
+	Un=parent the rt_thumb_01 from the pivot
+	'''
+	pm.parent(rt_thumb_joint_1, w=1)
+	pm.select(rt_hand_base)
+	freezeTransform()
+	'''
+	Parent the finger joints under the base joint
+	'''
+	pm.parent(rt_index_root, rt_middle_root, rt_pinky_root, rt_thumb_joint_1, rt_hand_base)
+	
+	'''
+	Orient the Joints
+	'''
+	pm.joint(rt_hand_base, zso=1, ch=1, e=1, oj='xyz', secondaryAxisOrient='ydown')
+	
+	
+	'''
+	Parent the rt_thumb_01 back to the pivot
+	'''
+	pm.parent(rt_thumb_joint_1, rt_thumb_pivot)
+	pm.parent(rt_thumb_pivot, rt_hand_base)
+
+	pm.parent(rt_index_root, rt_middle_root, rt_pinky_root, rt_thumb_pivot, w=1)
+
+	rt_threeFingers_and_thumb()
+
+def rt_ik_fiveFinger_setup(*args):
+	global rt_hand_base
+	'''
+	Create the finger parent joint
+	'''
+	rt_hand_base = pm.joint()
+
+	temp_constraint = pm.parentConstraint(rt_hand_root, rt_hand_base, mo=0)
+	pm.delete(temp_constraint)
+
+	joint_name = rt_hand_root.replace('01_bind', 'temp')
+	rt_hand_base.rename(joint_name)
+
+	pm.parent(rt_hand_base, w=1)
+
+	'''
+	Un=parent the rt_thumb_01 from the pivot
+	'''
+	pm.parent(rt_thumb_joint_1, w=1)
+	pm.select(rt_hand_base)
+	freezeTransform()
+	'''
+	Parent the finger joints under the base joint
+	'''
+	pm.parent(rt_index_root, rt_middle_root, rt_ring_root, rt_pinky_root, rt_thumb_joint_1, rt_hand_base)
+	
+	'''
+	Orient the Joints
+	'''
+	pm.joint(rt_hand_base, zso=1, ch=1, e=1, oj='xyz', secondaryAxisOrient='ydown')
+	
+	
+	'''
+	Parent the rt_thumb_01 back to the pivot
+	'''
+	pm.parent(rt_thumb_joint_1, rt_thumb_pivot)
+	pm.parent(rt_thumb_pivot, rt_hand_base)
+
+	pm.parent(rt_index_root, rt_middle_root, rt_ring_root, rt_pinky_root, rt_thumb_pivot, w=1)
+
+	rt_five_finger_setup()
+
+def rt_indexSetup(*args):
+	global rt_index_fk_root, rt_index_fk_joint_2, rt_index_fk_joint_3, rt_index_fk_joint_4, rt_index_fk_joint_5
+	global rt_index_fkOri_root, rt_index_fkOri_joint_2, rt_index_fkOri_joint_3, rt_index_fkOri_joint_4, rt_index_fkOri_joint_5
+	global rt_index_01_local
+	pm.select()
+	'''
+	Index
+	'''
+
+	rt_index_joint_5.jointOrientX.set(0)
+	rt_index_root.rotateOrder.set(5)
+	rt_index_joint_2.rotateOrder.set(5)
+	rt_index_joint_3.rotateOrder.set(5)
+	rt_index_joint_4.rotateOrder.set(5)
+	rt_index_joint_5.rotateOrder.set(5)
+	'''
+	Duplicate the bind for the "Ori" joints
+	'''
+	rt_index_ori_joint_system = pm.duplicate(rt_index_root)
+	rt_index_ori_joints = pm.ls(rt_index_ori_joint_system, sl=1, dag=1)
+	# print 'Index Ori Joints:', rt_index_ori_joints
+	rt_index_ori_root = rt_index_ori_joints[0]
+	rt_index_ori_joint_2 = rt_index_ori_joints[1]
+	rt_index_ori_joint_3 = rt_index_ori_joints[2]
+	rt_index_ori_joint_4 = rt_index_ori_joints[3]
+	rt_index_ori_joint_5 = rt_index_ori_joints[4]
+
+	pm.mel.searchReplaceNames('bind', 'ori', 'hierarchy')
+	pm.mel.searchReplaceNames('waste', 'ori', 'hierarchy')
+	joint_name = rt_index_root.replace('bind', 'ori')
+	rt_index_ori_root.rename(joint_name)
+
+	'''
+	Parent the ori and bind
+	'''
+
+	pm.parent(rt_index_ori_root, rt_index_root)
+	pm.parent(rt_index_ori_joint_2, rt_index_joint_2)
+	pm.parent(rt_index_joint_2, rt_index_ori_root)
+
+	pm.parent(rt_index_ori_joint_3, rt_index_joint_3)
+	pm.parent(rt_index_joint_3, rt_index_ori_joint_2)
+
+	pm.parent(rt_index_ori_joint_4, rt_index_joint_4)
+	pm.parent(rt_index_joint_4, rt_index_ori_joint_3)
+
+	pm.parent(rt_index_ori_joint_5, rt_index_joint_5)
+	pm.parent(rt_index_joint_5, rt_index_ori_joint_4)
+
+	'''
+	Creat the fk joints
+	'''
+
+	rt_index_fk_joint_system = pm.duplicate(rt_index_root)
+	pm.select(rt_index_fk_joint_system)
+	rt_index_fk_joints = pm.ls(rt_index_fk_joint_system, sl=1, dag=1)
+	# print 'Index Fk Joints:', rt_index_fk_joints
+	rt_index_fk_root = rt_index_fk_joints[0]
+	rt_index_fkOri_root = rt_index_fk_joints[1]
+
+	rt_index_fk_joint_2 = rt_index_fk_joints[2]
+	rt_index_fkOri_joint_2 = rt_index_fk_joints[3]
+
+	rt_index_fk_joint_3 = rt_index_fk_joints[4]
+	rt_index_fkOri_joint_3 = rt_index_fk_joints[5]
+
+	rt_index_fk_joint_4 = rt_index_fk_joints[6]
+	rt_index_fkOri_joint_4 = rt_index_fk_joints[7]
+
+	rt_index_fk_joint_5 = rt_index_fk_joints[8]
+	rt_index_fkOri_joint_5 = rt_index_fk_joints[9]
+
+	pm.mel.searchReplaceNames('bind', 'fk', 'hierarchy')
+	pm.mel.searchReplaceNames('waste', 'fk', 'hierarchy')
+	pm.mel.searchReplaceNames('ori', 'fkOri', 'hierarchy')
+	joint_name = rt_index_root.replace('bind', 'fk')
+	rt_index_fk_root.rename(joint_name)
+	# print 'Fk Ori Root Joint:', rt_index_fkOri_root
+
+	'''
+	Create the fk icons
+	'''
+
+	# Icon I
+	rt_index_01_icon = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=1, tol=0.01, nr=(0, 0, 1))[0]
+
+	temp_constraint = pm.parentConstraint(rt_index_fk_root, rt_index_01_icon, mo=0)
+	pm.delete(temp_constraint)
+	freezeTransform()
+
+	icon_name = rt_index_fk_root.replace('fk', 'icon')
+	rt_index_01_icon.rename(icon_name)
+
+	rt_index_01_local = pm.group(empty=1)
+	temp_constraint = pm.parentConstraint(rt_index_fk_root, rt_index_01_local, mo=0)
+	pm.delete(temp_constraint)
+
+	local_name = rt_index_01_icon.replace('icon', 'local')
+	rt_index_01_local.rename(local_name)
+
+	pm.parent(rt_index_01_icon, rt_index_01_local)
+	freezeTransform()
+
+	pm.parent(rt_index_fk_root, rt_index_01_icon)
+
+	# Icon II
+	rt_index_02_icon = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=1, tol=0.01, nr=(0, 0, 1))[0]
+	temp_constraint = pm.parentConstraint(rt_index_fk_joint_2, rt_index_02_icon, mo=0)
+	pm.delete(temp_constraint)
+	freezeTransform()
+
+	icon_name = rt_index_01_icon.replace('01', '02')
+	rt_index_02_icon.rename(icon_name)
+
+
+	rt_index_02_local = pm.group(empty=1)
+	temp_constraint = pm.parentConstraint(rt_index_fk_joint_2, rt_index_02_local, mo=0)
+	pm.delete(temp_constraint)
+
+	local_name = rt_index_02_icon.replace('icon', 'local')
+	rt_index_02_local.rename(local_name)
+
+	pm.parent(rt_index_02_local, rt_index_fkOri_root)
+
+	pm.parent(rt_index_02_icon, rt_index_02_local)
+	freezeTransform()
+
+	pm.parent(rt_index_02_local, rt_index_fkOri_root)
+
+	pm.parent(rt_index_fk_joint_2, rt_index_02_icon)
+
+	# Icon III
+	rt_index_03_icon = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=1, tol=0.01, nr=(0, 0, 1))[0]
+	temp_constraint = pm.parentConstraint(rt_index_fk_joint_3, rt_index_03_icon, mo=0)
+	pm.delete(temp_constraint)
+	freezeTransform()
+
+	icon_name = rt_index_02_icon.replace('02', '03')
+	rt_index_03_icon.rename(icon_name)
+
+
+	rt_index_03_local = pm.group(empty=1)
+	temp_constraint = pm.parentConstraint(rt_index_fk_joint_3, rt_index_03_local, mo=0)
+	pm.delete(temp_constraint)
+
+	local_name = rt_index_03_icon.replace('icon', 'local')
+	rt_index_03_local.rename(local_name)
+
+	pm.parent(rt_index_03_local, rt_index_fkOri_joint_2)
+
+	pm.parent(rt_index_03_icon, rt_index_03_local)
+	freezeTransform()
+
+	pm.parent(rt_index_03_local, rt_index_fkOri_joint_2)
+
+	pm.parent(rt_index_fk_joint_3, rt_index_03_icon)
+
+	# Icon IV
+	rt_index_04_icon = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=1, tol=0.01, nr=(0, 0, 1))[0]
+	temp_constraint = pm.parentConstraint(rt_index_fk_joint_4, rt_index_04_icon, mo=0)
+	pm.delete(temp_constraint)
+	freezeTransform()
+
+	icon_name = rt_index_03_icon.replace('03', '04')
+	rt_index_04_icon.rename(icon_name)
+
+
+	rt_index_04_local = pm.group(empty=1)
+	temp_constraint = pm.parentConstraint(rt_index_fk_joint_4, rt_index_04_local, mo=0)
+	pm.delete(temp_constraint)
+
+	local_name = rt_index_04_icon.replace('icon', 'local')
+	rt_index_04_local.rename(local_name)
+
+	pm.parent(rt_index_04_local, rt_index_fkOri_joint_2)
+
+	pm.parent(rt_index_04_icon, rt_index_04_local)
+	freezeTransform()
+
+	pm.parent(rt_index_04_local, rt_index_fkOri_joint_3)
+
+	pm.parent(rt_index_fk_joint_4, rt_index_04_icon)
+
+
+	'''
+	Delete History on icons
+	'''
+	pm.select(rt_index_01_icon)
+	deleteHistory()
+
+
+	'''
+	Connect the fk joints to the bind
+	'''
+	pm.orientConstraint(rt_index_01_icon, rt_index_root, mo=1)
+	pm.orientConstraint(rt_index_02_icon, rt_index_joint_2, mo=1)
+	pm.orientConstraint(rt_index_03_icon, rt_index_joint_3, mo=1)
+	pm.orientConstraint(rt_index_04_icon, rt_index_joint_4, mo=1)
+	pm.orientConstraint(rt_index_04_icon, rt_index_joint_5, mo=1)
+
+	'''
+	Connect the fkOri joints to the ori
+	'''
+	pm.connectAttr(rt_index_fkOri_root + '.rotate', rt_index_ori_root + '.rotate')
+	pm.connectAttr(rt_index_fkOri_joint_2 + '.rotate', rt_index_ori_joint_2 + '.rotate')
+	pm.connectAttr(rt_index_fkOri_joint_3 + '.rotate', rt_index_ori_joint_3 + '.rotate')
+	pm.connectAttr(rt_index_fkOri_joint_4 + '.rotate', rt_index_ori_joint_4 + '.rotate')
+	pm.connectAttr(rt_index_fkOri_joint_5 + '.rotate', rt_index_ori_joint_5 + '.rotate')
+
+	pm.connectAttr(rt_index_fkOri_joint_2 + '.translate', rt_index_ori_joint_2 + '.translate')
+	pm.connectAttr(rt_index_fkOri_joint_3 + '.translate', rt_index_ori_joint_3 + '.translate')
+	pm.connectAttr(rt_index_fkOri_joint_4 + '.translate', rt_index_ori_joint_4 + '.translate')
+
+def rt_middleSetup(*args):
+	global rt_middle_fk_root, rt_middle_fk_joint_2, rt_middle_fk_joint_3, rt_middle_fk_joint_4, rt_middle_fk_joint_5
+	global rt_middle_fkOri_root, rt_middle_fkOri_joint_2, rt_middle_fkOri_joint_3, rt_middle_fkOri_joint_4, rt_middle_fkOri_joint_5
+	global rt_middle_01_local
+	'''
+	Middle
+	'''
+
+	rt_middle_joint_5.jointOrientX.set(0)
+	rt_middle_root.rotateOrder.set(5)
+	rt_middle_joint_2.rotateOrder.set(5)
+	rt_middle_joint_3.rotateOrder.set(5)
+	rt_middle_joint_4.rotateOrder.set(5)
+	rt_middle_joint_5.rotateOrder.set(5)
+	'''
+	Duplicate the bind for the "Ori" joints
+	'''
+	rt_middle_joint_dups = pm.duplicate(rt_middle_root)
+	pm.select(rt_middle_joint_dups)
+	rt_middle_ori_joint_system = pm.ls(sl=1,dag=1)
+	print 'Middle ori joint system:', rt_middle_ori_joint_system
+	rt_middle_ori_joints = pm.ls(rt_middle_ori_joint_system, sl=1, dag=1)
+	print 'Middle Ori Joints:', rt_middle_ori_joints
+	rt_middle_ori_root = rt_middle_ori_joints[0]
+	rt_middle_ori_joint_2 = rt_middle_ori_joints[1]
+	rt_middle_ori_joint_3 = rt_middle_ori_joints[2]
+	rt_middle_ori_joint_4 = rt_middle_ori_joints[3]
+	rt_middle_ori_joint_5 = rt_middle_ori_joints[4]
+
+	pm.mel.searchReplaceNames('bind', 'ori', 'hierarchy')
+	pm.mel.searchReplaceNames('waste', 'ori', 'hierarchy')
+	joint_name = rt_middle_root.replace('bind', 'ori')
+	rt_middle_ori_root.rename(joint_name)
+
+	'''
+	Parent the ori and bind
+	'''
+
+	pm.parent(rt_middle_ori_root, rt_middle_root)
+	pm.parent(rt_middle_ori_joint_2, rt_middle_joint_2)
+	pm.parent(rt_middle_joint_2, rt_middle_ori_root)
+
+	pm.parent(rt_middle_ori_joint_3, rt_middle_joint_3)
+	pm.parent(rt_middle_joint_3, rt_middle_ori_joint_2)
+
+	pm.parent(rt_middle_ori_joint_4, rt_middle_joint_4)
+	pm.parent(rt_middle_joint_4, rt_middle_ori_joint_3)
+
+	pm.parent(rt_middle_ori_joint_5, rt_middle_joint_5)
+	pm.parent(rt_middle_joint_5, rt_middle_ori_joint_4)
+
+	'''
+	Creat the fk joints
+	'''
+
+	rt_middle_fk_joint_system = pm.duplicate(rt_middle_root)
+	pm.select(rt_middle_fk_joint_system)
+	rt_middle_fk_joints = pm.ls(rt_middle_fk_joint_system, sl=1, dag=1)
+	# print 'Index Fk Joints:', rt_middle_fk_joints
+	rt_middle_fk_root = rt_middle_fk_joints[0]
+	rt_middle_fkOri_root = rt_middle_fk_joints[1]
+
+	rt_middle_fk_joint_2 = rt_middle_fk_joints[2]
+	rt_middle_fkOri_joint_2 = rt_middle_fk_joints[3]
+
+	rt_middle_fk_joint_3 = rt_middle_fk_joints[4]
+	rt_middle_fkOri_joint_3 = rt_middle_fk_joints[5]
+
+	rt_middle_fk_joint_4 = rt_middle_fk_joints[6]
+	rt_middle_fkOri_joint_4 = rt_middle_fk_joints[7]
+
+	rt_middle_fk_joint_5 = rt_middle_fk_joints[8]
+	rt_middle_fkOri_joint_5 = rt_middle_fk_joints[9]
+
+	pm.mel.searchReplaceNames('bind', 'fk', 'hierarchy')
+	pm.mel.searchReplaceNames('waste', 'fk', 'hierarchy')
+	pm.mel.searchReplaceNames('ori', 'fkOri', 'hierarchy')
+	joint_name = rt_middle_root.replace('bind', 'fk')
+	rt_middle_fk_root.rename(joint_name)
+	# print 'Fk Ori Root Joint:', rt_middle_fkOri_root
+
+	'''
+	Create the fk icons
+	'''
+
+	# Icon I
+	rt_middle_01_icon = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=1, tol=0.01, nr=(0, 0, 1))[0]
+
+	temp_constraint = pm.parentConstraint(rt_middle_fk_root, rt_middle_01_icon, mo=0)
+	pm.delete(temp_constraint)
+	freezeTransform()
+
+	icon_name = rt_middle_fk_root.replace('fk', 'icon')
+	rt_middle_01_icon.rename(icon_name)
+
+	rt_middle_01_local = pm.group(empty=1)
+	temp_constraint = pm.parentConstraint(rt_middle_fk_root, rt_middle_01_local, mo=0)
+	pm.delete(temp_constraint)
+
+	local_name = rt_middle_01_icon.replace('icon', 'local')
+	rt_middle_01_local.rename(local_name)
+
+	pm.parent(rt_middle_01_icon, rt_middle_01_local)
+	freezeTransform()
+
+	pm.parent(rt_middle_fk_root, rt_middle_01_icon)
+
+	# Icon II
+	rt_middle_02_icon = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=1, tol=0.01, nr=(0, 0, 1))[0]
+	temp_constraint = pm.parentConstraint(rt_middle_fk_joint_2, rt_middle_02_icon, mo=0)
+	pm.delete(temp_constraint)
+	freezeTransform()
+
+	icon_name = rt_middle_01_icon.replace('01', '02')
+	rt_middle_02_icon.rename(icon_name)
+
+
+	rt_middle_02_local = pm.group(empty=1)
+	temp_constraint = pm.parentConstraint(rt_middle_fk_joint_2, rt_middle_02_local, mo=0)
+	pm.delete(temp_constraint)
+
+	local_name = rt_middle_02_icon.replace('icon', 'local')
+	rt_middle_02_local.rename(local_name)
+
+	pm.parent(rt_middle_02_local, rt_middle_fkOri_root)
+
+	pm.parent(rt_middle_02_icon, rt_middle_02_local)
+	freezeTransform()
+
+	pm.parent(rt_middle_02_local, rt_middle_fkOri_root)
+
+	pm.parent(rt_middle_fk_joint_2, rt_middle_02_icon)
+
+	# Icon III
+	rt_middle_03_icon = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=1, tol=0.01, nr=(0, 0, 1))[0]
+	temp_constraint = pm.parentConstraint(rt_middle_fk_joint_3, rt_middle_03_icon, mo=0)
+	pm.delete(temp_constraint)
+	freezeTransform()
+
+	icon_name = rt_middle_02_icon.replace('02', '03')
+	rt_middle_03_icon.rename(icon_name)
+
+
+	rt_middle_03_local = pm.group(empty=1)
+	temp_constraint = pm.parentConstraint(rt_middle_fk_joint_3, rt_middle_03_local, mo=0)
+	pm.delete(temp_constraint)
+
+	local_name = rt_middle_03_icon.replace('icon', 'local')
+	rt_middle_03_local.rename(local_name)
+
+	pm.parent(rt_middle_03_local, rt_middle_fkOri_joint_2)
+
+	pm.parent(rt_middle_03_icon, rt_middle_03_local)
+	freezeTransform()
+
+	pm.parent(rt_middle_03_local, rt_middle_fkOri_joint_2)
+
+	pm.parent(rt_middle_fk_joint_3, rt_middle_03_icon)
+
+	# Icon IV
+	rt_middle_04_icon = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=1, tol=0.01, nr=(0, 0, 1))[0]
+	temp_constraint = pm.parentConstraint(rt_middle_fk_joint_4, rt_middle_04_icon, mo=0)
+	pm.delete(temp_constraint)
+	freezeTransform()
+
+	icon_name = rt_middle_03_icon.replace('03', '04')
+	rt_middle_04_icon.rename(icon_name)
+
+
+	rt_middle_04_local = pm.group(empty=1)
+	temp_constraint = pm.parentConstraint(rt_middle_fk_joint_4, rt_middle_04_local, mo=0)
+	pm.delete(temp_constraint)
+
+	local_name = rt_middle_04_icon.replace('icon', 'local')
+	rt_middle_04_local.rename(local_name)
+
+	pm.parent(rt_middle_04_local, rt_middle_fkOri_joint_2)
+
+	pm.parent(rt_middle_04_icon, rt_middle_04_local)
+	freezeTransform()
+
+	pm.parent(rt_middle_04_local, rt_middle_fkOri_joint_3)
+
+	pm.parent(rt_middle_fk_joint_4, rt_middle_04_icon)
+
+
+	'''
+	Delete History on icons
+	'''
+	pm.select(rt_middle_01_icon)
+	deleteHistory()
+
+
+	'''
+	Connect the fk joints to the bind
+	'''
+	pm.orientConstraint(rt_middle_01_icon, rt_middle_root, mo=1)
+	pm.orientConstraint(rt_middle_02_icon, rt_middle_joint_2, mo=1)
+	pm.orientConstraint(rt_middle_03_icon, rt_middle_joint_3, mo=1)
+	pm.orientConstraint(rt_middle_04_icon, rt_middle_joint_4, mo=1)
+	pm.orientConstraint(rt_middle_04_icon, rt_middle_joint_5, mo=1)
+
+	'''
+	Connect the fkOri joints to the ori
+	'''
+	pm.connectAttr(rt_middle_fkOri_root + '.rotate', rt_middle_ori_root + '.rotate')
+	pm.connectAttr(rt_middle_fkOri_joint_2 + '.rotate', rt_middle_ori_joint_2 + '.rotate')
+	pm.connectAttr(rt_middle_fkOri_joint_3 + '.rotate', rt_middle_ori_joint_3 + '.rotate')
+	pm.connectAttr(rt_middle_fkOri_joint_4 + '.rotate', rt_middle_ori_joint_4 + '.rotate')
+	pm.connectAttr(rt_middle_fkOri_joint_5 + '.rotate', rt_middle_ori_joint_5 + '.rotate')
+
+	pm.connectAttr(rt_middle_fkOri_joint_2 + '.translate', rt_middle_ori_joint_2 + '.translate')
+	pm.connectAttr(rt_middle_fkOri_joint_3 + '.translate', rt_middle_ori_joint_3 + '.translate')
+	pm.connectAttr(rt_middle_fkOri_joint_4 + '.translate', rt_middle_ori_joint_4 + '.translate')
+
+def rt_ringSetup(*args):
+	global rt_ring_fk_root, rt_ring_fk_joint_2, rt_ring_fk_joint_3, rt_ring_fk_joint_4, rt_ring_fk_joint_5
+	global rt_ring_fkOri_root, rt_ring_fkOri_joint_2, rt_ring_fkOri_joint_3, rt_ring_fkOri_joint_4, rt_ring_fkOri_joint_5
+	global rt_ring_01_local
+	'''
+	Ring
+	'''
+
+	rt_ring_joint_5.jointOrientX.set(0)
+	rt_ring_root.rotateOrder.set(5)
+	rt_ring_joint_2.rotateOrder.set(5)
+	rt_ring_joint_3.rotateOrder.set(5)
+	rt_ring_joint_4.rotateOrder.set(5)
+	rt_ring_joint_5.rotateOrder.set(5)
+	'''
+	Duplicate the bind for the "Ori" joints
+	'''
+	rt_ring_joint_dups = pm.duplicate(rt_ring_root)
+	pm.select(rt_ring_joint_dups)
+	rt_ring_ori_joint_system = pm.ls(sl=1,dag=1)
+	print 'Ring ori joint system:', rt_ring_ori_joint_system
+	rt_ring_ori_joints = pm.ls(rt_ring_ori_joint_system, sl=1, dag=1)
+	print 'Ring Ori Joints:', rt_ring_ori_joints
+	rt_ring_ori_root = rt_ring_ori_joints[0]
+	rt_ring_ori_joint_2 = rt_ring_ori_joints[1]
+	rt_ring_ori_joint_3 = rt_ring_ori_joints[2]
+	rt_ring_ori_joint_4 = rt_ring_ori_joints[3]
+	rt_ring_ori_joint_5 = rt_ring_ori_joints[4]
+
+	pm.mel.searchReplaceNames('bind', 'ori', 'hierarchy')
+	pm.mel.searchReplaceNames('waste', 'ori', 'hierarchy')
+	joint_name = rt_ring_root.replace('bind', 'ori')
+	rt_ring_ori_root.rename(joint_name)
+
+	'''
+	Parent the ori and bind
+	'''
+
+	pm.parent(rt_ring_ori_root, rt_ring_root)
+	pm.parent(rt_ring_ori_joint_2, rt_ring_joint_2)
+	pm.parent(rt_ring_joint_2, rt_ring_ori_root)
+
+	pm.parent(rt_ring_ori_joint_3, rt_ring_joint_3)
+	pm.parent(rt_ring_joint_3, rt_ring_ori_joint_2)
+
+	pm.parent(rt_ring_ori_joint_4, rt_ring_joint_4)
+	pm.parent(rt_ring_joint_4, rt_ring_ori_joint_3)
+
+	pm.parent(rt_ring_ori_joint_5, rt_ring_joint_5)
+	pm.parent(rt_ring_joint_5, rt_ring_ori_joint_4)
+
+	'''
+	Creat the fk joints
+	'''
+
+	rt_ring_fk_joint_system = pm.duplicate(rt_ring_root)
+	pm.select(rt_ring_fk_joint_system)
+	rt_ring_fk_joints = pm.ls(rt_ring_fk_joint_system, sl=1, dag=1)
+	# print 'Index Fk Joints:', rt_ring_fk_joints
+	rt_ring_fk_root = rt_ring_fk_joints[0]
+	rt_ring_fkOri_root = rt_ring_fk_joints[1]
+
+	rt_ring_fk_joint_2 = rt_ring_fk_joints[2]
+	rt_ring_fkOri_joint_2 = rt_ring_fk_joints[3]
+
+	rt_ring_fk_joint_3 = rt_ring_fk_joints[4]
+	rt_ring_fkOri_joint_3 = rt_ring_fk_joints[5]
+
+	rt_ring_fk_joint_4 = rt_ring_fk_joints[6]
+	rt_ring_fkOri_joint_4 = rt_ring_fk_joints[7]
+
+	rt_ring_fk_joint_5 = rt_ring_fk_joints[8]
+	rt_ring_fkOri_joint_5 = rt_ring_fk_joints[9]
+
+	pm.mel.searchReplaceNames('bind', 'fk', 'hierarchy')
+	pm.mel.searchReplaceNames('waste', 'fk', 'hierarchy')
+	pm.mel.searchReplaceNames('ori', 'fkOri', 'hierarchy')
+	joint_name = rt_ring_root.replace('bind', 'fk')
+	rt_ring_fk_root.rename(joint_name)
+	# print 'Fk Ori Root Joint:', rt_ring_fkOri_root
+
+	'''
+	Create the fk icons
+	'''
+
+	# Icon I
+	rt_ring_01_icon = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=1, tol=0.01, nr=(0, 0, 1))[0]
+
+	temp_constraint = pm.parentConstraint(rt_ring_fk_root, rt_ring_01_icon, mo=0)
+	pm.delete(temp_constraint)
+	freezeTransform()
+
+	icon_name = rt_ring_fk_root.replace('fk', 'icon')
+	rt_ring_01_icon.rename(icon_name)
+
+	rt_ring_01_local = pm.group(empty=1)
+	temp_constraint = pm.parentConstraint(rt_ring_fk_root, rt_ring_01_local, mo=0)
+	pm.delete(temp_constraint)
+
+	local_name = rt_ring_01_icon.replace('icon', 'local')
+	rt_ring_01_local.rename(local_name)
+
+	pm.parent(rt_ring_01_icon, rt_ring_01_local)
+	freezeTransform()
+
+	pm.parent(rt_ring_fk_root, rt_ring_01_icon)
+
+	# Icon II
+	rt_ring_02_icon = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=1, tol=0.01, nr=(0, 0, 1))[0]
+	temp_constraint = pm.parentConstraint(rt_ring_fk_joint_2, rt_ring_02_icon, mo=0)
+	pm.delete(temp_constraint)
+	freezeTransform()
+
+	icon_name = rt_ring_01_icon.replace('01', '02')
+	rt_ring_02_icon.rename(icon_name)
+
+
+	rt_ring_02_local = pm.group(empty=1)
+	temp_constraint = pm.parentConstraint(rt_ring_fk_joint_2, rt_ring_02_local, mo=0)
+	pm.delete(temp_constraint)
+
+	local_name = rt_ring_02_icon.replace('icon', 'local')
+	rt_ring_02_local.rename(local_name)
+
+	pm.parent(rt_ring_02_local, rt_ring_fkOri_root)
+
+	pm.parent(rt_ring_02_icon, rt_ring_02_local)
+	freezeTransform()
+
+	pm.parent(rt_ring_02_local, rt_ring_fkOri_root)
+
+	pm.parent(rt_ring_fk_joint_2, rt_ring_02_icon)
+
+	# Icon III
+	rt_ring_03_icon = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=1, tol=0.01, nr=(0, 0, 1))[0]
+	temp_constraint = pm.parentConstraint(rt_ring_fk_joint_3, rt_ring_03_icon, mo=0)
+	pm.delete(temp_constraint)
+	freezeTransform()
+
+	icon_name = rt_ring_02_icon.replace('02', '03')
+	rt_ring_03_icon.rename(icon_name)
+
+
+	rt_ring_03_local = pm.group(empty=1)
+	temp_constraint = pm.parentConstraint(rt_ring_fk_joint_3, rt_ring_03_local, mo=0)
+	pm.delete(temp_constraint)
+
+	local_name = rt_ring_03_icon.replace('icon', 'local')
+	rt_ring_03_local.rename(local_name)
+
+	pm.parent(rt_ring_03_local, rt_ring_fkOri_joint_2)
+
+	pm.parent(rt_ring_03_icon, rt_ring_03_local)
+	freezeTransform()
+
+	pm.parent(rt_ring_03_local, rt_ring_fkOri_joint_2)
+
+	pm.parent(rt_ring_fk_joint_3, rt_ring_03_icon)
+
+	# Icon IV
+	rt_ring_04_icon = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=1, tol=0.01, nr=(0, 0, 1))[0]
+	temp_constraint = pm.parentConstraint(rt_ring_fk_joint_4, rt_ring_04_icon, mo=0)
+	pm.delete(temp_constraint)
+	freezeTransform()
+
+	icon_name = rt_ring_03_icon.replace('03', '04')
+	rt_ring_04_icon.rename(icon_name)
+
+
+	rt_ring_04_local = pm.group(empty=1)
+	temp_constraint = pm.parentConstraint(rt_ring_fk_joint_4, rt_ring_04_local, mo=0)
+	pm.delete(temp_constraint)
+
+	local_name = rt_ring_04_icon.replace('icon', 'local')
+	rt_ring_04_local.rename(local_name)
+
+	pm.parent(rt_ring_04_local, rt_ring_fkOri_joint_2)
+
+	pm.parent(rt_ring_04_icon, rt_ring_04_local)
+	freezeTransform()
+
+	pm.parent(rt_ring_04_local, rt_ring_fkOri_joint_3)
+
+	pm.parent(rt_ring_fk_joint_4, rt_ring_04_icon)
+
+
+	'''
+	Delete History on icons
+	'''
+	pm.select(rt_ring_01_icon)
+	deleteHistory()
+
+
+	'''
+	Connect the fk joints to the bind
+	'''
+	pm.orientConstraint(rt_ring_01_icon, rt_ring_root, mo=1)
+	pm.orientConstraint(rt_ring_02_icon, rt_ring_joint_2, mo=1)
+	pm.orientConstraint(rt_ring_03_icon, rt_ring_joint_3, mo=1)
+	pm.orientConstraint(rt_ring_04_icon, rt_ring_joint_4, mo=1)
+	pm.orientConstraint(rt_ring_04_icon, rt_ring_joint_5, mo=1)
+
+	'''
+	Connect the fkOri joints to the ori
+	'''
+	pm.connectAttr(rt_ring_fkOri_root + '.rotate', rt_ring_ori_root + '.rotate')
+	pm.connectAttr(rt_ring_fkOri_joint_2 + '.rotate', rt_ring_ori_joint_2 + '.rotate')
+	pm.connectAttr(rt_ring_fkOri_joint_3 + '.rotate', rt_ring_ori_joint_3 + '.rotate')
+	pm.connectAttr(rt_ring_fkOri_joint_4 + '.rotate', rt_ring_ori_joint_4 + '.rotate')
+	pm.connectAttr(rt_ring_fkOri_joint_5 + '.rotate', rt_ring_ori_joint_5 + '.rotate')
+
+	pm.connectAttr(rt_ring_fkOri_joint_2 + '.translate', rt_ring_ori_joint_2 + '.translate')
+	pm.connectAttr(rt_ring_fkOri_joint_3 + '.translate', rt_ring_ori_joint_3 + '.translate')
+	pm.connectAttr(rt_ring_fkOri_joint_4 + '.translate', rt_ring_ori_joint_4 + '.translate')
+
+def rt_pinkySetup(*args):
+	global rt_pinky_fk_root, rt_pinky_fk_joint_2, rt_pinky_fk_joint_3, rt_pinky_fk_joint_4, rt_pinky_fk_joint_5
+	global rt_pinky_fkOri_root, rt_pinky_fkOri_joint_2, rt_pinky_fkOri_joint_3, rt_pinky_fkOri_joint_4, rt_pinky_fkOri_joint_5
+	global rt_pinky_01_local
+	'''
+	Pinky
+	'''
+
+	rt_pinky_joint_5.jointOrientX.set(0)
+	rt_pinky_root.rotateOrder.set(5)
+	rt_pinky_joint_2.rotateOrder.set(5)
+	rt_pinky_joint_3.rotateOrder.set(5)
+	rt_pinky_joint_4.rotateOrder.set(5)
+	rt_pinky_joint_5.rotateOrder.set(5)
+	'''
+	Duplicate the bind for the "Ori" joints
+	'''
+	rt_pinky_joint_dups = pm.duplicate(rt_pinky_root)
+	pm.select(rt_pinky_joint_dups)
+	rt_pinky_ori_joint_system = pm.ls(sl=1,dag=1)
+	print 'Pinky ori joint system:', rt_pinky_ori_joint_system
+	rt_pinky_ori_joints = pm.ls(rt_pinky_ori_joint_system, sl=1, dag=1)
+	print 'Pinky Ori Joints:', rt_pinky_ori_joints
+	rt_pinky_ori_root = rt_pinky_ori_joints[0]
+	rt_pinky_ori_joint_2 = rt_pinky_ori_joints[1]
+	rt_pinky_ori_joint_3 = rt_pinky_ori_joints[2]
+	rt_pinky_ori_joint_4 = rt_pinky_ori_joints[3]
+	rt_pinky_ori_joint_5 = rt_pinky_ori_joints[4]
+
+	pm.mel.searchReplaceNames('bind', 'ori', 'hierarchy')
+	pm.mel.searchReplaceNames('waste', 'ori', 'hierarchy')
+	joint_name = rt_pinky_root.replace('bind', 'ori')
+	rt_pinky_ori_root.rename(joint_name)
+
+	'''
+	Parent the ori and bind
+	'''
+
+	pm.parent(rt_pinky_ori_root, rt_pinky_root)
+	pm.parent(rt_pinky_ori_joint_2, rt_pinky_joint_2)
+	pm.parent(rt_pinky_joint_2, rt_pinky_ori_root)
+
+	pm.parent(rt_pinky_ori_joint_3, rt_pinky_joint_3)
+	pm.parent(rt_pinky_joint_3, rt_pinky_ori_joint_2)
+
+	pm.parent(rt_pinky_ori_joint_4, rt_pinky_joint_4)
+	pm.parent(rt_pinky_joint_4, rt_pinky_ori_joint_3)
+
+	pm.parent(rt_pinky_ori_joint_5, rt_pinky_joint_5)
+	pm.parent(rt_pinky_joint_5, rt_pinky_ori_joint_4)
+
+	'''
+	Creat the fk joints
+	'''
+
+	rt_pinky_fk_joint_system = pm.duplicate(rt_pinky_root)
+	pm.select(rt_pinky_fk_joint_system)
+	rt_pinky_fk_joints = pm.ls(rt_pinky_fk_joint_system, sl=1, dag=1)
+	# print 'Index Fk Joints:', rt_pinky_fk_joints
+	rt_pinky_fk_root = rt_pinky_fk_joints[0]
+	rt_pinky_fkOri_root = rt_pinky_fk_joints[1]
+
+	rt_pinky_fk_joint_2 = rt_pinky_fk_joints[2]
+	rt_pinky_fkOri_joint_2 = rt_pinky_fk_joints[3]
+
+	rt_pinky_fk_joint_3 = rt_pinky_fk_joints[4]
+	rt_pinky_fkOri_joint_3 = rt_pinky_fk_joints[5]
+
+	rt_pinky_fk_joint_4 = rt_pinky_fk_joints[6]
+	rt_pinky_fkOri_joint_4 = rt_pinky_fk_joints[7]
+
+	rt_pinky_fk_joint_5 = rt_pinky_fk_joints[8]
+	rt_pinky_fkOri_joint_5 = rt_pinky_fk_joints[9]
+
+	pm.mel.searchReplaceNames('bind', 'fk', 'hierarchy')
+	pm.mel.searchReplaceNames('waste', 'fk', 'hierarchy')
+	pm.mel.searchReplaceNames('ori', 'fkOri', 'hierarchy')
+	joint_name = rt_pinky_root.replace('bind', 'fk')
+	rt_pinky_fk_root.rename(joint_name)
+	# print 'Fk Ori Root Joint:', rt_pinky_fkOri_root
+
+	'''
+	Create the fk icons
+	'''
+
+	# Icon I
+	rt_pinky_01_icon = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=1, tol=0.01, nr=(0, 0, 1))[0]
+
+	temp_constraint = pm.parentConstraint(rt_pinky_fk_root, rt_pinky_01_icon, mo=0)
+	pm.delete(temp_constraint)
+	freezeTransform()
+
+	icon_name = rt_pinky_fk_root.replace('fk', 'icon')
+	rt_pinky_01_icon.rename(icon_name)
+
+	rt_pinky_01_local = pm.group(empty=1)
+	temp_constraint = pm.parentConstraint(rt_pinky_fk_root, rt_pinky_01_local, mo=0)
+	pm.delete(temp_constraint)
+
+	local_name = rt_pinky_01_icon.replace('icon', 'local')
+	rt_pinky_01_local.rename(local_name)
+
+	pm.parent(rt_pinky_01_icon, rt_pinky_01_local)
+	freezeTransform()
+
+	pm.parent(rt_pinky_fk_root, rt_pinky_01_icon)
+
+	# Icon II
+	rt_pinky_02_icon = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=1, tol=0.01, nr=(0, 0, 1))[0]
+	temp_constraint = pm.parentConstraint(rt_pinky_fk_joint_2, rt_pinky_02_icon, mo=0)
+	pm.delete(temp_constraint)
+	freezeTransform()
+
+	icon_name = rt_pinky_01_icon.replace('01', '02')
+	rt_pinky_02_icon.rename(icon_name)
+
+
+	rt_pinky_02_local = pm.group(empty=1)
+	temp_constraint = pm.parentConstraint(rt_pinky_fk_joint_2, rt_pinky_02_local, mo=0)
+	pm.delete(temp_constraint)
+
+	local_name = rt_pinky_02_icon.replace('icon', 'local')
+	rt_pinky_02_local.rename(local_name)
+
+	pm.parent(rt_pinky_02_local, rt_pinky_fkOri_root)
+
+	pm.parent(rt_pinky_02_icon, rt_pinky_02_local)
+	freezeTransform()
+
+	pm.parent(rt_pinky_02_local, rt_pinky_fkOri_root)
+
+	pm.parent(rt_pinky_fk_joint_2, rt_pinky_02_icon)
+
+	# Icon III
+	rt_pinky_03_icon = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=1, tol=0.01, nr=(0, 0, 1))[0]
+	temp_constraint = pm.parentConstraint(rt_pinky_fk_joint_3, rt_pinky_03_icon, mo=0)
+	pm.delete(temp_constraint)
+	freezeTransform()
+
+	icon_name = rt_pinky_02_icon.replace('02', '03')
+	rt_pinky_03_icon.rename(icon_name)
+
+
+	rt_pinky_03_local = pm.group(empty=1)
+	temp_constraint = pm.parentConstraint(rt_pinky_fk_joint_3, rt_pinky_03_local, mo=0)
+	pm.delete(temp_constraint)
+
+	local_name = rt_pinky_03_icon.replace('icon', 'local')
+	rt_pinky_03_local.rename(local_name)
+
+	pm.parent(rt_pinky_03_local, rt_pinky_fkOri_joint_2)
+
+	pm.parent(rt_pinky_03_icon, rt_pinky_03_local)
+	freezeTransform()
+
+	pm.parent(rt_pinky_03_local, rt_pinky_fkOri_joint_2)
+
+	pm.parent(rt_pinky_fk_joint_3, rt_pinky_03_icon)
+
+	# Icon IV
+	rt_pinky_04_icon = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=1, tol=0.01, nr=(0, 0, 1))[0]
+	temp_constraint = pm.parentConstraint(rt_pinky_fk_joint_4, rt_pinky_04_icon, mo=0)
+	pm.delete(temp_constraint)
+	freezeTransform()
+
+	icon_name = rt_pinky_03_icon.replace('03', '04')
+	rt_pinky_04_icon.rename(icon_name)
+
+
+	rt_pinky_04_local = pm.group(empty=1)
+	temp_constraint = pm.parentConstraint(rt_pinky_fk_joint_4, rt_pinky_04_local, mo=0)
+	pm.delete(temp_constraint)
+
+	local_name = rt_pinky_04_icon.replace('icon', 'local')
+	rt_pinky_04_local.rename(local_name)
+
+	pm.parent(rt_pinky_04_local, rt_pinky_fkOri_joint_2)
+
+	pm.parent(rt_pinky_04_icon, rt_pinky_04_local)
+	freezeTransform()
+
+	pm.parent(rt_pinky_04_local, rt_pinky_fkOri_joint_3)
+
+	pm.parent(rt_pinky_fk_joint_4, rt_pinky_04_icon)
+
+
+	'''
+	Delete History on icons
+	'''
+	pm.select(rt_pinky_01_icon)
+	deleteHistory()
+
+
+	'''
+	Connect the fk joints to the bind
+	'''
+	pm.orientConstraint(rt_pinky_01_icon, rt_pinky_root, mo=1)
+	pm.orientConstraint(rt_pinky_02_icon, rt_pinky_joint_2, mo=1)
+	pm.orientConstraint(rt_pinky_03_icon, rt_pinky_joint_3, mo=1)
+	pm.orientConstraint(rt_pinky_04_icon, rt_pinky_joint_4, mo=1)
+	pm.orientConstraint(rt_pinky_04_icon, rt_pinky_joint_5, mo=1)
+
+	'''
+	Connect the fkOri joints to the ori
+	'''
+	pm.connectAttr(rt_pinky_fkOri_root + '.rotate', rt_pinky_ori_root + '.rotate')
+	pm.connectAttr(rt_pinky_fkOri_joint_2 + '.rotate', rt_pinky_ori_joint_2 + '.rotate')
+	pm.connectAttr(rt_pinky_fkOri_joint_3 + '.rotate', rt_pinky_ori_joint_3 + '.rotate')
+	pm.connectAttr(rt_pinky_fkOri_joint_4 + '.rotate', rt_pinky_ori_joint_4 + '.rotate')
+	pm.connectAttr(rt_pinky_fkOri_joint_5 + '.rotate', rt_pinky_ori_joint_5 + '.rotate')
+
+	pm.connectAttr(rt_pinky_fkOri_joint_2 + '.translate', rt_pinky_ori_joint_2 + '.translate')
+	pm.connectAttr(rt_pinky_fkOri_joint_3 + '.translate', rt_pinky_ori_joint_3 + '.translate')
+	pm.connectAttr(rt_pinky_fkOri_joint_4 + '.translate', rt_pinky_ori_joint_4 + '.translate')
+
+def rt_thumbSetup(*args):
+	global rt_thumb_fk_pivot, rt_thumb_fk_joint_1, rt_thumb_fk_joint_2, rt_thumb_fk_joint_3
+	global rt_thumb_fkOri_pivot, rt_thumb_fkOri_joint_1, rt_thumb_fkOri_joint_2, rt_thumb_fkOri_joint_3
+	global rt_thumb_01_local, rt_thumb_02_local
+
+	'''
+	Thumb
+	'''
+	rt_thumb_joint_4.jointOrientX.set(0)
+
+	rt_thumb_joint_1.rotateOrder.set(5)
+	rt_thumb_joint_2.rotateOrder.set(5)
+	rt_thumb_joint_3.rotateOrder.set(5)
+	rt_thumb_joint_4.rotateOrder.set(5)
+
+	'''
+	Duplicate the bind for the "Ori" joints
+	'''
+	rt_thumb_joint_dups = pm.duplicate(rt_thumb_pivot)
+	pm.select(rt_thumb_joint_dups)
+	rt_thumb_ori_joint_system = pm.ls(sl=1, dag=1)
+	pm.select(rt_thumb_ori_joint_system)
+	rt_thumb_ori_joints = pm.ls(rt_thumb_ori_joint_system, sl=1, dag=1)
+	print 'Thumb Ori Joints:', rt_thumb_ori_joints
+	rt_thumb_ori_pivot = rt_thumb_ori_joints[0]
+	rt_thumb_ori_joint_1 = rt_thumb_ori_joints[1]
+	rt_thumb_ori_joint_2 = rt_thumb_ori_joints[2]
+	rt_thumb_ori_joint_3 = rt_thumb_ori_joints[3]
+	rt_thumb_ori_joint_4 = rt_thumb_ori_joints[4]
+
+	pm.mel.searchReplaceNames('pivot', 'ori', 'hierarchy')
+	pm.mel.searchReplaceNames('bind', 'ori', 'hierarchy')
+	pm.mel.searchReplaceNames('waste', 'ori', 'hierarchy')
+	joint_name = rt_thumb_pivot.replace('pivot', 'ori')
+	rt_thumb_ori_pivot.rename(joint_name)
+
+	pm.parent(rt_thumb_ori_pivot, rt_thumb_pivot)
+	pm.parent(rt_thumb_joint_1, rt_thumb_ori_pivot)
+
+	pm.parent(rt_thumb_ori_joint_1, rt_thumb_joint_1)
+	pm.parent(rt_thumb_joint_2, rt_thumb_ori_joint_1)
+
+	pm.parent(rt_thumb_ori_joint_2, rt_thumb_joint_2)
+	pm.parent(rt_thumb_joint_3, rt_thumb_ori_joint_2)
+
+	pm.parent(rt_thumb_ori_joint_3, rt_thumb_joint_3)
+	pm.parent(rt_thumb_joint_4, rt_thumb_ori_joint_3)
+
+
+	pm.parent(rt_thumb_ori_joint_4, rt_thumb_joint_4)
+	
+
+	'''
+	Creat the fk joints
+	'''
+
+	rt_thumb_fk_joint_system = pm.duplicate(rt_thumb_pivot)
+	pm.select(rt_thumb_fk_joint_system)
+	rt_thumb_fk_joints = pm.ls(rt_thumb_fk_joint_system, sl=1, dag=1)
+	print 'Index Fk Joints:', rt_thumb_fk_joints
+	rt_thumb_fk_pivot = rt_thumb_fk_joints[0]
+	rt_thumb_fkOri_pivot = rt_thumb_fk_joints[1]
+
+	rt_thumb_fk_joint_1 = rt_thumb_fk_joints[2]
+	rt_thumb_fkOri_joint_1 = rt_thumb_fk_joints[3]
+
+	rt_thumb_fk_joint_2 = rt_thumb_fk_joints[4]
+	rt_thumb_fkOri_joint_2 = rt_thumb_fk_joints[5]
+
+	rt_thumb_fk_joint_3 = rt_thumb_fk_joints[6]
+	rt_thumb_fkOri_joint_3 = rt_thumb_fk_joints[7]
+
+	rt_thumb_fk_joint_4 = rt_thumb_fk_joints[8]
+	rt_thumb_fkOri_joint_4 = rt_thumb_fk_joints[9]
+
+	pm.mel.searchReplaceNames('bind', 'fk', 'hierarchy')
+	pm.mel.searchReplaceNames('waste', 'fk', 'hierarchy')
+	pm.mel.searchReplaceNames('ori', 'fkOri', 'hierarchy')
+	joint_name = rt_thumb_pivot.replace('pivot', 'fk')
+	rt_thumb_fk_pivot.rename(joint_name)
+
+	'''
+	Create the fk icons
+	'''
+	
+	# Icon I
+	rt_thumb_01_icon = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=1, tol=0.01, nr=(0, 1, 0))[0]
+	temp_constraint = pm.parentConstraint(rt_thumb_fk_pivot, rt_thumb_01_icon, mo=0)
+	pm.delete(temp_constraint)
+	freezeTransform()
+
+	icon_name = rt_thumb_fk_pivot.replace('fk', 'icon')
+	rt_thumb_01_icon.rename(icon_name)
+
+	rt_thumb_01_local = pm.group(empty=1)
+	temp_constraint = pm.parentConstraint(rt_thumb_fk_pivot, rt_thumb_01_local, mo=0)
+	pm.delete(temp_constraint)
+
+	local_name = rt_thumb_01_icon.replace('icon', 'local')
+	rt_thumb_01_local.rename(local_name)
+
+	pm.parent(rt_thumb_01_icon, rt_thumb_01_local)
+	freezeTransform()
+
+	pm.parent(rt_thumb_fk_pivot, rt_thumb_01_icon)
+
+
+	# Icon II
+	rt_thumb_02_icon = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=1, tol=0.01, nr=(0, 0, 1))[0]
+	temp_constraint = pm.parentConstraint(rt_thumb_fk_joint_1, rt_thumb_02_icon, mo=0)
+	pm.delete(temp_constraint)
+	freezeTransform()
+
+	icon_name = rt_thumb_fk_joint_1.replace('fk', 'icon')
+	rt_thumb_02_icon.rename(icon_name)
+
+	rt_thumb_02_local = pm.group(empty=1)
+	temp_constraint = pm.parentConstraint(rt_thumb_fk_joint_1, rt_thumb_02_local, mo=0)
+	pm.delete(temp_constraint)
+
+	local_name = rt_thumb_02_icon.replace('icon', 'local')
+	rt_thumb_02_local.rename(local_name)
+
+	pm.parent(rt_thumb_02_icon, rt_thumb_02_local)
+	freezeTransform()
+
+	pm.parent(rt_thumb_fk_joint_1, rt_thumb_02_icon)
+
+	pm.parent(rt_thumb_02_local, rt_thumb_fkOri_pivot)
+	
+
+	# Icon III
+	rt_thumb_03_icon = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=1, tol=0.01, nr=(0, 0, 1))[0]
+	temp_constraint = pm.parentConstraint(rt_thumb_fk_joint_2, rt_thumb_03_icon, mo=0)
+	pm.delete(temp_constraint)
+	freezeTransform()
+
+	icon_name = rt_thumb_fk_joint_2.replace('fk', 'icon')
+	rt_thumb_03_icon.rename(icon_name)
+
+	rt_thumb_03_local = pm.group(empty=1)
+	temp_constraint = pm.parentConstraint(rt_thumb_fk_joint_2, rt_thumb_03_local, mo=0)
+	pm.delete(temp_constraint)
+
+	local_name = rt_thumb_03_icon.replace('icon', 'local')
+	rt_thumb_03_local.rename(local_name)
+
+	pm.parent(rt_thumb_03_icon, rt_thumb_03_local)
+	freezeTransform()
+
+	pm.parent(rt_thumb_fk_joint_2, rt_thumb_03_icon)
+
+	pm.parent(rt_thumb_03_local, rt_thumb_fkOri_joint_1)
+	
+
+	# Icon IV
+	rt_thumb_04_icon = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=1, tol=0.01, nr=(0, 0, 1))[0]
+	temp_constraint = pm.parentConstraint(rt_thumb_fk_joint_3, rt_thumb_04_icon, mo=0)
+	pm.delete(temp_constraint)
+	freezeTransform()
+
+	icon_name = rt_thumb_fk_joint_3.replace('fk', 'icon')
+	rt_thumb_04_icon.rename(icon_name)
+
+	rt_thumb_04_local = pm.group(empty=1)
+	temp_constraint = pm.parentConstraint(rt_thumb_fk_joint_3, rt_thumb_04_local, mo=0)
+	pm.delete(temp_constraint)
+
+	local_name = rt_thumb_04_icon.replace('icon', 'local')
+	rt_thumb_04_local.rename(local_name)
+
+	pm.parent(rt_thumb_04_icon, rt_thumb_04_local)
+	freezeTransform()
+
+	pm.parent(rt_thumb_fk_joint_3, rt_thumb_04_icon)
+
+	pm.parent(rt_thumb_04_local, rt_thumb_fkOri_joint_2)
+	
+
+	'''
+	Delete History on icons
+	'''
+	pm.select(rt_thumb_01_icon)
+	deleteHistory()
+
+	'''
+	Connect the fk joints to the bind
+	'''
+	pm.orientConstraint(rt_thumb_01_icon, rt_thumb_pivot, mo=1)
+	pm.orientConstraint(rt_thumb_02_icon, rt_thumb_joint_1, mo=1)
+	pm.orientConstraint(rt_thumb_03_icon, rt_thumb_joint_2, mo=1)
+	pm.orientConstraint(rt_thumb_04_icon, rt_thumb_joint_3, mo=1)
+	pm.orientConstraint(rt_thumb_04_icon, rt_thumb_joint_4, mo=1)
+
+	'''
+	Connect the fkOri joints to the ori
+	'''
+	pm.connectAttr(rt_thumb_fkOri_pivot + '.rotate', rt_thumb_ori_pivot + '.rotate')
+	pm.connectAttr(rt_thumb_fkOri_joint_1 + '.rotate', rt_thumb_ori_joint_1 + '.rotate')
+	pm.connectAttr(rt_thumb_fkOri_joint_2 + '.rotate', rt_thumb_ori_joint_2 + '.rotate')
+	pm.connectAttr(rt_thumb_fkOri_joint_3 + '.rotate', rt_thumb_ori_joint_3 + '.rotate')
+	pm.connectAttr(rt_thumb_fkOri_joint_4 + '.rotate', rt_thumb_ori_joint_4 + '.rotate')
+
+	pm.connectAttr(rt_thumb_fkOri_joint_1 + '.translate', rt_thumb_ori_joint_1 + '.translate')
+	pm.connectAttr(rt_thumb_fkOri_joint_2 + '.translate', rt_thumb_ori_joint_2 + '.translate')
+	pm.connectAttr(rt_thumb_fkOri_joint_3 + '.translate', rt_thumb_ori_joint_3 + '.translate')
+
+def rt_five_finger_setup(*args):
+	rt_indexSetup()
+	rt_middleSetup()
+	rt_ringSetup()
+	rt_pinkySetup()
+	rt_thumbSetup()
+	rt_fiveFinger_SDK_setup()
+
+def rt_threeFingers_and_thumb(*args):
+	global rt_index_joint_system, rt_index_root, rt_index_joint_2, rt_index_joint_3, rt_index_joint_4, rt_index_joint_5
+	global rt_middle_joint_system, rt_middle_root, rt_middle_joint_2, rt_middle_joint_3, rt_middle_joint_4, rt_middle_joint_5
+	global rt_pinky_joint_system, rt_pinky_root, rt_pinky_joint_2, rt_pinky_joint_3, rt_pinky_joint_4, rt_pinky_joint_5
+	global rt_thumb_joint_system, rt_thumb_pivot, rt_thumb_joint_1, rt_thumb_joint_2, rt_thumb_joint_3, rt_thumb_joint_4
+	global finger_selection
+	finger_selection = pm.ls(sl=1)
+	rt_index_joint_system = finger_selection[0]
+	rt_middle_joint_system = finger_selection[1]
+	rt_pinky_joint_system = finger_selection[2]
+	rt_thumb_joint_system = finger_selection[3]
+	# print 'Selection:', finger_selection
+	# print 'Index Joint System:', rt_index_joint_system
+	# print 'Middele Joint System:', rt_middle_joint_system
+	# print 'Pinky Joint System:', rt_pinky_joint_system
+	# print 'Thumb Joint System:', rt_thumb_joint_system
+
+	rt_index_joints = pm.ls(rt_index_joint_system, dag=1)
+	rt_index_root = rt_index_joints[0]
+	rt_index_joint_2 = rt_index_joints[1]
+	rt_index_joint_3 = rt_index_joints[2]
+	rt_index_joint_4 = rt_index_joints[3]
+	rt_index_joint_5 = rt_index_joints[4]
+	# print 'Index Root:', rt_index_root
+	# print 'Index Joint 2:', rt_index_joint_2
+	# print 'Index Joint 3:',  rt_index_joint_3
+	# print 'Index Joint 4:', rt_index_joint_4
+	# print 'Index Joint 5:', rt_index_joint_5 
+
+	rt_middle_joints = pm.ls(rt_middle_joint_system, dag=1)
+	rt_middle_root = rt_middle_joints[0]
+	rt_middle_joint_2 = rt_middle_joints[1]
+	rt_middle_joint_3 = rt_middle_joints[2]
+	rt_middle_joint_4 = rt_middle_joints[3]
+	rt_middle_joint_5 = rt_middle_joints[4]
+	# print 'Index Root:', rt_middle_root
+	# print 'Index Joint 2:', rt_middle_joint_2
+	# print 'Index Joint 3:',  rt_middle_joint_3
+	# print 'Index Joint 4:', rt_middle_joint_4
+	# print 'Index Joint 5:', rt_middle_joint_5 
+
+	rt_pinky_joints = pm.ls(rt_pinky_joint_system, dag=1)
+	rt_pinky_root = rt_pinky_joints[0]
+	rt_pinky_joint_2 = rt_pinky_joints[1]
+	rt_pinky_joint_3 = rt_pinky_joints[2]
+	rt_pinky_joint_4 = rt_pinky_joints[3]
+	rt_pinky_joint_5 = rt_pinky_joints[4]
+	# print 'Index Root:', rt_pinky_root
+	# print 'Index Joint 2:', rt_pinky_joint_2
+	# print 'Index Joint 3:',  rt_pinky_joint_3
+	# print 'Index Joint 4:', rt_pinky_joint_4
+	# print 'Index Joint 5:', rt_pinky_joint_5
+
+	rt_thumb_joints = pm.ls(rt_thumb_joint_system, dag=1)
+	rt_thumb_pivot = rt_thumb_joints[0]
+	rt_thumb_joint_1 = rt_thumb_joints[1]
+	rt_thumb_joint_2 = rt_thumb_joints[2]
+	rt_thumb_joint_3 = rt_thumb_joints[3]
+	rt_thumb_joint_4 = rt_thumb_joints[4]
+	# print 'Index Root:', rt_thumb_pivot
+	# print 'Index Joint 2:', rt_thumb_joint_1
+	# print 'Index Joint 3:',  rt_thumb_joint_2
+	# print 'Index Joint 4:', rt_thumb_joint_3
+	# print 'Index Joint 5:', rt_thumb_joint_4
+
+	pm.select(cl=1)
+
+	'''
+	Create the finger parent joint
+	'''
+	rt_hand_base = pm.joint()
+
+	temp_constraint = pm.parentConstraint(rt_hand_root, rt_hand_base, mo=0)
+	pm.delete(temp_constraint)
+
+	joint_name = rt_hand_root.replace('01_bind', 'temp')
+	rt_hand_base.rename(joint_name)
+
+	pm.parent(rt_hand_base, w=1)
+
+	'''
+	Un=parent the rt_thumb_01 from the pivot
+	'''
+	pm.parent(rt_thumb_joint_1, w=1)
+	pm.select(rt_hand_base)
+	freezeTransform()
+	'''
+	Parent the finger joints under the base joint
+	'''
+	pm.parent(rt_index_root, rt_middle_root, rt_pinky_root, rt_thumb_joint_1, rt_hand_base)
+	
+	'''
+	Orient the Joints
+	'''
+	pm.joint(rt_hand_base, zso=1, ch=1, e=1, oj='xyz', secondaryAxisOrient='ydown')
+	
+	
+	'''
+	Parent the rt_thumb_01 back to the pivot
+	'''
+	pm.parent(rt_thumb_joint_1, rt_thumb_pivot)
+	pm.parent(rt_thumb_pivot, rt_hand_base)
+
+	pm.parent(rt_index_root, rt_middle_root, rt_pinky_root, rt_thumb_pivot, w=1)
+
+	rt_indexSetup()
+	rt_middleSetup()
+	rt_pinkySetup()
+	rt_thumbSetup()
+
+
+	global rt_parent_icon, rt_index_icon, rt_middle_icon, rt_pinky_icon
+	rt_parent_icon = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=16, r=1, tol=0.01, nr=(1, 0, 0))[0]
+
+	pm.select(rt_parent_icon + '.cv[0]', rt_parent_icon + '.cv[1]', rt_parent_icon + '.cv[9]', rt_parent_icon + '.cv[10]', rt_parent_icon + '.cv[11]', rt_parent_icon + '.cv[12]', rt_parent_icon + '.cv[13]', rt_parent_icon + '.cv[14]', rt_parent_icon + '.cv[15]')            
+	first_cv_set = pm.ls(sl=1)
+	cmds.move(0, 0, -2, r=1, os=1, wd=1)
+
+	pm.select(rt_parent_icon + '.cv[0]', rt_parent_icon + '.cv[10]', rt_parent_icon + '.cv[11]', rt_parent_icon + '.cv[12]', rt_parent_icon + '.cv[13]', rt_parent_icon + '.cv[14]', rt_parent_icon + '.cv[15]')            
+	second_cv_set = pm.ls(sl=1)
+	cmds.move(0, 0, -4, r=1, os=1, wd=1)
+
+	rt_index_icon = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=1, tol=0.01, nr=(1, 0, 0))[0]
+	rt_index_icon.sy.set(.6)
+	rt_index_icon.sz.set(.6)
+
+	icon_name = rt_index_root.replace('01_bind', 'icon')
+	rt_index_icon.rename(icon_name)
+
+	icon_name = rt_index_icon.replace('index', 'fingers')
+	rt_parent_icon.rename(icon_name)
+
+	freezeTransform()
+	deleteHistory(rt_index_icon)
+
+	rt_middle_icon = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=1, tol=0.01, nr=(1, 0, 0))[0]
+	rt_middle_icon.tz.set(-3)
+	rt_middle_icon.sy.set(.6)
+	rt_middle_icon.sz.set(.6)
+	icon_name = rt_middle_root.replace('01_bind', 'icon')
+	rt_middle_icon.rename(icon_name)
+	freezeTransform()
+	deleteHistory(rt_middle_icon)
+
+	rt_pinky_icon = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=1, tol=0.01, nr=(1, 0, 0))[0]
+	rt_pinky_icon.tz.set(-6)
+	rt_pinky_icon.sy.set(.6)
+	rt_pinky_icon.sz.set(.6)
+	icon_name = rt_pinky_root.replace('01_bind', 'icon')
+	rt_pinky_icon.rename(icon_name)
+	freezeTransform()
+	deleteHistory(rt_pinky_icon)
+
+	pm.parent(rt_index_icon, rt_middle_icon, rt_pinky_icon, rt_parent_icon)
+	pm.select(rt_parent_icon)
+	centerPivot()
+
+	temp_constraint = pm.pointConstraint(rt_hand_joint_2, rt_parent_icon, mo=0)
+	pm.delete(temp_constraint)
+	pm.select(rt_parent_icon)
+	freezeTransform()
+	deleteHistory()
+
+	rt_parent_icon.ty.set(4)
+	pm.select(rt_parent_icon)
+	freezeTransform()
+
+	pm.parent(rt_parent_icon, 'rt_hand_icon')
+	freezeTransform()
+
+
+	pm.select(rt_index_icon, rt_middle_icon, rt_pinky_icon)
+	icon_selection = pm.ls(sl=1)
+
+	pm.addAttr(icon_selection, ln='fingerCtrl',  at='enum', en ='-------')
+	rt_index_icon.fingerCtrl.set(lock=1, e=1, keyable=1)
+	rt_middle_icon.fingerCtrl.set(lock=1, e=1, keyable=1)
+	rt_pinky_icon.fingerCtrl.set(lock=1, e=1, keyable=1)
+
+	pm.addAttr(icon_selection, ln='curl', max=10, dv=0, at='double', min=-10)
+	rt_index_icon.curl.set(e=1, keyable=1)
+	rt_middle_icon.curl.set(e=1, keyable=1)
+	rt_pinky_icon.curl.set(e=1, keyable=1)
+
+	pm.addAttr(icon_selection, ln='relax', max=10, dv=0, at='double', min=0)
+	rt_index_icon.relax.set(e=1, keyable=1)
+	rt_middle_icon.relax.set(e=1, keyable=1)
+	rt_pinky_icon.relax.set(e=1, keyable=1)
+
+	pm.addAttr(icon_selection, ln='scrunch', max=10, dv=0, at='double', min=-10)
+	rt_index_icon.scrunch.set(e=1, keyable=1)
+	rt_middle_icon.scrunch.set(e=1, keyable=1)
+	rt_pinky_icon.scrunch.set(e=1, keyable=1)
+
+	pm.addAttr(icon_selection, ln='spread', max=10, dv=0, at='double', min=-10)
+	rt_index_icon.spread.set(e=1, keyable=1)
+	rt_middle_icon.spread.set(e=1, keyable=1)
+	rt_pinky_icon.spread.set(e=1, keyable=1)
+
+	
+	pm.select(rt_parent_icon)
+	icon_selection = pm.ls(sl=1, dag=1)
+	rt_index_icon = icon_selection[2]
+	rt_middle_icon = icon_selection[4] 
+	rt_pinky_icon = icon_selection[6]
+	# print 'Index Icon:', rt_index_icon
+	# print 'Middle Icon:', rt_middle_icon
+	# print 'Pinky Icon:', rt_pinky_icon
+
+	lock_and_hide(rt_index_icon, ['tx', 'ty', 'tz', 'rx', 'ry', 'rz', 'sx', 'sy', 'sz', 'v'])
+	lock_and_hide(rt_middle_icon, ['tx', 'ty', 'tz', 'rx', 'ry', 'rz', 'sx', 'sy', 'sz', 'v'])
+	lock_and_hide(rt_pinky_icon, ['tx', 'ty', 'tz', 'rx', 'ry', 'rz', 'sx', 'sy', 'sz', 'v'])
+
+
+
+	'''
+	Index Curl
+	'''
+	rt_index_drivenAttr_curl = [rt_index_fkOri_root + '.rz', rt_index_fkOri_joint_2 + '.rz', rt_index_fkOri_joint_3 + '.rz', rt_index_fkOri_joint_4 + '.rz']
+	rt_index_driver_curl = (rt_index_icon + '.curl')
+	pm.setDrivenKeyframe(rt_index_drivenAttr_curl, currentDriver=rt_index_driver_curl)
+
+	# print "Driven:", rt_index_driven
+	rt_index_driven_curl= [rt_index_fkOri_root, rt_index_fkOri_joint_2, rt_index_fkOri_joint_3, rt_index_fkOri_joint_4]
+	rt_index_icon.curl.set(10)
+	pm.xform(rt_index_driven_curl, ro=(0, 0, 90))
+	rt_index_fkOri_root.rz.set(15)
+	rt_index_fkOri_joint_3.rz.set(75)
+	pm.setDrivenKeyframe(rt_index_drivenAttr_curl, currentDriver=rt_index_driver_curl)
+	rt_index_icon.curl.set(-10)
+	pm.xform(rt_index_driven_curl, ro=(0, 0, -10))
+	rt_index_fkOri_joint_2.rz.set(-20)
+	rt_index_fkOri_joint_3.rz.set(-25)
+	rt_index_fkOri_joint_4.rz.set(-30)
+	pm.setDrivenKeyframe(rt_index_drivenAttr_curl, currentDriver=rt_index_driver_curl)
+	rt_index_drivenKeyframes_curl = (rt_index_fkOri_root + '_rotateZ', rt_index_fkOri_joint_2 + '_rotateZ', rt_index_fkOri_joint_3 + '_rotateZ', rt_index_fkOri_joint_4 + '_rotateZ')
+	pm.keyTangent(rt_index_drivenKeyframes_curl, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+	rt_index_icon.curl.set(0)
+
+	'''
+	Index Scrunch
+	'''
+	rt_index_drivenAttr_allScrunch = [rt_index_fkOri_joint_2 + '.rz', rt_index_fkOri_joint_3 + '.rz', rt_index_fkOri_joint_4 + '.rz']
+	rt_index_driver_allScrunch = (rt_index_icon + '.scrunch')
+	pm.setDrivenKeyframe(rt_index_drivenAttr_allScrunch, currentDriver=rt_index_driver_allScrunch)
+	# print "Driven:", rt_index_driven
+	rt_index_driven_allScrunch= [rt_index_fkOri_joint_2, rt_index_fkOri_joint_3, rt_index_fkOri_joint_4]
+	rt_index_icon.scrunch.set(10)
+	rt_index_fkOri_joint_2.rz.set(-50)
+	rt_index_fkOri_joint_3.rz.set(110)
+	rt_index_fkOri_joint_4.rz.set(30)
+	pm.setDrivenKeyframe(rt_index_drivenAttr_allScrunch, currentDriver=rt_index_driver_allScrunch)
+	rt_index_icon.scrunch.set(-10)
+	rt_index_fkOri_joint_2.rz.set(-3)
+	rt_index_fkOri_joint_3.rz.set(-4)
+	rt_index_fkOri_joint_4.rz.set(-10)
+	pm.setDrivenKeyframe(rt_index_drivenAttr_allScrunch, currentDriver=rt_index_driver_allScrunch)
+	rt_index_drivenKeyframes_allScrunch = (rt_index_fkOri_root + '_rotateZ', rt_index_fkOri_joint_2 + '_rotateZ', rt_index_fkOri_joint_3 + '_rotateZ', rt_index_fkOri_joint_4 + '_rotateZ')
+	pm.keyTangent(rt_index_drivenKeyframes_allScrunch, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+	rt_index_icon.scrunch.set(0)
+
+
+	'''
+	Index Spread
+	'''
+	rt_index_drivenAttr_spread = (rt_index_fkOri_root + '.ry', rt_index_fkOri_joint_2 + '.ry')
+	rt_index_driven_spread= (rt_index_fkOri_root, rt_index_fkOri_joint_2)
+	rt_index_driver_spread = (rt_index_icon + '.spread')
+	pm.setDrivenKeyframe(rt_index_drivenAttr_spread, currentDriver=rt_index_driver_spread)
+	rt_index_icon.spread.set(10)
+	pm.xform(rt_index_driven_spread, ro=(0, 6, 0))
+	pm.setDrivenKeyframe(rt_index_drivenAttr_spread, currentDriver=rt_index_driver_spread)
+	rt_index_icon.spread.set(-10)
+	pm.xform(rt_index_driven_spread, ro=(0, -3, 0))
+	pm.setDrivenKeyframe(rt_index_drivenAttr_spread, currentDriver=rt_index_driver_spread)
+	rt_index_icon.spread.set(0)
+
+	rt_index_drivenKeyframes_spread = (rt_index_fkOri_root + '_rotateY', rt_index_fkOri_joint_2 + '_rotateY')
+	pm.keyTangent(rt_index_drivenKeyframes_spread, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+	'''
+	Index Relax
+	'''
+	rt_index_drivenAttr_relax = [rt_index_fkOri_root + '.rz', rt_index_fkOri_joint_2 + '.rz', rt_index_fkOri_joint_3 + '.rz', rt_index_fkOri_joint_4 + '.rz']
+	rt_index_driven_relax = [rt_index_fkOri_root, rt_index_fkOri_joint_2, rt_index_fkOri_joint_3, rt_index_fkOri_joint_4]
+	rt_index_driver_relax = (rt_index_icon + '.relax')
+	pm.setDrivenKeyframe(rt_index_drivenAttr_relax, currentDriver=rt_index_driver_relax)
+	rt_index_icon.relax.set(10)
+	rt_index_fkOri_root.rz.set(12)
+	rt_index_fkOri_joint_2.rz.set(15)
+	rt_index_fkOri_joint_3.rz.set(18)
+	rt_index_fkOri_joint_4.rz.set(21)
+	pm.setDrivenKeyframe(rt_index_drivenAttr_relax, currentDriver=rt_index_driver_relax)
+	rt_index_icon.relax.set(0)
+
+	pm.keyTangent(rt_index_driven_relax, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+	'''
+	Middle Curl
+	'''
+	rt_middle_drivenAttr_curl = [rt_middle_fkOri_root + '.rz', rt_middle_fkOri_joint_2 + '.rz', rt_middle_fkOri_joint_3 + '.rz', rt_middle_fkOri_joint_4 + '.rz']
+	rt_middle_driver_curl = (rt_middle_icon + '.curl')
+	pm.setDrivenKeyframe(rt_middle_drivenAttr_curl, currentDriver=rt_middle_driver_curl)
+
+	# print "Driven:", rt_middle_driven
+	rt_middle_driven_curl= [rt_middle_fkOri_root, rt_middle_fkOri_joint_2, rt_middle_fkOri_joint_3, rt_middle_fkOri_joint_4]
+	rt_middle_icon.curl.set(10)
+	pm.xform(rt_middle_driven_curl, ro=(0, 0, 90))
+	rt_middle_fkOri_root.rz.set(15)
+	rt_middle_fkOri_joint_3.rz.set(75)
+	pm.setDrivenKeyframe(rt_middle_drivenAttr_curl, currentDriver=rt_middle_driver_curl)
+	rt_middle_icon.curl.set(-10)
+	pm.xform(rt_middle_driven_curl, ro=(0, 0, -10))
+	rt_middle_fkOri_joint_2.rz.set(-20)
+	rt_middle_fkOri_joint_3.rz.set(-25)
+	rt_middle_fkOri_joint_4.rz.set(-30)
+	pm.setDrivenKeyframe(rt_middle_drivenAttr_curl, currentDriver=rt_middle_driver_curl)
+	rt_middle_drivenKeyframes_curl = (rt_middle_fkOri_root + '_rotateZ', rt_middle_fkOri_joint_2 + '_rotateZ', rt_middle_fkOri_joint_3 + '_rotateZ', rt_middle_fkOri_joint_4 + '_rotateZ')
+	pm.keyTangent(rt_middle_drivenKeyframes_curl, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+	rt_middle_icon.curl.set(0)
+
+	'''
+	Middle Scrunch
+	'''
+	rt_middle_drivenAttr_allScrunch = [rt_middle_fkOri_joint_2 + '.rz', rt_middle_fkOri_joint_3 + '.rz', rt_middle_fkOri_joint_4 + '.rz']
+	rt_middle_driver_allScrunch = (rt_middle_icon + '.scrunch')
+	pm.setDrivenKeyframe(rt_middle_drivenAttr_allScrunch, currentDriver=rt_middle_driver_allScrunch)
+	# print "Driven:", rt_middle_driven
+	rt_middle_driven_allScrunch= [rt_middle_fkOri_joint_2, rt_middle_fkOri_joint_3, rt_middle_fkOri_joint_4]
+	rt_middle_icon.scrunch.set(10)
+	rt_middle_fkOri_joint_2.rz.set(-50)
+	rt_middle_fkOri_joint_3.rz.set(110)
+	rt_middle_fkOri_joint_4.rz.set(30)
+	pm.setDrivenKeyframe(rt_middle_drivenAttr_allScrunch, currentDriver=rt_middle_driver_allScrunch)
+	rt_middle_icon.scrunch.set(-10)
+	rt_middle_fkOri_joint_2.rz.set(-3)
+	rt_middle_fkOri_joint_3.rz.set(-4)
+	rt_middle_fkOri_joint_4.rz.set(-10)
+	pm.setDrivenKeyframe(rt_middle_drivenAttr_allScrunch, currentDriver=rt_middle_driver_allScrunch)
+	rt_middle_drivenKeyframes_allScrunch = (rt_middle_fkOri_root + '_rotateZ', rt_middle_fkOri_joint_2 + '_rotateZ', rt_middle_fkOri_joint_3 + '_rotateZ', rt_middle_fkOri_joint_4 + '_rotateZ')
+	pm.keyTangent(rt_middle_drivenKeyframes_allScrunch, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+	rt_middle_icon.scrunch.set(0)
+
+	'''
+	Middle Spread
+	'''
+	rt_middle_drivenAttr_spread = (rt_middle_fkOri_root + '.ry', rt_middle_fkOri_joint_2 + '.ry')
+	rt_middle_driven_spread= (rt_middle_fkOri_root, rt_middle_fkOri_joint_2)
+	rt_middle_driver_spread = (rt_middle_icon + '.spread')
+	pm.setDrivenKeyframe(rt_middle_drivenAttr_spread, currentDriver=rt_middle_driver_spread)
+	rt_middle_icon.spread.set(10)
+	pm.xform(rt_middle_driven_spread, ro=(0, 6, 0))
+	pm.setDrivenKeyframe(rt_middle_drivenAttr_spread, currentDriver=rt_middle_driver_spread)
+	rt_middle_icon.spread.set(-10)
+	pm.xform(rt_middle_driven_spread, ro=(0, -3, 0))
+	pm.setDrivenKeyframe(rt_middle_drivenAttr_spread, currentDriver=rt_middle_driver_spread)
+	rt_middle_icon.spread.set(0)
+
+	rt_middle_drivenKeyframes_spread = (rt_middle_fkOri_root + '_rotateY', rt_middle_fkOri_joint_2 + '_rotateY')
+	pm.keyTangent(rt_middle_drivenKeyframes_spread, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+	'''
+	Middle Relax
+	'''
+	rt_middle_drivenAttr_relax = [rt_middle_fkOri_root + '.rz', rt_middle_fkOri_joint_2 + '.rz', rt_middle_fkOri_joint_3 + '.rz', rt_middle_fkOri_joint_4 + '.rz']
+	rt_middle_driven_relax = [rt_middle_fkOri_root, rt_middle_fkOri_joint_2, rt_middle_fkOri_joint_3, rt_middle_fkOri_joint_4]
+	rt_middle_driver_relax = (rt_middle_icon + '.relax')
+	pm.setDrivenKeyframe(rt_middle_drivenAttr_relax, currentDriver=rt_middle_driver_relax)
+	rt_middle_icon.relax.set(10)
+	rt_middle_fkOri_root.rz.set(12)
+	rt_middle_fkOri_joint_2.rz.set(15)
+	rt_middle_fkOri_joint_3.rz.set(18)
+	rt_middle_fkOri_joint_4.rz.set(21)
+	pm.setDrivenKeyframe(rt_middle_drivenAttr_relax, currentDriver=rt_middle_driver_relax)
+	rt_middle_icon.relax.set(0)
+
+	pm.keyTangent(rt_middle_driven_relax, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+	'''
+	Pinky Curl
+	'''
+	rt_pinky_drivenAttr_curl = [rt_pinky_fkOri_root + '.rz', rt_pinky_fkOri_joint_2 + '.rz', rt_pinky_fkOri_joint_3 + '.rz', rt_pinky_fkOri_joint_4 + '.rz']
+	rt_pinky_driver_curl = (rt_pinky_icon + '.curl')
+	pm.setDrivenKeyframe(rt_pinky_drivenAttr_curl, currentDriver=rt_pinky_driver_curl)
+
+	# print "Driven:", rt_pinky_driven
+	rt_pinky_driven_curl= [rt_pinky_fkOri_root, rt_pinky_fkOri_joint_2, rt_pinky_fkOri_joint_3, rt_pinky_fkOri_joint_4]
+	rt_pinky_icon.curl.set(10)
+	pm.xform(rt_pinky_driven_curl, ro=(0, 0, 90))
+	rt_pinky_fkOri_root.rz.set(15)
+	rt_pinky_fkOri_joint_3.rz.set(75)
+	pm.setDrivenKeyframe(rt_pinky_drivenAttr_curl, currentDriver=rt_pinky_driver_curl)
+	rt_pinky_icon.curl.set(-10)
+	pm.xform(rt_pinky_driven_curl, ro=(0, 0, -10))
+	rt_pinky_fkOri_joint_2.rz.set(-20)
+	rt_pinky_fkOri_joint_3.rz.set(-25)
+	rt_pinky_fkOri_joint_4.rz.set(-30)
+	pm.setDrivenKeyframe(rt_pinky_drivenAttr_curl, currentDriver=rt_pinky_driver_curl)
+	rt_pinky_drivenKeyframes_curl = (rt_pinky_fkOri_root + '_rotateZ', rt_pinky_fkOri_joint_2 + '_rotateZ', rt_pinky_fkOri_joint_3 + '_rotateZ', rt_pinky_fkOri_joint_4 + '_rotateZ')
+	pm.keyTangent(rt_pinky_drivenKeyframes_curl, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+	rt_pinky_icon.curl.set(0)
+
+	'''
+	Pinky Scrunch
+	'''
+	rt_pinky_drivenAttr_allScrunch = [rt_pinky_fkOri_joint_2 + '.rz', rt_pinky_fkOri_joint_3 + '.rz', rt_pinky_fkOri_joint_4 + '.rz']
+	rt_pinky_driver_allScrunch = (rt_pinky_icon + '.scrunch')
+	pm.setDrivenKeyframe(rt_pinky_drivenAttr_allScrunch, currentDriver=rt_pinky_driver_allScrunch)
+	# print "Driven:", rt_pinky_driven
+	rt_pinky_driven_allScrunch= [rt_pinky_fkOri_joint_2, rt_pinky_fkOri_joint_3, rt_pinky_fkOri_joint_4]
+	rt_pinky_icon.scrunch.set(10)
+	rt_pinky_fkOri_joint_2.rz.set(-50)
+	rt_pinky_fkOri_joint_3.rz.set(110)
+	rt_pinky_fkOri_joint_4.rz.set(30)
+	pm.setDrivenKeyframe(rt_pinky_drivenAttr_allScrunch, currentDriver=rt_pinky_driver_allScrunch)
+	rt_pinky_icon.scrunch.set(-10)
+	rt_pinky_fkOri_joint_2.rz.set(-3)
+	rt_pinky_fkOri_joint_3.rz.set(-4)
+	rt_pinky_fkOri_joint_4.rz.set(-10)
+	pm.setDrivenKeyframe(rt_pinky_drivenAttr_allScrunch, currentDriver=rt_pinky_driver_allScrunch)
+	rt_pinky_drivenKeyframes_allScrunch = (rt_pinky_fkOri_root + '_rotateZ', rt_pinky_fkOri_joint_2 + '_rotateZ', rt_pinky_fkOri_joint_3 + '_rotateZ', rt_pinky_fkOri_joint_4 + '_rotateZ')
+	pm.keyTangent(rt_pinky_drivenKeyframes_allScrunch, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+	rt_pinky_icon.scrunch.set(0)
+
+	'''
+	Pinky Spread
+	'''
+	rt_pinky_drivenAttr_spread = (rt_pinky_fkOri_root + '.ry', rt_pinky_fkOri_joint_2 + '.ry')
+	rt_pinky_driven_spread= (rt_pinky_fkOri_root, rt_pinky_fkOri_joint_2)
+	rt_pinky_driver_spread = (rt_pinky_icon + '.spread')
+	pm.setDrivenKeyframe(rt_pinky_drivenAttr_spread, currentDriver=rt_pinky_driver_spread)
+	rt_pinky_icon.spread.set(10)
+	pm.xform(rt_pinky_driven_spread, ro=(0, 6, 0))
+	pm.setDrivenKeyframe(rt_pinky_drivenAttr_spread, currentDriver=rt_pinky_driver_spread)
+	rt_pinky_icon.spread.set(-10)
+	pm.xform(rt_pinky_driven_spread, ro=(0, -3, 0))
+	pm.setDrivenKeyframe(rt_pinky_drivenAttr_spread, currentDriver=rt_pinky_driver_spread)
+	rt_pinky_icon.spread.set(0)
+
+	rt_pinky_drivenKeyframes_spread = (rt_pinky_fkOri_root + '_rotateY', rt_pinky_fkOri_joint_2 + '_rotateY')
+	pm.keyTangent(rt_pinky_drivenKeyframes_spread, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+
+	'''
+	Pinky Relax
+	'''
+	rt_pinky_drivenAttr_relax = [rt_pinky_fkOri_root + '.rz', rt_pinky_fkOri_joint_2 + '.rz', rt_pinky_fkOri_joint_3 + '.rz', rt_pinky_fkOri_joint_4 + '.rz']
+	rt_pinky_driven_relax = [rt_pinky_fkOri_root, rt_pinky_fkOri_joint_2, rt_pinky_fkOri_joint_3, rt_pinky_fkOri_joint_4]
+	rt_pinky_driver_relax = (rt_pinky_icon + '.relax')
+	pm.setDrivenKeyframe(rt_pinky_drivenAttr_relax, currentDriver=rt_pinky_driver_relax)
+	rt_pinky_icon.relax.set(10)
+	rt_pinky_fkOri_root.rz.set(12)
+	rt_pinky_fkOri_joint_2.rz.set(15)
+	rt_pinky_fkOri_joint_3.rz.set(18)
+	rt_pinky_fkOri_joint_4.rz.set(21)
+	pm.setDrivenKeyframe(rt_pinky_drivenAttr_relax, currentDriver=rt_pinky_driver_relax)
+	rt_pinky_icon.relax.set(0)
+
+	pm.keyTangent(rt_pinky_driven_relax, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+	pm.select(rt_index_icon, rt_middle_icon, rt_pinky_icon)
+	icon_selection = pm.ls(sl=1)
+
+	color_rt_index = 28
+
+	for each in icon_selection:
+		pm.setAttr(each + '.overrideEnabled', 1)
+		pm.setAttr(each + '.overrideColor', color_rt_index)
+		color_rt_index = color_rt_index + 1
+
+
+	'''
+	Parent Icon Things
+	'''
+
+	lock_and_hide(rt_parent_icon, ['tx', 'ty', 'tz', 'rx', 'ry', 'rz', 'sx', 'sy', 'sz', 'v'])
+
+	pm.addAttr(rt_parent_icon, ln='fingerCtrls',  at='enum', en ='-------')
+	rt_parent_icon.fingerCtrls.set(lock=1, e=1, keyable=1)
+
+	lockAttrs(rt_parent_icon, ['fingerCtrls'])
+
+	pm.addAttr(rt_parent_icon, ln='fist', at='double', max=10, min=0, dv=0)
+	unlock_and_unhide(rt_parent_icon, ['fist'])
+
+	pm.addAttr(rt_parent_icon, ln='relax', at='double', max=10, min=-10, dv=0)
+	unlock_and_unhide(rt_parent_icon, ['relax'])
+
+	pm.addAttr(rt_parent_icon, ln='scrunch', at='double', max=10, min=-10, dv=0)
+	unlock_and_unhide(rt_parent_icon, ['scrunch'])
+
+	pm.addAttr(rt_parent_icon, ln='spread', at='double', max=10, min=-10, dv=0)
+	unlock_and_unhide(rt_parent_icon, ['spread'])
+
+	pm.addAttr(rt_parent_icon, ln='rt_thumbCtrls',  at='enum', en ='-------')
+	rt_parent_icon.rt_thumbCtrls.set(lock=1, e=1, keyable=1)
+
+	lockAttrs(rt_parent_icon, ['rt_thumbCtrls'])
+
+	pm.addAttr(rt_parent_icon, ln='curl', at='double', max=10, min=-10, dv=0)
+	unlock_and_unhide(rt_parent_icon, ['curl'])
+
+	pm.addAttr(rt_parent_icon, ln='drop', at='double', min=0, max=10, dv=0)
+	unlock_and_unhide(rt_parent_icon, ['drop'])
+
+	pm.addAttr(rt_parent_icon, ln='rt_thumbRelax', nn='Relax', at='double', max=10, min=0, dv=0)
+	unlock_and_unhide(rt_parent_icon, ['rt_thumbRelax'])
+
+	pm.addAttr(rt_parent_icon, ln='rt_thumbSpread', nn='Spread', at='double', max=10, min=-10, dv=0)
+	unlock_and_unhide(rt_parent_icon, ['rt_thumbSpread'])
+
+
+	'''
+	Index Fist
+	'''
+	rt_index_drivenAttr_fist = [rt_index_fkOri_root + '.rz', rt_index_fkOri_joint_2 + '.rz', rt_index_fkOri_joint_3 + '.rz', rt_index_fkOri_joint_4 + '.rz']
+	rt_index_driver_fist = (rt_parent_icon + '.fist')
+	rt_index_driven_fist= [rt_index_fkOri_root, rt_index_fkOri_joint_2, rt_index_fkOri_joint_3, rt_index_fkOri_joint_4]
+	pm.setDrivenKeyframe(rt_index_drivenAttr_fist, currentDriver=rt_index_driver_fist)
+	rt_parent_icon.fist.set(10)
+	pm.xform(rt_index_driven_fist, ro=(0, 0, 90))
+	rt_index_fkOri_root.rz.set(15)
+	rt_index_fkOri_joint_3.rz.set(75)
+	rt_index_fkOri_joint_4.rz.set(25)
+	pm.setDrivenKeyframe(rt_index_drivenAttr_fist, currentDriver=rt_index_driver_fist)
+	rt_parent_icon.fist.set(0)
+
+
+	'''
+	Middle Fist
+	'''
+	rt_middle_drivenAttr_fist = [rt_middle_fkOri_root + '.rz', rt_middle_fkOri_joint_2 + '.rz', rt_middle_fkOri_joint_3 + '.rz', rt_middle_fkOri_joint_4 + '.rz']
+	rt_middle_driver_fist = (rt_parent_icon + '.fist')
+	rt_middle_driven_fist= [rt_middle_fkOri_root, rt_middle_fkOri_joint_2, rt_middle_fkOri_joint_3, rt_middle_fkOri_joint_4]
+	pm.setDrivenKeyframe(rt_middle_drivenAttr_fist, currentDriver=rt_middle_driver_fist)
+	rt_parent_icon.fist.set(10)
+	pm.xform(rt_middle_driven_fist, ro=(0, 0, 90))
+	rt_middle_fkOri_root.rz.set(15)
+	rt_middle_fkOri_joint_3.rz.set(75)
+	rt_middle_fkOri_joint_4.rz.set(25)
+	pm.setDrivenKeyframe(rt_middle_drivenAttr_fist, currentDriver=rt_middle_driver_fist)
+	rt_parent_icon.fist.set(0)
+
+	'''
+	Pinky Fist
+	'''
+	rt_pinky_drivenAttr_fist = [rt_pinky_fkOri_root + '.rz', rt_pinky_fkOri_joint_2 + '.rz', rt_pinky_fkOri_joint_3 + '.rz', rt_pinky_fkOri_joint_4 + '.rz']
+	rt_pinky_driver_fist = (rt_parent_icon + '.fist')
+	rt_pinky_driven_fist= [rt_pinky_fkOri_root, rt_pinky_fkOri_joint_2, rt_pinky_fkOri_joint_3, rt_pinky_fkOri_joint_4]
+	pm.setDrivenKeyframe(rt_pinky_drivenAttr_fist, currentDriver=rt_pinky_driver_fist)
+	rt_parent_icon.fist.set(10)
+	pm.xform(rt_pinky_driven_fist, ro=(0, 0, 90))
+	rt_pinky_fkOri_root.rz.set(15)
+	rt_pinky_fkOri_joint_3.rz.set(75)
+	rt_pinky_fkOri_joint_4.rz.set(25)
+	pm.setDrivenKeyframe(rt_pinky_drivenAttr_fist, currentDriver=rt_pinky_driver_fist)
+	rt_parent_icon.fist.set(0)
+
+	'''
+	Thumb fist
+	'''
+	rt_thumb_drivenAttr_fist = [rt_thumb_fkOri_pivot + '.rx', rt_thumb_fkOri_pivot + '.ry', rt_thumb_fkOri_pivot + '.rz', rt_thumb_fkOri_joint_1 + '.ry', rt_thumb_fkOri_joint_2 + '.ry', rt_thumb_fkOri_joint_3 + '.ry']
+	rt_thumb_driver_fist  = (rt_parent_icon + '.fist')
+	rt_thumb_driven_fist = [rt_thumb_fkOri_pivot, rt_thumb_fkOri_pivot, rt_thumb_fkOri_pivot, rt_thumb_fkOri_joint_1, rt_thumb_fkOri_joint_2, rt_thumb_fkOri_joint_3]
+	pm.setDrivenKeyframe(rt_thumb_drivenAttr_fist, currentDriver=rt_thumb_driver_fist)
+	rt_parent_icon.fist.set(10)
+	pm.xform(rt_thumb_fkOri_pivot, ro=(-32, -12, 7))
+	rt_thumb_fkOri_joint_1.ry.set(-16)
+	rt_thumb_fkOri_joint_2.ry.set(-25)
+	rt_thumb_fkOri_joint_3.ry.set(-8)
+	pm.setDrivenKeyframe(rt_thumb_drivenAttr_fist, currentDriver=rt_thumb_driver_fist)
+	rt_parent_icon.fist.set(0)
+
+	rt_thumb_drivenKeyframes_allSpread = (rt_thumb_fkOri_pivot + '_rotateX', rt_thumb_fkOri_pivot + '_rotateY', rt_thumb_fkOri_pivot + '_rotateZ', rt_thumb_fkOri_joint_1 + '_rotateY', rt_thumb_fkOri_joint_2 + '_rotateY', rt_thumb_fkOri_joint_3 + '_rotateY')
+	pm.keyTangent(rt_thumb_drivenKeyframes_allSpread, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+
+	'''
+	Index allScrunch
+	'''
+	rt_index_drivenAttr_allScrunch = [rt_index_fkOri_joint_2 + '.rz', rt_index_fkOri_joint_3 + '.rz', rt_index_fkOri_joint_4 + '.rz']
+	rt_index_driver_allScrunch = (rt_parent_icon + '.scrunch')
+	pm.setDrivenKeyframe(rt_index_drivenAttr_allScrunch, currentDriver=rt_index_driver_allScrunch)
+	# print "Driven:", rt_index_driven
+	rt_index_driven_allScrunch= [rt_index_fkOri_joint_2, rt_index_fkOri_joint_3, rt_index_fkOri_joint_4]
+	rt_parent_icon.scrunch.set(10)
+	rt_index_fkOri_joint_2.rz.set(-50)
+	rt_index_fkOri_joint_3.rz.set(110)
+	rt_index_fkOri_joint_4.rz.set(30)
+	pm.setDrivenKeyframe(rt_index_drivenAttr_allScrunch, currentDriver=rt_index_driver_allScrunch)
+	rt_parent_icon.scrunch.set(-10)
+	rt_index_fkOri_joint_2.rz.set(-3)
+	rt_index_fkOri_joint_3.rz.set(-4)
+	rt_index_fkOri_joint_4.rz.set(-10)
+	pm.setDrivenKeyframe(rt_index_drivenAttr_allScrunch, currentDriver=rt_index_driver_allScrunch)
+	rt_index_drivenKeyframes_allScrunch = (rt_index_fkOri_root + '_rotateZ', rt_index_fkOri_joint_2 + '_rotateZ', rt_index_fkOri_joint_3 + '_rotateZ', rt_index_fkOri_joint_4 + '_rotateZ')
+	pm.keyTangent(rt_index_drivenKeyframes_allScrunch, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+	rt_parent_icon.scrunch.set(0)
+
+	'''
+	Middle allScrunch
+	'''
+	rt_middle_drivenAttr_allScrunch = [rt_middle_fkOri_joint_2 + '.rz', rt_middle_fkOri_joint_3 + '.rz', rt_middle_fkOri_joint_4 + '.rz']
+	rt_middle_driver_allScrunch = (rt_parent_icon + '.scrunch')
+	pm.setDrivenKeyframe(rt_middle_drivenAttr_allScrunch, currentDriver=rt_middle_driver_allScrunch)
+	# print "Driven:", rt_middle_driven
+	rt_middle_driven_allScrunch= [rt_middle_fkOri_joint_2, rt_middle_fkOri_joint_3, rt_middle_fkOri_joint_4]
+	rt_parent_icon.scrunch.set(10)
+	rt_middle_fkOri_joint_2.rz.set(-50)
+	rt_middle_fkOri_joint_3.rz.set(110)
+	rt_middle_fkOri_joint_4.rz.set(30)
+	pm.setDrivenKeyframe(rt_middle_drivenAttr_allScrunch, currentDriver=rt_middle_driver_allScrunch)
+	rt_parent_icon.scrunch.set(-10)
+	rt_middle_fkOri_joint_2.rz.set(-3)
+	rt_middle_fkOri_joint_3.rz.set(-4)
+	rt_middle_fkOri_joint_4.rz.set(-10)
+	pm.setDrivenKeyframe(rt_middle_drivenAttr_allScrunch, currentDriver=rt_middle_driver_allScrunch)
+	rt_middle_drivenKeyframes_allScrunch = (rt_middle_fkOri_root + '_rotateZ', rt_middle_fkOri_joint_2 + '_rotateZ', rt_middle_fkOri_joint_3 + '_rotateZ', rt_middle_fkOri_joint_4 + '_rotateZ')
+	pm.keyTangent(rt_middle_drivenKeyframes_allScrunch, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+	rt_parent_icon.scrunch.set(0)
+
+	'''
+	Pinky allScrunch
+	'''
+	rt_pinky_drivenAttr_allScrunch = [rt_pinky_fkOri_joint_2 + '.rz', rt_pinky_fkOri_joint_3 + '.rz', rt_pinky_fkOri_joint_4 + '.rz']
+	rt_pinky_driver_allScrunch = (rt_parent_icon + '.scrunch')
+	pm.setDrivenKeyframe(rt_pinky_drivenAttr_allScrunch, currentDriver=rt_pinky_driver_allScrunch)
+	# print "Driven:", rt_pinky_driven
+	rt_pinky_driven_allScrunch= [rt_pinky_fkOri_joint_2, rt_pinky_fkOri_joint_3, rt_pinky_fkOri_joint_4]
+	rt_parent_icon.scrunch.set(10)
+	rt_pinky_fkOri_joint_2.rz.set(-50)
+	rt_pinky_fkOri_joint_3.rz.set(110)
+	rt_pinky_fkOri_joint_4.rz.set(30)
+	pm.setDrivenKeyframe(rt_pinky_drivenAttr_allScrunch, currentDriver=rt_pinky_driver_allScrunch)
+	rt_parent_icon.scrunch.set(-10)
+	rt_pinky_fkOri_joint_2.rz.set(-3)
+	rt_pinky_fkOri_joint_3.rz.set(-4)
+	rt_pinky_fkOri_joint_4.rz.set(-10)
+	pm.setDrivenKeyframe(rt_pinky_drivenAttr_allScrunch, currentDriver=rt_pinky_driver_allScrunch)
+	rt_pinky_drivenKeyframes_allScrunch = (rt_pinky_fkOri_root + '_rotateZ', rt_pinky_fkOri_joint_2 + '_rotateZ', rt_pinky_fkOri_joint_3 + '_rotateZ', rt_pinky_fkOri_joint_4 + '_rotateZ')
+	pm.keyTangent(rt_pinky_drivenKeyframes_allScrunch, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+	rt_parent_icon.scrunch.set(0)
+
+
+	'''
+	Index allSpread
+	'''
+	rt_index_drivenAttr_allSpread = (rt_index_fkOri_root + '.ry', rt_index_fkOri_joint_2 + '.ry')
+	rt_index_driven_allSpread= (rt_index_fkOri_root, rt_index_fkOri_joint_2)
+	rt_index_driver_allSpread = (rt_parent_icon + '.spread')
+	pm.setDrivenKeyframe(rt_index_drivenAttr_allSpread, currentDriver=rt_index_driver_allSpread)
+	rt_parent_icon.spread.set(10)
+	pm.xform(rt_index_driven_allSpread, ro=(0, 6, 0))
+	pm.setDrivenKeyframe(rt_index_drivenAttr_allSpread, currentDriver=rt_index_driver_allSpread)
+	rt_parent_icon.spread.set(-10)
+	pm.xform(rt_index_driven_allSpread, ro=(0, -3, 0))
+	pm.setDrivenKeyframe(rt_index_drivenAttr_allSpread, currentDriver=rt_index_driver_allSpread)
+	rt_parent_icon.spread.set(0)
+
+	rt_index_drivenKeyframes_allSpread = (rt_index_fkOri_root + '_rotateY', rt_index_fkOri_joint_2 + '_rotateY')
+	pm.keyTangent(rt_index_drivenKeyframes_allSpread, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+
+	'''
+	Middle allSpread
+	'''
+	rt_middle_drivenAttr_allSpread = (rt_middle_fkOri_root + '.ry', rt_middle_fkOri_joint_2 + '.ry')
+	rt_middle_driven_allSpread= (rt_middle_fkOri_root, rt_middle_fkOri_joint_2)
+	rt_middle_driver_allSpread = (rt_parent_icon + '.spread')
+	pm.setDrivenKeyframe(rt_middle_drivenAttr_allSpread, currentDriver=rt_middle_driver_allSpread)
+	rt_parent_icon.spread.set(10)
+	pm.xform(rt_middle_driven_allSpread, ro=(0, 3, 0))
+	pm.setDrivenKeyframe(rt_middle_drivenAttr_allSpread, currentDriver=rt_middle_driver_allSpread)
+	rt_parent_icon.spread.set(-10)
+	pm.xform(rt_middle_driven_allSpread, ro=(0, 0, 0))
+	pm.setDrivenKeyframe(rt_middle_drivenAttr_allSpread, currentDriver=rt_middle_driver_allSpread)
+	rt_parent_icon.spread.set(0)
+
+	rt_middle_drivenKeyframes_allSpread = (rt_middle_fkOri_root + '_rotateY', rt_middle_fkOri_joint_2 + '_rotateY')
+	pm.keyTangent(rt_middle_drivenKeyframes_allSpread, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+
+	'''
+	Pinky allSpread
+	'''
+	rt_pinky_drivenAttr_allSpread = (rt_pinky_fkOri_root + '.ry', rt_pinky_fkOri_joint_2 + '.ry')
+	rt_pinky_driven_allSpread= (rt_pinky_fkOri_root, rt_pinky_fkOri_joint_2)
+	rt_pinky_driver_allSpread = (rt_parent_icon + '.spread')
+	pm.setDrivenKeyframe(rt_pinky_drivenAttr_allSpread, currentDriver=rt_pinky_driver_allSpread)
+	rt_parent_icon.spread.set(10)
+	pm.xform(rt_pinky_driven_allSpread, ro=(0, -6, 0))
+	pm.setDrivenKeyframe(rt_pinky_drivenAttr_allSpread, currentDriver=rt_pinky_driver_allSpread)
+	rt_parent_icon.spread.set(-10)
+	pm.xform(rt_pinky_driven_allSpread, ro=(0, 3, 0))
+	pm.setDrivenKeyframe(rt_pinky_drivenAttr_allSpread, currentDriver=rt_pinky_driver_allSpread)
+	rt_parent_icon.spread.set(0)
+
+	rt_pinky_drivenKeyframes_allSpread = (rt_pinky_fkOri_root + '_rotateY', rt_pinky_fkOri_joint_2 + '_rotateY')
+	pm.keyTangent(rt_pinky_drivenKeyframes_allSpread, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+
+	'''
+	Thumb allSpread
+	'''
+	rt_thumb_drivenAttr_allSpread = [rt_thumb_fkOri_joint_1 + '.ry']
+	rt_thumb_driver_allSpread  = (rt_parent_icon + '.spread')
+	rt_thumb_driven_allSpread = [rt_thumb_fkOri_pivot, rt_thumb_fkOri_pivot, rt_thumb_fkOri_pivot, rt_thumb_fkOri_joint_1, rt_thumb_fkOri_joint_2, rt_thumb_fkOri_joint_3]
+	pm.setDrivenKeyframe(rt_thumb_drivenAttr_allSpread, currentDriver=rt_thumb_driver_allSpread)
+	rt_parent_icon.spread.set(10)
+	rt_thumb_fkOri_joint_1.ry.set(30)
+	pm.setDrivenKeyframe(rt_thumb_drivenAttr_allSpread, currentDriver=rt_thumb_driver_allSpread)
+	rt_parent_icon.spread.set(-10)
+	rt_thumb_fkOri_joint_1.ry.set(-50)
+	pm.setDrivenKeyframe(rt_thumb_drivenAttr_allSpread, currentDriver=rt_thumb_driver_allSpread)
+	rt_parent_icon.spread.set(0)
+
+	rt_thumb_drivenKeyframes_allSpread = (rt_thumb_fkOri_joint_1 + '_rotateY')
+	pm.keyTangent(rt_thumb_drivenKeyframes_allSpread, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+
+
+	'''
+	Index allRelax
+	'''
+	rt_index_drivenAttr_allRelax = [rt_index_fkOri_root + '.rz', rt_index_fkOri_joint_2 + '.rz', rt_index_fkOri_joint_3 + '.rz', rt_index_fkOri_joint_4 + '.rz']
+	rt_index_driven_allRelax = [rt_index_fkOri_root, rt_index_fkOri_joint_2, rt_index_fkOri_joint_3, rt_index_fkOri_joint_4]
+	rt_index_driver_allRelax = (rt_parent_icon + '.relax')
+	pm.setDrivenKeyframe(rt_index_drivenAttr_allRelax, currentDriver=rt_index_driver_allRelax)
+	rt_parent_icon.relax.set(10)
+	rt_index_fkOri_root.rz.set(3)
+	rt_index_fkOri_joint_2.rz.set(3.75)
+	rt_index_fkOri_joint_3.rz.set(4.5)
+	rt_index_fkOri_joint_4.rz.set(8.4)
+	pm.setDrivenKeyframe(rt_index_drivenAttr_allRelax, currentDriver=rt_index_driver_allRelax)
+	rt_parent_icon.relax.set(-10)
+	rt_index_fkOri_root.rz.set(12)
+	rt_index_fkOri_joint_2.rz.set(15)
+	rt_index_fkOri_joint_3.rz.set(18)
+	rt_index_fkOri_joint_4.rz.set(21)
+	pm.setDrivenKeyframe(rt_index_drivenAttr_allRelax, currentDriver=rt_index_driver_allRelax)
+	rt_parent_icon.relax.set(0)
+
+	pm.keyTangent(rt_index_driven_allRelax, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+
+	'''
+	Middle allRelax
+	'''
+	rt_middle_drivenAttr_allRelax = [rt_middle_fkOri_root + '.rz', rt_middle_fkOri_joint_2 + '.rz', rt_middle_fkOri_joint_3 + '.rz', rt_middle_fkOri_joint_4 + '.rz']
+	rt_middle_driven_allRelax = [rt_middle_fkOri_root, rt_middle_fkOri_joint_2, rt_middle_fkOri_joint_3, rt_middle_fkOri_joint_4]
+	rt_middle_driver_allRelax = (rt_parent_icon + '.relax')
+	pm.setDrivenKeyframe(rt_middle_drivenAttr_allRelax, currentDriver=rt_middle_driver_allRelax)
+	rt_parent_icon.relax.set(10)
+	rt_middle_fkOri_root.rz.set(6)
+	rt_middle_fkOri_joint_2.rz.set(7.5)
+	rt_middle_fkOri_joint_3.rz.set(9)
+	rt_middle_fkOri_joint_4.rz.set(12.6)
+	pm.setDrivenKeyframe(rt_middle_drivenAttr_allRelax, currentDriver=rt_middle_driver_allRelax)
+	rt_parent_icon.relax.set(-10)
+	rt_middle_fkOri_root.rz.set(9)
+	rt_middle_fkOri_joint_2.rz.set(11.25)
+	rt_middle_fkOri_joint_3.rz.set(13.5)
+	rt_middle_fkOri_joint_4.rz.set(16.8)
+	pm.setDrivenKeyframe(rt_middle_drivenAttr_allRelax, currentDriver=rt_middle_driver_allRelax)
+	rt_parent_icon.relax.set(0)
+
+	pm.keyTangent(rt_middle_driven_allRelax, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+
+	'''
+	Pinky allRelax
+	'''
+	rt_pinky_drivenAttr_allRelax = [rt_pinky_fkOri_root + '.rz', rt_pinky_fkOri_joint_2 + '.rz', rt_pinky_fkOri_joint_3 + '.rz', rt_pinky_fkOri_joint_4 + '.rz']
+	rt_pinky_driven_allRelax = [rt_pinky_fkOri_root, rt_pinky_fkOri_joint_2, rt_pinky_fkOri_joint_3, rt_pinky_fkOri_joint_4]
+	rt_pinky_driver_allRelax = (rt_parent_icon + '.relax')
+	pm.setDrivenKeyframe(rt_pinky_drivenAttr_allRelax, currentDriver=rt_pinky_driver_allRelax)
+	rt_parent_icon.relax.set(10)
+	rt_pinky_fkOri_root.rz.set(12)
+	rt_pinky_fkOri_joint_2.rz.set(15)
+	rt_pinky_fkOri_joint_3.rz.set(18)
+	rt_pinky_fkOri_joint_4.rz.set(21)
+	pm.setDrivenKeyframe(rt_pinky_drivenAttr_allRelax, currentDriver=rt_pinky_driver_allRelax)
+	rt_parent_icon.relax.set(-10)
+	rt_pinky_fkOri_root.rz.set(3)
+	rt_pinky_fkOri_joint_2.rz.set(3.75)
+	rt_pinky_fkOri_joint_3.rz.set(4.5)
+	rt_pinky_fkOri_joint_4.rz.set(8.4)
+	pm.setDrivenKeyframe(rt_pinky_drivenAttr_allRelax, currentDriver=rt_pinky_driver_allRelax)
+	rt_parent_icon.relax.set(0)
+
+	pm.keyTangent(rt_pinky_driven_allRelax, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+
+	'''
+	Thumb Curl
+	'''
+	rt_thumb_drivenAttr_curl = [rt_thumb_fkOri_joint_1 + '.ry', rt_thumb_fkOri_joint_2 + '.ry', rt_thumb_fkOri_joint_3 + '.ry']
+	rt_thumb_driven_curl = [rt_thumb_fkOri_joint_1, rt_thumb_fkOri_joint_2, rt_thumb_fkOri_joint_3]
+	rt_thumb_driver_curl = (rt_parent_icon + '.curl')
+	pm.setDrivenKeyframe(rt_thumb_drivenAttr_curl, currentDriver=rt_thumb_driver_curl)
+	rt_parent_icon.curl.set(10)
+	rt_thumb_fkOri_joint_1.ry.set(-25)
+	rt_thumb_fkOri_joint_2.ry.set(-30)
+	rt_thumb_fkOri_joint_3.ry.set(-32)
+	pm.setDrivenKeyframe(rt_thumb_drivenAttr_curl, currentDriver=rt_thumb_driver_curl)
+	rt_parent_icon.curl.set(-10)
+	rt_thumb_fkOri_joint_1.ry.set(40)
+	rt_thumb_fkOri_joint_2.ry.set(30)
+	rt_thumb_fkOri_joint_3.ry.set(32)
+	pm.setDrivenKeyframe(rt_thumb_drivenAttr_curl, currentDriver=rt_thumb_driver_curl)
+	rt_parent_icon.curl.set(0)
+
+	pm.keyTangent(rt_thumb_driven_curl, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+
+	'''
+	Thumb Drop
+	'''
+	rt_thumb_drivenAttr_drop = [rt_thumb_fkOri_pivot + '.rx']
+	rt_thumb_driven_drop = [rt_thumb_fkOri_pivot]
+	rt_thumb_driver_drop = (rt_parent_icon + '.drop')
+	pm.setDrivenKeyframe(rt_thumb_drivenAttr_drop, currentDriver=rt_thumb_driver_drop)
+	rt_parent_icon.drop.set(10)
+	rt_thumb_fkOri_pivot.rx.set(-64)
+	pm.setDrivenKeyframe(rt_thumb_drivenAttr_drop, currentDriver=rt_thumb_driver_drop)
+	rt_parent_icon.drop.set(0)
+
+	pm.keyTangent(rt_thumb_driven_drop, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+
+	'''
+	Thumb Relax
+	'''
+	rt_thumb_drivenAttr_relax = [rt_thumb_fkOri_joint_1 + '.ry', rt_thumb_fkOri_joint_2 + '.ry', rt_thumb_fkOri_joint_3 + '.ry', rt_thumb_fkOri_joint_1 + '.rz', rt_thumb_fkOri_joint_2 + '.rz', rt_thumb_fkOri_joint_3 + '.rz']
+	rt_thumb_driven_relax = [rt_thumb_fkOri_joint_1, rt_thumb_fkOri_joint_2, rt_thumb_fkOri_joint_3]
+	rt_thumb_driver_relax = (rt_parent_icon + '.rt_thumbRelax')
+	pm.setDrivenKeyframe(rt_thumb_drivenAttr_relax, currentDriver=rt_thumb_driver_relax)
+	rt_parent_icon.rt_thumbRelax.set(10)
+	rt_thumb_fkOri_joint_1.ry.set(-9)
+	rt_thumb_fkOri_joint_2.ry.set(-6)
+	rt_thumb_fkOri_joint_3.ry.set(-12)
+	rt_thumb_fkOri_joint_1.rz.set(4)
+	rt_thumb_fkOri_joint_2.rz.set(7)
+	rt_thumb_fkOri_joint_3.rz.set(12)
+	pm.setDrivenKeyframe(rt_thumb_drivenAttr_relax, currentDriver=rt_thumb_driver_relax)
+	rt_parent_icon.rt_thumbRelax.set(0)
+
+	pm.keyTangent(rt_thumb_driven_relax, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+
+	'''
+	Thumb Spread
+	'''
+	rt_thumb_drivenAttr_spread = [rt_thumb_fkOri_joint_1 + '.ry']
+	rt_thumb_driven_spread = [rt_thumb_fkOri_joint_1]
+	rt_thumb_driver_spread = (rt_parent_icon + '.rt_thumbSpread')
+	pm.setDrivenKeyframe(rt_thumb_drivenAttr_spread, currentDriver=rt_thumb_driver_spread)
+	rt_parent_icon.rt_thumbSpread.set(10)
+	rt_thumb_fkOri_joint_1.ry.set(-45)
+	pm.setDrivenKeyframe(rt_thumb_drivenAttr_spread, currentDriver=rt_thumb_driver_spread)
+	rt_parent_icon.rt_thumbSpread.set(-10)
+	rt_thumb_fkOri_joint_1.ry.set(40)
+	pm.setDrivenKeyframe(rt_thumb_drivenAttr_spread, currentDriver=rt_thumb_driver_spread)
+	rt_parent_icon.rt_thumbSpread.set(0)
+
+	pm.keyTangent(rt_thumb_driven_spread, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+def rt_twoFingers_and_thumb(*args):
+	global rt_index_joint_system, rt_index_root, rt_index_joint_2, rt_index_joint_3, rt_index_joint_4, rt_index_joint_5
+	global rt_pinky_joint_system, rt_pinky_root, rt_pinky_joint_2, rt_pinky_joint_3, rt_pinky_joint_4, rt_pinky_joint_5
+	global rt_thumb_joint_system, rt_thumb_pivot, rt_thumb_joint_1, rt_thumb_joint_2, rt_thumb_joint_3, rt_thumb_joint_4
+	global finger_selection
+	finger_selection = pm.ls(sl=1)
+	rt_index_joint_system = finger_selection[0]
+	rt_pinky_joint_system = finger_selection[1]
+	rt_thumb_joint_system = finger_selection[2]
+	# print 'Selection:', finger_selection
+	# print 'Index Joint System:', rt_index_joint_system
+	# print 'Pinky Joint System:', rt_pinky_joint_system
+	# print 'Thumb Joint System:', rt_thumb_joint_system
+
+	rt_index_joints = pm.ls(rt_index_joint_system, dag=1)
+	rt_index_root = rt_index_joints[0]
+	rt_index_joint_2 = rt_index_joints[1]
+	rt_index_joint_3 = rt_index_joints[2]
+	rt_index_joint_4 = rt_index_joints[3]
+	rt_index_joint_5 = rt_index_joints[4]
+	# print 'Index Root:', rt_index_root
+	# print 'Index Joint 2:', rt_index_joint_2
+	# print 'Index Joint 3:',  rt_index_joint_3
+	# print 'Index Joint 4:', rt_index_joint_4
+	# print 'Index Joint 5:', rt_index_joint_5 
+
+	rt_pinky_joints = pm.ls(rt_pinky_joint_system, dag=1)
+	rt_pinky_root = rt_pinky_joints[0]
+	rt_pinky_joint_2 = rt_pinky_joints[1]
+	rt_pinky_joint_3 = rt_pinky_joints[2]
+	rt_pinky_joint_4 = rt_pinky_joints[3]
+	rt_pinky_joint_5 = rt_pinky_joints[4]
+	# print 'Index Root:', rt_pinky_root
+	# print 'Index Joint 2:', rt_pinky_joint_2
+	# print 'Index Joint 3:',  rt_pinky_joint_3
+	# print 'Index Joint 4:', rt_pinky_joint_4
+	# print 'Index Joint 5:', rt_pinky_joint_5
+
+	rt_thumb_joints = pm.ls(rt_thumb_joint_system, dag=1)
+	rt_thumb_pivot = rt_thumb_joints[0]
+	rt_thumb_joint_1 = rt_thumb_joints[1]
+	rt_thumb_joint_2 = rt_thumb_joints[2]
+	rt_thumb_joint_3 = rt_thumb_joints[3]
+	rt_thumb_joint_4 = rt_thumb_joints[4]
+	# print 'Index Root:', rt_thumb_pivot
+	# print 'Index Joint 2:', rt_thumb_joint_1
+	# print 'Index Joint 3:',  rt_thumb_joint_2
+	# print 'Index Joint 4:', rt_thumb_joint_3
+	# print 'Index Joint 5:', rt_thumb_joint_4
+
+	pm.select(cl=1)
+
+	'''
+	Create the finger parent joint
+	'''
+	rt_hand_base = pm.joint()
+
+	temp_constraint = pm.parentConstraint(rt_hand_root, rt_hand_base, mo=0)
+	pm.delete(temp_constraint)
+
+	joint_name = rt_hand_root.replace('01_bind', 'temp')
+	rt_hand_base.rename(joint_name)
+
+	pm.parent(rt_hand_base, w=1)
+
+	'''
+	Un=parent the rt_thumb_01 from the pivot
+	'''
+	pm.parent(rt_thumb_joint_1, w=1)
+	pm.select(rt_hand_base)
+	freezeTransform()
+	'''
+	Parent the finger joints under the base joint
+	'''
+	pm.parent(rt_index_root, rt_pinky_root, rt_thumb_joint_1, rt_hand_base)
+	
+	'''
+	Orient the Joints
+	'''
+	pm.joint(rt_hand_base, zso=1, ch=1, e=1, oj='xyz', secondaryAxisOrient='ydown')
+	
+	
+	'''
+	Parent the rt_thumb_01 back to the pivot
+	'''
+	pm.parent(rt_thumb_joint_1, rt_thumb_pivot)
+	pm.parent(rt_thumb_pivot, rt_hand_base)
+
+	pm.parent(rt_index_root, rt_pinky_root, rt_thumb_pivot, w=1)
+
+	rt_indexSetup()
+	rt_pinkySetup()
+	rt_thumbSetup()
+
+	global rt_parent_icon, rt_index_icon, rt_pinky_icon
+	rt_parent_icon = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=16, r=1, tol=0.01, nr=(1, 0, 0))[0]
+
+	pm.select(rt_parent_icon + '.cv[0]', rt_parent_icon + '.cv[1]', rt_parent_icon + '.cv[9]', rt_parent_icon + '.cv[10]', rt_parent_icon + '.cv[11]', rt_parent_icon + '.cv[12]', rt_parent_icon + '.cv[13]', rt_parent_icon + '.cv[14]', rt_parent_icon + '.cv[15]')            
+	first_cv_set = pm.ls(sl=1)
+	cmds.move(0, 0, -2, r=1, os=1, wd=1)
+
+	pm.select(rt_parent_icon + '.cv[0]', rt_parent_icon + '.cv[10]', rt_parent_icon + '.cv[11]', rt_parent_icon + '.cv[12]', rt_parent_icon + '.cv[13]', rt_parent_icon + '.cv[14]', rt_parent_icon + '.cv[15]')            
+	second_cv_set = pm.ls(sl=1)
+	cmds.move(0, 0, -4, r=1, os=1, wd=1)
+
+	rt_index_icon = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=1, tol=0.01, nr=(1, 0, 0))[0]
+	rt_index_icon.sy.set(.6)
+	rt_index_icon.sz.set(.6)
+
+	icon_name = rt_index_root.replace('01_bind', 'icon')
+	rt_index_icon.rename(icon_name)
+
+	icon_name = rt_index_icon.replace('index', 'fingers')
+	rt_parent_icon.rename(icon_name)
+
+	freezeTransform()
+	deleteHistory(rt_index_icon)
+
+	rt_pinky_icon = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=1, tol=0.01, nr=(1, 0, 0))[0]
+	rt_pinky_icon.tz.set(-6)
+	rt_pinky_icon.sy.set(.6)
+	rt_pinky_icon.sz.set(.6)
+	icon_name = rt_pinky_root.replace('01_bind', 'icon')
+	rt_pinky_icon.rename(icon_name)
+	freezeTransform()
+	deleteHistory(rt_pinky_icon)
+
+	pm.parent(rt_index_icon, rt_pinky_icon, rt_parent_icon)
+	pm.select(rt_parent_icon)
+	centerPivot()
+
+	temp_constraint = pm.pointConstraint(rt_hand_joint_2, rt_parent_icon, mo=0)
+	pm.delete(temp_constraint)
+	pm.select(rt_parent_icon)
+	freezeTransform()
+	deleteHistory()
+
+	rt_parent_icon.ty.set(4)
+	pm.select(rt_parent_icon)
+	freezeTransform()
+
+	pm.parent(rt_parent_icon, 'rt_hand_icon')
+	freezeTransform()
+	pm.select(rt_index_icon, rt_pinky_icon)
+	icon_selection = pm.ls(sl=1)
+
+	pm.addAttr(icon_selection, ln='fingerCtrl',  at='enum', en ='-------')
+	rt_index_icon.fingerCtrl.set(lock=1, e=1, keyable=1)
+	rt_pinky_icon.fingerCtrl.set(lock=1, e=1, keyable=1)
+
+	pm.addAttr(icon_selection, ln='curl', max=10, dv=0, at='double', min=-10)
+	rt_index_icon.curl.set(e=1, keyable=1)
+	rt_pinky_icon.curl.set(e=1, keyable=1)
+
+	pm.addAttr(icon_selection, ln='relax', max=10, dv=0, at='double', min=0)
+	rt_index_icon.relax.set(e=1, keyable=1)
+	rt_pinky_icon.relax.set(e=1, keyable=1)
+
+	pm.addAttr(icon_selection, ln='scrunch', max=10, dv=0, at='double', min=-10)
+	rt_index_icon.scrunch.set(e=1, keyable=1)
+	rt_pinky_icon.scrunch.set(e=1, keyable=1)
+
+	pm.addAttr(icon_selection, ln='spread', max=10, dv=0, at='double', min=-10)
+	rt_index_icon.spread.set(e=1, keyable=1)
+	rt_pinky_icon.spread.set(e=1, keyable=1)
+
+	
+	pm.select(rt_parent_icon)
+	icon_selection = pm.ls(sl=1, dag=1)
+	rt_index_icon = icon_selection[2]
+	rt_pinky_icon = icon_selection[4]
+	# print 'Index Icon:', rt_index_icon
+	# print 'Pinky Icon:', rt_pinky_icon
+
+	lock_and_hide(rt_index_icon, ['tx', 'ty', 'tz', 'rx', 'ry', 'rz', 'sx', 'sy', 'sz', 'v'])
+	lock_and_hide(rt_pinky_icon, ['tx', 'ty', 'tz', 'rx', 'ry', 'rz', 'sx', 'sy', 'sz', 'v'])
+
+
+
+	'''
+	Index Curl
+	'''
+	rt_index_drivenAttr_curl = [rt_index_fkOri_root + '.rz', rt_index_fkOri_joint_2 + '.rz', rt_index_fkOri_joint_3 + '.rz', rt_index_fkOri_joint_4 + '.rz']
+	rt_index_driver_curl = (rt_index_icon + '.curl')
+	pm.setDrivenKeyframe(rt_index_drivenAttr_curl, currentDriver=rt_index_driver_curl)
+
+	# print "Driven:", rt_index_driven
+	rt_index_driven_curl= [rt_index_fkOri_root, rt_index_fkOri_joint_2, rt_index_fkOri_joint_3, rt_index_fkOri_joint_4]
+	rt_index_icon.curl.set(10)
+	pm.xform(rt_index_driven_curl, ro=(0, 0, 90))
+	rt_index_fkOri_root.rz.set(15)
+	rt_index_fkOri_joint_3.rz.set(75)
+	pm.setDrivenKeyframe(rt_index_drivenAttr_curl, currentDriver=rt_index_driver_curl)
+	rt_index_icon.curl.set(-10)
+	pm.xform(rt_index_driven_curl, ro=(0, 0, -10))
+	rt_index_fkOri_joint_2.rz.set(-20)
+	rt_index_fkOri_joint_3.rz.set(-25)
+	rt_index_fkOri_joint_4.rz.set(-30)
+	pm.setDrivenKeyframe(rt_index_drivenAttr_curl, currentDriver=rt_index_driver_curl)
+	rt_index_drivenKeyframes_curl = (rt_index_fkOri_root + '_rotateZ', rt_index_fkOri_joint_2 + '_rotateZ', rt_index_fkOri_joint_3 + '_rotateZ', rt_index_fkOri_joint_4 + '_rotateZ')
+	pm.keyTangent(rt_index_drivenKeyframes_curl, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+	rt_index_icon.curl.set(0)
+
+	'''
+	Index Scrunch
+	'''
+	rt_index_drivenAttr_allScrunch = [rt_index_fkOri_joint_2 + '.rz', rt_index_fkOri_joint_3 + '.rz', rt_index_fkOri_joint_4 + '.rz']
+	rt_index_driver_allScrunch = (rt_index_icon + '.scrunch')
+	pm.setDrivenKeyframe(rt_index_drivenAttr_allScrunch, currentDriver=rt_index_driver_allScrunch)
+	# print "Driven:", rt_index_driven
+	rt_index_driven_allScrunch= [rt_index_fkOri_joint_2, rt_index_fkOri_joint_3, rt_index_fkOri_joint_4]
+	rt_index_icon.scrunch.set(10)
+	rt_index_fkOri_joint_2.rz.set(-50)
+	rt_index_fkOri_joint_3.rz.set(110)
+	rt_index_fkOri_joint_4.rz.set(30)
+	pm.setDrivenKeyframe(rt_index_drivenAttr_allScrunch, currentDriver=rt_index_driver_allScrunch)
+	rt_index_icon.scrunch.set(-10)
+	rt_index_fkOri_joint_2.rz.set(-3)
+	rt_index_fkOri_joint_3.rz.set(-4)
+	rt_index_fkOri_joint_4.rz.set(-10)
+	pm.setDrivenKeyframe(rt_index_drivenAttr_allScrunch, currentDriver=rt_index_driver_allScrunch)
+	rt_index_drivenKeyframes_allScrunch = (rt_index_fkOri_root + '_rotateZ', rt_index_fkOri_joint_2 + '_rotateZ', rt_index_fkOri_joint_3 + '_rotateZ', rt_index_fkOri_joint_4 + '_rotateZ')
+	pm.keyTangent(rt_index_drivenKeyframes_allScrunch, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+	rt_index_icon.scrunch.set(0)
+
+	'''
+	Index Spread
+	'''
+	rt_index_drivenAttr_spread = (rt_index_fkOri_root + '.ry', rt_index_fkOri_joint_2 + '.ry')
+	rt_index_driven_spread= (rt_index_fkOri_root, rt_index_fkOri_joint_2)
+	rt_index_driver_spread = (rt_index_icon + '.spread')
+	pm.setDrivenKeyframe(rt_index_drivenAttr_spread, currentDriver=rt_index_driver_spread)
+	rt_index_icon.spread.set(10)
+	pm.xform(rt_index_driven_spread, ro=(0, 6, 0))
+	pm.setDrivenKeyframe(rt_index_drivenAttr_spread, currentDriver=rt_index_driver_spread)
+	rt_index_icon.spread.set(-10)
+	pm.xform(rt_index_driven_spread, ro=(0, -3, 0))
+	pm.setDrivenKeyframe(rt_index_drivenAttr_spread, currentDriver=rt_index_driver_spread)
+	rt_index_icon.spread.set(0)
+
+	rt_index_drivenKeyframes_spread = (rt_index_fkOri_root + '_rotateY', rt_index_fkOri_joint_2 + '_rotateY')
+	pm.keyTangent(rt_index_drivenKeyframes_spread, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+	'''
+	Index Relax
+	'''
+	rt_index_drivenAttr_relax = [rt_index_fkOri_root + '.rz', rt_index_fkOri_joint_2 + '.rz', rt_index_fkOri_joint_3 + '.rz', rt_index_fkOri_joint_4 + '.rz']
+	rt_index_driven_relax = [rt_index_fkOri_root, rt_index_fkOri_joint_2, rt_index_fkOri_joint_3, rt_index_fkOri_joint_4]
+	rt_index_driver_relax = (rt_index_icon + '.relax')
+	pm.setDrivenKeyframe(rt_index_drivenAttr_relax, currentDriver=rt_index_driver_relax)
+	rt_index_icon.relax.set(10)
+	rt_index_fkOri_root.rz.set(12)
+	rt_index_fkOri_joint_2.rz.set(15)
+	rt_index_fkOri_joint_3.rz.set(18)
+	rt_index_fkOri_joint_4.rz.set(21)
+	pm.setDrivenKeyframe(rt_index_drivenAttr_relax, currentDriver=rt_index_driver_relax)
+	rt_index_icon.relax.set(0)
+
+	pm.keyTangent(rt_index_driven_relax, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+	'''
+	Pinky Curl
+	'''
+	rt_pinky_drivenAttr_curl = [rt_pinky_fkOri_root + '.rz', rt_pinky_fkOri_joint_2 + '.rz', rt_pinky_fkOri_joint_3 + '.rz', rt_pinky_fkOri_joint_4 + '.rz']
+	rt_pinky_driver_curl = (rt_pinky_icon + '.curl')
+	pm.setDrivenKeyframe(rt_pinky_drivenAttr_curl, currentDriver=rt_pinky_driver_curl)
+
+	# print "Driven:", rt_pinky_driven
+	rt_pinky_driven_curl= [rt_pinky_fkOri_root, rt_pinky_fkOri_joint_2, rt_pinky_fkOri_joint_3, rt_pinky_fkOri_joint_4]
+	rt_pinky_icon.curl.set(10)
+	pm.xform(rt_pinky_driven_curl, ro=(0, 0, 90))
+	rt_pinky_fkOri_root.rz.set(15)
+	rt_pinky_fkOri_joint_3.rz.set(75)
+	pm.setDrivenKeyframe(rt_pinky_drivenAttr_curl, currentDriver=rt_pinky_driver_curl)
+	rt_pinky_icon.curl.set(-10)
+	pm.xform(rt_pinky_driven_curl, ro=(0, 0, -10))
+	rt_pinky_fkOri_joint_2.rz.set(-20)
+	rt_pinky_fkOri_joint_3.rz.set(-25)
+	rt_pinky_fkOri_joint_4.rz.set(-30)
+	pm.setDrivenKeyframe(rt_pinky_drivenAttr_curl, currentDriver=rt_pinky_driver_curl)
+	rt_pinky_drivenKeyframes_curl = (rt_pinky_fkOri_root + '_rotateZ', rt_pinky_fkOri_joint_2 + '_rotateZ', rt_pinky_fkOri_joint_3 + '_rotateZ', rt_pinky_fkOri_joint_4 + '_rotateZ')
+	pm.keyTangent(rt_pinky_drivenKeyframes_curl, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+	rt_pinky_icon.curl.set(0)
+
+	'''
+	Pinky Scrunch
+	'''
+	rt_pinky_drivenAttr_allScrunch = [rt_pinky_fkOri_joint_2 + '.rz', rt_pinky_fkOri_joint_3 + '.rz', rt_pinky_fkOri_joint_4 + '.rz']
+	rt_pinky_driver_allScrunch = (rt_pinky_icon + '.scrunch')
+	pm.setDrivenKeyframe(rt_pinky_drivenAttr_allScrunch, currentDriver=rt_pinky_driver_allScrunch)
+	# print "Driven:", rt_pinky_driven
+	rt_pinky_driven_allScrunch= [rt_pinky_fkOri_joint_2, rt_pinky_fkOri_joint_3, rt_pinky_fkOri_joint_4]
+	rt_pinky_icon.scrunch.set(10)
+	rt_pinky_fkOri_joint_2.rz.set(-50)
+	rt_pinky_fkOri_joint_3.rz.set(110)
+	rt_pinky_fkOri_joint_4.rz.set(30)
+	pm.setDrivenKeyframe(rt_pinky_drivenAttr_allScrunch, currentDriver=rt_pinky_driver_allScrunch)
+	rt_pinky_icon.scrunch.set(-10)
+	rt_pinky_fkOri_joint_2.rz.set(-3)
+	rt_pinky_fkOri_joint_3.rz.set(-4)
+	rt_pinky_fkOri_joint_4.rz.set(-10)
+	pm.setDrivenKeyframe(rt_pinky_drivenAttr_allScrunch, currentDriver=rt_pinky_driver_allScrunch)
+	rt_pinky_drivenKeyframes_allScrunch = (rt_pinky_fkOri_root + '_rotateZ', rt_pinky_fkOri_joint_2 + '_rotateZ', rt_pinky_fkOri_joint_3 + '_rotateZ', rt_pinky_fkOri_joint_4 + '_rotateZ')
+	pm.keyTangent(rt_pinky_drivenKeyframes_allScrunch, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+	rt_pinky_icon.scrunch.set(0)
+
+	'''
+	Pinky Spread
+	'''
+	rt_pinky_drivenAttr_spread = (rt_pinky_fkOri_root + '.ry', rt_pinky_fkOri_joint_2 + '.ry')
+	rt_pinky_driven_spread= (rt_pinky_fkOri_root, rt_pinky_fkOri_joint_2)
+	rt_pinky_driver_spread = (rt_pinky_icon + '.spread')
+	pm.setDrivenKeyframe(rt_pinky_drivenAttr_spread, currentDriver=rt_pinky_driver_spread)
+	rt_pinky_icon.spread.set(10)
+	pm.xform(rt_pinky_driven_spread, ro=(0, 6, 0))
+	pm.setDrivenKeyframe(rt_pinky_drivenAttr_spread, currentDriver=rt_pinky_driver_spread)
+	rt_pinky_icon.spread.set(-10)
+	pm.xform(rt_pinky_driven_spread, ro=(0, -3, 0))
+	pm.setDrivenKeyframe(rt_pinky_drivenAttr_spread, currentDriver=rt_pinky_driver_spread)
+	rt_pinky_icon.spread.set(0)
+
+	rt_pinky_drivenKeyframes_spread = (rt_pinky_fkOri_root + '_rotateY', rt_pinky_fkOri_joint_2 + '_rotateY')
+	pm.keyTangent(rt_pinky_drivenKeyframes_spread, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+
+	'''
+	Pinky Relax
+	'''
+	rt_pinky_drivenAttr_relax = [rt_pinky_fkOri_root + '.rz', rt_pinky_fkOri_joint_2 + '.rz', rt_pinky_fkOri_joint_3 + '.rz', rt_pinky_fkOri_joint_4 + '.rz']
+	rt_pinky_driven_relax = [rt_pinky_fkOri_root, rt_pinky_fkOri_joint_2, rt_pinky_fkOri_joint_3, rt_pinky_fkOri_joint_4]
+	rt_pinky_driver_relax = (rt_pinky_icon + '.relax')
+	pm.setDrivenKeyframe(rt_pinky_drivenAttr_relax, currentDriver=rt_pinky_driver_relax)
+	rt_pinky_icon.relax.set(10)
+	rt_pinky_fkOri_root.rz.set(12)
+	rt_pinky_fkOri_joint_2.rz.set(15)
+	rt_pinky_fkOri_joint_3.rz.set(18)
+	rt_pinky_fkOri_joint_4.rz.set(21)
+	pm.setDrivenKeyframe(rt_pinky_drivenAttr_relax, currentDriver=rt_pinky_driver_relax)
+	rt_pinky_icon.relax.set(0)
+
+	pm.keyTangent(rt_pinky_driven_relax, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+	pm.select(rt_index_icon, rt_pinky_icon)
+	icon_selection = pm.ls(sl=1)
+
+	color_rt_index = 27
+
+	for each in icon_selection:
+		pm.setAttr(each + '.overrideEnabled', 1)
+		pm.setAttr(each + '.overrideColor', color_rt_index)
+		color_rt_index = color_rt_index + 1
+
+
+	'''
+	Parent Icon Things
+	'''
+
+	lock_and_hide(rt_parent_icon, ['tx', 'ty', 'tz', 'rx', 'ry', 'rz', 'sx', 'sy', 'sz', 'v'])
+
+	pm.addAttr(rt_parent_icon, ln='fingerCtrls',  at='enum', en ='-------')
+	rt_parent_icon.fingerCtrls.set(lock=1, e=1, keyable=1)
+
+	lockAttrs(rt_parent_icon, ['fingerCtrls'])
+
+	pm.addAttr(rt_parent_icon, ln='fist', at='double', max=10, min=0, dv=0)
+	unlock_and_unhide(rt_parent_icon, ['fist'])
+
+	pm.addAttr(rt_parent_icon, ln='relax', at='double', max=10, min=-10, dv=0)
+	unlock_and_unhide(rt_parent_icon, ['relax'])
+
+	pm.addAttr(rt_parent_icon, ln='scrunch', at='double', max=10, min=-10, dv=0)
+	unlock_and_unhide(rt_parent_icon, ['scrunch'])
+
+	pm.addAttr(rt_parent_icon, ln='spread', at='double', max=10, min=-10, dv=0)
+	unlock_and_unhide(rt_parent_icon, ['spread'])
+
+	pm.addAttr(rt_parent_icon, ln='rt_thumbCtrls',  at='enum', en ='-------')
+	rt_parent_icon.rt_thumbCtrls.set(lock=1, e=1, keyable=1)
+
+	lockAttrs(rt_parent_icon, ['rt_thumbCtrls'])
+
+	pm.addAttr(rt_parent_icon, ln='curl', at='double', max=10, min=-10, dv=0)
+	unlock_and_unhide(rt_parent_icon, ['curl'])
+
+	pm.addAttr(rt_parent_icon, ln='drop', at='double', min=0, max=10, dv=0)
+	unlock_and_unhide(rt_parent_icon, ['drop'])
+
+	pm.addAttr(rt_parent_icon, ln='rt_thumbRelax', nn='Relax', at='double', max=10, min=0, dv=0)
+	unlock_and_unhide(rt_parent_icon, ['rt_thumbRelax'])
+
+	pm.addAttr(rt_parent_icon, ln='rt_thumbSpread', nn='Spread', at='double', max=10, min=-10, dv=0)
+	unlock_and_unhide(rt_parent_icon, ['rt_thumbSpread'])
+
+
+	'''
+	Index Fist
+	'''
+	rt_index_drivenAttr_fist = [rt_index_fkOri_root + '.rz', rt_index_fkOri_joint_2 + '.rz', rt_index_fkOri_joint_3 + '.rz', rt_index_fkOri_joint_4 + '.rz']
+	rt_index_driver_fist = (rt_parent_icon + '.fist')
+	rt_index_driven_fist= [rt_index_fkOri_root, rt_index_fkOri_joint_2, rt_index_fkOri_joint_3, rt_index_fkOri_joint_4]
+	pm.setDrivenKeyframe(rt_index_drivenAttr_fist, currentDriver=rt_index_driver_fist)
+	rt_parent_icon.fist.set(10)
+	pm.xform(rt_index_driven_fist, ro=(0, 0, 90))
+	rt_index_fkOri_root.rz.set(15)
+	rt_index_fkOri_joint_3.rz.set(75)
+	rt_index_fkOri_joint_4.rz.set(25)
+	pm.setDrivenKeyframe(rt_index_drivenAttr_fist, currentDriver=rt_index_driver_fist)
+	rt_parent_icon.fist.set(0)
+
+
+	'''
+	Pinky Fist
+	'''
+	rt_pinky_drivenAttr_fist = [rt_pinky_fkOri_root + '.rz', rt_pinky_fkOri_joint_2 + '.rz', rt_pinky_fkOri_joint_3 + '.rz', rt_pinky_fkOri_joint_4 + '.rz']
+	rt_pinky_driver_fist = (rt_parent_icon + '.fist')
+	rt_pinky_driven_fist= [rt_pinky_fkOri_root, rt_pinky_fkOri_joint_2, rt_pinky_fkOri_joint_3, rt_pinky_fkOri_joint_4]
+	pm.setDrivenKeyframe(rt_pinky_drivenAttr_fist, currentDriver=rt_pinky_driver_fist)
+	rt_parent_icon.fist.set(10)
+	pm.xform(rt_pinky_driven_fist, ro=(0, 0, 90))
+	rt_pinky_fkOri_root.rz.set(15)
+	rt_pinky_fkOri_joint_3.rz.set(75)
+	rt_pinky_fkOri_joint_4.rz.set(25)
+	pm.setDrivenKeyframe(rt_pinky_drivenAttr_fist, currentDriver=rt_pinky_driver_fist)
+	rt_parent_icon.fist.set(0)
+
+	'''
+	Thumb fist
+	'''
+	rt_thumb_drivenAttr_fist = [rt_thumb_fkOri_pivot + '.rx', rt_thumb_fkOri_pivot + '.ry', rt_thumb_fkOri_pivot + '.rz', rt_thumb_fkOri_joint_1 + '.ry', rt_thumb_fkOri_joint_2 + '.ry', rt_thumb_fkOri_joint_3 + '.ry']
+	rt_thumb_driver_fist  = (rt_parent_icon + '.fist')
+	rt_thumb_driven_fist = [rt_thumb_fkOri_pivot, rt_thumb_fkOri_pivot, rt_thumb_fkOri_pivot, rt_thumb_fkOri_joint_1, rt_thumb_fkOri_joint_2, rt_thumb_fkOri_joint_3]
+	pm.setDrivenKeyframe(rt_thumb_drivenAttr_fist, currentDriver=rt_thumb_driver_fist)
+	rt_parent_icon.fist.set(10)
+	pm.xform(rt_thumb_fkOri_pivot, ro=(-32, -12, 7))
+	rt_thumb_fkOri_joint_1.ry.set(-16)
+	rt_thumb_fkOri_joint_2.ry.set(-25)
+	rt_thumb_fkOri_joint_3.ry.set(-8)
+	pm.setDrivenKeyframe(rt_thumb_drivenAttr_fist, currentDriver=rt_thumb_driver_fist)
+	rt_parent_icon.fist.set(0)
+
+	rt_thumb_drivenKeyframes_allSpread = (rt_thumb_fkOri_pivot + '_rotateX', rt_thumb_fkOri_pivot + '_rotateY', rt_thumb_fkOri_pivot + '_rotateZ', rt_thumb_fkOri_joint_1 + '_rotateY', rt_thumb_fkOri_joint_2 + '_rotateY', rt_thumb_fkOri_joint_3 + '_rotateY')
+	pm.keyTangent(rt_thumb_drivenKeyframes_allSpread, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+	'''
+	Index allScrunch
+	'''
+	rt_index_drivenAttr_allScrunch = [rt_index_fkOri_joint_2 + '.rz', rt_index_fkOri_joint_3 + '.rz', rt_index_fkOri_joint_4 + '.rz']
+	rt_index_driver_allScrunch = (rt_parent_icon + '.scrunch')
+	pm.setDrivenKeyframe(rt_index_drivenAttr_allScrunch, currentDriver=rt_index_driver_allScrunch)
+	# print "Driven:", rt_index_driven
+	rt_index_driven_allScrunch= [rt_index_fkOri_joint_2, rt_index_fkOri_joint_3, rt_index_fkOri_joint_4]
+	rt_parent_icon.scrunch.set(10)
+	rt_index_fkOri_joint_2.rz.set(-50)
+	rt_index_fkOri_joint_3.rz.set(110)
+	rt_index_fkOri_joint_4.rz.set(30)
+	pm.setDrivenKeyframe(rt_index_drivenAttr_allScrunch, currentDriver=rt_index_driver_allScrunch)
+	rt_parent_icon.scrunch.set(-10)
+	rt_index_fkOri_joint_2.rz.set(-3)
+	rt_index_fkOri_joint_3.rz.set(-4)
+	rt_index_fkOri_joint_4.rz.set(-10)
+	pm.setDrivenKeyframe(rt_index_drivenAttr_allScrunch, currentDriver=rt_index_driver_allScrunch)
+	rt_index_drivenKeyframes_allScrunch = (rt_index_fkOri_root + '_rotateZ', rt_index_fkOri_joint_2 + '_rotateZ', rt_index_fkOri_joint_3 + '_rotateZ', rt_index_fkOri_joint_4 + '_rotateZ')
+	pm.keyTangent(rt_index_drivenKeyframes_allScrunch, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+	rt_parent_icon.scrunch.set(0)
+
+	'''
+	Pinky allScrunch
+	'''
+	rt_pinky_drivenAttr_allScrunch = [rt_pinky_fkOri_joint_2 + '.rz', rt_pinky_fkOri_joint_3 + '.rz', rt_pinky_fkOri_joint_4 + '.rz']
+	rt_pinky_driver_allScrunch = (rt_parent_icon + '.scrunch')
+	pm.setDrivenKeyframe(rt_pinky_drivenAttr_allScrunch, currentDriver=rt_pinky_driver_allScrunch)
+	# print "Driven:", rt_pinky_driven
+	rt_pinky_driven_allScrunch= [rt_pinky_fkOri_joint_2, rt_pinky_fkOri_joint_3, rt_pinky_fkOri_joint_4]
+	rt_parent_icon.scrunch.set(10)
+	rt_pinky_fkOri_joint_2.rz.set(-50)
+	rt_pinky_fkOri_joint_3.rz.set(110)
+	rt_pinky_fkOri_joint_4.rz.set(30)
+	pm.setDrivenKeyframe(rt_pinky_drivenAttr_allScrunch, currentDriver=rt_pinky_driver_allScrunch)
+	rt_parent_icon.scrunch.set(-10)
+	rt_pinky_fkOri_joint_2.rz.set(-3)
+	rt_pinky_fkOri_joint_3.rz.set(-4)
+	rt_pinky_fkOri_joint_4.rz.set(-10)
+	pm.setDrivenKeyframe(rt_pinky_drivenAttr_allScrunch, currentDriver=rt_pinky_driver_allScrunch)
+	rt_pinky_drivenKeyframes_allScrunch = (rt_pinky_fkOri_root + '_rotateZ', rt_pinky_fkOri_joint_2 + '_rotateZ', rt_pinky_fkOri_joint_3 + '_rotateZ', rt_pinky_fkOri_joint_4 + '_rotateZ')
+	pm.keyTangent(rt_pinky_drivenKeyframes_allScrunch, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+	rt_parent_icon.scrunch.set(0)
+
+	'''
+	Index allSpread
+	'''
+	rt_index_drivenAttr_allSpread = (rt_index_fkOri_root + '.ry', rt_index_fkOri_joint_2 + '.ry')
+	rt_index_driven_allSpread= (rt_index_fkOri_root, rt_index_fkOri_joint_2)
+	rt_index_driver_allSpread = (rt_parent_icon + '.spread')
+	pm.setDrivenKeyframe(rt_index_drivenAttr_allSpread, currentDriver=rt_index_driver_allSpread)
+	rt_parent_icon.spread.set(10)
+	pm.xform(rt_index_driven_allSpread, ro=(0, 6, 0))
+	pm.setDrivenKeyframe(rt_index_drivenAttr_allSpread, currentDriver=rt_index_driver_allSpread)
+	rt_parent_icon.spread.set(-10)
+	pm.xform(rt_index_driven_allSpread, ro=(0, -3, 0))
+	pm.setDrivenKeyframe(rt_index_drivenAttr_allSpread, currentDriver=rt_index_driver_allSpread)
+	rt_parent_icon.spread.set(0)
+
+	rt_index_drivenKeyframes_allSpread = (rt_index_fkOri_root + '_rotateY', rt_index_fkOri_joint_2 + '_rotateY')
+	pm.keyTangent(rt_index_drivenKeyframes_allSpread, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+	'''
+	Pinky allSpread
+	'''
+	rt_pinky_drivenAttr_allSpread = (rt_pinky_fkOri_root + '.ry', rt_pinky_fkOri_joint_2 + '.ry')
+	rt_pinky_driven_allSpread= (rt_pinky_fkOri_root, rt_pinky_fkOri_joint_2)
+	rt_pinky_driver_allSpread = (rt_parent_icon + '.spread')
+	pm.setDrivenKeyframe(rt_pinky_drivenAttr_allSpread, currentDriver=rt_pinky_driver_allSpread)
+	rt_parent_icon.spread.set(10)
+	pm.xform(rt_pinky_driven_allSpread, ro=(0, -6, 0))
+	pm.setDrivenKeyframe(rt_pinky_drivenAttr_allSpread, currentDriver=rt_pinky_driver_allSpread)
+	rt_parent_icon.spread.set(-10)
+	pm.xform(rt_pinky_driven_allSpread, ro=(0, 3, 0))
+	pm.setDrivenKeyframe(rt_pinky_drivenAttr_allSpread, currentDriver=rt_pinky_driver_allSpread)
+	rt_parent_icon.spread.set(0)
+
+	rt_pinky_drivenKeyframes_allSpread = (rt_pinky_fkOri_root + '_rotateY', rt_pinky_fkOri_joint_2 + '_rotateY')
+	pm.keyTangent(rt_pinky_drivenKeyframes_allSpread, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+
+	'''
+	Thumb allSpread
+	'''
+	rt_thumb_drivenAttr_allSpread = [rt_thumb_fkOri_joint_1 + '.ry']
+	rt_thumb_driver_allSpread  = (rt_parent_icon + '.spread')
+	rt_thumb_driven_allSpread = [rt_thumb_fkOri_pivot, rt_thumb_fkOri_pivot, rt_thumb_fkOri_pivot, rt_thumb_fkOri_joint_1, rt_thumb_fkOri_joint_2, rt_thumb_fkOri_joint_3]
+	pm.setDrivenKeyframe(rt_thumb_drivenAttr_allSpread, currentDriver=rt_thumb_driver_allSpread)
+	rt_parent_icon.spread.set(10)
+	rt_thumb_fkOri_joint_1.ry.set(30)
+	pm.setDrivenKeyframe(rt_thumb_drivenAttr_allSpread, currentDriver=rt_thumb_driver_allSpread)
+	rt_parent_icon.spread.set(-10)
+	rt_thumb_fkOri_joint_1.ry.set(-50)
+	pm.setDrivenKeyframe(rt_thumb_drivenAttr_allSpread, currentDriver=rt_thumb_driver_allSpread)
+	rt_parent_icon.spread.set(0)
+
+	rt_thumb_drivenKeyframes_allSpread = (rt_thumb_fkOri_joint_1 + '_rotateY')
+	pm.keyTangent(rt_thumb_drivenKeyframes_allSpread, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+
+
+	'''
+	Index allRelax
+	'''
+	rt_index_drivenAttr_allRelax = [rt_index_fkOri_root + '.rz', rt_index_fkOri_joint_2 + '.rz', rt_index_fkOri_joint_3 + '.rz', rt_index_fkOri_joint_4 + '.rz']
+	rt_index_driven_allRelax = [rt_index_fkOri_root, rt_index_fkOri_joint_2, rt_index_fkOri_joint_3, rt_index_fkOri_joint_4]
+	rt_index_driver_allRelax = (rt_parent_icon + '.relax')
+	pm.setDrivenKeyframe(rt_index_drivenAttr_allRelax, currentDriver=rt_index_driver_allRelax)
+	rt_parent_icon.relax.set(10)
+	rt_index_fkOri_root.rz.set(3)
+	rt_index_fkOri_joint_2.rz.set(3.75)
+	rt_index_fkOri_joint_3.rz.set(4.5)
+	rt_index_fkOri_joint_4.rz.set(8.4)
+	pm.setDrivenKeyframe(rt_index_drivenAttr_allRelax, currentDriver=rt_index_driver_allRelax)
+	rt_parent_icon.relax.set(-10)
+	rt_index_fkOri_root.rz.set(12)
+	rt_index_fkOri_joint_2.rz.set(15)
+	rt_index_fkOri_joint_3.rz.set(18)
+	rt_index_fkOri_joint_4.rz.set(21)
+	pm.setDrivenKeyframe(rt_index_drivenAttr_allRelax, currentDriver=rt_index_driver_allRelax)
+	rt_parent_icon.relax.set(0)
+
+	pm.keyTangent(rt_index_driven_allRelax, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+	'''
+	Pinky allRelax
+	'''
+	rt_pinky_drivenAttr_allRelax = [rt_pinky_fkOri_root + '.rz', rt_pinky_fkOri_joint_2 + '.rz', rt_pinky_fkOri_joint_3 + '.rz', rt_pinky_fkOri_joint_4 + '.rz']
+	rt_pinky_driven_allRelax = [rt_pinky_fkOri_root, rt_pinky_fkOri_joint_2, rt_pinky_fkOri_joint_3, rt_pinky_fkOri_joint_4]
+	rt_pinky_driver_allRelax = (rt_parent_icon + '.relax')
+	pm.setDrivenKeyframe(rt_pinky_drivenAttr_allRelax, currentDriver=rt_pinky_driver_allRelax)
+	rt_parent_icon.relax.set(10)
+	rt_pinky_fkOri_root.rz.set(12)
+	rt_pinky_fkOri_joint_2.rz.set(15)
+	rt_pinky_fkOri_joint_3.rz.set(18)
+	rt_pinky_fkOri_joint_4.rz.set(21)
+	pm.setDrivenKeyframe(rt_pinky_drivenAttr_allRelax, currentDriver=rt_pinky_driver_allRelax)
+	rt_parent_icon.relax.set(-10)
+	rt_pinky_fkOri_root.rz.set(3)
+	rt_pinky_fkOri_joint_2.rz.set(3.75)
+	rt_pinky_fkOri_joint_3.rz.set(4.5)
+	rt_pinky_fkOri_joint_4.rz.set(8.4)
+	pm.setDrivenKeyframe(rt_pinky_drivenAttr_allRelax, currentDriver=rt_pinky_driver_allRelax)
+	rt_parent_icon.relax.set(0)
+
+	pm.keyTangent(rt_pinky_driven_allRelax, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+
+	'''
+	Thumb Curl
+	'''
+	rt_thumb_drivenAttr_curl = [rt_thumb_fkOri_joint_1 + '.ry', rt_thumb_fkOri_joint_2 + '.ry', rt_thumb_fkOri_joint_3 + '.ry']
+	rt_thumb_driven_curl = [rt_thumb_fkOri_joint_1, rt_thumb_fkOri_joint_2, rt_thumb_fkOri_joint_3]
+	rt_thumb_driver_curl = (rt_parent_icon + '.curl')
+	pm.setDrivenKeyframe(rt_thumb_drivenAttr_curl, currentDriver=rt_thumb_driver_curl)
+	rt_parent_icon.curl.set(10)
+	rt_thumb_fkOri_joint_1.ry.set(-25)
+	rt_thumb_fkOri_joint_2.ry.set(-30)
+	rt_thumb_fkOri_joint_3.ry.set(-32)
+	pm.setDrivenKeyframe(rt_thumb_drivenAttr_curl, currentDriver=rt_thumb_driver_curl)
+	rt_parent_icon.curl.set(-10)
+	rt_thumb_fkOri_joint_1.ry.set(40)
+	rt_thumb_fkOri_joint_2.ry.set(30)
+	rt_thumb_fkOri_joint_3.ry.set(32)
+	pm.setDrivenKeyframe(rt_thumb_drivenAttr_curl, currentDriver=rt_thumb_driver_curl)
+	rt_parent_icon.curl.set(0)
+
+	pm.keyTangent(rt_thumb_driven_curl, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+
+	'''
+	Thumb Drop
+	'''
+	rt_thumb_drivenAttr_drop = [rt_thumb_fkOri_pivot + '.rx']
+	rt_thumb_driven_drop = [rt_thumb_fkOri_pivot]
+	rt_thumb_driver_drop = (rt_parent_icon + '.drop')
+	pm.setDrivenKeyframe(rt_thumb_drivenAttr_drop, currentDriver=rt_thumb_driver_drop)
+	rt_parent_icon.drop.set(10)
+	rt_thumb_fkOri_pivot.rx.set(-64)
+	pm.setDrivenKeyframe(rt_thumb_drivenAttr_drop, currentDriver=rt_thumb_driver_drop)
+	rt_parent_icon.drop.set(0)
+
+	pm.keyTangent(rt_thumb_driven_drop, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+
+	'''
+	Thumb Relax
+	'''
+	rt_thumb_drivenAttr_relax = [rt_thumb_fkOri_joint_1 + '.ry', rt_thumb_fkOri_joint_2 + '.ry', rt_thumb_fkOri_joint_3 + '.ry', rt_thumb_fkOri_joint_1 + '.rz', rt_thumb_fkOri_joint_2 + '.rz', rt_thumb_fkOri_joint_3 + '.rz']
+	rt_thumb_driven_relax = [rt_thumb_fkOri_joint_1, rt_thumb_fkOri_joint_2, rt_thumb_fkOri_joint_3]
+	rt_thumb_driver_relax = (rt_parent_icon + '.rt_thumbRelax')
+	pm.setDrivenKeyframe(rt_thumb_drivenAttr_relax, currentDriver=rt_thumb_driver_relax)
+	rt_parent_icon.rt_thumbRelax.set(10)
+	rt_thumb_fkOri_joint_1.ry.set(-9)
+	rt_thumb_fkOri_joint_2.ry.set(-6)
+	rt_thumb_fkOri_joint_3.ry.set(-12)
+	rt_thumb_fkOri_joint_1.rz.set(4)
+	rt_thumb_fkOri_joint_2.rz.set(7)
+	rt_thumb_fkOri_joint_3.rz.set(12)
+	pm.setDrivenKeyframe(rt_thumb_drivenAttr_relax, currentDriver=rt_thumb_driver_relax)
+	rt_parent_icon.rt_thumbRelax.set(0)
+
+	pm.keyTangent(rt_thumb_driven_relax, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+
+	'''
+	Thumb Spread
+	'''
+	rt_thumb_drivenAttr_spread = [rt_thumb_fkOri_joint_1 + '.ry']
+	rt_thumb_driven_spread = [rt_thumb_fkOri_joint_1]
+	rt_thumb_driver_spread = (rt_parent_icon + '.rt_thumbSpread')
+	pm.setDrivenKeyframe(rt_thumb_drivenAttr_spread, currentDriver=rt_thumb_driver_spread)
+	rt_parent_icon.rt_thumbSpread.set(10)
+	rt_thumb_fkOri_joint_1.ry.set(-45)
+	pm.setDrivenKeyframe(rt_thumb_drivenAttr_spread, currentDriver=rt_thumb_driver_spread)
+	rt_parent_icon.rt_thumbSpread.set(-10)
+	rt_thumb_fkOri_joint_1.ry.set(40)
+	pm.setDrivenKeyframe(rt_thumb_drivenAttr_spread, currentDriver=rt_thumb_driver_spread)
+	rt_parent_icon.rt_thumbSpread.set(0)
+
+	pm.keyTangent(rt_thumb_driven_spread, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+def rt_fiveFinger_SDK_setup(*args):
+	global rt_parent_icon, rt_index_icon, rt_middle_icon, rt_ring_icon, rt_pinky_icon
+	rt_parent_icon = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=16, r=1, tol=0.01, nr=(1, 0, 0))[0]
+
+	pm.select(rt_parent_icon + '.cv[0]', rt_parent_icon + '.cv[1]', rt_parent_icon + '.cv[9]', rt_parent_icon + '.cv[10]', rt_parent_icon + '.cv[11]', rt_parent_icon + '.cv[12]', rt_parent_icon + '.cv[13]', rt_parent_icon + '.cv[14]', rt_parent_icon + '.cv[15]')            
+	first_cv_set = pm.ls(sl=1)
+	cmds.move(0, 0, -2, r=1, os=1, wd=1)
+
+	pm.select(rt_parent_icon + '.cv[0]', rt_parent_icon + '.cv[10]', rt_parent_icon + '.cv[11]', rt_parent_icon + '.cv[12]', rt_parent_icon + '.cv[13]', rt_parent_icon + '.cv[14]', rt_parent_icon + '.cv[15]')            
+	second_cv_set = pm.ls(sl=1)
+	cmds.move(0, 0, -4, r=1, os=1, wd=1)
+
+	rt_index_icon = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=1, tol=0.01, nr=(1, 0, 0))[0]
+	rt_index_icon.sy.set(.6)
+	rt_index_icon.sz.set(.6)
+
+	icon_name = rt_index_root.replace('01_bind', 'icon')
+	rt_index_icon.rename(icon_name)
+
+	icon_name = rt_index_icon.replace('index', 'fingers')
+	rt_parent_icon.rename(icon_name)
+
+	freezeTransform()
+	deleteHistory(rt_index_icon)
+
+	rt_middle_icon = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=1, tol=0.01, nr=(1, 0, 0))[0]
+	rt_middle_icon.tz.set(-2)
+	rt_middle_icon.sy.set(.6)
+	rt_middle_icon.sz.set(.6)
+	icon_name = rt_middle_root.replace('01_bind', 'icon')
+	rt_middle_icon.rename(icon_name)
+	freezeTransform()
+	deleteHistory(rt_middle_icon)
+
+	rt_ring_icon = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=1, tol=0.01, nr=(1, 0, 0))[0]
+	rt_ring_icon.tz.set(-4)
+	rt_ring_icon.sy.set(.6)
+	rt_ring_icon.sz.set(.6)
+	icon_name = rt_ring_root.replace('01_bind', 'icon')
+	rt_ring_icon.rename(icon_name)
+	freezeTransform()
+	deleteHistory(rt_ring_icon)
+
+	rt_pinky_icon = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=1, tol=0.01, nr=(1, 0, 0))[0]
+	rt_pinky_icon.tz.set(-6)
+	rt_pinky_icon.sy.set(.6)
+	rt_pinky_icon.sz.set(.6)
+	icon_name = rt_pinky_root.replace('01_bind', 'icon')
+	rt_pinky_icon.rename(icon_name)
+	freezeTransform()
+	deleteHistory(rt_pinky_icon)
+
+	pm.parent(rt_index_icon, rt_middle_icon, rt_ring_icon, rt_pinky_icon, rt_parent_icon)
+	pm.select(rt_parent_icon)
+	centerPivot()
+
+	temp_constraint = pm.pointConstraint(rt_hand_joint_2, rt_parent_icon, mo=0)
+	pm.delete(temp_constraint)
+	pm.select(rt_parent_icon)
+	freezeTransform()
+	deleteHistory()
+
+	rt_parent_icon.ty.set(4)
+	pm.select(rt_parent_icon)
+	freezeTransform()
+
+	pm.parent(rt_parent_icon, 'rt_hand_icon')
+	freezeTransform()
+
+	pm.select(rt_index_icon, rt_middle_icon, rt_ring_icon, rt_pinky_icon)
+	icon_selection = pm.ls(sl=1)
+
+	pm.addAttr(icon_selection, ln='fingerCtrl',  at='enum', en ='-------')
+	rt_index_icon.fingerCtrl.set(lock=1, e=1, keyable=1)
+	rt_middle_icon.fingerCtrl.set(lock=1, e=1, keyable=1)
+	rt_ring_icon.fingerCtrl.set(lock=1, e=1, keyable=1)
+	rt_pinky_icon.fingerCtrl.set(lock=1, e=1, keyable=1)
+
+	pm.addAttr(icon_selection, ln='curl', max=10, dv=0, at='double', min=-10)
+	rt_index_icon.curl.set(e=1, keyable=1)
+	rt_middle_icon.curl.set(e=1, keyable=1)
+	rt_ring_icon.curl.set(e=1, keyable=1)
+	rt_pinky_icon.curl.set(e=1, keyable=1)
+
+	pm.addAttr(icon_selection, ln='relax', max=10, dv=0, at='double', min=0)
+	rt_index_icon.relax.set(e=1, keyable=1)
+	rt_middle_icon.relax.set(e=1, keyable=1)
+	rt_ring_icon.relax.set(e=1, keyable=1)
+	rt_pinky_icon.relax.set(e=1, keyable=1)
+
+	pm.addAttr(icon_selection, ln='scrunch', max=10, dv=0, at='double', min=-10)
+	rt_index_icon.scrunch.set(e=1, keyable=1)
+	rt_middle_icon.scrunch.set(e=1, keyable=1)
+	rt_ring_icon.scrunch.set(e=1, keyable=1)
+	rt_pinky_icon.scrunch.set(e=1, keyable=1)
+
+
+	pm.addAttr(icon_selection, ln='spread', max=10, dv=0, at='double', min=-10)
+	rt_index_icon.spread.set(e=1, keyable=1)
+	rt_middle_icon.spread.set(e=1, keyable=1)
+	rt_ring_icon.spread.set(e=1, keyable=1)
+	rt_pinky_icon.spread.set(e=1, keyable=1)
+
+	
+	pm.select(rt_parent_icon)
+	icon_selection = pm.ls(sl=1, dag=1)
+	rt_index_icon = icon_selection[2]
+	rt_middle_icon = icon_selection[4] 
+	rt_ring_icon = icon_selection[6]
+	rt_pinky_icon = icon_selection[8]
+	# print 'Index Icon:', rt_index_icon
+	# print 'Middle Icon:', rt_middle_icon
+	# print 'Ring Icon:', rt_ring_icon
+	# print 'Pinky Icon:', rt_pinky_icon
+
+	lock_and_hide(rt_index_icon, ['tx', 'ty', 'tz', 'rx', 'ry', 'rz', 'sx', 'sy', 'sz', 'v'])
+	lock_and_hide(rt_middle_icon, ['tx', 'ty', 'tz', 'rx', 'ry', 'rz', 'sx', 'sy', 'sz', 'v'])
+	lock_and_hide(rt_ring_icon, ['tx', 'ty', 'tz', 'rx', 'ry', 'rz', 'sx', 'sy', 'sz', 'v'])
+	lock_and_hide(rt_pinky_icon, ['tx', 'ty', 'tz', 'rx', 'ry', 'rz', 'sx', 'sy', 'sz', 'v'])
+
+	'''
+	Index Curl
+	'''
+	rt_index_drivenAttr_curl = [rt_index_fkOri_root + '.rz', rt_index_fkOri_joint_2 + '.rz', rt_index_fkOri_joint_3 + '.rz', rt_index_fkOri_joint_4 + '.rz']
+	rt_index_driver_curl = (rt_index_icon + '.curl')
+	pm.setDrivenKeyframe(rt_index_drivenAttr_curl, currentDriver=rt_index_driver_curl)
+
+	# print "Driven:", rt_index_driven
+	rt_index_driven_curl= [rt_index_fkOri_root, rt_index_fkOri_joint_2, rt_index_fkOri_joint_3, rt_index_fkOri_joint_4]
+	rt_index_icon.curl.set(10)
+	pm.xform(rt_index_driven_curl, ro=(0, 0, 90))
+	rt_index_fkOri_root.rz.set(15)
+	rt_index_fkOri_joint_3.rz.set(75)
+	pm.setDrivenKeyframe(rt_index_drivenAttr_curl, currentDriver=rt_index_driver_curl)
+	rt_index_icon.curl.set(-10)
+	pm.xform(rt_index_driven_curl, ro=(0, 0, -10))
+	rt_index_fkOri_joint_2.rz.set(-20)
+	rt_index_fkOri_joint_3.rz.set(-25)
+	rt_index_fkOri_joint_4.rz.set(-30)
+	pm.setDrivenKeyframe(rt_index_drivenAttr_curl, currentDriver=rt_index_driver_curl)
+	rt_index_drivenKeyframes_curl = (rt_index_fkOri_root + '_rotateZ', rt_index_fkOri_joint_2 + '_rotateZ', rt_index_fkOri_joint_3 + '_rotateZ', rt_index_fkOri_joint_4 + '_rotateZ')
+	pm.keyTangent(rt_index_drivenKeyframes_curl, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+	rt_index_icon.curl.set(0)
+
+	'''
+	Middle Curl
+	'''
+	rt_middle_drivenAttr_curl = [rt_middle_fkOri_root + '.rz', rt_middle_fkOri_joint_2 + '.rz', rt_middle_fkOri_joint_3 + '.rz', rt_middle_fkOri_joint_4 + '.rz']
+	rt_middle_driver_curl = (rt_middle_icon + '.curl')
+	pm.setDrivenKeyframe(rt_middle_drivenAttr_curl, currentDriver=rt_middle_driver_curl)
+
+	# print "Driven:", rt_middle_driven
+	rt_middle_driven_curl= [rt_middle_fkOri_root, rt_middle_fkOri_joint_2, rt_middle_fkOri_joint_3, rt_middle_fkOri_joint_4]
+	rt_middle_icon.curl.set(10)
+	pm.xform(rt_middle_driven_curl, ro=(0, 0, 90))
+	rt_middle_fkOri_root.rz.set(15)
+	rt_middle_fkOri_joint_3.rz.set(75)
+	pm.setDrivenKeyframe(rt_middle_drivenAttr_curl, currentDriver=rt_middle_driver_curl)
+	rt_middle_icon.curl.set(-10)
+	pm.xform(rt_middle_driven_curl, ro=(0, 0, -10))
+	rt_middle_fkOri_joint_2.rz.set(-20)
+	rt_middle_fkOri_joint_3.rz.set(-25)
+	rt_middle_fkOri_joint_4.rz.set(-30)
+	pm.setDrivenKeyframe(rt_middle_drivenAttr_curl, currentDriver=rt_middle_driver_curl)
+	rt_middle_drivenKeyframes_curl = (rt_middle_fkOri_root + '_rotateZ', rt_middle_fkOri_joint_2 + '_rotateZ', rt_middle_fkOri_joint_3 + '_rotateZ', rt_middle_fkOri_joint_4 + '_rotateZ')
+	pm.keyTangent(rt_middle_drivenKeyframes_curl, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+	rt_middle_icon.curl.set(0)
+
+	'''
+	Ring Curl
+	'''
+	rt_ring_drivenAttr_curl = [rt_ring_fkOri_root + '.rz', rt_ring_fkOri_joint_2 + '.rz', rt_ring_fkOri_joint_3 + '.rz', rt_ring_fkOri_joint_4 + '.rz']
+	rt_ring_driver_curl = (rt_ring_icon + '.curl')
+	pm.setDrivenKeyframe(rt_ring_drivenAttr_curl, currentDriver=rt_ring_driver_curl)
+
+	# print "Driven:", rt_ring_driven
+	rt_ring_driven_curl= [rt_ring_fkOri_root, rt_ring_fkOri_joint_2, rt_ring_fkOri_joint_3, rt_ring_fkOri_joint_4]
+	rt_ring_icon.curl.set(10)
+	pm.xform(rt_ring_driven_curl, ro=(0, 0, 90))
+	rt_ring_fkOri_root.rz.set(15)
+	rt_ring_fkOri_joint_3.rz.set(75)
+	pm.setDrivenKeyframe(rt_ring_drivenAttr_curl, currentDriver=rt_ring_driver_curl)
+	rt_ring_icon.curl.set(-10)
+	pm.xform(rt_ring_driven_curl, ro=(0, 0, -10))
+	rt_ring_fkOri_joint_2.rz.set(-20)
+	rt_ring_fkOri_joint_3.rz.set(-25)
+	rt_ring_fkOri_joint_4.rz.set(-30)
+	pm.setDrivenKeyframe(rt_ring_drivenAttr_curl, currentDriver=rt_ring_driver_curl)
+	rt_ring_drivenKeyframes_curl = (rt_ring_fkOri_root + '_rotateZ', rt_ring_fkOri_joint_2 + '_rotateZ', rt_ring_fkOri_joint_3 + '_rotateZ', rt_ring_fkOri_joint_4 + '_rotateZ')
+	pm.keyTangent(rt_ring_drivenKeyframes_curl, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+	rt_ring_icon.curl.set(0)
+
+	'''
+	Pinky Curl
+	'''
+	rt_pinky_drivenAttr_curl = [rt_pinky_fkOri_root + '.rz', rt_pinky_fkOri_joint_2 + '.rz', rt_pinky_fkOri_joint_3 + '.rz', rt_pinky_fkOri_joint_4 + '.rz']
+	rt_pinky_driver_curl = (rt_pinky_icon + '.curl')
+	pm.setDrivenKeyframe(rt_pinky_drivenAttr_curl, currentDriver=rt_pinky_driver_curl)
+
+	# print "Driven:", rt_pinky_driven
+	rt_pinky_driven_curl= [rt_pinky_fkOri_root, rt_pinky_fkOri_joint_2, rt_pinky_fkOri_joint_3, rt_pinky_fkOri_joint_4]
+	rt_pinky_icon.curl.set(10)
+	pm.xform(rt_pinky_driven_curl, ro=(0, 0, 90))
+	rt_pinky_fkOri_root.rz.set(15)
+	rt_pinky_fkOri_joint_3.rz.set(75)
+	pm.setDrivenKeyframe(rt_pinky_drivenAttr_curl, currentDriver=rt_pinky_driver_curl)
+	rt_pinky_icon.curl.set(-10)
+	pm.xform(rt_pinky_driven_curl, ro=(0, 0, -10))
+	rt_pinky_fkOri_joint_2.rz.set(-20)
+	rt_pinky_fkOri_joint_3.rz.set(-25)
+	rt_pinky_fkOri_joint_4.rz.set(-30)
+	pm.setDrivenKeyframe(rt_pinky_drivenAttr_curl, currentDriver=rt_pinky_driver_curl)
+	rt_pinky_drivenKeyframes_curl = (rt_pinky_fkOri_root + '_rotateZ', rt_pinky_fkOri_joint_2 + '_rotateZ', rt_pinky_fkOri_joint_3 + '_rotateZ', rt_pinky_fkOri_joint_4 + '_rotateZ')
+	pm.keyTangent(rt_pinky_drivenKeyframes_curl, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+	rt_pinky_icon.curl.set(0)
+
+	'''
+	Index Scrunch
+	'''
+	rt_index_drivenAttr_scrunch = [rt_index_fkOri_joint_2 + '.rz', rt_index_fkOri_joint_3 + '.rz', rt_index_fkOri_joint_4 + '.rz']
+	rt_index_driver_scrunch = (rt_index_icon + '.scrunch')
+	pm.setDrivenKeyframe(rt_index_drivenAttr_scrunch, currentDriver=rt_index_driver_scrunch)
+	# print "Driven:", rt_index_driven
+	rt_index_driven_scrunch= [rt_index_fkOri_joint_2, rt_index_fkOri_joint_3, rt_index_fkOri_joint_4]
+	rt_index_icon.scrunch.set(10)
+	rt_index_fkOri_joint_2.rz.set(-50)
+	rt_index_fkOri_joint_3.rz.set(110)
+	rt_index_fkOri_joint_4.rz.set(30)
+	pm.setDrivenKeyframe(rt_index_drivenAttr_scrunch, currentDriver=rt_index_driver_scrunch)
+	rt_index_icon.scrunch.set(-10)
+	rt_index_fkOri_joint_2.rz.set(-3)
+	rt_index_fkOri_joint_3.rz.set(-4)
+	rt_index_fkOri_joint_4.rz.set(-10)
+	pm.setDrivenKeyframe(rt_index_drivenAttr_scrunch, currentDriver=rt_index_driver_scrunch)
+	rt_index_drivenKeyframes_scrunch = (rt_index_fkOri_root + '_rotateZ', rt_index_fkOri_joint_2 + '_rotateZ', rt_index_fkOri_joint_3 + '_rotateZ', rt_index_fkOri_joint_4 + '_rotateZ')
+	pm.keyTangent(rt_index_drivenKeyframes_scrunch, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+	rt_index_icon.scrunch.set(0)
+
+	'''
+	Middle Scrunch
+	'''
+	rt_middle_drivenAttr_scrunch = [rt_middle_fkOri_joint_2 + '.rz', rt_middle_fkOri_joint_3 + '.rz', rt_middle_fkOri_joint_4 + '.rz']
+	rt_middle_driver_scrunch = (rt_middle_icon + '.scrunch')
+	pm.setDrivenKeyframe(rt_middle_drivenAttr_scrunch, currentDriver=rt_middle_driver_scrunch)
+	# print "Driven:", rt_middle_driven
+	rt_middle_driven_scrunch= [rt_middle_fkOri_joint_2, rt_middle_fkOri_joint_3, rt_middle_fkOri_joint_4]
+	rt_middle_icon.scrunch.set(10)
+	rt_middle_fkOri_joint_2.rz.set(-50)
+	rt_middle_fkOri_joint_3.rz.set(110)
+	rt_middle_fkOri_joint_4.rz.set(30)
+	pm.setDrivenKeyframe(rt_middle_drivenAttr_scrunch, currentDriver=rt_middle_driver_scrunch)
+	rt_middle_icon.scrunch.set(-10)
+	rt_middle_fkOri_joint_2.rz.set(-3)
+	rt_middle_fkOri_joint_3.rz.set(-4)
+	rt_middle_fkOri_joint_4.rz.set(-10)
+	pm.setDrivenKeyframe(rt_middle_drivenAttr_scrunch, currentDriver=rt_middle_driver_scrunch)
+	rt_middle_drivenKeyframes_scrunch = (rt_middle_fkOri_root + '_rotateZ', rt_middle_fkOri_joint_2 + '_rotateZ', rt_middle_fkOri_joint_3 + '_rotateZ', rt_middle_fkOri_joint_4 + '_rotateZ')
+	pm.keyTangent(rt_middle_drivenKeyframes_scrunch, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+	rt_middle_icon.scrunch.set(0)
+
+	'''
+	Ring Scrunch
+	'''
+	rt_ring_drivenAttr_scrunch = [rt_ring_fkOri_joint_2 + '.rz', rt_ring_fkOri_joint_3 + '.rz', rt_ring_fkOri_joint_4 + '.rz']
+	rt_ring_driver_scrunch = (rt_ring_icon + '.scrunch')
+	pm.setDrivenKeyframe(rt_ring_drivenAttr_scrunch, currentDriver=rt_ring_driver_scrunch)
+	# print "Driven:", rt_ring_driven
+	rt_ring_driven_scrunch= [rt_ring_fkOri_joint_2, rt_ring_fkOri_joint_3, rt_ring_fkOri_joint_4]
+	rt_ring_icon.scrunch.set(10)
+	rt_ring_fkOri_joint_2.rz.set(-50)
+	rt_ring_fkOri_joint_3.rz.set(110)
+	rt_ring_fkOri_joint_4.rz.set(30)
+	pm.setDrivenKeyframe(rt_ring_drivenAttr_scrunch, currentDriver=rt_ring_driver_scrunch)
+	rt_ring_icon.scrunch.set(-10)
+	rt_ring_fkOri_joint_2.rz.set(-3)
+	rt_ring_fkOri_joint_3.rz.set(-4)
+	rt_ring_fkOri_joint_4.rz.set(-10)
+	pm.setDrivenKeyframe(rt_ring_drivenAttr_scrunch, currentDriver=rt_ring_driver_scrunch)
+	rt_ring_drivenKeyframes_scrunch = (rt_ring_fkOri_root + '_rotateZ', rt_ring_fkOri_joint_2 + '_rotateZ', rt_ring_fkOri_joint_3 + '_rotateZ', rt_ring_fkOri_joint_4 + '_rotateZ')
+	pm.keyTangent(rt_ring_drivenKeyframes_scrunch, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+	rt_ring_icon.scrunch.set(0)
+
+	'''
+	Pinky Scrunch
+	'''
+	rt_pinky_drivenAttr_scrunch = [rt_pinky_fkOri_joint_2 + '.rz', rt_pinky_fkOri_joint_3 + '.rz', rt_pinky_fkOri_joint_4 + '.rz']
+	rt_pinky_driver_scrunch = (rt_pinky_icon + '.scrunch')
+	pm.setDrivenKeyframe(rt_pinky_drivenAttr_scrunch, currentDriver=rt_pinky_driver_scrunch)
+	# print "Driven:", rt_pinky_driven
+	rt_pinky_driven_scrunch= [rt_pinky_fkOri_joint_2, rt_pinky_fkOri_joint_3, rt_pinky_fkOri_joint_4]
+	rt_pinky_icon.scrunch.set(10)
+	rt_pinky_fkOri_joint_2.rz.set(-50)
+	rt_pinky_fkOri_joint_3.rz.set(110)
+	rt_pinky_fkOri_joint_4.rz.set(30)
+	pm.setDrivenKeyframe(rt_pinky_drivenAttr_scrunch, currentDriver=rt_pinky_driver_scrunch)
+	rt_pinky_icon.scrunch.set(-10)
+	rt_pinky_fkOri_joint_2.rz.set(-3)
+	rt_pinky_fkOri_joint_3.rz.set(-4)
+	rt_pinky_fkOri_joint_4.rz.set(-10)
+	pm.setDrivenKeyframe(rt_pinky_drivenAttr_scrunch, currentDriver=rt_pinky_driver_scrunch)
+	rt_pinky_drivenKeyframes_scrunch = (rt_pinky_fkOri_root + '_rotateZ', rt_pinky_fkOri_joint_2 + '_rotateZ', rt_pinky_fkOri_joint_3 + '_rotateZ', rt_pinky_fkOri_joint_4 + '_rotateZ')
+	pm.keyTangent(rt_pinky_drivenKeyframes_scrunch, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+	rt_pinky_icon.scrunch.set(0)
+
+	'''
+	Index Spread
+	'''
+	rt_index_drivenAttr_spread = (rt_index_fkOri_root + '.ry', rt_index_fkOri_joint_2 + '.ry')
+	rt_index_driven_spread= (rt_index_fkOri_root, rt_index_fkOri_joint_2)
+	rt_index_driver_spread = (rt_index_icon + '.spread')
+	pm.setDrivenKeyframe(rt_index_drivenAttr_spread, currentDriver=rt_index_driver_spread)
+	rt_index_icon.spread.set(10)
+	pm.xform(rt_index_driven_spread, ro=(0, 6, 0))
+	pm.setDrivenKeyframe(rt_index_drivenAttr_spread, currentDriver=rt_index_driver_spread)
+	rt_index_icon.spread.set(-10)
+	pm.xform(rt_index_driven_spread, ro=(0, -3, 0))
+	pm.setDrivenKeyframe(rt_index_drivenAttr_spread, currentDriver=rt_index_driver_spread)
+	rt_index_icon.spread.set(0)
+
+	rt_index_drivenKeyframes_spread = (rt_index_fkOri_root + '_rotateY', rt_index_fkOri_joint_2 + '_rotateY')
+	pm.keyTangent(rt_index_drivenKeyframes_spread, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+
+	'''
+	Middle Spread
+	'''
+	rt_middle_drivenAttr_spread = (rt_middle_fkOri_root + '.ry', rt_middle_fkOri_joint_2 + '.ry')
+	rt_middle_driven_spread= (rt_middle_fkOri_root, rt_middle_fkOri_joint_2)
+	rt_middle_driver_spread = (rt_middle_icon + '.spread')
+	pm.setDrivenKeyframe(rt_middle_drivenAttr_spread, currentDriver=rt_middle_driver_spread)
+	rt_middle_icon.spread.set(10)
+	pm.xform(rt_middle_driven_spread, ro=(0, 6, 0))
+	pm.setDrivenKeyframe(rt_middle_drivenAttr_spread, currentDriver=rt_middle_driver_spread)
+	rt_middle_icon.spread.set(-10)
+	pm.xform(rt_middle_driven_spread, ro=(0, -3, 0))
+	pm.setDrivenKeyframe(rt_middle_drivenAttr_spread, currentDriver=rt_middle_driver_spread)
+	rt_middle_icon.spread.set(0)
+
+	rt_middle_drivenKeyframes_spread = (rt_middle_fkOri_root + '_rotateY', rt_middle_fkOri_joint_2 + '_rotateY')
+	pm.keyTangent(rt_middle_drivenKeyframes_spread, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+
+	'''
+	Ring Spread
+	'''
+	rt_ring_drivenAttr_spread = (rt_ring_fkOri_root + '.ry', rt_ring_fkOri_joint_2 + '.ry')
+	rt_ring_driven_spread= (rt_ring_fkOri_root, rt_ring_fkOri_joint_2)
+	rt_ring_driver_spread = (rt_ring_icon + '.spread')
+	pm.setDrivenKeyframe(rt_ring_drivenAttr_spread, currentDriver=rt_ring_driver_spread)
+	rt_ring_icon.spread.set(10)
+	pm.xform(rt_ring_driven_spread, ro=(0, 6, 0))
+	pm.setDrivenKeyframe(rt_ring_drivenAttr_spread, currentDriver=rt_ring_driver_spread)
+	rt_ring_icon.spread.set(-10)
+	pm.xform(rt_ring_driven_spread, ro=(0, -3, 0))
+	pm.setDrivenKeyframe(rt_ring_drivenAttr_spread, currentDriver=rt_ring_driver_spread)
+	rt_ring_icon.spread.set(0)
+
+	rt_ring_drivenKeyframes_spread = (rt_ring_fkOri_root + '_rotateY', rt_ring_fkOri_joint_2 + '_rotateY')
+	pm.keyTangent(rt_ring_drivenKeyframes_spread, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+
+	'''
+	Pinky Spread
+	'''
+	rt_pinky_drivenAttr_spread = (rt_pinky_fkOri_root + '.ry', rt_pinky_fkOri_joint_2 + '.ry')
+	rt_pinky_driven_spread= (rt_pinky_fkOri_root, rt_pinky_fkOri_joint_2)
+	rt_pinky_driver_spread = (rt_pinky_icon + '.spread')
+	pm.setDrivenKeyframe(rt_pinky_drivenAttr_spread, currentDriver=rt_pinky_driver_spread)
+	rt_pinky_icon.spread.set(10)
+	pm.xform(rt_pinky_driven_spread, ro=(0, 6, 0))
+	pm.setDrivenKeyframe(rt_pinky_drivenAttr_spread, currentDriver=rt_pinky_driver_spread)
+	rt_pinky_icon.spread.set(-10)
+	pm.xform(rt_pinky_driven_spread, ro=(0, -3, 0))
+	pm.setDrivenKeyframe(rt_pinky_drivenAttr_spread, currentDriver=rt_pinky_driver_spread)
+	rt_pinky_icon.spread.set(0)
+
+	rt_pinky_drivenKeyframes_spread = (rt_pinky_fkOri_root + '_rotateY', rt_pinky_fkOri_joint_2 + '_rotateY')
+	pm.keyTangent(rt_pinky_drivenKeyframes_spread, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+
+
+	'''
+	Index Relax
+	'''
+	rt_index_drivenAttr_relax = [rt_index_fkOri_root + '.rz', rt_index_fkOri_joint_2 + '.rz', rt_index_fkOri_joint_3 + '.rz', rt_index_fkOri_joint_4 + '.rz']
+	rt_index_driven_relax = [rt_index_fkOri_root, rt_index_fkOri_joint_2, rt_index_fkOri_joint_3, rt_index_fkOri_joint_4]
+	rt_index_driver_relax = (rt_index_icon + '.relax')
+	pm.setDrivenKeyframe(rt_index_drivenAttr_relax, currentDriver=rt_index_driver_relax)
+	rt_index_icon.relax.set(10)
+	rt_index_fkOri_root.rz.set(12)
+	rt_index_fkOri_joint_2.rz.set(15)
+	rt_index_fkOri_joint_3.rz.set(18)
+	rt_index_fkOri_joint_4.rz.set(21)
+	pm.setDrivenKeyframe(rt_index_drivenAttr_relax, currentDriver=rt_index_driver_relax)
+	rt_index_icon.relax.set(0)
+
+	pm.keyTangent(rt_index_driven_relax, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+
+	'''
+	Middle Relax
+	'''
+	rt_middle_drivenAttr_relax = [rt_middle_fkOri_root + '.rz', rt_middle_fkOri_joint_2 + '.rz', rt_middle_fkOri_joint_3 + '.rz', rt_middle_fkOri_joint_4 + '.rz']
+	rt_middle_driven_relax = [rt_middle_fkOri_root, rt_middle_fkOri_joint_2, rt_middle_fkOri_joint_3, rt_middle_fkOri_joint_4]
+	rt_middle_driver_relax = (rt_middle_icon + '.relax')
+	pm.setDrivenKeyframe(rt_middle_drivenAttr_relax, currentDriver=rt_middle_driver_relax)
+	rt_middle_icon.relax.set(10)
+	rt_middle_fkOri_root.rz.set(12)
+	rt_middle_fkOri_joint_2.rz.set(15)
+	rt_middle_fkOri_joint_3.rz.set(18)
+	rt_middle_fkOri_joint_4.rz.set(21)
+	pm.setDrivenKeyframe(rt_middle_drivenAttr_relax, currentDriver=rt_middle_driver_relax)
+	rt_middle_icon.relax.set(0)
+
+	pm.keyTangent(rt_middle_driven_relax, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+
+	'''
+	Ring Relax
+	'''
+	rt_ring_drivenAttr_relax = [rt_ring_fkOri_root + '.rz', rt_ring_fkOri_joint_2 + '.rz', rt_ring_fkOri_joint_3 + '.rz', rt_ring_fkOri_joint_4 + '.rz']
+	rt_ring_driven_relax = [rt_ring_fkOri_root, rt_ring_fkOri_joint_2, rt_ring_fkOri_joint_3, rt_ring_fkOri_joint_4]
+	rt_ring_driver_relax = (rt_ring_icon + '.relax')
+	pm.setDrivenKeyframe(rt_ring_drivenAttr_relax, currentDriver=rt_ring_driver_relax)
+	rt_ring_icon.relax.set(10)
+	rt_ring_fkOri_root.rz.set(12)
+	rt_ring_fkOri_joint_2.rz.set(15)
+	rt_ring_fkOri_joint_3.rz.set(18)
+	rt_ring_fkOri_joint_4.rz.set(21)
+	pm.setDrivenKeyframe(rt_ring_drivenAttr_relax, currentDriver=rt_ring_driver_relax)
+	rt_ring_icon.relax.set(0)
+
+	pm.keyTangent(rt_ring_driven_relax, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+
+	'''
+	Pinky Relax
+	'''
+	rt_pinky_drivenAttr_relax = [rt_pinky_fkOri_root + '.rz', rt_pinky_fkOri_joint_2 + '.rz', rt_pinky_fkOri_joint_3 + '.rz', rt_pinky_fkOri_joint_4 + '.rz']
+	rt_pinky_driven_relax = [rt_pinky_fkOri_root, rt_pinky_fkOri_joint_2, rt_pinky_fkOri_joint_3, rt_pinky_fkOri_joint_4]
+	rt_pinky_driver_relax = (rt_pinky_icon + '.relax')
+	pm.setDrivenKeyframe(rt_pinky_drivenAttr_relax, currentDriver=rt_pinky_driver_relax)
+	rt_pinky_icon.relax.set(10)
+	rt_pinky_fkOri_root.rz.set(12)
+	rt_pinky_fkOri_joint_2.rz.set(15)
+	rt_pinky_fkOri_joint_3.rz.set(18)
+	rt_pinky_fkOri_joint_4.rz.set(21)
+	pm.setDrivenKeyframe(rt_pinky_drivenAttr_relax, currentDriver=rt_pinky_driver_relax)
+	rt_pinky_icon.relax.set(0)
+
+	pm.keyTangent(rt_pinky_driven_relax, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+	pm.select(rt_index_icon, rt_middle_icon, rt_ring_icon, rt_pinky_icon)
+	icon_selection = pm.ls(sl=1)
+
+	color_rt_index = 27
+
+	for each in icon_selection:
+		pm.setAttr(each + '.overrideEnabled', 1)
+		pm.setAttr(each + '.overrideColor', color_rt_index)
+		color_rt_index = color_rt_index + 1
+
+	'''
+	Parent Icon Things
+	'''
+
+	lock_and_hide(rt_parent_icon, ['tx', 'ty', 'tz', 'rx', 'ry', 'rz', 'sx', 'sy', 'sz', 'v'])
+
+	pm.addAttr(rt_parent_icon, ln='fingerCtrls',  at='enum', en ='-------')
+	rt_parent_icon.fingerCtrls.set(lock=1, e=1, keyable=1)
+
+	lockAttrs(rt_parent_icon, ['fingerCtrls'])
+
+	pm.addAttr(rt_parent_icon, ln='fist', at='double', max=10, min=0, dv=0)
+	unlock_and_unhide(rt_parent_icon, ['fist'])
+
+	pm.addAttr(rt_parent_icon, ln='relax', at='double', max=10, min=-10, dv=0)
+	unlock_and_unhide(rt_parent_icon, ['relax'])
+
+	pm.addAttr(rt_parent_icon, ln='scrunch', at='double', max=10, min=-10, dv=0)
+	unlock_and_unhide(rt_parent_icon, ['scrunch'])
+
+	pm.addAttr(rt_parent_icon, ln='spread', at='double', max=10, min=-10, dv=0)
+	unlock_and_unhide(rt_parent_icon, ['spread'])
+
+	pm.addAttr(rt_parent_icon, ln='rt_thumbCtrls',  at='enum', en ='-------')
+	rt_parent_icon.rt_thumbCtrls.set(lock=1, e=1, keyable=1)
+
+	lockAttrs(rt_parent_icon, ['rt_thumbCtrls'])
+
+	pm.addAttr(rt_parent_icon, ln='curl', at='double', max=10, min=-10, dv=0)
+	unlock_and_unhide(rt_parent_icon, ['curl'])
+
+	pm.addAttr(rt_parent_icon, ln='drop', at='double', min=0, max=10, dv=0)
+	unlock_and_unhide(rt_parent_icon, ['drop'])
+
+	pm.addAttr(rt_parent_icon, ln='rt_thumbRelax', nn='Relax', at='double', max=10, min=0, dv=0)
+	unlock_and_unhide(rt_parent_icon, ['rt_thumbRelax'])
+
+	pm.addAttr(rt_parent_icon, ln='rt_thumbSpread', nn='Spread', at='double', max=10, min=-10, dv=0)
+	unlock_and_unhide(rt_parent_icon, ['rt_thumbSpread'])
+
+
+	'''
+	Index Fist
+	'''
+	rt_index_drivenAttr_fist = [rt_index_fkOri_root + '.rz', rt_index_fkOri_joint_2 + '.rz', rt_index_fkOri_joint_3 + '.rz', rt_index_fkOri_joint_4 + '.rz']
+	rt_index_driver_fist = (rt_parent_icon + '.fist')
+	rt_index_driven_fist= [rt_index_fkOri_root, rt_index_fkOri_joint_2, rt_index_fkOri_joint_3, rt_index_fkOri_joint_4]
+	pm.setDrivenKeyframe(rt_index_drivenAttr_fist, currentDriver=rt_index_driver_fist)
+	rt_parent_icon.fist.set(10)
+	pm.xform(rt_index_driven_fist, ro=(0, 0, 90))
+	rt_index_fkOri_root.rz.set(15)
+	rt_index_fkOri_joint_3.rz.set(75)
+	rt_index_fkOri_joint_4.rz.set(25)
+	pm.setDrivenKeyframe(rt_index_drivenAttr_fist, currentDriver=rt_index_driver_fist)
+	rt_parent_icon.fist.set(0)
+
+
+	'''
+	Middle Fist
+	'''
+	rt_middle_drivenAttr_fist = [rt_middle_fkOri_root + '.rz', rt_middle_fkOri_joint_2 + '.rz', rt_middle_fkOri_joint_3 + '.rz', rt_middle_fkOri_joint_4 + '.rz']
+	rt_middle_driver_fist = (rt_parent_icon + '.fist')
+	rt_middle_driven_fist= [rt_middle_fkOri_root, rt_middle_fkOri_joint_2, rt_middle_fkOri_joint_3, rt_middle_fkOri_joint_4]
+	pm.setDrivenKeyframe(rt_middle_drivenAttr_fist, currentDriver=rt_middle_driver_fist)
+	rt_parent_icon.fist.set(10)
+	pm.xform(rt_middle_driven_fist, ro=(0, 0, 90))
+	rt_middle_fkOri_root.rz.set(15)
+	rt_middle_fkOri_joint_3.rz.set(75)
+	rt_middle_fkOri_joint_4.rz.set(25)
+	pm.setDrivenKeyframe(rt_middle_drivenAttr_fist, currentDriver=rt_middle_driver_fist)
+	rt_parent_icon.fist.set(0)
+
+
+	'''
+	Ring Fist
+	'''
+	rt_ring_drivenAttr_fist = [rt_ring_fkOri_root + '.rz', rt_ring_fkOri_joint_2 + '.rz', rt_ring_fkOri_joint_3 + '.rz', rt_ring_fkOri_joint_4 + '.rz']
+	rt_ring_driver_fist = (rt_parent_icon + '.fist')
+	rt_ring_driven_fist= [rt_ring_fkOri_root, rt_ring_fkOri_joint_2, rt_ring_fkOri_joint_3, rt_ring_fkOri_joint_4]
+	pm.setDrivenKeyframe(rt_ring_drivenAttr_fist, currentDriver=rt_ring_driver_fist)
+	rt_parent_icon.fist.set(10)
+	pm.xform(rt_ring_driven_fist, ro=(0, 0, 90))
+	rt_ring_fkOri_root.rz.set(15)
+	rt_ring_fkOri_joint_3.rz.set(75)
+	rt_ring_fkOri_joint_4.rz.set(25)
+	pm.setDrivenKeyframe(rt_ring_drivenAttr_fist, currentDriver=rt_ring_driver_fist)
+	rt_parent_icon.fist.set(0)
+
+	'''
+	Pinky Fist
+	'''
+	rt_pinky_drivenAttr_fist = [rt_pinky_fkOri_root + '.rz', rt_pinky_fkOri_joint_2 + '.rz', rt_pinky_fkOri_joint_3 + '.rz', rt_pinky_fkOri_joint_4 + '.rz']
+	rt_pinky_driver_fist = (rt_parent_icon + '.fist')
+	rt_pinky_driven_fist= [rt_pinky_fkOri_root, rt_pinky_fkOri_joint_2, rt_pinky_fkOri_joint_3, rt_pinky_fkOri_joint_4]
+	pm.setDrivenKeyframe(rt_pinky_drivenAttr_fist, currentDriver=rt_pinky_driver_fist)
+	rt_parent_icon.fist.set(10)
+	pm.xform(rt_pinky_driven_fist, ro=(0, 0, 90))
+	rt_pinky_fkOri_root.rz.set(15)
+	rt_pinky_fkOri_joint_3.rz.set(75)
+	rt_pinky_fkOri_joint_4.rz.set(25)
+	pm.setDrivenKeyframe(rt_pinky_drivenAttr_fist, currentDriver=rt_pinky_driver_fist)
+	rt_parent_icon.fist.set(0)
+
+	'''
+	Thumb fist
+	'''
+	rt_thumb_drivenAttr_fist = [rt_thumb_fkOri_pivot + '.rx', rt_thumb_fkOri_pivot + '.ry', rt_thumb_fkOri_pivot + '.rz', rt_thumb_fkOri_joint_1 + '.ry', rt_thumb_fkOri_joint_2 + '.ry', rt_thumb_fkOri_joint_3 + '.ry']
+	rt_thumb_driver_fist  = (rt_parent_icon + '.fist')
+	rt_thumb_driven_fist = [rt_thumb_fkOri_pivot, rt_thumb_fkOri_pivot, rt_thumb_fkOri_pivot, rt_thumb_fkOri_joint_1, rt_thumb_fkOri_joint_2, rt_thumb_fkOri_joint_3]
+	pm.setDrivenKeyframe(rt_thumb_drivenAttr_fist, currentDriver=rt_thumb_driver_fist)
+	rt_parent_icon.fist.set(10)
+	pm.xform(rt_thumb_fkOri_pivot, ro=(-32, -12, 7))
+	rt_thumb_fkOri_joint_1.ry.set(-16)
+	rt_thumb_fkOri_joint_2.ry.set(-25)
+	rt_thumb_fkOri_joint_3.ry.set(-8)
+	pm.setDrivenKeyframe(rt_thumb_drivenAttr_fist, currentDriver=rt_thumb_driver_fist)
+	rt_parent_icon.fist.set(0)
+
+	rt_thumb_drivenKeyframes_allSpread = (rt_thumb_fkOri_pivot + '_rotateX', rt_thumb_fkOri_pivot + '_rotateY', rt_thumb_fkOri_pivot + '_rotateZ', rt_thumb_fkOri_joint_1 + '_rotateY', rt_thumb_fkOri_joint_2 + '_rotateY', rt_thumb_fkOri_joint_3 + '_rotateY')
+	pm.keyTangent(rt_thumb_drivenKeyframes_allSpread, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+
+	'''
+	Index Scrunch
+	'''
+	rt_index_drivenAttr_allScrunch = [rt_index_fkOri_joint_2 + '.rz', rt_index_fkOri_joint_3 + '.rz', rt_index_fkOri_joint_4 + '.rz']
+	rt_index_driver_allScrunch = (rt_parent_icon + '.scrunch')
+	pm.setDrivenKeyframe(rt_index_drivenAttr_allScrunch, currentDriver=rt_index_driver_allScrunch)
+	# print "Driven:", rt_index_driven
+	rt_index_driven_allScrunch= [rt_index_fkOri_joint_2, rt_index_fkOri_joint_3, rt_index_fkOri_joint_4]
+	rt_parent_icon.scrunch.set(10)
+	rt_index_fkOri_joint_2.rz.set(-50)
+	rt_index_fkOri_joint_3.rz.set(110)
+	rt_index_fkOri_joint_4.rz.set(30)
+	pm.setDrivenKeyframe(rt_index_drivenAttr_allScrunch, currentDriver=rt_index_driver_allScrunch)
+	rt_parent_icon.scrunch.set(-10)
+	rt_index_fkOri_joint_2.rz.set(-3)
+	rt_index_fkOri_joint_3.rz.set(-4)
+	rt_index_fkOri_joint_4.rz.set(-10)
+	pm.setDrivenKeyframe(rt_index_drivenAttr_allScrunch, currentDriver=rt_index_driver_allScrunch)
+	rt_index_drivenKeyframes_allScrunch = (rt_index_fkOri_root + '_rotateZ', rt_index_fkOri_joint_2 + '_rotateZ', rt_index_fkOri_joint_3 + '_rotateZ', rt_index_fkOri_joint_4 + '_rotateZ')
+	pm.keyTangent(rt_index_drivenKeyframes_allScrunch, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+	rt_parent_icon.scrunch.set(0)
+
+	'''
+	Middle Scrunch
+	'''
+	rt_middle_drivenAttr_allScrunch = [rt_middle_fkOri_joint_2 + '.rz', rt_middle_fkOri_joint_3 + '.rz', rt_middle_fkOri_joint_4 + '.rz']
+	rt_middle_driver_allScrunch = (rt_parent_icon + '.scrunch')
+	pm.setDrivenKeyframe(rt_middle_drivenAttr_allScrunch, currentDriver=rt_middle_driver_allScrunch)
+	# print "Driven:", rt_middle_driven
+	rt_middle_driven_allScrunch= [rt_middle_fkOri_joint_2, rt_middle_fkOri_joint_3, rt_middle_fkOri_joint_4]
+	rt_parent_icon.scrunch.set(10)
+	rt_middle_fkOri_joint_2.rz.set(-50)
+	rt_middle_fkOri_joint_3.rz.set(110)
+	rt_middle_fkOri_joint_4.rz.set(30)
+	pm.setDrivenKeyframe(rt_middle_drivenAttr_allScrunch, currentDriver=rt_middle_driver_allScrunch)
+	rt_parent_icon.scrunch.set(-10)
+	rt_middle_fkOri_joint_2.rz.set(-3)
+	rt_middle_fkOri_joint_3.rz.set(-4)
+	rt_middle_fkOri_joint_4.rz.set(-10)
+	pm.setDrivenKeyframe(rt_middle_drivenAttr_allScrunch, currentDriver=rt_middle_driver_allScrunch)
+	rt_middle_drivenKeyframes_allScrunch = (rt_middle_fkOri_root + '_rotateZ', rt_middle_fkOri_joint_2 + '_rotateZ', rt_middle_fkOri_joint_3 + '_rotateZ', rt_middle_fkOri_joint_4 + '_rotateZ')
+	pm.keyTangent(rt_middle_drivenKeyframes_allScrunch, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+	rt_parent_icon.scrunch.set(0)
+
+	'''
+	Ring Scrunch
+	'''
+	rt_ring_drivenAttr_allScrunch = [rt_ring_fkOri_joint_2 + '.rz', rt_ring_fkOri_joint_3 + '.rz', rt_ring_fkOri_joint_4 + '.rz']
+	rt_ring_driver_allScrunch = (rt_parent_icon + '.scrunch')
+	pm.setDrivenKeyframe(rt_ring_drivenAttr_allScrunch, currentDriver=rt_ring_driver_allScrunch)
+	# print "Driven:", rt_ring_driven
+	rt_ring_driven_allScrunch= [rt_ring_fkOri_joint_2, rt_ring_fkOri_joint_3, rt_ring_fkOri_joint_4]
+	rt_parent_icon.scrunch.set(10)
+	rt_ring_fkOri_joint_2.rz.set(-50)
+	rt_ring_fkOri_joint_3.rz.set(110)
+	rt_ring_fkOri_joint_4.rz.set(30)
+	pm.setDrivenKeyframe(rt_ring_drivenAttr_allScrunch, currentDriver=rt_ring_driver_allScrunch)
+	rt_parent_icon.scrunch.set(-10)
+	rt_ring_fkOri_joint_2.rz.set(-3)
+	rt_ring_fkOri_joint_3.rz.set(-4)
+	rt_ring_fkOri_joint_4.rz.set(-10)
+	pm.setDrivenKeyframe(rt_ring_drivenAttr_allScrunch, currentDriver=rt_ring_driver_allScrunch)
+	rt_ring_drivenKeyframes_allScrunch = (rt_ring_fkOri_root + '_rotateZ', rt_ring_fkOri_joint_2 + '_rotateZ', rt_ring_fkOri_joint_3 + '_rotateZ', rt_ring_fkOri_joint_4 + '_rotateZ')
+	pm.keyTangent(rt_ring_drivenKeyframes_allScrunch, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+	rt_parent_icon.scrunch.set(0)
+
+	'''
+	Pinky Scrunch
+	'''
+	rt_pinky_drivenAttr_allScrunch = [rt_pinky_fkOri_joint_2 + '.rz', rt_pinky_fkOri_joint_3 + '.rz', rt_pinky_fkOri_joint_4 + '.rz']
+	rt_pinky_driver_allScrunch = (rt_parent_icon + '.scrunch')
+	pm.setDrivenKeyframe(rt_pinky_drivenAttr_allScrunch, currentDriver=rt_pinky_driver_allScrunch)
+	# print "Driven:", rt_pinky_driven
+	rt_pinky_driven_allScrunch= [rt_pinky_fkOri_joint_2, rt_pinky_fkOri_joint_3, rt_pinky_fkOri_joint_4]
+	rt_parent_icon.scrunch.set(10)
+	rt_pinky_fkOri_joint_2.rz.set(-50)
+	rt_pinky_fkOri_joint_3.rz.set(110)
+	rt_pinky_fkOri_joint_4.rz.set(30)
+	pm.setDrivenKeyframe(rt_pinky_drivenAttr_allScrunch, currentDriver=rt_pinky_driver_allScrunch)
+	rt_parent_icon.scrunch.set(-10)
+	rt_pinky_fkOri_joint_2.rz.set(-3)
+	rt_pinky_fkOri_joint_3.rz.set(-4)
+	rt_pinky_fkOri_joint_4.rz.set(-10)
+	pm.setDrivenKeyframe(rt_pinky_drivenAttr_allScrunch, currentDriver=rt_pinky_driver_allScrunch)
+	rt_pinky_drivenKeyframes_allScrunch = (rt_pinky_fkOri_root + '_rotateZ', rt_pinky_fkOri_joint_2 + '_rotateZ', rt_pinky_fkOri_joint_3 + '_rotateZ', rt_pinky_fkOri_joint_4 + '_rotateZ')
+	pm.keyTangent(rt_pinky_drivenKeyframes_allScrunch, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+	rt_parent_icon.scrunch.set(0)
+
+	'''
+	Index allSpread
+	'''
+	rt_index_drivenAttr_allSpread = (rt_index_fkOri_root + '.ry', rt_index_fkOri_joint_2 + '.ry')
+	rt_index_driven_allSpread= (rt_index_fkOri_root, rt_index_fkOri_joint_2)
+	rt_index_driver_allSpread = (rt_parent_icon + '.spread')
+	pm.setDrivenKeyframe(rt_index_drivenAttr_allSpread, currentDriver=rt_index_driver_allSpread)
+	rt_parent_icon.spread.set(10)
+	pm.xform(rt_index_driven_allSpread, ro=(0, 6, 0))
+	pm.setDrivenKeyframe(rt_index_drivenAttr_allSpread, currentDriver=rt_index_driver_allSpread)
+	rt_parent_icon.spread.set(-10)
+	pm.xform(rt_index_driven_allSpread, ro=(0, -3, 0))
+	pm.setDrivenKeyframe(rt_index_drivenAttr_allSpread, currentDriver=rt_index_driver_allSpread)
+	rt_parent_icon.spread.set(0)
+
+	rt_index_drivenKeyframes_allSpread = (rt_index_fkOri_root + '_rotateY', rt_index_fkOri_joint_2 + '_rotateY')
+	pm.keyTangent(rt_index_drivenKeyframes_allSpread, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+
+	'''
+	Middle allSpread
+	'''
+	rt_middle_drivenAttr_allSpread = (rt_middle_fkOri_root + '.ry', rt_middle_fkOri_joint_2 + '.ry')
+	rt_middle_driven_allSpread= (rt_middle_fkOri_root, rt_middle_fkOri_joint_2)
+	rt_middle_driver_allSpread = (rt_parent_icon + '.spread')
+	pm.setDrivenKeyframe(rt_middle_drivenAttr_allSpread, currentDriver=rt_middle_driver_allSpread)
+	rt_parent_icon.spread.set(10)
+	pm.xform(rt_middle_driven_allSpread, ro=(0, 3, 0))
+	pm.setDrivenKeyframe(rt_middle_drivenAttr_allSpread, currentDriver=rt_middle_driver_allSpread)
+	rt_parent_icon.spread.set(-10)
+	pm.xform(rt_middle_driven_allSpread, ro=(0, 0, 0))
+	pm.setDrivenKeyframe(rt_middle_drivenAttr_allSpread, currentDriver=rt_middle_driver_allSpread)
+	rt_parent_icon.spread.set(0)
+
+	rt_middle_drivenKeyframes_allSpread = (rt_middle_fkOri_root + '_rotateY', rt_middle_fkOri_joint_2 + '_rotateY')
+	pm.keyTangent(rt_middle_drivenKeyframes_allSpread, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+
+	'''
+	Ring allSpread
+	'''
+	rt_ring_drivenAttr_allSpread = (rt_ring_fkOri_root + '.ry', rt_ring_fkOri_joint_2 + '.ry')
+	rt_ring_driven_allSpread= (rt_ring_fkOri_root, rt_ring_fkOri_joint_2)
+	rt_ring_driver_allSpread = (rt_parent_icon + '.spread')
+	pm.setDrivenKeyframe(rt_ring_drivenAttr_allSpread, currentDriver=rt_ring_driver_allSpread)
+	rt_parent_icon.spread.set(10)
+	pm.xform(rt_ring_driven_allSpread, ro=(0, -3, 0))
+	pm.setDrivenKeyframe(rt_ring_drivenAttr_allSpread, currentDriver=rt_ring_driver_allSpread)
+	rt_parent_icon.spread.set(-10)
+	pm.xform(rt_ring_driven_allSpread, ro=(0, 3, 0))
+	pm.setDrivenKeyframe(rt_ring_drivenAttr_allSpread, currentDriver=rt_ring_driver_allSpread)
+	rt_parent_icon.spread.set(0)
+
+	rt_ring_drivenKeyframes_allSpread = (rt_ring_fkOri_root + '_rotateY', rt_ring_fkOri_joint_2 + '_rotateY')
+	pm.keyTangent(rt_ring_drivenKeyframes_allSpread, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+
+	'''
+	Pinky allSpread
+	'''
+	rt_pinky_drivenAttr_allSpread = (rt_pinky_fkOri_root + '.ry', rt_pinky_fkOri_joint_2 + '.ry')
+	rt_pinky_driven_allSpread= (rt_pinky_fkOri_root, rt_pinky_fkOri_joint_2)
+	rt_pinky_driver_allSpread = (rt_parent_icon + '.spread')
+	pm.setDrivenKeyframe(rt_pinky_drivenAttr_allSpread, currentDriver=rt_pinky_driver_allSpread)
+	rt_parent_icon.spread.set(10)
+	pm.xform(rt_pinky_driven_allSpread, ro=(0, -6, 0))
+	pm.setDrivenKeyframe(rt_pinky_drivenAttr_allSpread, currentDriver=rt_pinky_driver_allSpread)
+	rt_parent_icon.spread.set(-10)
+	pm.xform(rt_pinky_driven_allSpread, ro=(0, 3, 0))
+	pm.setDrivenKeyframe(rt_pinky_drivenAttr_allSpread, currentDriver=rt_pinky_driver_allSpread)
+	rt_parent_icon.spread.set(0)
+
+	rt_pinky_drivenKeyframes_allSpread = (rt_pinky_fkOri_root + '_rotateY', rt_pinky_fkOri_joint_2 + '_rotateY')
+	pm.keyTangent(rt_pinky_drivenKeyframes_allSpread, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+
+	'''
+	Thumb allSpread
+	'''
+	rt_thumb_drivenAttr_allSpread = [rt_thumb_fkOri_joint_1 + '.ry']
+	rt_thumb_driver_allSpread  = (rt_parent_icon + '.spread')
+	rt_thumb_driven_allSpread = [rt_thumb_fkOri_pivot, rt_thumb_fkOri_pivot, rt_thumb_fkOri_pivot, rt_thumb_fkOri_joint_1, rt_thumb_fkOri_joint_2, rt_thumb_fkOri_joint_3]
+	pm.setDrivenKeyframe(rt_thumb_drivenAttr_allSpread, currentDriver=rt_thumb_driver_allSpread)
+	rt_parent_icon.spread.set(10)
+	rt_thumb_fkOri_joint_1.ry.set(30)
+	pm.setDrivenKeyframe(rt_thumb_drivenAttr_allSpread, currentDriver=rt_thumb_driver_allSpread)
+	rt_parent_icon.spread.set(-10)
+	rt_thumb_fkOri_joint_1.ry.set(-50)
+	pm.setDrivenKeyframe(rt_thumb_drivenAttr_allSpread, currentDriver=rt_thumb_driver_allSpread)
+	rt_parent_icon.spread.set(0)
+
+	rt_thumb_drivenKeyframes_allSpread = (rt_thumb_fkOri_joint_1 + '_rotateY')
+	pm.keyTangent(rt_thumb_drivenKeyframes_allSpread, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+
+
+	'''
+	Index allRelax
+	'''
+	rt_index_drivenAttr_allRelax = [rt_index_fkOri_root + '.rz', rt_index_fkOri_joint_2 + '.rz', rt_index_fkOri_joint_3 + '.rz', rt_index_fkOri_joint_4 + '.rz']
+	rt_index_driven_allRelax = [rt_index_fkOri_root, rt_index_fkOri_joint_2, rt_index_fkOri_joint_3, rt_index_fkOri_joint_4]
+	rt_index_driver_allRelax = (rt_parent_icon + '.relax')
+	pm.setDrivenKeyframe(rt_index_drivenAttr_allRelax, currentDriver=rt_index_driver_allRelax)
+	rt_parent_icon.relax.set(10)
+	rt_index_fkOri_root.rz.set(3)
+	rt_index_fkOri_joint_2.rz.set(3.75)
+	rt_index_fkOri_joint_3.rz.set(4.5)
+	rt_index_fkOri_joint_4.rz.set(8.4)
+	pm.setDrivenKeyframe(rt_index_drivenAttr_allRelax, currentDriver=rt_index_driver_allRelax)
+	rt_parent_icon.relax.set(-10)
+	rt_index_fkOri_root.rz.set(12)
+	rt_index_fkOri_joint_2.rz.set(15)
+	rt_index_fkOri_joint_3.rz.set(18)
+	rt_index_fkOri_joint_4.rz.set(21)
+	pm.setDrivenKeyframe(rt_index_drivenAttr_allRelax, currentDriver=rt_index_driver_allRelax)
+	rt_parent_icon.relax.set(0)
+
+	pm.keyTangent(rt_index_driven_allRelax, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+
+	'''
+	Middle allRelax
+	'''
+	rt_middle_drivenAttr_allRelax = [rt_middle_fkOri_root + '.rz', rt_middle_fkOri_joint_2 + '.rz', rt_middle_fkOri_joint_3 + '.rz', rt_middle_fkOri_joint_4 + '.rz']
+	rt_middle_driven_allRelax = [rt_middle_fkOri_root, rt_middle_fkOri_joint_2, rt_middle_fkOri_joint_3, rt_middle_fkOri_joint_4]
+	rt_middle_driver_allRelax = (rt_parent_icon + '.relax')
+	pm.setDrivenKeyframe(rt_middle_drivenAttr_allRelax, currentDriver=rt_middle_driver_allRelax)
+	rt_parent_icon.relax.set(10)
+	rt_middle_fkOri_root.rz.set(6)
+	rt_middle_fkOri_joint_2.rz.set(7.5)
+	rt_middle_fkOri_joint_3.rz.set(9)
+	rt_middle_fkOri_joint_4.rz.set(12.6)
+	pm.setDrivenKeyframe(rt_middle_drivenAttr_allRelax, currentDriver=rt_middle_driver_allRelax)
+	rt_parent_icon.relax.set(-10)
+	rt_middle_fkOri_root.rz.set(9)
+	rt_middle_fkOri_joint_2.rz.set(11.25)
+	rt_middle_fkOri_joint_3.rz.set(13.5)
+	rt_middle_fkOri_joint_4.rz.set(16.8)
+	pm.setDrivenKeyframe(rt_middle_drivenAttr_allRelax, currentDriver=rt_middle_driver_allRelax)
+	rt_parent_icon.relax.set(0)
+
+	pm.keyTangent(rt_middle_driven_allRelax, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+
+	'''
+	Ring allRelax
+	'''
+	rt_ring_drivenAttr_allRelax = [rt_ring_fkOri_root + '.rz', rt_ring_fkOri_joint_2 + '.rz', rt_ring_fkOri_joint_3 + '.rz', rt_ring_fkOri_joint_4 + '.rz']
+	rt_ring_driven_allRelax = [rt_ring_fkOri_root, rt_ring_fkOri_joint_2, rt_ring_fkOri_joint_3, rt_ring_fkOri_joint_4]
+	rt_ring_driver_allRelax = (rt_parent_icon + '.relax')
+	pm.setDrivenKeyframe(rt_ring_drivenAttr_allRelax, currentDriver=rt_ring_driver_allRelax)
+	rt_parent_icon.relax.set(10)
+	rt_ring_fkOri_root.rz.set(9)
+	rt_ring_fkOri_joint_2.rz.set(11.25)
+	rt_ring_fkOri_joint_3.rz.set(13.5)
+	rt_ring_fkOri_joint_4.rz.set(16.8)
+	pm.setDrivenKeyframe(rt_ring_drivenAttr_allRelax, currentDriver=rt_ring_driver_allRelax)
+	rt_parent_icon.relax.set(-10)
+	rt_ring_fkOri_root.rz.set(6)
+	rt_ring_fkOri_joint_2.rz.set(7.5)
+	rt_ring_fkOri_joint_3.rz.set(9)
+	rt_ring_fkOri_joint_4.rz.set(12.6)
+	pm.setDrivenKeyframe(rt_ring_drivenAttr_allRelax, currentDriver=rt_ring_driver_allRelax)
+	rt_parent_icon.relax.set(0)
+
+	pm.keyTangent(rt_ring_driven_allRelax, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+
+	'''
+	Pinky allRelax
+	'''
+	rt_pinky_drivenAttr_allRelax = [rt_pinky_fkOri_root + '.rz', rt_pinky_fkOri_joint_2 + '.rz', rt_pinky_fkOri_joint_3 + '.rz', rt_pinky_fkOri_joint_4 + '.rz']
+	rt_pinky_driven_allRelax = [rt_pinky_fkOri_root, rt_pinky_fkOri_joint_2, rt_pinky_fkOri_joint_3, rt_pinky_fkOri_joint_4]
+	rt_pinky_driver_allRelax = (rt_parent_icon + '.relax')
+	pm.setDrivenKeyframe(rt_pinky_drivenAttr_allRelax, currentDriver=rt_pinky_driver_allRelax)
+	rt_parent_icon.relax.set(10)
+	rt_pinky_fkOri_root.rz.set(12)
+	rt_pinky_fkOri_joint_2.rz.set(15)
+	rt_pinky_fkOri_joint_3.rz.set(18)
+	rt_pinky_fkOri_joint_4.rz.set(21)
+	pm.setDrivenKeyframe(rt_pinky_drivenAttr_allRelax, currentDriver=rt_pinky_driver_allRelax)
+	rt_parent_icon.relax.set(-10)
+	rt_pinky_fkOri_root.rz.set(3)
+	rt_pinky_fkOri_joint_2.rz.set(3.75)
+	rt_pinky_fkOri_joint_3.rz.set(4.5)
+	rt_pinky_fkOri_joint_4.rz.set(8.4)
+	pm.setDrivenKeyframe(rt_pinky_drivenAttr_allRelax, currentDriver=rt_pinky_driver_allRelax)
+	rt_parent_icon.relax.set(0)
+
+	pm.keyTangent(rt_pinky_driven_allRelax, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+
+	'''
+	Thumb Curl
+	'''
+	rt_thumb_drivenAttr_curl = [rt_thumb_fkOri_joint_1 + '.ry', rt_thumb_fkOri_joint_2 + '.ry', rt_thumb_fkOri_joint_3 + '.ry']
+	rt_thumb_driven_curl = [rt_thumb_fkOri_joint_1, rt_thumb_fkOri_joint_2, rt_thumb_fkOri_joint_3]
+	rt_thumb_driver_curl = (rt_parent_icon + '.curl')
+	pm.setDrivenKeyframe(rt_thumb_drivenAttr_curl, currentDriver=rt_thumb_driver_curl)
+	rt_parent_icon.curl.set(10)
+	rt_thumb_fkOri_joint_1.ry.set(-25)
+	rt_thumb_fkOri_joint_2.ry.set(-30)
+	rt_thumb_fkOri_joint_3.ry.set(-32)
+	pm.setDrivenKeyframe(rt_thumb_drivenAttr_curl, currentDriver=rt_thumb_driver_curl)
+	rt_parent_icon.curl.set(-10)
+	rt_thumb_fkOri_joint_1.ry.set(40)
+	rt_thumb_fkOri_joint_2.ry.set(30)
+	rt_thumb_fkOri_joint_3.ry.set(32)
+	pm.setDrivenKeyframe(rt_thumb_drivenAttr_curl, currentDriver=rt_thumb_driver_curl)
+	rt_parent_icon.curl.set(0)
+
+	pm.keyTangent(rt_thumb_driven_curl, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+
+	'''
+	Thumb Drop
+	'''
+	rt_thumb_drivenAttr_drop = [rt_thumb_fkOri_pivot + '.rx']
+	rt_thumb_driven_drop = [rt_thumb_fkOri_pivot]
+	rt_thumb_driver_drop = (rt_parent_icon + '.drop')
+	pm.setDrivenKeyframe(rt_thumb_drivenAttr_drop, currentDriver=rt_thumb_driver_drop)
+	rt_parent_icon.drop.set(10)
+	rt_thumb_fkOri_pivot.rx.set(-64)
+	pm.setDrivenKeyframe(rt_thumb_drivenAttr_drop, currentDriver=rt_thumb_driver_drop)
+	rt_parent_icon.drop.set(0)
+
+	pm.keyTangent(rt_thumb_driven_drop, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+
+	'''
+	Thumb Relax
+	'''
+	rt_thumb_drivenAttr_relax = [rt_thumb_fkOri_joint_1 + '.ry', rt_thumb_fkOri_joint_2 + '.ry', rt_thumb_fkOri_joint_3 + '.ry', rt_thumb_fkOri_joint_1 + '.rz', rt_thumb_fkOri_joint_2 + '.rz', rt_thumb_fkOri_joint_3 + '.rz']
+	rt_thumb_driven_relax = [rt_thumb_fkOri_joint_1, rt_thumb_fkOri_joint_2, rt_thumb_fkOri_joint_3]
+	rt_thumb_driver_relax = (rt_parent_icon + '.rt_thumbRelax')
+	pm.setDrivenKeyframe(rt_thumb_drivenAttr_relax, currentDriver=rt_thumb_driver_relax)
+	rt_parent_icon.rt_thumbRelax.set(10)
+	rt_thumb_fkOri_joint_1.ry.set(-9)
+	rt_thumb_fkOri_joint_2.ry.set(-6)
+	rt_thumb_fkOri_joint_3.ry.set(-12)
+	rt_thumb_fkOri_joint_1.rz.set(4)
+	rt_thumb_fkOri_joint_2.rz.set(7)
+	rt_thumb_fkOri_joint_3.rz.set(12)
+	pm.setDrivenKeyframe(rt_thumb_drivenAttr_relax, currentDriver=rt_thumb_driver_relax)
+	rt_parent_icon.rt_thumbRelax.set(0)
+
+	pm.keyTangent(rt_thumb_driven_relax, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+
+	'''
+	Thumb Spread
+	'''
+	rt_thumb_drivenAttr_spread = [rt_thumb_fkOri_joint_1 + '.ry']
+	rt_thumb_driven_spread = [rt_thumb_fkOri_joint_1]
+	rt_thumb_driver_spread = (rt_parent_icon + '.rt_thumbSpread')
+	pm.setDrivenKeyframe(rt_thumb_drivenAttr_spread, currentDriver=rt_thumb_driver_spread)
+	rt_parent_icon.rt_thumbSpread.set(10)
+	rt_thumb_fkOri_joint_1.ry.set(-45)
+	pm.setDrivenKeyframe(rt_thumb_drivenAttr_spread, currentDriver=rt_thumb_driver_spread)
+	rt_parent_icon.rt_thumbSpread.set(-10)
+	rt_thumb_fkOri_joint_1.ry.set(40)
+	pm.setDrivenKeyframe(rt_thumb_drivenAttr_spread, currentDriver=rt_thumb_driver_spread)
+	rt_parent_icon.rt_thumbSpread.set(0)
+
+	pm.keyTangent(rt_thumb_driven_spread, 'graphEditor1FromOutliner', ott='auto', itt='auto', animation='objects', e=1)
+
+def fingerSystem(*args):
+	ori_option = pm.radioButtonGrp('finger_orientationOption', q=1, sl=1)
+	print 'Ori Option Selected:', ori_option
+	selectionType = pm.radioButtonGrp('fingerSelection_option', q=1, sl=1)
+	print 'Finger Selection Value:', selectionType
+
+	if ori_option == 1:
+		pass 
+		if selectionType == 1:
+			lt_twoFingerSelection()
+	if ori_option == 2:
+		pass
+		if selectionType == 1:
+			rt_twoFingerSelection()
+	if ori_option == 3:
+		pass
+		if selectionType == 1:
+			lt_twoFingerSelection()
+			rt_twoFingerSelection()
+
+	if ori_option == 1:
+		pass 
+		if selectionType == 2:
+			lt_threeFingerSelection()
+	if ori_option == 2:
+		pass
+		if selectionType == 2:
+			rt_threeFingerSelection()
+	if ori_option == 3:
+		pass
+		if selectionType == 2:
+			lt_threeFingerSelection()
+			rt_threeFingerSelection()
+
+	if ori_option == 1:
+		pass 
+		if selectionType == 3:
+			lt_fiveFingerSelection()
+	if ori_option == 2:
+		pass
+		if selectionType == 3:
+			rt_fiveFingerSelection()
+	if ori_option == 3:
+		pass
+		if selectionType == 3:
+			lt_fiveFingerSelection()
+			rt_fiveFingerSelection()
 
 def backSetup(*args):
 	global back_root, back_joint_2, back_joint_3, back_joint_4, back_joint_5, back_joint_6, back_joint_7
@@ -9042,10 +16801,10 @@ def lt_legSetup(*args):
 	pm.select(ik_joints)
 	ik_joints = pm.ls(sl=1, dag=1)
 	lt_ik_root = ik_joints[0]
-	lt_ik_joint_2 = ik_joints[1]
-	lt_ik_joint_3 = ik_joints[2]
-	lt_ik_joint_4 = ik_joints[3]
-	lt_ik_joint_5 = ik_joints[4]
+	lt_arm_ik_joint_2 = ik_joints[1]
+	lt_arm_ik_joint_3 = ik_joints[2]
+	lt_arm_ik_joint_4 = ik_joints[3]
+	lt_arm_ik_joint_5 = ik_joints[4]
 
 	ori = 'lt'
 	system_name = 'leg'
@@ -9058,10 +16817,10 @@ def lt_legSetup(*args):
 
 
 	# print 'IK Root:', lt_ik_root
-	# print 'IK Joint 2:', lt_ik_joint_2
-	# print 'IK Joint 3:', lt_ik_joint_3
-	# print 'IK Joint 4:', lt_ik_joint_4
-	# print 'IK Joint 5:', lt_ik_joint_5
+	# print 'IK Joint 2:', lt_arm_ik_joint_2
+	# print 'IK Joint 3:', lt_arm_ik_joint_3
+	# print 'IK Joint 4:', lt_arm_ik_joint_4
+	# print 'IK Joint 5:', lt_arm_ik_joint_5
 		
 	'''
 	Make fk joints
@@ -9110,13 +16869,13 @@ def lt_legSetup(*args):
 	pm.connectAttr(lt_ik_root + '.rotate', ikfk_blend_1 + '.color2')
 	pm.connectAttr(lt_fk_root + '.rotate', ikfk_blend_1 + '.color1')
 
-	pm.connectAttr(lt_ik_joint_2 + '.rotate', ikfk_blend_2 + '.color2')
+	pm.connectAttr(lt_arm_ik_joint_2 + '.rotate', ikfk_blend_2 + '.color2')
 	pm.connectAttr(lt_fk_joint_2 + '.rotate', ikfk_blend_2 + '.color1')
 
-	pm.connectAttr(lt_ik_joint_3 + '.rotate', ikfk_blend_3 + '.color2')
+	pm.connectAttr(lt_arm_ik_joint_3 + '.rotate', ikfk_blend_3 + '.color2')
 	pm.connectAttr(lt_fk_joint_3 + '.rotate', ikfk_blend_3 + '.color1')
 
-	pm.connectAttr(lt_ik_joint_4 + '.rotate', ikfk_blend_4 + '.color2')
+	pm.connectAttr(lt_arm_ik_joint_4 + '.rotate', ikfk_blend_4 + '.color2')
 	pm.connectAttr(lt_fk_joint_4 + '.rotate', ikfk_blend_4 + '.color1')
 
 
@@ -9217,13 +16976,13 @@ def lt_legSetup(*args):
 	pm.connectAttr(lt_ik_root + '.translate', ikfk_blend_5 + '.color2')
 	pm.connectAttr(lt_fk_root + '.translate', ikfk_blend_5 + '.color1')
 
-	pm.connectAttr(lt_ik_joint_2 + '.translate', ikfk_blend_6 + '.color2')
+	pm.connectAttr(lt_arm_ik_joint_2 + '.translate', ikfk_blend_6 + '.color2')
 	pm.connectAttr(lt_fk_joint_2 + '.translate', ikfk_blend_6 + '.color1')
 
-	pm.connectAttr(lt_ik_joint_3 + '.translate', ikfk_blend_7 + '.color2')
+	pm.connectAttr(lt_arm_ik_joint_3 + '.translate', ikfk_blend_7 + '.color2')
 	pm.connectAttr(lt_fk_joint_3 + '.translate', ikfk_blend_7 + '.color1')
 
-	pm.connectAttr(lt_ik_joint_4 + '.translate', ikfk_blend_8 + '.color2')
+	pm.connectAttr(lt_arm_ik_joint_4 + '.translate', ikfk_blend_8 + '.color2')
 	pm.connectAttr(lt_fk_joint_4 + '.translate', ikfk_blend_8 + '.color1')
 
 	pm.connectAttr(lt_switch + '.IkFk', ikfk_blend_5 + '.blender')
@@ -9341,9 +17100,9 @@ def lt_legSetup(*args):
 	'''
 	Create the ik handles 
 	'''
-	lt_leg_ikh = pm.ikHandle(sj=lt_ik_root, ee=lt_ik_joint_3)[0]
-	lt_ankle_ikh = pm.ikHandle(sj=lt_ik_joint_3, ee=lt_ik_joint_4)[0]
-	lt_toe_ikh = pm.ikHandle(sj=lt_ik_joint_4, ee=lt_ik_joint_5)[0]
+	lt_leg_ikh = pm.ikHandle(sj=lt_ik_root, ee=lt_arm_ik_joint_3)[0]
+	lt_ankle_ikh = pm.ikHandle(sj=lt_arm_ik_joint_3, ee=lt_arm_ik_joint_4)[0]
+	lt_toe_ikh = pm.ikHandle(sj=lt_arm_ik_joint_4, ee=lt_arm_ik_joint_5)[0]
 
 	ikh_name = lt_leg_root.replace('01_bind', 'ikh')
 	lt_leg_ikh.rename(ikh_name)
@@ -9376,7 +17135,7 @@ def lt_legSetup(*args):
 	'''
 	Move the foot icon
 	'''
-	temp_constraint = pm.pointConstraint(lt_ik_joint_3, lt_foot_icon)
+	temp_constraint = pm.pointConstraint(lt_arm_ik_joint_3, lt_foot_icon)
 	pm.delete(temp_constraint)
 	lt_foot_icon.ty.set(0)
 	lt_foot_icon.tz.set(6)
@@ -9463,26 +17222,26 @@ def lt_legSetup(*args):
 
 	pm.parent(lt_loc_2, lt_foot_icon)
 
-	rootLength = pm.getAttr(lt_ik_joint_2 + '.translateX')
-	joint2Length = pm.getAttr(lt_ik_joint_3  + '.translateX')
+	rootLength = pm.getAttr(lt_arm_ik_joint_2 + '.translateX')
+	joint2Length = pm.getAttr(lt_arm_ik_joint_3  + '.translateX')
 	sumLength = (rootLength + joint2Length)
 	# print sumLength
 
-	pm.setDrivenKeyframe(lt_ik_joint_2+ '.translateX', dv=sumLength, currentDriver=lt_leg_dist + '.distance', at='.translateX', value=rootLength)
+	pm.setDrivenKeyframe(lt_arm_ik_joint_2+ '.translateX', dv=sumLength, currentDriver=lt_leg_dist + '.distance', at='.translateX', value=rootLength)
 
-	pm.setDrivenKeyframe(lt_ik_joint_2+ '.translateX', dv=(sumLength*2), currentDriver=lt_leg_dist + '.distance', at='.translateX', value=(rootLength*2))
+	pm.setDrivenKeyframe(lt_arm_ik_joint_2+ '.translateX', dv=(sumLength*2), currentDriver=lt_leg_dist + '.distance', at='.translateX', value=(rootLength*2))
 
 
-	pm.setDrivenKeyframe(lt_ik_joint_3+ '.translateX', dv=sumLength, currentDriver=lt_leg_dist + '.distance', at='.translateX', value=joint2Length)
+	pm.setDrivenKeyframe(lt_arm_ik_joint_3+ '.translateX', dv=sumLength, currentDriver=lt_leg_dist + '.distance', at='.translateX', value=joint2Length)
 
-	pm.setDrivenKeyframe(lt_ik_joint_3+ '.translateX', dv=(sumLength*2), currentDriver=lt_leg_dist + '.distance', at='.translateX', value=(joint2Length*2))
+	pm.setDrivenKeyframe(lt_arm_ik_joint_3+ '.translateX', dv=(sumLength*2), currentDriver=lt_leg_dist + '.distance', at='.translateX', value=(joint2Length*2))
 
-	pm.keyTangent(lt_ik_joint_2, 'graphEditor1FromOutliner', itt='spline', animation='objects', ott='spline')
-	pm.selectKey(lt_ik_joint_2 + '_translateX', add=1, k=1, f=(1, 82.555611))
+	pm.keyTangent(lt_arm_ik_joint_2, 'graphEditor1FromOutliner', itt='spline', animation='objects', ott='spline')
+	pm.selectKey(lt_arm_ik_joint_2 + '_translateX', add=1, k=1, f=(1, 82.555611))
 	pm.setInfinity(poi='linear')
 
-	pm.keyTangent(lt_ik_joint_3, 'graphEditor1FromOutliner', itt='spline', animation='objects', ott='spline')
-	pm.selectKey(lt_ik_joint_3 + '_translateX', add=1, k=1, f=(1, 82.555611))
+	pm.keyTangent(lt_arm_ik_joint_3, 'graphEditor1FromOutliner', itt='spline', animation='objects', ott='spline')
+	pm.selectKey(lt_arm_ik_joint_3 + '_translateX', add=1, k=1, f=(1, 82.555611))
 	pm.setInfinity(poi='linear')
 
 	pm.select(lt_leg_ikh, lt_ankle_ikh, lt_toe_ikh, lt_loc_1, lt_loc_2, lt_leg_dist)
@@ -9552,14 +17311,14 @@ def lt_legSetup(*args):
 
 	
 	lt_noFlip_loc = pm.spaceLocator(p=(0, 0, 0))
-	temp_constraint = pm.pointConstraint(lt_ik_joint_3, lt_noFlip_loc, mo=0)
+	temp_constraint = pm.pointConstraint(lt_arm_ik_joint_3, lt_noFlip_loc, mo=0)
 	pm.delete(temp_constraint)
 	lt_noFlip_loc.tx.set(10)
 	'''
 	Create the no flip local
 	'''
 	lt_noFlip_local = pm.group(empty=1)
-	temp_constraint = pm.pointConstraint(lt_ik_joint_3, lt_noFlip_local, mo=0)
+	temp_constraint = pm.pointConstraint(lt_arm_ik_joint_3, lt_noFlip_local, mo=0)
 	pm.delete(temp_constraint)
 	freezeTransform()
 
@@ -9632,19 +17391,19 @@ def lt_legSetup(*args):
 	node_name = lt_knee_icon.replace('icon', 'snapBlend')
 	lt_kneeSnapBlend.rename(node_name)
 
-	pm.disconnectAttr(lt_ik_joint_2 +'_translateX.output', lt_ik_joint_2 + '.translateX')
+	pm.disconnectAttr(lt_arm_ik_joint_2 +'_translateX.output', lt_arm_ik_joint_2 + '.translateX')
 
-	pm.disconnectAttr(lt_ik_joint_3 +'_translateX.output', lt_ik_joint_3 + '.translateX')
+	pm.disconnectAttr(lt_arm_ik_joint_3 +'_translateX.output', lt_arm_ik_joint_3 + '.translateX')
 
 	pm.connectAttr(lt_knee_dist_1 + '.distance', lt_kneeSnapBlend + '.color1R')
 	pm.connectAttr(lt_knee_dist_2 + '.distance', lt_kneeSnapBlend + '.color1G')
 
-	pm.connectAttr(lt_ik_joint_2 +'_translateX.output', lt_kneeSnapBlend + '.color2R')
-	pm.connectAttr(lt_ik_joint_3 +'_translateX.output', lt_kneeSnapBlend + '.color2G')
+	pm.connectAttr(lt_arm_ik_joint_2 +'_translateX.output', lt_kneeSnapBlend + '.color2R')
+	pm.connectAttr(lt_arm_ik_joint_3 +'_translateX.output', lt_kneeSnapBlend + '.color2G')
 
 
-	pm.connectAttr(lt_kneeSnapBlend + '.outputR', lt_ik_joint_2 + '.translateX')
-	pm.connectAttr(lt_kneeSnapBlend + '.outputG', lt_ik_joint_3 + '.translateX')
+	pm.connectAttr(lt_kneeSnapBlend + '.outputR', lt_arm_ik_joint_2 + '.translateX')
+	pm.connectAttr(lt_kneeSnapBlend + '.outputG', lt_arm_ik_joint_3 + '.translateX')
 
 	pm.connectAttr(lt_foot_icon + '.kneeSnap', lt_kneeSnapBlend + '.blender')
 
@@ -9690,10 +17449,10 @@ def lt_legSetup(*args):
 	stretchBlend = pm.shadingNode('blendColors', asUtility=1)
 	pm.connectAttr(lt_leg_dist + '.distance', stretchBlend + '.color1R', f=1)
 	stretchBlend.color2R.set(1)
-	pm.disconnectAttr(lt_leg_dist  +'.distance', lt_ik_joint_2  + '_translateX.input')
-	pm.connectAttr(stretchBlend + '.outputR', lt_ik_joint_2 + '_translateX.input', f=1)
-	pm.disconnectAttr(lt_leg_dist  +'.distance', lt_ik_joint_3 + '_translateX.input')
-	pm.connectAttr(stretchBlend  + '.outputR', lt_ik_joint_3 + '_translateX.input', f=1)
+	pm.disconnectAttr(lt_leg_dist  +'.distance', lt_arm_ik_joint_2  + '_translateX.input')
+	pm.connectAttr(stretchBlend + '.outputR', lt_arm_ik_joint_2 + '_translateX.input', f=1)
+	pm.disconnectAttr(lt_leg_dist  +'.distance', lt_arm_ik_joint_3 + '_translateX.input')
+	pm.connectAttr(stretchBlend  + '.outputR', lt_arm_ik_joint_3 + '_translateX.input', f=1)
 	pm.connectAttr(lt_foot_icon + '.stretch', stretchBlend + '.blender', f=1)
 	lt_foot_icon.stretch.set(1)
 
@@ -9732,10 +17491,10 @@ def lt_ikLegSetup(*args):
 	pm.select(ik_joints)
 	ik_joints = pm.ls(sl=1, dag=1)
 	lt_ik_root = ik_joints[0]
-	lt_ik_joint_2 = ik_joints[1]
-	lt_ik_joint_3 = ik_joints[2]
-	lt_ik_joint_4 = ik_joints[3]
-	lt_ik_joint_5 = ik_joints[4]
+	lt_arm_ik_joint_2 = ik_joints[1]
+	lt_arm_ik_joint_3 = ik_joints[2]
+	lt_arm_ik_joint_4 = ik_joints[3]
+	lt_arm_ik_joint_5 = ik_joints[4]
 
 	ori = 'lt'
 	system_name = 'leg'
@@ -9747,10 +17506,10 @@ def lt_ikLegSetup(*args):
 		each.rename(new_name)
 
 	# print 'IK Root:', lt_ik_root
-	# print 'IK Joint 2:', lt_ik_joint_2
-	# print 'IK Joint 3:', lt_ik_joint_3
-	# print 'IK Joint 4:', lt_ik_joint_4
-	# print 'IK Joint 5:', lt_ik_joint_5
+	# print 'IK Joint 2:', lt_arm_ik_joint_2
+	# print 'IK Joint 3:', lt_arm_ik_joint_3
+	# print 'IK Joint 4:', lt_arm_ik_joint_4
+	# print 'IK Joint 5:', lt_arm_ik_joint_5
 
 	ikfk_blend_1 = pm.shadingNode('blendColors', asUtility=1)
 	ikfk_blend_2 = pm.shadingNode('blendColors', asUtility=1)
@@ -9769,9 +17528,9 @@ def lt_ikLegSetup(*args):
 		each.blender.set(1)
 
 	pm.connectAttr(lt_ik_root + '.rotate', ikfk_blend_1 + '.color1')
-	pm.connectAttr(lt_ik_joint_2 + '.rotate', ikfk_blend_2 + '.color1')
-	pm.connectAttr(lt_ik_joint_3 + '.rotate', ikfk_blend_3 + '.color1')
-	pm.connectAttr(lt_ik_joint_4 + '.rotate', ikfk_blend_4 + '.color1')
+	pm.connectAttr(lt_arm_ik_joint_2 + '.rotate', ikfk_blend_2 + '.color1')
+	pm.connectAttr(lt_arm_ik_joint_3 + '.rotate', ikfk_blend_3 + '.color1')
+	pm.connectAttr(lt_arm_ik_joint_4 + '.rotate', ikfk_blend_4 + '.color1')
 
 	'''
 	Connect the output to the bind
@@ -9800,9 +17559,9 @@ def lt_ikLegSetup(*args):
 		each.blender.set(1)
 
 	pm.connectAttr(lt_ik_root + '.translate', ikfk_blend_5 + '.color1')
-	pm.connectAttr(lt_ik_joint_2 + '.translate', ikfk_blend_6 + '.color1')
-	pm.connectAttr(lt_ik_joint_3 + '.translate', ikfk_blend_7 + '.color1')
-	pm.connectAttr(lt_ik_joint_4 + '.translate', ikfk_blend_8 + '.color1')
+	pm.connectAttr(lt_arm_ik_joint_2 + '.translate', ikfk_blend_6 + '.color1')
+	pm.connectAttr(lt_arm_ik_joint_3 + '.translate', ikfk_blend_7 + '.color1')
+	pm.connectAttr(lt_arm_ik_joint_4 + '.translate', ikfk_blend_8 + '.color1')
 
 
 	pm.connectAttr(ikfk_blend_5 + '.output', lt_leg_root + '.translate')
@@ -9815,9 +17574,9 @@ def lt_ikLegSetup(*args):
 	'''
 	Create the ik handles 
 	'''
-	lt_leg_ikh = pm.ikHandle(sj=lt_ik_root, ee=lt_ik_joint_3)[0]
-	lt_ankle_ikh = pm.ikHandle(sj=lt_ik_joint_3, ee=lt_ik_joint_4)[0]
-	lt_toe_ikh = pm.ikHandle(sj=lt_ik_joint_4, ee=lt_ik_joint_5)[0]
+	lt_leg_ikh = pm.ikHandle(sj=lt_ik_root, ee=lt_arm_ik_joint_3)[0]
+	lt_ankle_ikh = pm.ikHandle(sj=lt_arm_ik_joint_3, ee=lt_arm_ik_joint_4)[0]
+	lt_toe_ikh = pm.ikHandle(sj=lt_arm_ik_joint_4, ee=lt_arm_ik_joint_5)[0]
 
 	ikh_name = lt_leg_root.replace('01_bind', 'ikh')
 	lt_leg_ikh.rename(ikh_name)
@@ -9850,7 +17609,7 @@ def lt_ikLegSetup(*args):
 	'''
 	Move the foot icon
 	'''
-	temp_constraint = pm.pointConstraint(lt_ik_joint_3, lt_foot_icon)
+	temp_constraint = pm.pointConstraint(lt_arm_ik_joint_3, lt_foot_icon)
 	pm.delete(temp_constraint)
 	lt_foot_icon.ty.set(0)
 	lt_foot_icon.tz.set(6)
@@ -9937,26 +17696,26 @@ def lt_ikLegSetup(*args):
 
 	pm.parent(lt_loc_2, lt_foot_icon)
 
-	rootLength = pm.getAttr(lt_ik_joint_2 + '.translateX')
-	joint2Length = pm.getAttr(lt_ik_joint_3  + '.translateX')
+	rootLength = pm.getAttr(lt_arm_ik_joint_2 + '.translateX')
+	joint2Length = pm.getAttr(lt_arm_ik_joint_3  + '.translateX')
 	sumLength = (rootLength + joint2Length)
 	# print sumLength
 
-	pm.setDrivenKeyframe(lt_ik_joint_2+ '.translateX', dv=sumLength, currentDriver=lt_leg_dist + '.distance', at='.translateX', value=rootLength)
+	pm.setDrivenKeyframe(lt_arm_ik_joint_2+ '.translateX', dv=sumLength, currentDriver=lt_leg_dist + '.distance', at='.translateX', value=rootLength)
 
-	pm.setDrivenKeyframe(lt_ik_joint_2+ '.translateX', dv=(sumLength*2), currentDriver=lt_leg_dist + '.distance', at='.translateX', value=(rootLength*2))
+	pm.setDrivenKeyframe(lt_arm_ik_joint_2+ '.translateX', dv=(sumLength*2), currentDriver=lt_leg_dist + '.distance', at='.translateX', value=(rootLength*2))
 
 
-	pm.setDrivenKeyframe(lt_ik_joint_3+ '.translateX', dv=sumLength, currentDriver=lt_leg_dist + '.distance', at='.translateX', value=joint2Length)
+	pm.setDrivenKeyframe(lt_arm_ik_joint_3+ '.translateX', dv=sumLength, currentDriver=lt_leg_dist + '.distance', at='.translateX', value=joint2Length)
 
-	pm.setDrivenKeyframe(lt_ik_joint_3+ '.translateX', dv=(sumLength*2), currentDriver=lt_leg_dist + '.distance', at='.translateX', value=(joint2Length*2))
+	pm.setDrivenKeyframe(lt_arm_ik_joint_3+ '.translateX', dv=(sumLength*2), currentDriver=lt_leg_dist + '.distance', at='.translateX', value=(joint2Length*2))
 
-	pm.keyTangent(lt_ik_joint_2, 'graphEditor1FromOutliner', itt='spline', animation='objects', ott='spline')
-	pm.selectKey(lt_ik_joint_2 + '_translateX', add=1, k=1, f=(1, 82.555611))
+	pm.keyTangent(lt_arm_ik_joint_2, 'graphEditor1FromOutliner', itt='spline', animation='objects', ott='spline')
+	pm.selectKey(lt_arm_ik_joint_2 + '_translateX', add=1, k=1, f=(1, 82.555611))
 	pm.setInfinity(poi='linear')
 
-	pm.keyTangent(lt_ik_joint_3, 'graphEditor1FromOutliner', itt='spline', animation='objects', ott='spline')
-	pm.selectKey(lt_ik_joint_3 + '_translateX', add=1, k=1, f=(1, 82.555611))
+	pm.keyTangent(lt_arm_ik_joint_3, 'graphEditor1FromOutliner', itt='spline', animation='objects', ott='spline')
+	pm.selectKey(lt_arm_ik_joint_3 + '_translateX', add=1, k=1, f=(1, 82.555611))
 	pm.setInfinity(poi='linear')
 
 	pm.select(lt_leg_ikh, lt_ankle_ikh, lt_toe_ikh, lt_loc_1, lt_loc_2, lt_leg_dist)
@@ -10026,14 +17785,14 @@ def lt_ikLegSetup(*args):
 
 	
 	lt_noFlip_loc = pm.spaceLocator(p=(0, 0, 0))
-	temp_constraint = pm.pointConstraint(lt_ik_joint_3, lt_noFlip_loc, mo=0)
+	temp_constraint = pm.pointConstraint(lt_arm_ik_joint_3, lt_noFlip_loc, mo=0)
 	pm.delete(temp_constraint)
 	lt_noFlip_loc.tx.set(10)
 	'''
 	Create the no flip local
 	'''
 	lt_noFlip_local = pm.group(empty=1)
-	temp_constraint = pm.pointConstraint(lt_ik_joint_3, lt_noFlip_local, mo=0)
+	temp_constraint = pm.pointConstraint(lt_arm_ik_joint_3, lt_noFlip_local, mo=0)
 	pm.delete(temp_constraint)
 	freezeTransform()
 
@@ -10104,19 +17863,19 @@ def lt_ikLegSetup(*args):
 	node_name = lt_knee_icon.replace('icon', 'snapBlend')
 	lt_kneeSnapBlend.rename(node_name)
 
-	pm.disconnectAttr(lt_ik_joint_2 +'_translateX.output', lt_ik_joint_2 + '.translateX')
+	pm.disconnectAttr(lt_arm_ik_joint_2 +'_translateX.output', lt_arm_ik_joint_2 + '.translateX')
 
-	pm.disconnectAttr(lt_ik_joint_3 +'_translateX.output', lt_ik_joint_3 + '.translateX')
+	pm.disconnectAttr(lt_arm_ik_joint_3 +'_translateX.output', lt_arm_ik_joint_3 + '.translateX')
 
 	pm.connectAttr(lt_knee_dist_1 + '.distance', lt_kneeSnapBlend + '.color1R')
 	pm.connectAttr(lt_knee_dist_2 + '.distance', lt_kneeSnapBlend + '.color1G')
 
-	pm.connectAttr(lt_ik_joint_2 +'_translateX.output', lt_kneeSnapBlend + '.color2R')
-	pm.connectAttr(lt_ik_joint_3 +'_translateX.output', lt_kneeSnapBlend + '.color2G')
+	pm.connectAttr(lt_arm_ik_joint_2 +'_translateX.output', lt_kneeSnapBlend + '.color2R')
+	pm.connectAttr(lt_arm_ik_joint_3 +'_translateX.output', lt_kneeSnapBlend + '.color2G')
 
 
-	pm.connectAttr(lt_kneeSnapBlend + '.outputR', lt_ik_joint_2 + '.translateX')
-	pm.connectAttr(lt_kneeSnapBlend + '.outputG', lt_ik_joint_3 + '.translateX')
+	pm.connectAttr(lt_kneeSnapBlend + '.outputR', lt_arm_ik_joint_2 + '.translateX')
+	pm.connectAttr(lt_kneeSnapBlend + '.outputG', lt_arm_ik_joint_3 + '.translateX')
 
 	pm.connectAttr(lt_foot_icon + '.kneeSnap', lt_kneeSnapBlend + '.blender')
 
@@ -10140,10 +17899,10 @@ def lt_ikLegSetup(*args):
 	stretchBlend = pm.shadingNode('blendColors', asUtility=1)
 	pm.connectAttr(lt_leg_dist + '.distance', stretchBlend + '.color1R', f=1)
 	stretchBlend.color2R.set(1)
-	pm.disconnectAttr(lt_leg_dist  +'.distance', lt_ik_joint_2  + '_translateX.input')
-	pm.connectAttr(stretchBlend + '.outputR', lt_ik_joint_2 + '_translateX.input', f=1)
-	pm.disconnectAttr(lt_leg_dist  +'.distance', lt_ik_joint_3 + '_translateX.input')
-	pm.connectAttr(stretchBlend  + '.outputR', lt_ik_joint_3 + '_translateX.input', f=1)
+	pm.disconnectAttr(lt_leg_dist  +'.distance', lt_arm_ik_joint_2  + '_translateX.input')
+	pm.connectAttr(stretchBlend + '.outputR', lt_arm_ik_joint_2 + '_translateX.input', f=1)
+	pm.disconnectAttr(lt_leg_dist  +'.distance', lt_arm_ik_joint_3 + '_translateX.input')
+	pm.connectAttr(stretchBlend  + '.outputR', lt_arm_ik_joint_3 + '_translateX.input', f=1)
 	pm.connectAttr(lt_foot_icon + '.stretch', stretchBlend + '.blender', f=1)
 	lt_foot_icon.stretch.set(1)
 
@@ -10380,10 +18139,10 @@ def rt_legSetup(*args):
 	pm.select(ik_joints)
 	ik_joints = pm.ls(sl=1, dag=1)
 	rt_ik_root = ik_joints[0]
-	rt_ik_joint_2 = ik_joints[1]
-	rt_ik_joint_3 = ik_joints[2]
-	rt_ik_joint_4 = ik_joints[3]
-	rt_ik_joint_5 = ik_joints[4]
+	rt_lt_arm_ik_joint_2 = ik_joints[1]
+	rt_lt_arm_ik_joint_3 = ik_joints[2]
+	rt_lt_arm_ik_joint_4 = ik_joints[3]
+	rt_lt_arm_ik_joint_5 = ik_joints[4]
 
 	ori = 'rt'
 	system_name = 'leg'
@@ -10396,10 +18155,10 @@ def rt_legSetup(*args):
 
 
 	# print 'IK Root:', rt_ik_root
-	# print 'IK Joint 2:', rt_ik_joint_2
-	# print 'IK Joint 3:', rt_ik_joint_3
-	# print 'IK Joint 4:', rt_ik_joint_4
-	# print 'IK Joint 5:', rt_ik_joint_5
+	# print 'IK Joint 2:', rt_lt_arm_ik_joint_2
+	# print 'IK Joint 3:', rt_lt_arm_ik_joint_3
+	# print 'IK Joint 4:', rt_lt_arm_ik_joint_4
+	# print 'IK Joint 5:', rt_lt_arm_ik_joint_5
 		
 	'''
 	Make fk joints
@@ -10448,13 +18207,13 @@ def rt_legSetup(*args):
 	pm.connectAttr(rt_ik_root + '.rotate', ikfk_blend_1 + '.color2')
 	pm.connectAttr(rt_fk_root + '.rotate', ikfk_blend_1 + '.color1')
 
-	pm.connectAttr(rt_ik_joint_2 + '.rotate', ikfk_blend_2 + '.color2')
+	pm.connectAttr(rt_lt_arm_ik_joint_2 + '.rotate', ikfk_blend_2 + '.color2')
 	pm.connectAttr(rt_fk_joint_2 + '.rotate', ikfk_blend_2 + '.color1')
 
-	pm.connectAttr(rt_ik_joint_3 + '.rotate', ikfk_blend_3 + '.color2')
+	pm.connectAttr(rt_lt_arm_ik_joint_3 + '.rotate', ikfk_blend_3 + '.color2')
 	pm.connectAttr(rt_fk_joint_3 + '.rotate', ikfk_blend_3 + '.color1')
 
-	pm.connectAttr(rt_ik_joint_4 + '.rotate', ikfk_blend_4 + '.color2')
+	pm.connectAttr(rt_lt_arm_ik_joint_4 + '.rotate', ikfk_blend_4 + '.color2')
 	pm.connectAttr(rt_fk_joint_4 + '.rotate', ikfk_blend_4 + '.color1')
 
 
@@ -10555,13 +18314,13 @@ def rt_legSetup(*args):
 	pm.connectAttr(rt_ik_root + '.translate', ikfk_blend_5 + '.color2')
 	pm.connectAttr(rt_fk_root + '.translate', ikfk_blend_5 + '.color1')
 
-	pm.connectAttr(rt_ik_joint_2 + '.translate', ikfk_blend_6 + '.color2')
+	pm.connectAttr(rt_lt_arm_ik_joint_2 + '.translate', ikfk_blend_6 + '.color2')
 	pm.connectAttr(rt_fk_joint_2 + '.translate', ikfk_blend_6 + '.color1')
 
-	pm.connectAttr(rt_ik_joint_3 + '.translate', ikfk_blend_7 + '.color2')
+	pm.connectAttr(rt_lt_arm_ik_joint_3 + '.translate', ikfk_blend_7 + '.color2')
 	pm.connectAttr(rt_fk_joint_3 + '.translate', ikfk_blend_7 + '.color1')
 
-	pm.connectAttr(rt_ik_joint_4 + '.translate', ikfk_blend_8 + '.color2')
+	pm.connectAttr(rt_lt_arm_ik_joint_4 + '.translate', ikfk_blend_8 + '.color2')
 	pm.connectAttr(rt_fk_joint_4 + '.translate', ikfk_blend_8 + '.color1')
 
 	pm.connectAttr(rt_switch + '.IkFk', ikfk_blend_5 + '.blender')
@@ -10679,9 +18438,9 @@ def rt_legSetup(*args):
 	'''
 	Create the ik handles 
 	'''
-	rt_leg_ikh = pm.ikHandle(sj=rt_ik_root, ee=rt_ik_joint_3)[0]
-	rt_ankle_ikh = pm.ikHandle(sj=rt_ik_joint_3, ee=rt_ik_joint_4)[0]
-	rt_toe_ikh = pm.ikHandle(sj=rt_ik_joint_4, ee=rt_ik_joint_5)[0]
+	rt_leg_ikh = pm.ikHandle(sj=rt_ik_root, ee=rt_lt_arm_ik_joint_3)[0]
+	rt_ankle_ikh = pm.ikHandle(sj=rt_lt_arm_ik_joint_3, ee=rt_lt_arm_ik_joint_4)[0]
+	rt_toe_ikh = pm.ikHandle(sj=rt_lt_arm_ik_joint_4, ee=rt_lt_arm_ik_joint_5)[0]
 
 	ikh_name = rt_leg_root.replace('01_bind', 'ikh')
 	rt_leg_ikh.rename(ikh_name)
@@ -10714,7 +18473,7 @@ def rt_legSetup(*args):
 	'''
 	Move the foot icon
 	'''
-	temp_constraint = pm.pointConstraint(rt_ik_joint_3, rt_foot_icon)
+	temp_constraint = pm.pointConstraint(rt_lt_arm_ik_joint_3, rt_foot_icon)
 	pm.delete(temp_constraint)
 	rt_foot_icon.ty.set(0)
 	rt_foot_icon.tz.set(6)
@@ -10801,26 +18560,26 @@ def rt_legSetup(*args):
 
 	pm.parent(rt_loc_2, rt_foot_icon)
 
-	rootLength = pm.getAttr(rt_ik_joint_2 + '.translateX')
-	joint2Length = pm.getAttr(rt_ik_joint_3  + '.translateX')
+	rootLength = pm.getAttr(rt_lt_arm_ik_joint_2 + '.translateX')
+	joint2Length = pm.getAttr(rt_lt_arm_ik_joint_3  + '.translateX')
 	sumLength = (rootLength + joint2Length)
 	# print sumLength
 
-	pm.setDrivenKeyframe(rt_ik_joint_2+ '.translateX', dv=sumLength, currentDriver=rt_leg_dist + '.distance', at='.translateX', value=rootLength)
+	pm.setDrivenKeyframe(rt_lt_arm_ik_joint_2+ '.translateX', dv=sumLength, currentDriver=rt_leg_dist + '.distance', at='.translateX', value=rootLength)
 
-	pm.setDrivenKeyframe(rt_ik_joint_2+ '.translateX', dv=(sumLength*2), currentDriver=rt_leg_dist + '.distance', at='.translateX', value=(rootLength*2))
+	pm.setDrivenKeyframe(rt_lt_arm_ik_joint_2+ '.translateX', dv=(sumLength*2), currentDriver=rt_leg_dist + '.distance', at='.translateX', value=(rootLength*2))
 
 
-	pm.setDrivenKeyframe(rt_ik_joint_3+ '.translateX', dv=sumLength, currentDriver=rt_leg_dist + '.distance', at='.translateX', value=joint2Length)
+	pm.setDrivenKeyframe(rt_lt_arm_ik_joint_3+ '.translateX', dv=sumLength, currentDriver=rt_leg_dist + '.distance', at='.translateX', value=joint2Length)
 
-	pm.setDrivenKeyframe(rt_ik_joint_3+ '.translateX', dv=(sumLength*2), currentDriver=rt_leg_dist + '.distance', at='.translateX', value=(joint2Length*2))
+	pm.setDrivenKeyframe(rt_lt_arm_ik_joint_3+ '.translateX', dv=(sumLength*2), currentDriver=rt_leg_dist + '.distance', at='.translateX', value=(joint2Length*2))
 
-	pm.keyTangent(rt_ik_joint_2, 'graphEditor1FromOutliner', itt='spline', animation='objects', ott='spline')
-	pm.selectKey(rt_ik_joint_2 + '_translateX', add=1, k=1, f=(1, 82.555611))
+	pm.keyTangent(rt_lt_arm_ik_joint_2, 'graphEditor1FromOutliner', itt='spline', animation='objects', ott='spline')
+	pm.selectKey(rt_lt_arm_ik_joint_2 + '_translateX', add=1, k=1, f=(1, 82.555611))
 	pm.setInfinity(poi='linear')
 
-	pm.keyTangent(rt_ik_joint_3, 'graphEditor1FromOutliner', itt='spline', animation='objects', ott='spline')
-	pm.selectKey(rt_ik_joint_3 + '_translateX', add=1, k=1, f=(1, 82.555611))
+	pm.keyTangent(rt_lt_arm_ik_joint_3, 'graphEditor1FromOutliner', itt='spline', animation='objects', ott='spline')
+	pm.selectKey(rt_lt_arm_ik_joint_3 + '_translateX', add=1, k=1, f=(1, 82.555611))
 	pm.setInfinity(poi='linear')
 
 	pm.select(rt_leg_ikh, rt_ankle_ikh, rt_toe_ikh, rt_loc_1, rt_loc_2, rt_leg_dist)
@@ -10890,14 +18649,14 @@ def rt_legSetup(*args):
 
 	
 	rt_noFlip_loc = pm.spaceLocator(p=(0, 0, 0))
-	temp_constraint = pm.pointConstraint(rt_ik_joint_3, rt_noFlip_loc, mo=0)
+	temp_constraint = pm.pointConstraint(rt_lt_arm_ik_joint_3, rt_noFlip_loc, mo=0)
 	pm.delete(temp_constraint)
 	rt_noFlip_loc.tx.set(10)
 	'''
 	Create the no flip local
 	'''
 	rt_noFlip_local = pm.group(empty=1)
-	temp_constraint = pm.pointConstraint(rt_ik_joint_3, rt_noFlip_local, mo=0)
+	temp_constraint = pm.pointConstraint(rt_lt_arm_ik_joint_3, rt_noFlip_local, mo=0)
 	pm.delete(temp_constraint)
 	freezeTransform()
 
@@ -10970,19 +18729,19 @@ def rt_legSetup(*args):
 	node_name = rt_knee_icon.replace('icon', 'snapBlend')
 	rt_kneeSnapBlend.rename(node_name)
 
-	pm.disconnectAttr(rt_ik_joint_2 +'_translateX.output', rt_ik_joint_2 + '.translateX')
+	pm.disconnectAttr(rt_lt_arm_ik_joint_2 +'_translateX.output', rt_lt_arm_ik_joint_2 + '.translateX')
 
-	pm.disconnectAttr(rt_ik_joint_3 +'_translateX.output', rt_ik_joint_3 + '.translateX')
+	pm.disconnectAttr(rt_lt_arm_ik_joint_3 +'_translateX.output', rt_lt_arm_ik_joint_3 + '.translateX')
 
 	pm.connectAttr(rt_knee_dist_1 + '.distance', rt_kneeSnapBlend + '.color1R')
 	pm.connectAttr(rt_knee_dist_2 + '.distance', rt_kneeSnapBlend + '.color1G')
 
-	pm.connectAttr(rt_ik_joint_2 +'_translateX.output', rt_kneeSnapBlend + '.color2R')
-	pm.connectAttr(rt_ik_joint_3 +'_translateX.output', rt_kneeSnapBlend + '.color2G')
+	pm.connectAttr(rt_lt_arm_ik_joint_2 +'_translateX.output', rt_kneeSnapBlend + '.color2R')
+	pm.connectAttr(rt_lt_arm_ik_joint_3 +'_translateX.output', rt_kneeSnapBlend + '.color2G')
 
 
-	pm.connectAttr(rt_kneeSnapBlend + '.outputR', rt_ik_joint_2 + '.translateX')
-	pm.connectAttr(rt_kneeSnapBlend + '.outputG', rt_ik_joint_3 + '.translateX')
+	pm.connectAttr(rt_kneeSnapBlend + '.outputR', rt_lt_arm_ik_joint_2 + '.translateX')
+	pm.connectAttr(rt_kneeSnapBlend + '.outputG', rt_lt_arm_ik_joint_3 + '.translateX')
 
 	pm.connectAttr(rt_foot_icon + '.kneeSnap', rt_kneeSnapBlend + '.blender')
 
@@ -11028,10 +18787,10 @@ def rt_legSetup(*args):
 	stretchBlend = pm.shadingNode('blendColors', asUtility=1)
 	pm.connectAttr(rt_leg_dist + '.distance', stretchBlend + '.color1R', f=1)
 	stretchBlend.color2R.set(1)
-	pm.disconnectAttr(rt_leg_dist  +'.distance', rt_ik_joint_2  + '_translateX.input')
-	pm.connectAttr(stretchBlend + '.outputR', rt_ik_joint_2 + '_translateX.input', f=1)
-	pm.disconnectAttr(rt_leg_dist  +'.distance', rt_ik_joint_3 + '_translateX.input')
-	pm.connectAttr(stretchBlend  + '.outputR', rt_ik_joint_3 + '_translateX.input', f=1)
+	pm.disconnectAttr(rt_leg_dist  +'.distance', rt_lt_arm_ik_joint_2  + '_translateX.input')
+	pm.connectAttr(stretchBlend + '.outputR', rt_lt_arm_ik_joint_2 + '_translateX.input', f=1)
+	pm.disconnectAttr(rt_leg_dist  +'.distance', rt_lt_arm_ik_joint_3 + '_translateX.input')
+	pm.connectAttr(stretchBlend  + '.outputR', rt_lt_arm_ik_joint_3 + '_translateX.input', f=1)
 	pm.connectAttr(rt_foot_icon + '.stretch', stretchBlend + '.blender', f=1)
 	rt_foot_icon.stretch.set(1)
 
@@ -11070,10 +18829,10 @@ def rt_ikLegSetup(*args):
 	pm.select(ik_joints)
 	ik_joints = pm.ls(sl=1, dag=1)
 	rt_ik_root = ik_joints[0]
-	rt_ik_joint_2 = ik_joints[1]
-	rt_ik_joint_3 = ik_joints[2]
-	rt_ik_joint_4 = ik_joints[3]
-	rt_ik_joint_5 = ik_joints[4]
+	rt_lt_arm_ik_joint_2 = ik_joints[1]
+	rt_lt_arm_ik_joint_3 = ik_joints[2]
+	rt_lt_arm_ik_joint_4 = ik_joints[3]
+	rt_lt_arm_ik_joint_5 = ik_joints[4]
 
 	ori = 'rt'
 	system_name = 'leg'
@@ -11085,10 +18844,10 @@ def rt_ikLegSetup(*args):
 		each.rename(new_name)
 
 	# print 'IK Root:', rt_ik_root
-	# print 'IK Joint 2:', rt_ik_joint_2
-	# print 'IK Joint 3:', rt_ik_joint_3
-	# print 'IK Joint 4:', rt_ik_joint_4
-	# print 'IK Joint 5:', rt_ik_joint_5
+	# print 'IK Joint 2:', rt_lt_arm_ik_joint_2
+	# print 'IK Joint 3:', rt_lt_arm_ik_joint_3
+	# print 'IK Joint 4:', rt_lt_arm_ik_joint_4
+	# print 'IK Joint 5:', rt_lt_arm_ik_joint_5
 
 	ikfk_blend_1 = pm.shadingNode('blendColors', asUtility=1)
 	ikfk_blend_2 = pm.shadingNode('blendColors', asUtility=1)
@@ -11107,9 +18866,9 @@ def rt_ikLegSetup(*args):
 		each.blender.set(1)
 
 	pm.connectAttr(rt_ik_root + '.rotate', ikfk_blend_1 + '.color1')
-	pm.connectAttr(rt_ik_joint_2 + '.rotate', ikfk_blend_2 + '.color1')
-	pm.connectAttr(rt_ik_joint_3 + '.rotate', ikfk_blend_3 + '.color1')
-	pm.connectAttr(rt_ik_joint_4 + '.rotate', ikfk_blend_4 + '.color1')
+	pm.connectAttr(rt_lt_arm_ik_joint_2 + '.rotate', ikfk_blend_2 + '.color1')
+	pm.connectAttr(rt_lt_arm_ik_joint_3 + '.rotate', ikfk_blend_3 + '.color1')
+	pm.connectAttr(rt_lt_arm_ik_joint_4 + '.rotate', ikfk_blend_4 + '.color1')
 
 	'''
 	Connect the output to the bind
@@ -11138,9 +18897,9 @@ def rt_ikLegSetup(*args):
 		each.blender.set(1)
 
 	pm.connectAttr(rt_ik_root + '.translate', ikfk_blend_5 + '.color1')
-	pm.connectAttr(rt_ik_joint_2 + '.translate', ikfk_blend_6 + '.color1')
-	pm.connectAttr(rt_ik_joint_3 + '.translate', ikfk_blend_7 + '.color1')
-	pm.connectAttr(rt_ik_joint_4 + '.translate', ikfk_blend_8 + '.color1')
+	pm.connectAttr(rt_lt_arm_ik_joint_2 + '.translate', ikfk_blend_6 + '.color1')
+	pm.connectAttr(rt_lt_arm_ik_joint_3 + '.translate', ikfk_blend_7 + '.color1')
+	pm.connectAttr(rt_lt_arm_ik_joint_4 + '.translate', ikfk_blend_8 + '.color1')
 
 
 	pm.connectAttr(ikfk_blend_5 + '.output', rt_leg_root + '.translate')
@@ -11153,9 +18912,9 @@ def rt_ikLegSetup(*args):
 	'''
 	Create the ik handles 
 	'''
-	rt_leg_ikh = pm.ikHandle(sj=rt_ik_root, ee=rt_ik_joint_3)[0]
-	rt_ankle_ikh = pm.ikHandle(sj=rt_ik_joint_3, ee=rt_ik_joint_4)[0]
-	rt_toe_ikh = pm.ikHandle(sj=rt_ik_joint_4, ee=rt_ik_joint_5)[0]
+	rt_leg_ikh = pm.ikHandle(sj=rt_ik_root, ee=rt_lt_arm_ik_joint_3)[0]
+	rt_ankle_ikh = pm.ikHandle(sj=rt_lt_arm_ik_joint_3, ee=rt_lt_arm_ik_joint_4)[0]
+	rt_toe_ikh = pm.ikHandle(sj=rt_lt_arm_ik_joint_4, ee=rt_lt_arm_ik_joint_5)[0]
 
 	ikh_name = rt_leg_root.replace('01_bind', 'ikh')
 	rt_leg_ikh.rename(ikh_name)
@@ -11188,7 +18947,7 @@ def rt_ikLegSetup(*args):
 	'''
 	Move the foot icon
 	'''
-	temp_constraint = pm.pointConstraint(rt_ik_joint_3, rt_foot_icon)
+	temp_constraint = pm.pointConstraint(rt_lt_arm_ik_joint_3, rt_foot_icon)
 	pm.delete(temp_constraint)
 	rt_foot_icon.ty.set(0)
 	rt_foot_icon.tz.set(6)
@@ -11275,26 +19034,26 @@ def rt_ikLegSetup(*args):
 
 	pm.parent(rt_loc_2, rt_foot_icon)
 
-	rootLength = pm.getAttr(rt_ik_joint_2 + '.translateX')
-	joint2Length = pm.getAttr(rt_ik_joint_3  + '.translateX')
+	rootLength = pm.getAttr(rt_lt_arm_ik_joint_2 + '.translateX')
+	joint2Length = pm.getAttr(rt_lt_arm_ik_joint_3  + '.translateX')
 	sumLength = (rootLength + joint2Length)
 	# print sumLength
 
-	pm.setDrivenKeyframe(rt_ik_joint_2+ '.translateX', dv=sumLength, currentDriver=rt_leg_dist + '.distance', at='.translateX', value=rootLength)
+	pm.setDrivenKeyframe(rt_lt_arm_ik_joint_2+ '.translateX', dv=sumLength, currentDriver=rt_leg_dist + '.distance', at='.translateX', value=rootLength)
 
-	pm.setDrivenKeyframe(rt_ik_joint_2+ '.translateX', dv=(sumLength*2), currentDriver=rt_leg_dist + '.distance', at='.translateX', value=(rootLength*2))
+	pm.setDrivenKeyframe(rt_lt_arm_ik_joint_2+ '.translateX', dv=(sumLength*2), currentDriver=rt_leg_dist + '.distance', at='.translateX', value=(rootLength*2))
 
 
-	pm.setDrivenKeyframe(rt_ik_joint_3+ '.translateX', dv=sumLength, currentDriver=rt_leg_dist + '.distance', at='.translateX', value=joint2Length)
+	pm.setDrivenKeyframe(rt_lt_arm_ik_joint_3+ '.translateX', dv=sumLength, currentDriver=rt_leg_dist + '.distance', at='.translateX', value=joint2Length)
 
-	pm.setDrivenKeyframe(rt_ik_joint_3+ '.translateX', dv=(sumLength*2), currentDriver=rt_leg_dist + '.distance', at='.translateX', value=(joint2Length*2))
+	pm.setDrivenKeyframe(rt_lt_arm_ik_joint_3+ '.translateX', dv=(sumLength*2), currentDriver=rt_leg_dist + '.distance', at='.translateX', value=(joint2Length*2))
 
-	pm.keyTangent(rt_ik_joint_2, 'graphEditor1FromOutliner', itt='spline', animation='objects', ott='spline')
-	pm.selectKey(rt_ik_joint_2 + '_translateX', add=1, k=1, f=(1, 82.555611))
+	pm.keyTangent(rt_lt_arm_ik_joint_2, 'graphEditor1FromOutliner', itt='spline', animation='objects', ott='spline')
+	pm.selectKey(rt_lt_arm_ik_joint_2 + '_translateX', add=1, k=1, f=(1, 82.555611))
 	pm.setInfinity(poi='linear')
 
-	pm.keyTangent(rt_ik_joint_3, 'graphEditor1FromOutliner', itt='spline', animation='objects', ott='spline')
-	pm.selectKey(rt_ik_joint_3 + '_translateX', add=1, k=1, f=(1, 82.555611))
+	pm.keyTangent(rt_lt_arm_ik_joint_3, 'graphEditor1FromOutliner', itt='spline', animation='objects', ott='spline')
+	pm.selectKey(rt_lt_arm_ik_joint_3 + '_translateX', add=1, k=1, f=(1, 82.555611))
 	pm.setInfinity(poi='linear')
 
 	pm.select(rt_leg_ikh, rt_ankle_ikh, rt_toe_ikh, rt_loc_1, rt_loc_2, rt_leg_dist)
@@ -11364,14 +19123,14 @@ def rt_ikLegSetup(*args):
 
 	
 	rt_noFlip_loc = pm.spaceLocator(p=(0, 0, 0))
-	temp_constraint = pm.pointConstraint(rt_ik_joint_3, rt_noFlip_loc, mo=0)
+	temp_constraint = pm.pointConstraint(rt_lt_arm_ik_joint_3, rt_noFlip_loc, mo=0)
 	pm.delete(temp_constraint)
 	rt_noFlip_loc.tx.set(10)
 	'''
 	Create the no flip local
 	'''
 	rt_noFlip_local = pm.group(empty=1)
-	temp_constraint = pm.pointConstraint(rt_ik_joint_3, rt_noFlip_local, mo=0)
+	temp_constraint = pm.pointConstraint(rt_lt_arm_ik_joint_3, rt_noFlip_local, mo=0)
 	pm.delete(temp_constraint)
 	freezeTransform()
 
@@ -11442,19 +19201,19 @@ def rt_ikLegSetup(*args):
 	node_name = rt_knee_icon.replace('icon', 'snapBlend')
 	rt_kneeSnapBlend.rename(node_name)
 
-	pm.disconnectAttr(rt_ik_joint_2 +'_translateX.output', rt_ik_joint_2 + '.translateX')
+	pm.disconnectAttr(rt_lt_arm_ik_joint_2 +'_translateX.output', rt_lt_arm_ik_joint_2 + '.translateX')
 
-	pm.disconnectAttr(rt_ik_joint_3 +'_translateX.output', rt_ik_joint_3 + '.translateX')
+	pm.disconnectAttr(rt_lt_arm_ik_joint_3 +'_translateX.output', rt_lt_arm_ik_joint_3 + '.translateX')
 
 	pm.connectAttr(rt_knee_dist_1 + '.distance', rt_kneeSnapBlend + '.color1R')
 	pm.connectAttr(rt_knee_dist_2 + '.distance', rt_kneeSnapBlend + '.color1G')
 
-	pm.connectAttr(rt_ik_joint_2 +'_translateX.output', rt_kneeSnapBlend + '.color2R')
-	pm.connectAttr(rt_ik_joint_3 +'_translateX.output', rt_kneeSnapBlend + '.color2G')
+	pm.connectAttr(rt_lt_arm_ik_joint_2 +'_translateX.output', rt_kneeSnapBlend + '.color2R')
+	pm.connectAttr(rt_lt_arm_ik_joint_3 +'_translateX.output', rt_kneeSnapBlend + '.color2G')
 
 
-	pm.connectAttr(rt_kneeSnapBlend + '.outputR', rt_ik_joint_2 + '.translateX')
-	pm.connectAttr(rt_kneeSnapBlend + '.outputG', rt_ik_joint_3 + '.translateX')
+	pm.connectAttr(rt_kneeSnapBlend + '.outputR', rt_lt_arm_ik_joint_2 + '.translateX')
+	pm.connectAttr(rt_kneeSnapBlend + '.outputG', rt_lt_arm_ik_joint_3 + '.translateX')
 
 	pm.connectAttr(rt_foot_icon + '.kneeSnap', rt_kneeSnapBlend + '.blender')
 
@@ -11478,10 +19237,10 @@ def rt_ikLegSetup(*args):
 	stretchBlend = pm.shadingNode('blendColors', asUtility=1)
 	pm.connectAttr(rt_leg_dist + '.distance', stretchBlend + '.color1R', f=1)
 	stretchBlend.color2R.set(1)
-	pm.disconnectAttr(rt_leg_dist  +'.distance', rt_ik_joint_2  + '_translateX.input')
-	pm.connectAttr(stretchBlend + '.outputR', rt_ik_joint_2 + '_translateX.input', f=1)
-	pm.disconnectAttr(rt_leg_dist  +'.distance', rt_ik_joint_3 + '_translateX.input')
-	pm.connectAttr(stretchBlend  + '.outputR', rt_ik_joint_3 + '_translateX.input', f=1)
+	pm.disconnectAttr(rt_leg_dist  +'.distance', rt_lt_arm_ik_joint_2  + '_translateX.input')
+	pm.connectAttr(stretchBlend + '.outputR', rt_lt_arm_ik_joint_2 + '_translateX.input', f=1)
+	pm.disconnectAttr(rt_leg_dist  +'.distance', rt_lt_arm_ik_joint_3 + '_translateX.input')
+	pm.connectAttr(stretchBlend  + '.outputR', rt_lt_arm_ik_joint_3 + '_translateX.input', f=1)
 	pm.connectAttr(rt_foot_icon + '.stretch', stretchBlend + '.blender', f=1)
 	rt_foot_icon.stretch.set(1)
 
@@ -11744,6 +19503,11 @@ def legSystem(*args):
 def lt_rflPrep(*args):
 	global lt_leg_root, lt_leg_joint_2, lt_leg_joint_3, lt_leg_joint_4, lt_leg_joint_5
 	global lt_heel_loc, lt_outerBank_loc, lt_innerBank_loc, lt_toe_loc, lt_ball_loc, lt_ankle_loc
+	
+	pm.select(lt_leg_01_bind)
+	leg_joints = pm.ls(sl=1, dag=1)
+	lt_leg_root = leg_joints[0]
+	lt_leg_joint_3 = leg_joints[2]
 	'''
 	Create the locators
 	'''
@@ -11752,11 +19516,11 @@ def lt_rflPrep(*args):
 
 	lt_outerBank_loc = pm.spaceLocator(p=(0, 0, 0))
 	# print 'Locator 2:', lt_outerBank_loc
-	pm.xform(lt_outerBank_loc, t=[-3, 0, 10])
+	pm.xform(lt_outerBank_loc, t=[3, 0, 10])
 
 	lt_innerBank_loc = pm.spaceLocator(p=(0, 0, 0))
 	# print 'Locator 3:', lt_innerBank_loc
-	pm.xform(lt_innerBank_loc, t=[3, 0, 10])
+	pm.xform(lt_innerBank_loc, t=[-3, 0, 10])
 	
 	lt_toe_loc = pm.spaceLocator(p=(0, 0, 0))
 	# print 'Locator 4:', lt_toe_loc
@@ -11773,9 +19537,9 @@ def lt_rflPrep(*args):
 	locs = pm.select(lt_heel_loc, lt_outerBank_loc, lt_innerBank_loc, lt_toe_loc, lt_ball_loc, lt_ankle_loc)
 	freezeTransform(locs)
 
-	pm.parent(lt_outerBank_loc, lt_heel_loc)
-	pm.parent(lt_innerBank_loc, lt_outerBank_loc)
-	pm.parent(lt_toe_loc, lt_innerBank_loc)
+	pm.parent(lt_innerBank_loc, lt_heel_loc)
+	pm.parent(lt_outerBank_loc, lt_innerBank_loc)
+	pm.parent(lt_toe_loc, lt_outerBank_loc)
 	pm.parent(lt_ball_loc, lt_toe_loc)
 	pm.parent(lt_ankle_loc, lt_ball_loc)
 
@@ -11784,9 +19548,9 @@ def lt_rflPrep(*args):
 	'''
 	loc_name = lt_leg_root.replace('leg_01_bind', 'heel_loc')
 	lt_heel_loc.rename(loc_name)
-	loc_name = lt_heel_loc.replace('heel', 'innerBank')
+	loc_name = lt_heel_loc.replace('heel', 'outerBank')
 	lt_outerBank_loc.rename(loc_name)
-	loc_name = lt_outerBank_loc.replace('inner', 'outer')
+	loc_name = lt_outerBank_loc.replace('outer', 'inner')
 	lt_innerBank_loc.rename(loc_name)
 	loc_name = lt_heel_loc.replace('heel', 'toe')
 	lt_toe_loc.rename(loc_name)
@@ -11794,6 +19558,38 @@ def lt_rflPrep(*args):
 	lt_ball_loc.rename(loc_name)
 	loc_name = lt_ball_loc.replace('ball', 'ankle')
 	lt_ankle_loc.rename(loc_name)
+
+	'''
+	Constrain the heel to the leg 
+	'''
+	temp_constraint =pm.pointConstraint(lt_leg_joint_3, lt_heel_loc, skip=['y', 'z'], mo=0)
+	pm.delete(temp_constraint)
+
+	'''
+	Freeze the heel loc
+	'''
+	pm.select(lt_heel_loc)
+	freezeTransform()
+
+def loc_connect(*args):
+	if pm.objExists(rt_heel_loc):
+		pm.connectAttr(lt_heel_loc + '.tz', rt_heel_loc + '.tz')
+		pm.connectAttr(lt_innerBank_loc + '.tz', rt_innerBank_loc + '.tz')
+		pm.connectAttr(lt_outerBank_loc + '.tz', rt_outerBank_loc + '.tz')
+		pm.connectAttr(lt_toe_loc + '.tz', rt_toe_loc + '.tz')
+		pm.connectAttr(lt_ball_loc + '.tz', rt_ball_loc + '.tz')
+		pm.connectAttr(lt_ankle_loc + '.tz', rt_ankle_loc + '.tz')
+		pm.connectAttr(lt_ankle_loc + '.ty', rt_ankle_loc + '.ty')
+
+def loc_disconnect(*args):
+	if pm.objExists(rt_heel_loc):
+		pm.disconnectAttr(lt_heel_loc + '.tz', rt_heel_loc + '.tz')
+		pm.disconnectAttr(lt_innerBank_loc + '.tz', rt_innerBank_loc + '.tz')
+		pm.disconnectAttr(lt_outerBank_loc + '.tz', rt_outerBank_loc + '.tz')
+		pm.disconnectAttr(lt_toe_loc + '.tz', rt_toe_loc + '.tz')
+		pm.disconnectAttr(lt_ball_loc + '.tz', rt_ball_loc + '.tz')
+		pm.disconnectAttr(lt_ankle_loc + '.tz', rt_ankle_loc + '.tz')
+		pm.disconnectAttr(lt_ankle_loc + '.ty', rt_ankle_loc + '.ty')
 
 def lt_rflSetup(*args):
 	global lt_heel_rot_clamp, lt_ball_rot_clamp, lt_footBtoS_clamp, lt_footBtoS_percent, lt_foot_roll_mult, lt_toeTap_invert_mult 
@@ -11948,6 +19744,12 @@ def lt_rflSetup(*args):
 def rt_rflPrep(*args):
 	global rt_leg_root, rt_leg_joint_2, rt_leg_joint_3, rt_leg_joint_4, rt_leg_joint_5
 	global rt_heel_loc, rt_outerBank_loc, rt_innerBank_loc, rt_toe_loc, rt_ball_loc, rt_ankle_loc
+	
+	pm.select(rt_leg_01_bind)
+	leg_joints = pm.ls(sl=1, dag=1)
+	rt_leg_root = leg_joints[0]
+	rt_leg_joint_3 = leg_joints[2]
+
 	'''
 	Create the locators
 	'''
@@ -11977,9 +19779,9 @@ def rt_rflPrep(*args):
 	locs = pm.select(rt_heel_loc, rt_outerBank_loc, rt_innerBank_loc, rt_toe_loc, rt_ball_loc, rt_ankle_loc)
 	freezeTransform(locs)
 
-	pm.parent(rt_outerBank_loc, rt_heel_loc)
-	pm.parent(rt_innerBank_loc, rt_outerBank_loc)
-	pm.parent(rt_toe_loc, rt_innerBank_loc)
+	pm.parent(rt_innerBank_loc, rt_heel_loc)
+	pm.parent(rt_outerBank_loc, rt_innerBank_loc)
+	pm.parent(rt_toe_loc, rt_outerBank_loc)
 	pm.parent(rt_ball_loc, rt_toe_loc)
 	pm.parent(rt_ankle_loc, rt_ball_loc)
 
@@ -11988,9 +19790,9 @@ def rt_rflPrep(*args):
 	'''
 	loc_name = rt_leg_root.replace('leg_01_bind', 'heel_loc')
 	rt_heel_loc.rename(loc_name)
-	loc_name = rt_heel_loc.replace('heel', 'innerBank')
+	loc_name = rt_heel_loc.replace('heel', 'outerBank')
 	rt_outerBank_loc.rename(loc_name)
-	loc_name = rt_outerBank_loc.replace('inner', 'outer')
+	loc_name = rt_outerBank_loc.replace('outer', 'inner')
 	rt_innerBank_loc.rename(loc_name)
 	loc_name = rt_heel_loc.replace('heel', 'toe')
 	rt_toe_loc.rename(loc_name)
@@ -11999,9 +19801,26 @@ def rt_rflPrep(*args):
 	loc_name = rt_ball_loc.replace('ball', 'ankle')
 	rt_ankle_loc.rename(loc_name)
 
+	'''
+	Constrain the heel to the leg 
+	'''
+	temp_constraint = pm.pointConstraint(rt_leg_joint_3, rt_heel_loc, skip=['y', 'z'], mo=0)
+	pm.delete(temp_constraint)
+
+	'''
+	Freeze the heel loc
+	'''
+	pm.select(rt_heel_loc)
+	freezeTransform()
+
+	loc_connect()
+
 def rt_rflSetup(*args):
 	global rt_heel_rot_clamp, rt_ball_rot_clamp, rt_footBtoS_clamp, rt_footBtoS_percent, rt_foot_roll_mult, rt_toeTap_invert_mult 
 	global rt_ball_0toB_percent, rt_foot_invert_percent, rt_ball_percent_mult, rt_ball_roll_mult, rt_ball_rot_clamp
+	
+	loc_disconnect()
+
 	pm.select(rt_heel_loc)
 	freezeTransform()
 	
@@ -12173,7 +19992,7 @@ def rflSystem(*args):
 	print 'Orientation Selection:', ori_selection_type
 
 	if ori_selection_type == 1:
-		lt_rflSetup()	 
+		lt_rflSetup() 
 	if ori_selection_type == 2:
 		rt_rflSetup()
 	if ori_selection_type == 3:
@@ -12184,6 +20003,97 @@ def rflVis(*args):
 		ori_selection_type = pm.radioButtonGrp('rfl_orientationOption', q=1, sl=1, vis=1)
 	else:
 		ori_selection_type = pm.radioButtonGrp('rfl_orientationOption', q=1, sl=1, vis=0)
+
+def colorIcons(*args):
+	pm.select('*lt*icon')
+	selection = pm.ls(sl=1, dag=1, shapes=1)
+	print selection
+
+	for each in selection:
+		each.overrideEnabled.set(1)
+		each.overrideColor.set(blue)
+
+	if pm.objExists('lt_arm_IkFk_switch'):
+		pass 
+		if pm.objExists('lt_leg_IkFk_switch'):
+			pm.select('lt*switch')
+			selection = pm.ls(sl=1, dag=1, shapes=1)
+			for each in selection:
+				each.overrideEnabled.set(1)
+				each.overrideColor.set(blue)
+
+	pm.select('*rt*icon')
+	selection = pm.ls(sl=1, dag=1, shapes=1)
+	print selection
+
+	for each in selection:
+		each.overrideEnabled.set(1)
+		each.overrideColor.set(red)
+	if pm.objExists('rt_arm_IkFk_switch'):
+		pass 
+		if pm.objExists('rt_leg_IkFk_switch'):
+			pm.select('rt*switch')
+			selection = pm.ls(sl=1, dag=1, shapes=1)
+			for each in selection:
+				each.overrideEnabled.set(1)
+				each.overrideColor.set(red)
+
+	pm.select('ct*icon')
+	selection = pm.ls(sl=1, dag=1, shapes=1)
+	print selection
+
+	for each in selection:
+		each.overrideEnabled.set(1)
+		each.overrideColor.set(yellow)
+
+	if pm.objExists(lt_index_icon):
+		pass
+		if pm.objExists(lt_middle_icon):
+			pass
+			if pm.objExists(lt_ring_icon):
+				pass
+				if pm.objExists(lt_pinky_icon):
+					pm.select(lt_index_icon, lt_middle_icon, lt_ring_icon, lt_pinky_icon)
+					icon_selection = pm.ls(sl=1, dag=1, shapes=1)
+					print icon_selection
+
+					color_index = 27
+
+					for each in icon_selection:
+						pm.setAttr(each + '.overrideEnabled', 1)
+						pm.setAttr(each + '.overrideColor', color_index)
+						color_index = color_index + 1
+
+	else:
+		pass		
+
+	if pm.objExists(rt_index_icon):
+		pass
+		if pm.objExists(rt_middle_icon):
+			pass
+			if pm.objExists(rt_ring_icon):
+				pass
+				if pm.objExists(rt_pinky_icon):
+					pm.select(rt_index_icon, rt_middle_icon, rt_ring_icon, rt_pinky_icon)
+					icon_selection = pm.ls(sl=1, dag=1, shapes=1)
+					print icon_selection
+
+					color_index = 27
+
+					for each in icon_selection:
+						pm.setAttr(each + '.overrideEnabled', 1)
+						pm.setAttr(each + '.overrideColor', color_index)
+						color_index = color_index + 1
+
+	else:
+		pass
+
+	pm.select(jaw_icon)
+	selection = pm.ls(sl=1, dag=1, shapes=1)
+
+	for each in selection:
+			pm.setAttr(each + '.overrideEnabled', 1)
+			pm.setAttr(each + '.overrideColor', cyan)
 
 def bodyGeo_selection(*args):
 	global body_geo
