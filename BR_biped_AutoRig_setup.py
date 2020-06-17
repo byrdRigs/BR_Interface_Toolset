@@ -104,60 +104,84 @@ def gui():
 	manual_sub_layout = pm.columnLayout()
 
 	'''
-	Head
+	Hip
 	'''
-
-	pm.setParent(manual_sub_layout)
-	head_layout = pm.frameLayout(w=win_width, l='Head/Eyes/Jaw', bgc=color_4, cl=1, cll=1, cc=windowResize)
+	hip_layout = pm.frameLayout(w=win_width, l='Hip', bgc=color_4, cl=1, cll=1, cc=windowResize)
 	pm.columnLayout()
-	pm.button('headSetup_button', l='Head Space locator and icon', w=win_width, bgc=color_5, c=headSetup)
-
-	pm.separator(w=win_width, bgc=color_5, st='in')
-
-	'''
-	Eye
-	'''
-	
-	pm.button('eyeSetup_button', l='Eye Setup', w=win_width, bgc=color_6, c=eyeSetup)
-	pm.separator(w=win_width, bgc=color_6, st='in')
-
-	'''
-	Jaw
-	'''
-	pm.button('jawSetup_buuton', l='Jaw Setup', w=win_width, bgc=color_7, c= jawSetup)
-	pm.separator(w=win_width, bgc=color_7, st='in')
+	pm.button('hip_button', l='Hip Setup', w=win_width, bgc=color_5, c=hipSetup)
 
 
 	pm.setParent(manual_sub_layout)
-	pm.separator('headFrame_sep', w=win_width, bgc=color_4, st='in')
+	pm.separator('hipFrame_sep', w=win_width, bgc=color_5, st='in')
+
+
+	'''
+	Back
+	'''
+	back_layout = pm.frameLayout(w=win_width, l='Back', bgc=color_5, cl=1, cll=1, cc=windowResize)
+	pm.columnLayout()
+	pm.button('back_button', l='Back Setup', w=win_width, bgc=color_6, c=backSetup)
+
+
+	pm.setParent(manual_sub_layout)
+	pm.separator('backFrame_sep', w=win_width, bgc=color_5, st='in')
 
 	'''
 	Neck
 	'''
 	pm.setParent(manual_sub_layout)
-	neck_layout = pm.frameLayout(w=win_width, l='Neck', bgc=color_9, cl=1, cll=1, cc=windowResize)
+	neck_layout = pm.frameLayout(w=win_width, l='Neck', bgc=color_6, cl=1, cll=1, cc=windowResize)
 	pm.columnLayout()
-	pm.button('neckSetup_button', l='Ik/Fk System', w=win_width, bgc=color_10, c=neckSetup)
+	pm.button('neckSetup_button', l='Neck Setup', w=win_width, bgc=color_7, c=neckSetup)
+	pm.separator(w=win_width, bgc=color_7, st='in')
+
+
+	pm.setParent(manual_sub_layout)
+	pm.separator('neckFrame_sep', w=win_width, bgc=color_6, st='in')
+
+	'''
+	Head
+	'''
+
+	pm.setParent(manual_sub_layout)
+	head_layout = pm.frameLayout(w=win_width, l='Head/Eyes/Jaw', bgc=color_7, cl=1, cll=1, cc=windowResize)
+	pm.columnLayout()
+	pm.button('headSetup_button', l='Head Space locator and icon', w=win_width, bgc=color_8, c=headSetup)
+
+	pm.separator(w=win_width, bgc=color_8, st='in')
+
+	'''
+	Eye
+	'''
+	
+	pm.button('eyeSetup_button', l='Eye Setup', w=win_width, bgc=color_9, c=eyeSetup)
+	pm.separator(w=win_width, bgc=color_9, st='in')
+
+	'''
+	Jaw
+	'''
+	pm.button('jawSetup_buuton', l='Jaw Setup', w=win_width, bgc=color_10, c= jawSetup)
 	pm.separator(w=win_width, bgc=color_10, st='in')
 
 
 	pm.setParent(manual_sub_layout)
-	pm.separator('neckFrame_sep', w=win_width, bgc=color_9, st='in')
+	pm.separator('headFrame_sep', w=win_width, bgc=color_7, st='in')
+
 
 	'''
 	Shoulder
 	'''
 	pm.setParent(manual_sub_layout)
-	shoulder_layout = pm.frameLayout(w=win_width, l='Shoulder/Arms/Hand/Fingers', bgc=color_10, cl=1, cll=1, cc=windowResize)
+	shoulder_layout = pm.frameLayout(w=win_width, l='Shoulder/Arms/Hand/Fingers', bgc=color_8, cl=1, cll=1, cc=windowResize)
 	pm.text(l='Please go in order from top to bottom', w=win_width, ww=1)
 	pm.rowColumnLayout(nc=4, cw=([1,65], [2, 65], [3, 65], [4, 65]))
 	pm.text('shoulder_orientationText', l='Ori:')
 	pm.radioButtonGrp('shoulder_orientationOption', w=win_width, cw=([1, 65], [2, 65], [3, 65]), labelArray3=['Lt', 'Rt', 'Both'], numberOfRadioButtons=3, sl=3)
 	pm.setParent(shoulder_layout)
 	pm.columnLayout(w=win_width)
-	pm.button(l='Shoulder Setup', w=win_width, bgc=color_11, c= shoulderSystem)
+	pm.button(l='Shoulder Setup', w=win_width, bgc=color_9, c= shoulderSystem)
 
-	pm.separator('shoulderSetup_sep', w=win_width, bgc=color_11, st='in')
+	pm.separator('shoulderSetup_sep', w=win_width, bgc=color_9, st='in')
 
 	'''
 	Arm
@@ -169,9 +193,9 @@ def gui():
 	pm.radioButtonGrp('arm_systemOption', labelArray3=['Fk', 'Ik', 'Ik/Fk'], numberOfRadioButtons=3, vr=1, sl=3)
 	pm.setParent(shoulder_layout)
 	pm.columnLayout(w=win_width)
-	pm.button('armSetup_button', l='Arm Setup', w=win_width, bgc=color_12, c=armSystem)
+	pm.button('armSetup_button', l='Arm Setup', w=win_width, bgc=color_10, c=armSystem)
 
-	pm.separator('armSetup_sep', w=win_width, bgc=color_12, st='in')
+	pm.separator('armSetup_sep', w=win_width, bgc=color_10, st='in')
 
 	'''
 	Hand
@@ -181,9 +205,9 @@ def gui():
 	pm.radioButtonGrp('hand_orientationOption', w=win_width, cw=([1, 65], [2, 65], [3, 65]), labelArray3=['Lt', 'Rt', 'Both'], numberOfRadioButtons=3, sl=3)
 	pm.setParent(shoulder_layout)
 	pm.columnLayout(w=win_width)
-	pm.button(l='Hand Setup', w=win_width, bgc=color_13, c= handSystem)
+	pm.button(l='Hand Setup', w=win_width, bgc=color_11, c= handSystem)
 
-	pm.separator('handSetup_sep', w=win_width, bgc=color_13, st='in')
+	pm.separator('handSetup_sep', w=win_width, bgc=color_11, st='in')
 
 	'''
 	Fingers
@@ -194,34 +218,12 @@ def gui():
 	finger_selection_grp = pm.radioButtonGrp('fingerSelection_option', labelArray3=['Two Fingers and Thumb', 'Three Fingers and Thumb', 'Five Fingers'], numberOfRadioButtons=3, vr=1, sl=3, w=win_width)
 	pm.setParent(shoulder_layout)
 	pm.columnLayout()
-	pm.button(l='Finger Setup', bgc=color_14, w=win_width, c=fingerSystem)
+	pm.button(l='Finger Setup', bgc=color_12, w=win_width, c=fingerSystem)
 
 
 	pm.setParent(manual_sub_layout)
-	pm.separator('sh_a_hFrame_sep', w=win_width, bgc=color_10, st='in')
+	pm.separator('sh_a_hFrame_sep', w=win_width, bgc=color_8, st='in')
 
-
-	'''
-	Back
-	'''
-	back_layout = pm.frameLayout(w=win_width, l='Back', bgc=color_7, cl=1, cll=1, cc=windowResize)
-	pm.columnLayout()
-	pm.button('back_button', l='Back Setup', w=win_width, bgc=color_8, c=backSetup)
-
-
-	pm.setParent(manual_sub_layout)
-	pm.separator('backFrame_sep', w=win_width, bgc=color_7, st='in')
-
-	'''
-	Hip
-	'''
-	hip_layout = pm.frameLayout(w=win_width, l='Hip', bgc=color_8, cl=1, cll=1, cc=windowResize)
-	pm.columnLayout()
-	pm.button('hip_button', l='Hip Setup', w=win_width, bgc=color_9, c=hipSetup)
-
-
-	pm.setParent(manual_sub_layout)
-	pm.separator('hipFrame_sep', w=win_width, bgc=color_8, st='in')
 
 	'''
 	Leg
@@ -557,7 +559,7 @@ def jointConvert(*args):
 	global lt_thumb_01_bind, rt_leg_01_bind, rt_toeA_01_bind, rt_toeB_01_bind, rt_toeC_01_bind, rt_toeD_01_bind
 	global rt_toeE_01_bind, rt_eye_01_bind, jaw_01_bind, rt_clav_01_bind
 	global rt_arm_01_bind, rt_hand_01_bind, rt_index_01_bind, rt_middle_01_bind, rt_pinky_01_bind, rt_ring_01_bind, rt_thumb_01_pivot
-	global rt_thumb_01_bind, ct_head_01_bind, ct_neck_01_bind, ct_jaw_01_bind, ct_back_01_bind
+	global rt_thumb_01_bind, ct_head_01_bind, ct_neck_01_bind, ct_jaw_01_bind, ct_back_01_bind, world_icon
 	pm.parent('*_01_loc', icon)
 	
 	pm.select(back_01_loc)
@@ -1388,24 +1390,75 @@ def jointConvert(*args):
 
 	pm.delete('biped_fitSkeleton_crv')
 
+	worldIcon()
+
 def autoBuild(*args):
+	hipSetup()
+	backSetup()
+	neckSetup()
 	headSetup()
 	eyeSetup()
 	jawSetup()
-	neckSetup()
 	shoulderSystem()
 	armSystem()
 	handSystem()
 	lt_fiveFingerSelection()
 	rt_fiveFingerSelection()
-	backSetup()
-	hipSetup()
 	legSetup()
 	rflSetup()
 	colorIcons()
 	pm.select(cl=1)
 
 	print 'Biped Auto-Rig Finished'
+
+def worldIcon(*args):
+	global world_icon
+	'''
+	Create the global icon
+	'''
+
+	moveAll_circle = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=1, tol=0.01, nr=(0, 1, 0))[0]
+	moveAll_circle.sx.set(3)
+	moveAll_circle.sy.set(3)
+	moveAll_circle.sz.set(3)
+	freezeTransform(moveAll_circle)
+
+
+	xAxis = pm.curve(p=[(3.324583, 0, -0.594445), (5, 0, -0.594444), (5.000001, 0, -1.008806), (6, 0, 0), (5.000001, 0, 1.008806), (5, 0, 0.594444), (3.324583, 0, 0.594445), (3.324583, 0, -0.594445)], k=[0, 1, 2, 3, 4, 5, 6, 7], d=1)
+
+
+	zAxis = pm.curve(p=[(0.594444, 0, 3.324583), (0.594444, 0, 5), (1.008806, 0, 5.000001), (0, 0, 6), (-1.008806, 0, 5.000001), (-0.594444, 0, 5), (-0.594444, 0, 3.324583), (0.594444, 0, 3.324583)], k=[0, 1, 2, 3, 4, 5, 6, 7], d=1)
+
+
+	pm.select(moveAll_circle, xAxis, zAxis)
+
+	shapes = pm.ls(sl=True, dag=True)
+	cShape_1 = shapes[1]
+	cShape_2 = shapes[3]
+	cShape_3 = shapes[5]
+	# print 'shape 1:', cShape_1
+	# print 'shape 2:', cShape_2
+	# print 'shape 3:', cShape_3
+
+	cShape_2.overrideEnabled.set(1)
+	cShape_2.overrideColor.set(12)
+	cShape_3.overrideEnabled.set(1)
+	cShape_3.overrideColor.set(6)
+	pm.rename(cShape_1, 'moveAll_shape')
+	pm.rename(cShape_2, 'xAxis_shape')
+	pm.rename(cShape_3, 'zAxis_shape')
+
+
+	moveAll = pm.group(empty=True, n='ct_moveAll')
+
+	pm.parent(cShape_1, cShape_2, cShape_3, moveAll, s=1, r=1)
+
+	pm.delete(moveAll_circle, xAxis, zAxis)
+
+	pm.select(moveAll)
+
+	world_icon = pm.ls(sl=1)[0]
+	# print world_icon
 
 def headSetup(*args):
 	global head_root, head_joint_2, head_icon, head_pad
@@ -1426,14 +1479,14 @@ def headSetup(*args):
 
 	head_icon = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=16, r=8, tol=0.01, nr=(1, 0, 0))[0]
 
-	pm.select('nurbsCircle1.cv[10]',
-		  'nurbsCircle1.cv[12]',
-		  'nurbsCircle1.cv[14]',
-		  'nurbsCircle1.cv[0]',
-		  'nurbsCircle1.cv[2]', 
-		  'nurbsCircle1.cv[4]', 
-		  'nurbsCircle1.cv[6]', 
-		  'nurbsCircle1.cv[8]')
+	pm.select(head_icon + '.cv[10]',
+		  '.cv[12]',
+		  '.cv[14]',
+		  '.cv[0]',
+		  '.cv[2]', 
+		  '.cv[4]', 
+		  '.cv[6]', 
+		  '.cv[8]')
 	cmds.move(-4, 0, 0, r=1, os=1, wd=1)
 
 	pm.select(head_icon)
@@ -1459,6 +1512,8 @@ def headSetup(*args):
 
 	pm.select(head_icon)
 	freezeTransform()
+
+	pm.parent(head_icon, neck_ik_icon)
 
 def eyeSetup(*args):
 	global lt_eye_root, lt_eye_joint_2, rt_eye_root, rt_eye_joint_2, ct_eye_icon, lt_eye_icon, rt_eye_icon, eye_local
@@ -1638,7 +1693,7 @@ def jawSetup(*args):
 	jaw_icon.overrideColor.set(cyan)
 
 def neckSetup(*args):
-	global neck_root, neck_joint_1, neck_joint_3, neck_joint_4, neck_pad, head_loc, neck_neck_ik_icon, neck_neck_fk_icon
+	global neck_root, neck_joint_1, neck_joint_3, neck_joint_4, neck_pad, head_loc, neck_ik_icon, neck_fk_icon
 	pm.select(ct_neck_01_bind)
 	joint_system = pm.ls(sl=True, dag=True)
 	neck_root  = joint_system[0]
@@ -1770,35 +1825,35 @@ def neckSetup(*args):
 	Create the ik and fk curve
 	'''
 
-	neck_neck_ik_icon = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=1, tol=0.01, nr=(1, 0, 0))[0]
+	neck_ik_icon = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=1, tol=0.01, nr=(1, 0, 0))[0]
 
-	temp_constraint = pm.parentConstraint(neck_ik_joint_4, neck_neck_ik_icon)
+	temp_constraint = pm.parentConstraint(neck_ik_joint_4, neck_ik_icon)
 	pm.delete(temp_constraint)
-	freezeTransform(neck_neck_ik_icon)
-	deleteHistory(neck_neck_ik_icon)
+	freezeTransform(neck_ik_icon)
+	deleteHistory(neck_ik_icon)
 
 	curve_name = neck_ikh.replace('h', '_icon')
-	neck_neck_ik_icon.rename(curve_name)
+	neck_ik_icon.rename(curve_name)
 
-	pm.parentConstraint(neck_neck_ik_icon, cb_joint_2, mo=1)
+	pm.parentConstraint(neck_ik_icon, cb_joint_2, mo=1)
 
 
 
-	neck_neck_fk_icon = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=1, tol=0.01, nr=(1, 0, 0))[0]
-	temp_constraint = pm.parentConstraint(neck_fk_root_joint, neck_neck_fk_icon)
+	neck_fk_icon = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=1, tol=0.01, nr=(1, 0, 0))[0]
+	temp_constraint = pm.parentConstraint(neck_fk_root_joint, neck_fk_icon)
 	pm.delete(temp_constraint)
-	freezeTransform(neck_neck_fk_icon)
-	deleteHistory(neck_neck_fk_icon)
+	freezeTransform(neck_fk_icon)
+	deleteHistory(neck_fk_icon)
 
-	curve_name = neck_neck_ik_icon.replace('ik', 'fk')
-	neck_neck_fk_icon.rename(curve_name)
+	curve_name = neck_ik_icon.replace('ik', 'fk')
+	neck_fk_icon.rename(curve_name)
 
-	pm.parentConstraint(neck_neck_fk_icon, neck_fk_root_joint, mo=1)
+	pm.parentConstraint(neck_fk_icon, neck_fk_root_joint, mo=1)
 
 	attrs = ['tx', 'ty','tz', 'sx', 'sy', 'sz']
 
 	for current_attr in attrs:
-		attr = neck_neck_fk_icon.attr(current_attr)
+		attr = neck_fk_icon.attr(current_attr)
 		attr.set(lock=1, keyable=0, channelBox=0)
 
 
@@ -1852,16 +1907,16 @@ def neckSetup(*args):
 
 
 	neck_ik_local = pm.group(empty=True)
-	temp_constraint = pm.parentConstraint(neck_neck_ik_icon, neck_ik_local)
+	temp_constraint = pm.parentConstraint(neck_ik_icon, neck_ik_local)
 	pm.delete(temp_constraint)
 
-	pm.parent(neck_neck_ik_icon, neck_ik_local)
-	freezeTransform(neck_neck_ik_icon)
-	local_name = neck_neck_ik_icon.replace('icon', 'local')
+	pm.parent(neck_ik_icon, neck_ik_local)
+	freezeTransform(neck_ik_icon)
+	local_name = neck_ik_icon.replace('icon', 'local')
 	neck_ik_local.rename(local_name)
 
 
-	pm.parentConstraint(neck_neck_fk_icon, neck_ik_local, mo=1)
+	pm.parentConstraint(neck_fk_icon, neck_ik_local, mo=1)
 
 
 	curve_info = pm.shadingNode('curveInfo', asUtility=1)
@@ -1897,7 +1952,7 @@ def neckSetup(*args):
 	pm.delete(temp_constraint)
 	freezeTransform(global_grp)
 
-	pm.parent(neck_curve, neck_ikh, cb_joint_1, cb_joint_2, neck_neck_fk_icon, neck_ik_local, global_grp)
+	pm.parent(neck_curve, neck_ikh, cb_joint_1, cb_joint_2, neck_fk_icon, neck_ik_local, global_grp)
 
 	group_name = neck_root.replace('01_bind', 'global_grp')
 	global_grp.rename(group_name)
@@ -1912,7 +1967,7 @@ def neckSetup(*args):
 	attrs = ['sx', 'sy', 'sz']
 
 	for current_attr in attrs:
-		attr = neck_neck_ik_icon.attr(current_attr)
+		attr = neck_ik_icon.attr(current_attr)
 		attr.set(lock=1, keyable=0, channelBox=0)
 
 
@@ -1939,7 +1994,6 @@ def neckSetup(*args):
 	for each in selection:
 		pm.setAttr(each + '.visibility', 0)
 
-	pm.parent(head_icon, neck_neck_ik_icon)
 
 	# pm.connectAttr(ct_neck_stretchBlend + '.outputR', neck_ik_root + '.sx')
 	# pm.connectAttr(ct_neck_stretchBlend + '.outputG', ikjoi + '.sx')
@@ -1950,25 +2004,25 @@ def neckSetup(*args):
 	# pm.connectAttr(stretch_percent_div + '.outputX', neck_ik_joint_3 + '.scaleX')
 
 def lt_shoulderSetup(*args):
-	global lt_clav_root, lt_clav_joint_2, arm_root, arm_joint_2, arm_joint_3, lt_shoulder_icon, lt_clav_space_lt_loc
+	global lt_clav_root, lt_clav_joint_2, lt_arm_root, lt_arm_joint_2, lt_arm_joint_3, lt_shoulder_icon, lt_clav_space_loc, lt_clav_global_grp
 	pm.select(lt_clav_01_bind, lt_arm_01_bind)
 	joint_system = pm.ls(sl=1)
 	lt_clav_system = joint_system[0]
-	arm_system = joint_system[1] 
+	lt_arm_system = joint_system[1] 
 
 	lt_clav_joints = pm.ls(lt_clav_system, sl=1, dag=1)
 	lt_clav_root = lt_clav_joints[0]
 	lt_clav_joint_2 = lt_clav_joints[1]
-	print 'Clav root joint:', lt_clav_root
-	print 'Clav waste joint:', lt_clav_joint_2
+	# print 'Clav root joint:', lt_clav_root
+	# print 'Clav waste joint:', lt_clav_joint_2
 
-	armJoints = pm.ls(arm_system, sl=1, dag=1)
-	arm_root = armJoints[0]
-	arm_joint_2 = armJoints[1]
-	arm_joint_3 = armJoints[2]
-	print 'Arm root joint:', arm_root
-	print 'Arm joint 2:', arm_joint_2
-	print 'Arm joint 3:', arm_joint_3
+	lt_armJoints = pm.ls(lt_arm_system, sl=1, dag=1)
+	lt_arm_root = lt_armJoints[0]
+	lt_arm_joint_2 = lt_armJoints[1]
+	lt_arm_joint_3 = lt_armJoints[2]
+	# print 'Arm root joint:', lt_arm_root
+	# print 'Arm joint 2:', lt_arm_joint_2
+	# print 'Arm joint 3:', lt_arm_joint_3
 
 	pm.select(lt_clav_root, lt_clav_joint_2)
 	ikh = pm.ikHandle(sol='ikSCsolver')[0]
@@ -1976,28 +2030,28 @@ def lt_shoulderSetup(*args):
 	ik_name = lt_clav_root.replace('bind', 'ikh')
 	ikh.rename(ik_name)
 
-	lt_loc_1 = pm.spaceLocator(p=(0, 0, 0))
-	temp_constraint = pm.pointConstraint(arm_root, lt_loc_1, mo=0)
+	lt_clav_loc_1 = pm.spaceLocator(p=(0, 0, 0))
+	temp_constraint = pm.pointConstraint(lt_arm_root, lt_clav_loc_1, mo=0)
 	pm.delete(temp_constraint)
-	freezeTransform(lt_loc_1)
+	freezeTransform(lt_clav_loc_1)
 
-	lt_loc_name = ikh.replace('ikh', 'loc')
-	lt_loc_1.rename(lt_loc_name)
-	pm.parent(ikh, lt_loc_1)
+	lt_clav_loc_name = ikh.replace('ikh', 'loc')
+	lt_clav_loc_1.rename(lt_clav_loc_name)
+	pm.parent(ikh, lt_clav_loc_1)
 
-	lt_loc_2 =	pm.spaceLocator(p=(0, 0, 0))
-	temp_constraint = pm.parentConstraint(lt_clav_root, lt_loc_2, mo=0)
+	lt_clav_loc_2 =	pm.spaceLocator(p=(0, 0, 0))
+	temp_constraint = pm.parentConstraint(lt_clav_root, lt_clav_loc_2, mo=0)
 	pm.delete(temp_constraint)
-	freezeTransform(lt_loc_2)
-	lt_loc_name = lt_loc_1.replace('loc', 'startLoc')
-	lt_loc_2.rename(lt_loc_name)
+	freezeTransform(lt_clav_loc_2)
+	lt_clav_loc_name = lt_clav_loc_1.replace('loc', 'startLoc')
+	lt_clav_loc_2.rename(lt_clav_loc_name)
 
-	lt_loc_3 =	pm.spaceLocator(p=(0, 0, 0))
-	temp_constraint = pm.parentConstraint(lt_clav_joint_2, lt_loc_3, mo=0)
+	lt_clav_loc_3 =	pm.spaceLocator(p=(0, 0, 0))
+	temp_constraint = pm.parentConstraint(lt_clav_joint_2, lt_clav_loc_3, mo=0)
 	pm.delete(temp_constraint)
-	freezeTransform(lt_loc_3)
-	lt_loc_name = lt_loc_2.replace('start', 'end')
-	lt_loc_3.rename(lt_loc_name)
+	freezeTransform(lt_clav_loc_3)
+	lt_clav_loc_name = lt_clav_loc_2.replace('start', 'end')
+	lt_clav_loc_3.rename(lt_clav_loc_name)
 
 	lt_clav_dist = pm.shadingNode('distanceDimShape', asUtility=1)
 
@@ -2007,15 +2061,15 @@ def lt_shoulderSetup(*args):
 	pm.pickWalk(d='up')
 	transform = pm.ls(sl=1)[0]
 
-	node_name = lt_loc_1.replace('loc', 'dist')
+	node_name = lt_clav_loc_1.replace('loc', 'dist')
 	transform.rename(node_name)
 	temp_constraint = pm.parentConstraint(lt_clav_root, transform, mo=0)
 	pm.delete(temp_constraint)
 
-	pm.connectAttr(lt_loc_2 + '.worldPosition', lt_clav_dist + '.startPoint')
-	pm.connectAttr(lt_loc_3 + '.worldPosition', lt_clav_dist + '.endPoint')
+	pm.connectAttr(lt_clav_loc_2 + '.worldPosition', lt_clav_dist + '.startPoint')
+	pm.connectAttr(lt_clav_loc_3 + '.worldPosition', lt_clav_dist + '.endPoint')
 
-	pm.parent(lt_loc_3, lt_loc_1)
+	pm.parent(lt_clav_loc_3, lt_clav_loc_1)
 
 	driver = lt_clav_dist + '.distance'
 	length = pm.getAttr(lt_clav_joint_2 + '.tx')
@@ -2037,131 +2091,59 @@ def lt_shoulderSetup(*args):
 
 	icon_name = lt_clav_root.replace('clav_01_bind', 'shoulder_icon')
 	lt_shoulder_icon.rename(icon_name)
-	pm.parent(lt_loc_1, lt_shoulder_icon)
+	pm.parent(lt_clav_loc_1, lt_shoulder_icon)
 
-	dnt_grp = pm.group(empty=1)
-	temp_constraint = pm.parentConstraint(lt_clav_root, dnt_grp, mo=0)
+	lt_clav_dnt_grp = pm.group(empty=1)
+	temp_constraint = pm.parentConstraint(lt_clav_root, lt_clav_dnt_grp, mo=0)
 	pm.delete(temp_constraint)
-	freezeTransform(dnt_grp)
+	freezeTransform(lt_clav_dnt_grp)
 
 	grp_name = lt_clav_root.replace('01_bind', 'DO____NOT____TOUCH_grp')
-	dnt_grp.rename(grp_name)
+	lt_clav_dnt_grp.rename(grp_name)
 
-	pm.parent(transform, lt_loc_2, dnt_grp)
+	pm.parent(transform, lt_clav_loc_2, lt_clav_dnt_grp)
 
-	global_grp = pm.group(empty=1)
-	temp_constraint = pm.pointConstraint(lt_clav_root, global_grp, mo=0)
+	lt_clav_pad = pm.group(empty=1)
+	temp_constraint= pm.pointConstraint(lt_clav_root, lt_clav_pad, mo=0)
 	pm.delete(temp_constraint)
-	freezeTransform(global_grp)
+	freezeTransform(lt_clav_pad)
 
-	grp_name = lt_clav_root.replace('01_bind', 'global_grp')
-	global_grp.rename(grp_name)
+	lt_clav_pad_name = lt_clav_root.replace('01_bind', '00_pad')
+	lt_clav_pad.rename(lt_clav_pad_name)
 
-	pad = pm.group(empty=1)
-	temp_constraint= pm.pointConstraint(lt_clav_root, pad, mo=0)
+	pm.parent(lt_clav_root, lt_clav_pad)
+
+	lt_clav_local = pm.group(empty=1)
+	temp_constraint = pm.parentConstraint(lt_shoulder_icon, lt_clav_local, mo=0)
 	pm.delete(temp_constraint)
-	freezeTransform(pad)
+	freezeTransform()
 
-	pad_name = lt_clav_root.replace('01_bind', '00_pad')
-	pad.rename(pad_name)
+	pm.parent(lt_shoulder_icon, lt_clav_local)
+	freezeTransform()
 
-	pm.parent(lt_clav_root, pad)
+	local_name = lt_shoulder_icon.replace('icon', '00_local')
+	lt_clav_local.rename(local_name)
 
-	pm.parent(pad, dnt_grp, lt_shoulder_icon, global_grp)
+	pm.parentConstraint(cB_back_joint_7, lt_clav_pad, mo=1)
+	pm.parentConstraint(cB_back_joint_7, lt_clav_local, mo=1)
 
+	lt_clav_dnt_grp.overrideEnabled.set(1)
+	lt_clav_dnt_grp.overrideDisplayType.set(2)
+	lt_clav_dnt_grp.v.set(0)
+	lt_clav_loc_1.v.set(0)
+	lt_clav_loc_2.v.set(0)
+	lt_clav_loc_3.v.set(0)
 
-	dnt_grp.overrideEnabled.set(1)
-	dnt_grp.overrideDisplayType.set(2)
-	dnt_grp.v.set(0)
-	lt_loc_1.v.set(0)
-	lt_loc_2.v.set(0)
-	lt_loc_3.v.set(0)
-
-	if pm.objExists('*moveAll'):
-		pm.select('*moveAll')
-		moveAll = '*moveAll'
-
-	else:
-		'''
-		Create the global icon
-		'''
-
-		moveAll_circle = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=1, tol=0.01, nr=(0, 1, 0))[0]
-		moveAll_circle.sx.set(3)
-		moveAll_circle.sy.set(3)
-		moveAll_circle.sz.set(3)
-		freezeTransform(moveAll_circle)
-
-
-		xAxis = pm.curve(p=[(3.324583, 0, -0.594445), (5, 0, -0.594444), (5.000001, 0, -1.008806), (6, 0, 0), (5.000001, 0, 1.008806), (5, 0, 0.594444), (3.324583, 0, 0.594445), (3.324583, 0, -0.594445)], k=[0, 1, 2, 3, 4, 5, 6, 7], d=1)
-
-
-		zAxis = pm.curve(p=[(0.594444, 0, 3.324583), (0.594444, 0, 5), (1.008806, 0, 5.000001), (0, 0, 6), (-1.008806, 0, 5.000001), (-0.594444, 0, 5), (-0.594444, 0, 3.324583), (0.594444, 0, 3.324583)], k=[0, 1, 2, 3, 4, 5, 6, 7], d=1)
-
-
-		pm.select(moveAll_circle, xAxis, zAxis)
-
-		shapes = pm.ls(sl=1, dag=1)
-		cShape_1 = shapes[1]
-		cShape_2 = shapes[3]
-		cShape_3 = shapes[5]
-		print 'shape 1:', cShape_1
-		print 'shape 2:', cShape_2
-		print 'shape 3:', cShape_3
-
-		cShape_2.overrideEnabled.set(1)
-		cShape_2.overrideColor.set(12)
-		cShape_3.overrideEnabled.set(1)
-		cShape_3.overrideColor.set(6)
-		pm.rename(cShape_1, 'moveAll_shape')
-		pm.rename(cShape_2, 'xAxis_shape')
-		pm.rename(cShape_3, 'zAxis_shape')
-
-
-		moveAll = pm.group(empty=1, n='ct_moveAll')
-
-		pm.parent(cShape_1, cShape_2, cShape_3, moveAll, s=1, r=1)
-
-		pm.delete(moveAll_circle, xAxis, zAxis)
-
-	if pm.objExists('*joint_grp'):
-		pm.select('*joint_grp')
-		jnt_grp = pm.ls(sl=1)[0]
-		print jnt_grp
-		# pm.parent(pad, jnt_grp)
-		pm.scaleConstraint(moveAll, jnt_grp)
-
-	else:
-		jnt_grp = pm.group(empty=1)
-		grp_name = lt_clav_root.replace('lt_clav_01_bind', 'joint_grp')
-		jnt_grp.rename(grp_name)
-		print jnt_grp
-		# pm.parent(pad, jnt_grp)
-		pm.scaleConstraint(moveAll, jnt_grp)
-
-	if pm.objExists('*icon_grp'):
-		pm.select('*icon_grp')
-		icon_grp = pm.ls(sl=1)[0] 
-		pm.parent(moveAll, icon_grp)
-		# pm.parent(lt_shoulder_icon, moveAll)
-
-	else:
-		icon_grp = pm.group(empty=1)
-		pm.parent(moveAll, icon_grp)
-		group_name = jnt_grp.replace('joint', 'icon')
-		icon_grp.rename(group_name)
-		# pm.parent(lt_shoulder_icon, moveAll)
-
-	lt_clav_space_lt_loc = pm.spaceLocator(p=(0, 0, 0))
-	temp_constraint = pm.parentConstraint(lt_clav_joint_2, lt_clav_space_lt_loc)
+	lt_clav_space_loc = pm.spaceLocator(p=(0, 0, 0))
+	temp_constraint = pm.parentConstraint(lt_clav_joint_2, lt_clav_space_loc)
 	pm.delete(temp_constraint)
-	freezeTransform(lt_clav_space_lt_loc)
+	freezeTransform(lt_clav_space_loc)
 
-	lt_loc_name = lt_shoulder_icon.replace('_icon', '_space_lt_loc')
-	lt_clav_space_lt_loc.rename(lt_loc_name)
+	lt_clav_loc_name = lt_shoulder_icon.replace('icon', 'space_loc')
+	lt_clav_space_loc.rename(lt_clav_loc_name)
 
-	pm.parent(lt_clav_space_lt_loc, lt_clav_joint_2)
-	freezeTransform(lt_clav_space_lt_loc)
+	pm.parent(lt_clav_space_loc, lt_clav_joint_2)
+	freezeTransform(lt_clav_space_loc)
 
 	lt_clav_stretchBlend = pm.shadingNode('blendColors', asUtility=1)
 
@@ -2187,25 +2169,25 @@ def lt_shoulderSetup(*args):
 	lock_and_hide(lt_shoulder_icon, ['rx', 'ry', 'rz', 'sx', 'sy', 'sz', 'v'])
 
 def rt_shoulderSetup(*args):
-	global rt_clav_root, rt_clav_joint_2, arm_root, arm_joint_2, arm_joint_3, rt_shoulder_icon, rt_clav_space_rt_loc
+	global rt_clav_root, rt_clav_joint_2, rt_arm_root, rt_arm_joint_2, rt_arm_joint_3, rt_shoulder_icon, rt_clav_space_loc, rt_clav_global_grp
 	pm.select(rt_clav_01_bind, rt_arm_01_bind)
 	joint_system = pm.ls(sl=1)
 	rt_clav_system = joint_system[0]
-	arm_system = joint_system[1] 
+	rt_arm_system = joint_system[1] 
 
 	rt_clav_joints = pm.ls(rt_clav_system, sl=1, dag=1)
 	rt_clav_root = rt_clav_joints[0]
 	rt_clav_joint_2 = rt_clav_joints[1]
-	print 'Clav root joint:', rt_clav_root
-	print 'Clav waste joint:', rt_clav_joint_2
+	# print 'Clav root joint:', rt_clav_root
+	# print 'Clav waste joint:', rt_clav_joint_2
 
-	armJoints = pm.ls(arm_system, sl=1, dag=1)
-	arm_root = armJoints[0]
-	arm_joint_2 = armJoints[1]
-	arm_joint_3 = armJoints[2]
-	print 'Arm root joint:', arm_root
-	print 'Arm joint 2:', arm_joint_2
-	print 'Arm joint 3:', arm_joint_3
+	rt_armJoints = pm.ls(rt_arm_system, sl=1, dag=1)
+	rt_arm_root = rt_armJoints[0]
+	rt_arm_joint_2 = rt_armJoints[1]
+	rt_arm_joint_3 = rt_armJoints[2]
+	# print 'Arm root joint:', rt_arm_root
+	# print 'Arm joint 2:', rt_arm_joint_2
+	# print 'Arm joint 3:', rt_arm_joint_3
 
 	pm.select(rt_clav_root, rt_clav_joint_2)
 	ikh = pm.ikHandle(sol='ikSCsolver')[0]
@@ -2213,28 +2195,28 @@ def rt_shoulderSetup(*args):
 	ik_name = rt_clav_root.replace('bind', 'ikh')
 	ikh.rename(ik_name)
 
-	rt_loc_1 = pm.spaceLocator(p=(0, 0, 0))
-	temp_constraint = pm.pointConstraint(arm_root, rt_loc_1, mo=0)
+	rt_clav_loc_1 = pm.spaceLocator(p=(0, 0, 0))
+	temp_constraint = pm.pointConstraint(rt_arm_root, rt_clav_loc_1, mo=0)
 	pm.delete(temp_constraint)
-	freezeTransform(rt_loc_1)
+	freezeTransform(rt_clav_loc_1)
 
-	rt_loc_name = ikh.replace('ikh', 'loc')
-	rt_loc_1.rename(rt_loc_name)
-	pm.parent(ikh, rt_loc_1)
+	rt_clav_loc_name = ikh.replace('ikh', 'loc')
+	rt_clav_loc_1.rename(rt_clav_loc_name)
+	pm.parent(ikh, rt_clav_loc_1)
 
-	rt_loc_2 =	pm.spaceLocator(p=(0, 0, 0))
-	temp_constraint = pm.parentConstraint(rt_clav_root, rt_loc_2, mo=0)
+	rt_clav_loc_2 =	pm.spaceLocator(p=(0, 0, 0))
+	temp_constraint = pm.parentConstraint(rt_clav_root, rt_clav_loc_2, mo=0)
 	pm.delete(temp_constraint)
-	freezeTransform(rt_loc_2)
-	rt_loc_name = rt_loc_1.replace('loc', 'startLoc')
-	rt_loc_2.rename(rt_loc_name)
+	freezeTransform(rt_clav_loc_2)
+	rt_clav_loc_name = rt_clav_loc_1.replace('loc', 'startLoc')
+	rt_clav_loc_2.rename(rt_clav_loc_name)
 
-	rt_loc_3 =	pm.spaceLocator(p=(0, 0, 0))
-	temp_constraint = pm.parentConstraint(rt_clav_joint_2, rt_loc_3, mo=0)
+	rt_clav_loc_3 =	pm.spaceLocator(p=(0, 0, 0))
+	temp_constraint = pm.parentConstraint(rt_clav_joint_2, rt_clav_loc_3, mo=0)
 	pm.delete(temp_constraint)
-	freezeTransform(rt_loc_3)
-	rt_loc_name = rt_loc_2.replace('start', 'end')
-	rt_loc_3.rename(rt_loc_name)
+	freezeTransform(rt_clav_loc_3)
+	rt_clav_loc_name = rt_clav_loc_2.replace('start', 'end')
+	rt_clav_loc_3.rename(rt_clav_loc_name)
 
 	rt_clav_dist = pm.shadingNode('distanceDimShape', asUtility=1)
 
@@ -2244,15 +2226,15 @@ def rt_shoulderSetup(*args):
 	pm.pickWalk(d='up')
 	transform = pm.ls(sl=1)[0]
 
-	node_name = rt_loc_1.replace('loc', 'dist')
+	node_name = rt_clav_loc_1.replace('loc', 'dist')
 	transform.rename(node_name)
 	temp_constraint = pm.parentConstraint(rt_clav_root, transform, mo=0)
 	pm.delete(temp_constraint)
 
-	pm.connectAttr(rt_loc_2 + '.worldPosition', rt_clav_dist + '.startPoint')
-	pm.connectAttr(rt_loc_3 + '.worldPosition', rt_clav_dist + '.endPoint')
+	pm.connectAttr(rt_clav_loc_2 + '.worldPosition', rt_clav_dist + '.startPoint')
+	pm.connectAttr(rt_clav_loc_3 + '.worldPosition', rt_clav_dist + '.endPoint')
 
-	pm.parent(rt_loc_3, rt_loc_1)
+	pm.parent(rt_clav_loc_3, rt_clav_loc_1)
 
 	driver = rt_clav_dist + '.distance'
 	length = pm.getAttr(rt_clav_joint_2 + '.tx')
@@ -2274,131 +2256,59 @@ def rt_shoulderSetup(*args):
 
 	icon_name = rt_clav_root.replace('clav_01_bind', 'shoulder_icon')
 	rt_shoulder_icon.rename(icon_name)
-	pm.parent(rt_loc_1, rt_shoulder_icon)
+	pm.parent(rt_clav_loc_1, rt_shoulder_icon)
 
-	dnt_grp = pm.group(empty=1)
-	temp_constraint = pm.parentConstraint(rt_clav_root, dnt_grp, mo=0)
+	rt_clav_dnt_grp = pm.group(empty=1)
+	temp_constraint = pm.parentConstraint(rt_clav_root, rt_clav_dnt_grp, mo=0)
 	pm.delete(temp_constraint)
-	freezeTransform(dnt_grp)
+	freezeTransform(rt_clav_dnt_grp)
 
 	grp_name = rt_clav_root.replace('01_bind', 'DO____NOT____TOUCH_grp')
-	dnt_grp.rename(grp_name)
+	rt_clav_dnt_grp.rename(grp_name)
 
-	pm.parent(transform, rt_loc_2, dnt_grp)
+	pm.parent(transform, rt_clav_loc_2, rt_clav_dnt_grp)
 
-	global_grp = pm.group(empty=1)
-	temp_constraint = pm.pointConstraint(rt_clav_root, global_grp, mo=0)
+	rt_clav_pad = pm.group(empty=1)
+	temp_constraint= pm.pointConstraint(rt_clav_root, rt_clav_pad, mo=0)
 	pm.delete(temp_constraint)
-	freezeTransform(global_grp)
+	freezeTransform(rt_clav_pad)
 
-	grp_name = rt_clav_root.replace('01_bind', 'global_grp')
-	global_grp.rename(grp_name)
+	rt_clav_pad_name = rt_clav_root.replace('01_bind', '00_pad')
+	rt_clav_pad.rename(rt_clav_pad_name)
 
-	pad = pm.group(empty=1)
-	temp_constraint= pm.pointConstraint(rt_clav_root, pad, mo=0)
+	pm.parent(rt_clav_root, rt_clav_pad)
+
+	rt_clav_local = pm.group(empty=1)
+	temp_constraint = pm.parentConstraint(rt_shoulder_icon, rt_clav_local, mo=0)
 	pm.delete(temp_constraint)
-	freezeTransform(pad)
+	freezeTransform()
 
-	pad_name = rt_clav_root.replace('01_bind', '00_pad')
-	pad.rename(pad_name)
+	pm.parent(rt_shoulder_icon, rt_clav_local)
+	freezeTransform()
 
-	pm.parent(rt_clav_root, pad)
+	local_name = rt_shoulder_icon.replace('icon', '00_local')
+	rt_clav_local.rename(local_name)
 
-	pm.parent(pad, dnt_grp, rt_shoulder_icon, global_grp)
+	pm.parentConstraint(cB_back_joint_7, rt_clav_pad, mo=1)
+	pm.parentConstraint(cB_back_joint_7, rt_clav_local, mo=1)
 
+	rt_clav_dnt_grp.overrideEnabled.set(1)
+	rt_clav_dnt_grp.overrideDisplayType.set(2)
+	rt_clav_dnt_grp.v.set(0)
+	rt_clav_loc_1.v.set(0)
+	rt_clav_loc_2.v.set(0)
+	rt_clav_loc_3.v.set(0)
 
-	dnt_grp.overrideEnabled.set(1)
-	dnt_grp.overrideDisplayType.set(2)
-	dnt_grp.v.set(0)
-	rt_loc_1.v.set(0)
-	rt_loc_2.v.set(0)
-	rt_loc_3.v.set(0)
-
-	if pm.objExists('*moveAll'):
-		pm.select('*moveAll')
-		moveAll = '*moveAll'
-
-	else:
-		'''
-		Create the global icon
-		'''
-
-		moveAll_circle = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=1, tol=0.01, nr=(0, 1, 0))[0]
-		moveAll_circle.sx.set(3)
-		moveAll_circle.sy.set(3)
-		moveAll_circle.sz.set(3)
-		freezeTransform(moveAll_circle)
-
-
-		xAxis = pm.curve(p=[(3.324583, 0, -0.594445), (5, 0, -0.594444), (5.000001, 0, -1.008806), (6, 0, 0), (5.000001, 0, 1.008806), (5, 0, 0.594444), (3.324583, 0, 0.594445), (3.324583, 0, -0.594445)], k=[0, 1, 2, 3, 4, 5, 6, 7], d=1)
-
-
-		zAxis = pm.curve(p=[(0.594444, 0, 3.324583), (0.594444, 0, 5), (1.008806, 0, 5.000001), (0, 0, 6), (-1.008806, 0, 5.000001), (-0.594444, 0, 5), (-0.594444, 0, 3.324583), (0.594444, 0, 3.324583)], k=[0, 1, 2, 3, 4, 5, 6, 7], d=1)
-
-
-		pm.select(moveAll_circle, xAxis, zAxis)
-
-		shapes = pm.ls(sl=1, dag=1)
-		cShape_1 = shapes[1]
-		cShape_2 = shapes[3]
-		cShape_3 = shapes[5]
-		print 'shape 1:', cShape_1
-		print 'shape 2:', cShape_2
-		print 'shape 3:', cShape_3
-
-		cShape_2.overrideEnabled.set(1)
-		cShape_2.overrideColor.set(12)
-		cShape_3.overrideEnabled.set(1)
-		cShape_3.overrideColor.set(6)
-		pm.rename(cShape_1, 'moveAll_shape')
-		pm.rename(cShape_2, 'xAxis_shape')
-		pm.rename(cShape_3, 'zAxis_shape')
-
-
-		moveAll = pm.group(empty=1, n='ct_moveAll')
-
-		pm.parent(cShape_1, cShape_2, cShape_3, moveAll, s=1, r=1)
-
-		pm.delete(moveAll_circle, xAxis, zAxis)
-
-	if pm.objExists('*joint_grp'):
-		pm.select('*joint_grp')
-		jnt_grp = pm.ls(sl=1)[0]
-		print jnt_grp
-		# pm.parent(pad, jnt_grp)
-		pm.scaleConstraint(moveAll, jnt_grp)
-
-	else:
-		jnt_grp = pm.group(empty=1)
-		grp_name = rt_clav_root.replace('rt_clav_01_bind', 'joint_grp')
-		jnt_grp.rename(grp_name)
-		print jnt_grp
-		# pm.parent(pad, jnt_grp)
-		pm.scaleConstraint(moveAll, jnt_grp)
-
-	if pm.objExists('*icon_grp'):
-		pm.select('*icon_grp')
-		icon_grp = pm.ls(sl=1)[0] 
-		pm.parent(moveAll, icon_grp)
-		# pm.parent(rt_shoulder_icon, moveAll)
-
-	else:
-		icon_grp = pm.group(empty=1)
-		pm.parent(moveAll, icon_grp)
-		group_name = jnt_grp.replace('joint', 'icon')
-		icon_grp.rename(group_name)
-		# pm.parent(rt_shoulder_icon, moveAll)
-
-	rt_clav_space_rt_loc = pm.spaceLocator(p=(0, 0, 0))
-	temp_constraint = pm.parentConstraint(rt_clav_joint_2, rt_clav_space_rt_loc)
+	rt_clav_space_loc = pm.spaceLocator(p=(0, 0, 0))
+	temp_constraint = pm.parentConstraint(rt_clav_joint_2, rt_clav_space_loc)
 	pm.delete(temp_constraint)
-	freezeTransform(rt_clav_space_rt_loc)
+	freezeTransform(rt_clav_space_loc)
 
-	rt_loc_name = rt_shoulder_icon.replace('_icon', '_space_rt_loc')
-	rt_clav_space_rt_loc.rename(rt_loc_name)
+	rt_clav_loc_name = rt_shoulder_icon.replace('icon', 'space_loc')
+	rt_clav_space_loc.rename(rt_clav_loc_name)
 
-	pm.parent(rt_clav_space_rt_loc, rt_clav_joint_2)
-	freezeTransform(rt_clav_space_rt_loc)
+	pm.parent(rt_clav_space_loc, rt_clav_joint_2)
+	freezeTransform(rt_clav_space_loc)
 
 	rt_clav_stretchBlend = pm.shadingNode('blendColors', asUtility=1)
 
@@ -2439,291 +2349,291 @@ def shoulderSystem(*args):
 		shoulderSetup()
 
 def lt_armSetup(*args):
-	global lt_arm_root, lt_fk_root, lt_ik_root, lt_joint_12, lt_arm_icon
+	global lt_arm_root, lt_fk_root, lt_arm_ik_root, lt_joint_12, lt_arm_icon
 	pm.select(lt_arm_01_bind)
-	arm_system = pm.ls(sl=True, dag=True)
-	lt_arm_root = arm_system[0]
-	arm_joint_2 = arm_system[1]
-	arm_joint_3 = arm_system[2]
+	lt_arm_system = pm.ls(sl=True, dag=True)
+	lt_arm_root = lt_arm_system[0]
+	lt_arm_joint_2 = lt_arm_system[1]
+	lt_arm_joint_3 = lt_arm_system[2]
 	# print 'Main Root:', lt_arm_root
-	# print 'Main Joint 2:', arm_joint_2
-	# print 'Main Joint 3:', arm_joint_3
+	# print 'Main Joint 2:', lt_arm_joint_2
+	# print 'Main Joint 3:', lt_arm_joint_3
 
 	pm.joint(lt_arm_root, zso=1, ch=1, e=1, oj='xyz', secondaryAxisOrient='ydown')
-	arm_joint_3.jointOrientX.set(0)
-	arm_joint_3.jointOrientY.set(0)
+	lt_arm_joint_3.jointOrientX.set(0)
+	lt_arm_joint_3.jointOrientY.set(0)
 	lt_arm_root.rotateOrder.set(3)
 
 
-	ik_joints = pm.duplicate(lt_arm_root)
-	ik_joints = pm.ls(sl=True, dag=True)
-	lt_ik_root = ik_joints[0]
-	lt_arm_ik_joint_2 = ik_joints[1]
-	lt_arm_ik_joint_3 = ik_joints[2]
-	# print 'Ik Root:', lt_ik_root
+	lt_ik_joints = pm.duplicate(lt_arm_root)
+	lt_ik_joints = pm.ls(sl=True, dag=True)
+	lt_arm_ik_root = lt_ik_joints[0]
+	lt_arm_ik_joint_2 = lt_ik_joints[1]
+	lt_arm_ik_joint_3 = lt_ik_joints[2]
+	# print 'Ik Root:', lt_arm_ik_root
 	# print 'Ik Joint 2:', lt_arm_ik_joint_2
 	# print 'Ik Joint 3:', lt_arm_ik_joint_3
 
 	
-	for each in ik_joints:
+	for each in lt_ik_joints:
 		joint_name = lt_arm_root.replace('bind', 'ik')
-		lt_ik_root.rename(joint_name)
+		lt_arm_ik_root.rename(joint_name)
 
-	joint_name = lt_ik_root.replace('1', '2')
+	joint_name = lt_arm_ik_root.replace('1', '2')
 	lt_arm_ik_joint_2.rename(joint_name)
 
 	joint_name = lt_arm_ik_joint_2.replace('2', '3')
 	lt_arm_ik_joint_3.rename(joint_name)
 
-	fk_joints = pm.duplicate(lt_arm_root)
-	pm.select(fk_joints)
-	fk_joints = pm.ls(sl=True, dag=True)
-	lt_fk_root = fk_joints[0]
-	fk_joint_2 = fk_joints[1]
-	fk_joint_3 = fk_joints[2]
+	lt_fk_joints = pm.duplicate(lt_arm_root)
+	pm.select(lt_fk_joints)
+	lt_fk_joints = pm.ls(sl=True, dag=True)
+	lt_fk_root = lt_fk_joints[0]
+	lt_fk_joint_2 = lt_fk_joints[1]
+	lt_fk_joint_3 = lt_fk_joints[2]
 	# print 'Fk Root:', lt_fk_root
-	# print 'Fk Joint 2:', fk_joint_2
-	# print 'Fk Joint 3:', fk_joint_3
+	# print 'Fk Joint 2:', lt_fk_joint_2
+	# print 'Fk Joint 3:', lt_fk_joint_3
 
 	
-	joint_name = lt_ik_root.replace('ik', 'fk')
+	joint_name = lt_arm_ik_root.replace('ik', 'fk')
 	lt_fk_root.rename(joint_name)
 
 	joint_name = lt_arm_ik_joint_2.replace('ik', 'fk')
-	fk_joint_2.rename(joint_name)
+	lt_fk_joint_2.rename(joint_name)
 
 	joint_name = lt_arm_ik_joint_3.replace('ik', 'fk')
-	fk_joint_3.rename(joint_name)
+	lt_fk_joint_3.rename(joint_name)
 
-	hybrid_fk_joints = pm.duplicate(fk_joint_2)
-	pm.parent(hybrid_fk_joints, w=1)
+	lt_hybrid_fk_joints = pm.duplicate(lt_fk_joint_2)
+	pm.parent(lt_hybrid_fk_joints, w=1)
 
-	pm.select(hybrid_fk_joints)
-	hJoints = pm.ls(sl=True,  dag=True)
-	hJ_1 = hJoints[0]
-	hJ_2 = hJoints[1]
-	# print hJ_1
-	# print hJ_2
+	pm.select(lt_hybrid_fk_joints)
+	lt_hJoints = pm.ls(sl=True,  dag=True)
+	lt_hJ_1 = lt_hJoints[0]
+	lt_hJ_2 = lt_hJoints[1]
+	# print lt_hJ_1
+	# print lt_hJ_2
 
-	jnt_name = fk_joint_2.replace('fk', 'hybridFk')
-	hJ_1.rename(jnt_name)
+	jnt_name = lt_fk_joint_2.replace('fk', 'hybridFk')
+	lt_hJ_1.rename(jnt_name)
 
-	jnt_name = hJ_1.replace('02', '03')
-	hJ_2.rename(jnt_name)
+	jnt_name = lt_hJ_1.replace('02', '03')
+	lt_hJ_2.rename(jnt_name)
 	
 
 
-	twist_joints = pm.duplicate(lt_arm_root)
-	pm.select(twist_joints)
+	lt_twist_joints = pm.duplicate(lt_arm_root)
+	pm.select(lt_twist_joints)
 	joint_system = pm.ls(sl=True, dag=True)
-	root_joint = joint_system[0]
-	mid_joint = joint_system[1]
-	end_joint = joint_system[2]
-	# print 'Root joint:', root_joint
-	# print 'Mid joint:', mid_joint
-	# print 'End joint:', end_joint
+	lt_root_joint = joint_system[0]
+	lt_mid_joint = joint_system[1]
+	lt_end_joint = joint_system[2]
+	# print 'Root joint:', lt_root_joint
+	# print 'Mid joint:', lt_mid_joint
+	# print 'End joint:', lt_end_joint
 
-	new_name = root_joint.replace('bind1', 'twist')
-	root_joint.rename(new_name)
-	jnt_name_1 = root_joint.replace('01', '05')
-	jnt_name_2 = root_joint.replace('01', '04')
-	jnt_name_3 = root_joint.replace('01', '03')
-	jnt_name_4 = root_joint.replace('01', '02')
+	new_name = lt_root_joint.replace('bind1', 'twist')
+	lt_root_joint.rename(new_name)
+	jnt_name_1 = lt_root_joint.replace('01', '05')
+	jnt_name_2 = lt_root_joint.replace('01', '04')
+	jnt_name_3 = lt_root_joint.replace('01', '03')
+	jnt_name_4 = lt_root_joint.replace('01', '02')
 	
-	jnt_name_6 = mid_joint.replace('02_bind', '06_twist')
+	jnt_name_6 = lt_mid_joint.replace('02_bind', '06_twist')
 
 
-	loc_1 = pm.spaceLocator(p=(0, 0, 0))
-	temp_constraint = pm.orientConstraint(root_joint, loc_1, mo=0)
-	point_constraint_1 = pm.pointConstraint(root_joint, loc_1, mo=0, w=0)
-	point_constraint_2 = pm.pointConstraint(mid_joint, loc_1, mo=0, w=1)
-	splitJnt_1 = pm.joint(loc_1, name=jnt_name_1)
+	lt_loc_1 = pm.spaceLocator(p=(0, 0, 0))
+	temp_constraint = pm.orientConstraint(lt_root_joint, lt_loc_1, mo=0)
+	point_constraint_1 = pm.pointConstraint(lt_root_joint, lt_loc_1, mo=0, w=0)
+	point_constraint_2 = pm.pointConstraint(lt_mid_joint, lt_loc_1, mo=0, w=1)
+	lt_splitJnt_1 = pm.joint(lt_loc_1, name=jnt_name_1)
 
-	loc_2 = pm.spaceLocator(p=(0, 0, 0))
-	temp_constraint_2 = pm.orientConstraint(root_joint, loc_2, mo=0)
-	point_constraint_3 = pm.pointConstraint(root_joint, loc_2, mo=0, w=.25)
-	point_constraint_4 = pm.pointConstraint(mid_joint, loc_2, mo=0, w=.75)
-	splitJnt_2 = pm.joint(loc_2, name=jnt_name_2)
+	lt_loc_2 = pm.spaceLocator(p=(0, 0, 0))
+	temp_constraint_2 = pm.orientConstraint(lt_root_joint, lt_loc_2, mo=0)
+	point_constraint_3 = pm.pointConstraint(lt_root_joint, lt_loc_2, mo=0, w=.25)
+	point_constraint_4 = pm.pointConstraint(lt_mid_joint, lt_loc_2, mo=0, w=.75)
+	lt_splitJnt_2 = pm.joint(lt_loc_2, name=jnt_name_2)
 
-	loc_3 = pm.spaceLocator(p=(0, 0, 0))
-	temp_constraint_3 = pm.orientConstraint(root_joint, loc_3, mo=0)
-	point_constraint_5 = pm.pointConstraint(root_joint, loc_3, mo=0, w=.5)
-	point_constraint_6 = pm.pointConstraint(mid_joint, loc_3, mo=0, w=.5)
-	splitJnt_3 = pm.joint(loc_3, name=jnt_name_3)
+	lt_loc_3 = pm.spaceLocator(p=(0, 0, 0))
+	temp_constraint_3 = pm.orientConstraint(lt_root_joint, lt_loc_3, mo=0)
+	point_constraint_5 = pm.pointConstraint(lt_root_joint, lt_loc_3, mo=0, w=.5)
+	point_constraint_6 = pm.pointConstraint(lt_mid_joint, lt_loc_3, mo=0, w=.5)
+	lt_splitJnt_3 = pm.joint(lt_loc_3, name=jnt_name_3)
 
-	loc_4 = pm.spaceLocator(p=(0, 0, 0))
-	temp_constraint_4 = pm.orientConstraint(root_joint, loc_4, mo=0)
-	point_constraint_7 = pm.pointConstraint(root_joint, loc_4, mo=0, w=.75)
-	point_constraint_8 = pm.pointConstraint(mid_joint, loc_4, mo=0, w=.25)
-	splitJnt_4 = pm.joint(loc_4, name=jnt_name_4)
+	lt_loc_4 = pm.spaceLocator(p=(0, 0, 0))
+	temp_constraint_4 = pm.orientConstraint(lt_root_joint, lt_loc_4, mo=0)
+	point_constraint_7 = pm.pointConstraint(lt_root_joint, lt_loc_4, mo=0, w=.75)
+	point_constraint_8 = pm.pointConstraint(lt_mid_joint, lt_loc_4, mo=0, w=.25)
+	lt_splitJnt_4 = pm.joint(lt_loc_4, name=jnt_name_4)
 
-	pm.parent(splitJnt_4, root_joint)
-	pm.parent(splitJnt_3, splitJnt_4)
-	pm.parent(splitJnt_2, splitJnt_3)
-	pm.parent(splitJnt_1, splitJnt_2)
-	pm.parent(mid_joint, splitJnt_1)
+	pm.parent(lt_splitJnt_4, lt_root_joint)
+	pm.parent(lt_splitJnt_3, lt_splitJnt_4)
+	pm.parent(lt_splitJnt_2, lt_splitJnt_3)
+	pm.parent(lt_splitJnt_1, lt_splitJnt_2)
+	pm.parent(lt_mid_joint, lt_splitJnt_1)
 
-	pm.delete(loc_1, loc_2, loc_3, loc_4)
+	pm.delete(lt_loc_1, lt_loc_2, lt_loc_3, lt_loc_4)
 
-	mid_joint.rename(jnt_name_6)
+	lt_mid_joint.rename(jnt_name_6)
 
-	jnt_name_7 = mid_joint.replace('06', '07')
+	jnt_name_7 = lt_mid_joint.replace('06', '07')
 
-	end_joint.rename(jnt_name_7)
+	lt_end_joint.rename(jnt_name_7)
 
-	twist_joints = pm.duplicate(mid_joint)
+	lt_twist_joints = pm.duplicate(lt_mid_joint)
 
-	pm.parent(twist_joints, w=1)
+	pm.parent(lt_twist_joints, w=1)
 
-	twist_joints = pm.ls(sl=True, dag=True)
-	joint_7 = twist_joints[0]
-	lt_joint_12 = twist_joints[1]
+	lt_twist_joints = pm.ls(sl=True, dag=True)
+	lt_joint_7 = lt_twist_joints[0]
+	lt_joint_12 = lt_twist_joints[1]
 
-	pm.delete(end_joint)
+	pm.delete(lt_end_joint)
 
 	jnt_name_12 = lt_joint_12.replace('07', '12')
 	lt_joint_12.rename(jnt_name_12)
-	jnt_name_7 = joint_7.replace('06_twist1', '07_twist')
-	joint_7.rename(jnt_name_7)
+	jnt_name_7 = lt_joint_7.replace('06_twist1', '07_twist')
+	lt_joint_7.rename(jnt_name_7)
 
-	loc_1 = pm.spaceLocator(p=(0, 0, 0))
-	temp_constraint = pm.orientConstraint(joint_7, loc_1, mo=0)
-	point_constraint_1 = pm.pointConstraint(joint_7, loc_1, mo=0, w=0)
-	point_constraint_2 = pm.pointConstraint(lt_joint_12, loc_1, mo=0, w=1)
+	lt_loc_1 = pm.spaceLocator(p=(0, 0, 0))
+	temp_constraint = pm.orientConstraint(lt_joint_7, lt_loc_1, mo=0)
+	point_constraint_1 = pm.pointConstraint(lt_joint_7, lt_loc_1, mo=0, w=0)
+	point_constraint_2 = pm.pointConstraint(lt_joint_12, lt_loc_1, mo=0, w=1)
 	jnt_name_11 = lt_joint_12.replace('12', '11')
-	joint_11 = pm.joint(loc_1, name=jnt_name_11)
+	lt_joint_11 = pm.joint(lt_loc_1, name=jnt_name_11)
 
-	loc_2 = pm.spaceLocator(p=(0, 0, 0))
-	temp_constraint_1 = pm.orientConstraint(joint_7, loc_1, mo=0)
-	point_constraint_3 = pm.pointConstraint(joint_7 , loc_2, mo=0, w=.25)
-	point_constraint_4 = pm.pointConstraint(lt_joint_12 , loc_2, mo=0, w=.75)
-	jnt_name_10 = joint_11.replace('11', '10')
-	joint_10 = pm.joint(loc_2, n=jnt_name_10)
+	lt_loc_2 = pm.spaceLocator(p=(0, 0, 0))
+	temp_constraint_1 = pm.orientConstraint(lt_joint_7, lt_loc_1, mo=0)
+	point_constraint_3 = pm.pointConstraint(lt_joint_7 , lt_loc_2, mo=0, w=.25)
+	point_constraint_4 = pm.pointConstraint(lt_joint_12 , lt_loc_2, mo=0, w=.75)
+	jnt_name_10 = lt_joint_11.replace('11', '10')
+	lt_joint_10 = pm.joint(lt_loc_2, n=jnt_name_10)
 
-	loc_3 = pm.spaceLocator(p=(0, 0, 0))
-	temp_constraint_2 = pm.orientConstraint(joint_7, loc_1, mo=0)
-	point_constraint_5 = pm.pointConstraint(joint_7 ,loc_3, mo=0, w=.5)
-	point_constraint_6 = pm.pointConstraint(lt_joint_12 ,loc_3, mo=0, w=.5)
-	jnt_name_9 = joint_10.replace('10', '09')
-	joint_9 = pm.joint(loc_3, n=jnt_name_9)
+	lt_loc_3 = pm.spaceLocator(p=(0, 0, 0))
+	temp_constraint_2 = pm.orientConstraint(lt_joint_7, lt_loc_1, mo=0)
+	point_constraint_5 = pm.pointConstraint(lt_joint_7 ,lt_loc_3, mo=0, w=.5)
+	point_constraint_6 = pm.pointConstraint(lt_joint_12 ,lt_loc_3, mo=0, w=.5)
+	jnt_name_9 = lt_joint_10.replace('10', '09')
+	lt_joint_9 = pm.joint(lt_loc_3, n=jnt_name_9)
 
-	loc_4 = pm.spaceLocator(p=(0, 0, 0))
-	temp_constraint_3 = pm.orientConstraint(joint_7, loc_1, mo=0)
-	point_constraint_7 = pm.pointConstraint(joint_7 ,loc_4, mo=0, w=.75)
-	point_constraint_8 = pm.pointConstraint(lt_joint_12 ,loc_4, mo=0, w=.25)
-	jnt_name_8 = joint_9.replace('9', '8')
-	joint_8 = pm.joint(loc_4, n=jnt_name_8)
+	lt_loc_4 = pm.spaceLocator(p=(0, 0, 0))
+	temp_constraint_3 = pm.orientConstraint(lt_joint_7, lt_loc_1, mo=0)
+	point_constraint_7 = pm.pointConstraint(lt_joint_7 ,lt_loc_4, mo=0, w=.75)
+	point_constraint_8 = pm.pointConstraint(lt_joint_12 ,lt_loc_4, mo=0, w=.25)
+	jnt_name_8 = lt_joint_9.replace('9', '8')
+	lt_joint_8 = pm.joint(lt_loc_4, n=jnt_name_8)
 
-	pm.parent(joint_11, joint_10)
-	pm.parent(joint_10, joint_9)
-	pm.parent(joint_9, joint_8)
-	pm.parent(joint_8, joint_7)
+	pm.parent(lt_joint_11, lt_joint_10)
+	pm.parent(lt_joint_10, lt_joint_9)
+	pm.parent(lt_joint_9, lt_joint_8)
+	pm.parent(lt_joint_8, lt_joint_7)
 
-	pm.delete(loc_1, loc_2, loc_3, loc_4)
+	pm.delete(lt_loc_1, lt_loc_2, lt_loc_3, lt_loc_4)
 
-	pm.parent(lt_joint_12, joint_11)
-
-
-	temp_joints = pm.duplicate(root_joint)
-
-	pm.select(temp_joints)
+	pm.parent(lt_joint_12, lt_joint_11)
 
 
-	temp_joints = pm.ls(sl=True, dag=True)
+	lt_temp_joints = pm.duplicate(lt_root_joint)
 
-	cb_joint_1 = temp_joints[0]
-	cb_joint_2 = temp_joints[5]
-	cb_joint_3 = temp_joints[1]
-	# print 'cb joint 1:', cb_joint_1	
-	# print 'cb joint 2:', cb_joint_2	
-	# print 'cb joint 3:', cb_joint_3	
+	pm.select(lt_temp_joints)
 
-	pm.parent(cb_joint_2, cb_joint_1)
-	pm.delete(cb_joint_3)
 
-	bind_name = cb_joint_1.replace('twist1', 'curveTwist')
-	cb_joint_1.rename(bind_name)
+	lt_temp_joints = pm.ls(sl=True, dag=True)
 
-	bind_name = cb_joint_1.replace('01', '02')
-	cb_joint_2.rename(bind_name)
+	lt_cb_joint_1 = lt_temp_joints[0]
+	lt_cb_joint_2 = lt_temp_joints[5]
+	lt_cb_joint_3 = lt_temp_joints[1]
+	# print 'cb joint 1:', lt_cb_joint_1	
+	# print 'cb joint 2:', lt_cb_joint_2	
+	# print 'cb joint 3:', lt_cb_joint_3	
 
-	pm.parent(cb_joint_2, w=1)
+	pm.parent(lt_cb_joint_2, lt_cb_joint_1)
+	pm.delete(lt_cb_joint_3)
 
-	cb_joint_3 = pm.duplicate(lt_joint_12)[0]
+	bind_name = lt_cb_joint_1.replace('twist1', 'curveTwist')
+	lt_cb_joint_1.rename(bind_name)
 
-	bind_name = cb_joint_2.replace('2', '3')
-	cb_joint_3.rename(bind_name)
+	bind_name = lt_cb_joint_1.replace('01', '02')
+	lt_cb_joint_2.rename(bind_name)
 
-	pm.parent(cb_joint_3, w=1)
+	pm.parent(lt_cb_joint_2, w=1)
+
+	lt_cb_joint_3 = pm.duplicate(lt_joint_12)[0]
+
+	bind_name = lt_cb_joint_2.replace('2', '3')
+	lt_cb_joint_3.rename(bind_name)
+
+	pm.parent(lt_cb_joint_3, w=1)
 
 	tempBind = pm.duplicate(lt_arm_root)
 
 	pm.select(tempBind)
-	temp_joints = pm.ls(sl=True, dag=True)
-	temp_1 = temp_joints[0]
-	temp_2 = temp_joints[1]
-	temp_3 = temp_joints[2]
+	lt_temp_joints = pm.ls(sl=True, dag=True)
+	lt_temp_1 = lt_temp_joints[0]
+	lt_temp_2 = lt_temp_joints[1]
+	lt_temp_3 = lt_temp_joints[2]
 
 	temp_name = lt_arm_root.replace('bind', 'temp')
-	temp_1.rename(temp_name)
+	lt_temp_1.rename(temp_name)
 
-	temp_name = temp_1.replace('1', '2')
-	temp_2.rename(temp_name)
+	temp_name = lt_temp_1.replace('1', '2')
+	lt_temp_2.rename(temp_name)
 
-	temp_name = temp_2.replace('2', '3')
-	temp_3.rename(temp_name)
+	temp_name = lt_temp_2.replace('2', '3')
+	lt_temp_3.rename(temp_name)
 
-	pm.parent(temp_3, w=1)
-
-
-	joint_positions(temp_1)
-	joints = joint_positions(temp_1) 
-	arm_curve_1 = pm.curve(d = 1, p=joints)
+	pm.parent(lt_temp_3, w=1)
 
 
-	crv_name = root_joint.replace('twist', 'crv')
-	arm_curve_1.rename(crv_name)
+	joint_positions(lt_temp_1)
+	joints = joint_positions(lt_temp_1) 
+	lt_arm_curve_1 = pm.curve(d = 1, p=joints)
 
-	pm.select(cb_joint_1, cb_joint_2, arm_curve_1)
+
+	crv_name = lt_root_joint.replace('twist', 'crv')
+	lt_arm_curve_1.rename(crv_name)
+
+	pm.select(lt_cb_joint_1, lt_cb_joint_2, lt_arm_curve_1)
 	pm.mel.SmoothBindSkin()
 
 
-	pm.select(root_joint, mid_joint, arm_curve_1)
-	arm_ik_1 = pm.ikHandle(sol='ikSplineSolver', ccv=False, pcv=False)[0]
+	pm.select(lt_root_joint, lt_mid_joint, lt_arm_curve_1)
+	lt_arm_ik_1 = pm.ikHandle(sol='ikSplineSolver', ccv=False, pcv=False)[0]
 
-	ik_name = arm_curve_1.replace('crv', 'twistIkh')
-	arm_ik_1.rename(ik_name)
+	ik_name = lt_arm_curve_1.replace('crv', 'twistIkh')
+	lt_arm_ik_1.rename(ik_name)
 
-	arm_ik_1.dTwistControlEnable.set(1)
-	arm_ik_1.dWorldUpType.set(4)
+	lt_arm_ik_1.dTwistControlEnable.set(1)
+	lt_arm_ik_1.dWorldUpType.set(4)
 
-	arm_ik_1.dForwardAxis.set(0)
-	arm_ik_1.dWorldUpAxis.set(3)
+	lt_arm_ik_1.dForwardAxis.set(0)
+	lt_arm_ik_1.dWorldUpAxis.set(3)
 
-	arm_ik_1.dWorldUpVectorY.set(0)
-	arm_ik_1.dWorldUpVectorEndY.set(0)
+	lt_arm_ik_1.dWorldUpVectorY.set(0)
+	lt_arm_ik_1.dWorldUpVectorEndY.set(0)
 
-	arm_ik_1.dWorldUpVectorZ.set(1)
-	arm_ik_1.dWorldUpVectorEndZ.set(1)
+	lt_arm_ik_1.dWorldUpVectorZ.set(1)
+	lt_arm_ik_1.dWorldUpVectorEndZ.set(1)
 
-	arm_curve_1.inheritsTransform.set(0)
+	lt_arm_curve_1.inheritsTransform.set(0)
 
-	pm.connectAttr(cb_joint_1 + '.xformMatrix', arm_ik_1 + '.dWorldUpMatrix')
-	pm.connectAttr(cb_joint_2 + '.xformMatrix', arm_ik_1 + '.dWorldUpMatrixEnd')
+	pm.connectAttr(lt_cb_joint_1 + '.xformMatrix', lt_arm_ik_1 + '.dWorldUpMatrix')
+	pm.connectAttr(lt_cb_joint_2 + '.xformMatrix', lt_arm_ik_1 + '.dWorldUpMatrixEnd')
 
-	pm.parent(temp_3, temp_2)
+	pm.parent(lt_temp_3, lt_temp_2)
 
-	joint_positions(temp_2)
-	joints = joint_positions(temp_2) 
-	arm_curve_2 = pm.curve(d = 1, p=joints)
+	joint_positions(lt_temp_2)
+	joints = joint_positions(lt_temp_2) 
+	lt_arm_curve_2 = pm.curve(d = 1, p=joints)
 
-	crv_name = arm_curve_1.replace('1', '2')
-	arm_curve_2.rename(crv_name)
+	crv_name = lt_arm_curve_1.replace('1', '2')
+	lt_arm_curve_2.rename(crv_name)
 
-	pm.delete(temp_1, temp_2)
+	pm.delete(lt_temp_1, lt_temp_2)
 
 
-	pm.select(mid_joint, arm_curve_2)
+	pm.select(lt_mid_joint, lt_arm_curve_2)
 	selection = pm.ls(sl=True)
 	driver = selection[0]
 	driven = selection[1]
@@ -2731,37 +2641,37 @@ def lt_armSetup(*args):
 	driver_translate =	driver.getTranslation(ws=True)
 	driven.setPivots(driver_translate, ws=True)
 
-	pm.select(cb_joint_2, cb_joint_3, arm_curve_2)
+	pm.select(lt_cb_joint_2, lt_cb_joint_3, lt_arm_curve_2)
 	pm.mel.SmoothBindSkin()
 
-	pm.select(end_joint, lt_joint_12, arm_curve_2)
-	arm_ik_2 = pm.ikHandle(sol='ikSplineSolver', ccv=False, pcv=False)[0]
+	pm.select(lt_end_joint, lt_joint_12, lt_arm_curve_2)
+	lt_arm_ik_2 = pm.ikHandle(sol='ikSplineSolver', ccv=False, pcv=False)[0]
 
-	ik_name = arm_ik_1.replace('1', '2')
-	arm_ik_2.rename(ik_name)
+	ik_name = lt_arm_ik_1.replace('1', '2')
+	lt_arm_ik_2.rename(ik_name)
 
-	arm_ik_2.dTwistControlEnable.set(1)
-	arm_ik_2.dWorldUpType.set(4)
+	lt_arm_ik_2.dTwistControlEnable.set(1)
+	lt_arm_ik_2.dWorldUpType.set(4)
 
-	arm_ik_2.dForwardAxis.set(0)
-	arm_ik_2.dWorldUpAxis.set(3)
+	lt_arm_ik_2.dForwardAxis.set(0)
+	lt_arm_ik_2.dWorldUpAxis.set(3)
 
-	arm_ik_2.dWorldUpVectorY.set(0)
-	arm_ik_2.dWorldUpVectorEndY.set(0)
+	lt_arm_ik_2.dWorldUpVectorY.set(0)
+	lt_arm_ik_2.dWorldUpVectorEndY.set(0)
 
-	arm_ik_2.dWorldUpVectorZ.set(1)
-	arm_ik_2.dWorldUpVectorEndZ.set(1)
+	lt_arm_ik_2.dWorldUpVectorZ.set(1)
+	lt_arm_ik_2.dWorldUpVectorEndZ.set(1)
 
-	arm_curve_2.inheritsTransform.set(0)
+	lt_arm_curve_2.inheritsTransform.set(0)
 
-	pm.connectAttr(cb_joint_2 + '.xformMatrix', arm_ik_2 + '.dWorldUpMatrix')
-	pm.connectAttr(cb_joint_3 + '.xformMatrix', arm_ik_2 + '.dWorldUpMatrixEnd')
+	pm.connectAttr(lt_cb_joint_2 + '.xformMatrix', lt_arm_ik_2 + '.dWorldUpMatrix')
+	pm.connectAttr(lt_cb_joint_3 + '.xformMatrix', lt_arm_ik_2 + '.dWorldUpMatrixEnd')
 
-	twist_grp = pm.group(arm_curve_1, arm_curve_2, arm_ik_1, arm_ik_2, cb_joint_1, cb_joint_2, cb_joint_3 )
-	grp_name = root_joint.replace('01_twist', 'twist_grp')
-	twist_grp.rename(grp_name)
+	lt_twist_grp = pm.group(lt_arm_curve_1, lt_arm_curve_2, lt_arm_ik_1, lt_arm_ik_2, lt_cb_joint_1, lt_cb_joint_2, lt_cb_joint_3 )
+	grp_name = lt_root_joint.replace('01_twist', 'twist_grp')
+	lt_twist_grp.rename(grp_name)
 
-	pm.select(root_joint, twist_grp)
+	pm.select(lt_root_joint, lt_twist_grp)
 	selection = pm.ls(sl=True)
 	driver = selection[0]
 	driven = selection[1]
@@ -2769,236 +2679,236 @@ def lt_armSetup(*args):
 	driver_translate = driver.getTranslation(ws=True)
 	driven.setPivots(driver_translate, ws=True)
 
-	pm.parentConstraint(arm_joint_3, cb_joint_3, mo=1)
-	pm.parentConstraint(arm_joint_2, cb_joint_2, mo=1)
-	pm.pointConstraint(lt_arm_root, cb_joint_1, mo=1)
+	pm.parentConstraint(lt_arm_joint_3, lt_cb_joint_3, mo=1)
+	pm.parentConstraint(lt_arm_joint_2, lt_cb_joint_2, mo=1)
+	pm.pointConstraint(lt_arm_root, lt_cb_joint_1, mo=1)
 
 
 	'''================================================================================================================'''
-	root_rot_ikfk = pm.shadingNode('blendColors', asUtility=1)
+	lt_root_rot_ikfk = pm.shadingNode('blendColors', asUtility=1)
 	node_name = lt_arm_root.replace('bind', 'rot_ikfk_blend')
-	root_rot_ikfk.rename(node_name)
+	lt_root_rot_ikfk.rename(node_name)
 
-	pm.connectAttr(lt_ik_root + '.rotate', root_rot_ikfk + '.color2')
-	pm.connectAttr(lt_fk_root + '.rotate', root_rot_ikfk + '.color1')
-	pm.connectAttr(root_rot_ikfk + '.output', lt_arm_root + '.rotate')
+	pm.connectAttr(lt_arm_ik_root + '.rotate', lt_root_rot_ikfk + '.color2')
+	pm.connectAttr(lt_fk_root + '.rotate', lt_root_rot_ikfk + '.color1')
+	pm.connectAttr(lt_root_rot_ikfk + '.output', lt_arm_root + '.rotate')
 
-	arm_joint_2_rot_ikfk = pm.shadingNode('blendColors', asUtility=1)
-	node_name = root_rot_ikfk.replace('1', '2')
-	arm_joint_2_rot_ikfk.rename(node_name)
+	lt_arm_joint_2_rot_ikfk = pm.shadingNode('blendColors', asUtility=1)
+	node_name = lt_root_rot_ikfk.replace('1', '2')
+	lt_arm_joint_2_rot_ikfk.rename(node_name)
 
-	pm.connectAttr(lt_arm_ik_joint_2 + '.rotate', arm_joint_2_rot_ikfk + '.color2')
-	pm.connectAttr(fk_joint_2 + '.rotate', arm_joint_2_rot_ikfk + '.color1')
-	pm.connectAttr(arm_joint_2_rot_ikfk + '.output', arm_joint_2 + '.rotate')
+	pm.connectAttr(lt_arm_ik_joint_2 + '.rotate', lt_arm_joint_2_rot_ikfk + '.color2')
+	pm.connectAttr(lt_fk_joint_2 + '.rotate', lt_arm_joint_2_rot_ikfk + '.color1')
+	pm.connectAttr(lt_arm_joint_2_rot_ikfk + '.output', lt_arm_joint_2 + '.rotate')
 
-	arm_joint_3_rot_ikfk = pm.shadingNode('blendColors', asUtility=1)
-	node_name = root_rot_ikfk.replace('1', '3')
-	arm_joint_3_rot_ikfk.rename(node_name)
+	lt_arm_joint_3_rot_ikfk = pm.shadingNode('blendColors', asUtility=1)
+	node_name = lt_root_rot_ikfk.replace('1', '3')
+	lt_arm_joint_3_rot_ikfk.rename(node_name)
 
-	pm.connectAttr(lt_arm_ik_joint_3 + '.rotate', arm_joint_3_rot_ikfk + '.color2')
-	pm.connectAttr(fk_joint_3 + '.rotate', arm_joint_3_rot_ikfk + '.color1')
-	pm.connectAttr(arm_joint_3_rot_ikfk + '.output', arm_joint_3 + '.rotate')
+	pm.connectAttr(lt_arm_ik_joint_3 + '.rotate', lt_arm_joint_3_rot_ikfk + '.color2')
+	pm.connectAttr(lt_fk_joint_3 + '.rotate', lt_arm_joint_3_rot_ikfk + '.color1')
+	pm.connectAttr(lt_arm_joint_3_rot_ikfk + '.output', lt_arm_joint_3 + '.rotate')
 
-	root_trans_ikfk = pm.shadingNode('blendColors', asUtility=1)
+	lt_root_trans_ikfk = pm.shadingNode('blendColors', asUtility=1)
 	node_name = lt_arm_root.replace('bind', 'trans_ikfk_blend')
-	root_trans_ikfk.rename(node_name)
+	lt_root_trans_ikfk.rename(node_name)
 
-	pm.connectAttr(lt_ik_root + '.translate', root_trans_ikfk + '.color2')
-	pm.connectAttr(lt_fk_root + '.translate', root_trans_ikfk + '.color1')
-	pm.connectAttr(root_trans_ikfk + '.output', lt_arm_root + '.translate')
+	pm.connectAttr(lt_arm_ik_root + '.translate', lt_root_trans_ikfk + '.color2')
+	pm.connectAttr(lt_fk_root + '.translate', lt_root_trans_ikfk + '.color1')
+	pm.connectAttr(lt_root_trans_ikfk + '.output', lt_arm_root + '.translate')
 
-	arm_joint_2_trans_ikfk = pm.shadingNode('blendColors', asUtility=1)
-	node_name = root_trans_ikfk.replace('1', '2')
-	arm_joint_2_trans_ikfk.rename(node_name)
+	lt_arm_joint_2_trans_ikfk = pm.shadingNode('blendColors', asUtility=1)
+	node_name = lt_root_trans_ikfk.replace('1', '2')
+	lt_arm_joint_2_trans_ikfk.rename(node_name)
 
-	pm.connectAttr(lt_arm_ik_joint_2 + '.translate', arm_joint_2_trans_ikfk + '.color2')
-	pm.connectAttr(fk_joint_2 + '.translate', arm_joint_2_trans_ikfk + '.color1')
-	pm.connectAttr(arm_joint_2_trans_ikfk + '.output', arm_joint_2 + '.translate')
+	pm.connectAttr(lt_arm_ik_joint_2 + '.translate', lt_arm_joint_2_trans_ikfk + '.color2')
+	pm.connectAttr(lt_fk_joint_2 + '.translate', lt_arm_joint_2_trans_ikfk + '.color1')
+	pm.connectAttr(lt_arm_joint_2_trans_ikfk + '.output', lt_arm_joint_2 + '.translate')
 
-	arm_joint_3_trans_ikfk = pm.shadingNode('blendColors', asUtility=1)
-	node_name = root_trans_ikfk.replace('1', '3')
-	arm_joint_3_trans_ikfk.rename(node_name)
+	lt_arm_joint_3_trans_ikfk = pm.shadingNode('blendColors', asUtility=1)
+	node_name = lt_root_trans_ikfk.replace('1', '3')
+	lt_arm_joint_3_trans_ikfk.rename(node_name)
 
-	pm.connectAttr(lt_arm_ik_joint_3 + '.translate', arm_joint_3_trans_ikfk + '.color2')
-	pm.connectAttr(fk_joint_3 + '.translate', arm_joint_3_trans_ikfk + '.color1')
-	pm.connectAttr(arm_joint_3_trans_ikfk + '.output', arm_joint_3 + '.translate')
+	pm.connectAttr(lt_arm_ik_joint_3 + '.translate', lt_arm_joint_3_trans_ikfk + '.color2')
+	pm.connectAttr(lt_fk_joint_3 + '.translate', lt_arm_joint_3_trans_ikfk + '.color1')
+	pm.connectAttr(lt_arm_joint_3_trans_ikfk + '.output', lt_arm_joint_3 + '.translate')
 
 	if pm.objExists('lt_arm_icon'):
 		'''
-		Create the IK/FK switch
+		Create the IK/FK lt_switch
 		'''
-		ikfk_shape_1 = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=1, tol=0.01, nr=(0, 1, 0))[0]
-		ikfk_shape_2 = pm.curve(p=[(0, 0, -1), (0, 0, 1)], k=[0, 1], d=1)
-		ikfk_shape_3 = pm.curve(p=[(-1, 0, 0), (1, 0, 0)], k=[0, 1], d=1)
-		ikfk_shape_4 = pm.curve(p=[(0, 0, 1), (0, 0, 3)], k=[0, 1], d=1)
+		lt_ikfk_shape_1 = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=1, tol=0.01, nr=(0, 1, 0))[0]
+		lt_ikfk_shape_2 = pm.curve(p=[(0, 0, -1), (0, 0, 1)], k=[0, 1], d=1)
+		lt_ikfk_shape_3 = pm.curve(p=[(-1, 0, 0), (1, 0, 0)], k=[0, 1], d=1)
+		lt_ikfk_shape_4 = pm.curve(p=[(0, 0, 1), (0, 0, 3)], k=[0, 1], d=1)
 
-		shape_name_1 = root_joint.replace('arm_01_bind', 'ikfk_curve1') 
+		shape_name_1 = lt_root_joint.replace('lt_arm_01_bind', 'ikfk_curve1') 
 		# print 'Shape 1 Name:', shape_name_1
-		ikfk_shape_1.rename(shape_name_1)
+		lt_ikfk_shape_1.rename(shape_name_1)
 
-		shape_name_2 = root_joint.replace('arm_01_bind', 'ikfk_curve2') 
+		shape_name_2 = lt_root_joint.replace('lt_arm_01_bind', 'ikfk_curve2') 
 		# print 'Shape 2 Name:', shape_name_2
-		ikfk_shape_2.rename(shape_name_2)
+		lt_ikfk_shape_2.rename(shape_name_2)
 
-		shape_name_3 = root_joint.replace('arm_01_bind', 'ikfk_curve3') 
+		shape_name_3 = lt_root_joint.replace('lt_arm_01_bind', 'ikfk_curve3') 
 		# print 'Shape 3 Name:', shape_name_3
-		ikfk_shape_3.rename(shape_name_3)
+		lt_ikfk_shape_3.rename(shape_name_3)
 
-		shape_name_4 = root_joint.replace('arm_01_bind', 'ikfk_curve4') 
+		shape_name_4 = lt_root_joint.replace('lt_arm_01_bind', 'ikfk_curve4') 
 		# print 'Shape 4 Name:', shape_name_4
-		ikfk_shape_4.rename(shape_name_4)
+		lt_ikfk_shape_4.rename(shape_name_4)
 
-		switch = pm.group(empty=True)
-		pm.select(ikfk_shape_1, ikfk_shape_2, ikfk_shape_3, ikfk_shape_4, switch)
+		lt_switch = pm.group(empty=True)
+		pm.select(lt_ikfk_shape_1, lt_ikfk_shape_2, lt_ikfk_shape_3, lt_ikfk_shape_4, lt_switch)
 		shapes = pm.ls(selection=True, dag=True)
 		curveShape_1 = shapes[1]
 		curveShape_2 = shapes[3]
 		curveShape_3 = shapes[5]
 		curveShape_4 = shapes[7]
-		switch_grp = shapes[8]
+		lt_switch_grp = shapes[8]
 		# print 'Curve Shape 1:', curveShape_1
 		# print 'Curve Shape 2:', curveShape_2
 		# print 'Curve Shape 3:', curveShape_3
 		# print 'Curve Shape 4:', curveShape_4
-		# print 'Switch:', switch_grp
-		pm.select(ikfk_shape_2, ikfk_shape_3)
+		# print 'Switch:', lt_switch_grp
+		pm.select(lt_ikfk_shape_2, lt_ikfk_shape_3)
 
 		pm.cmds.scale(0.768, 0.768, 0.768)
 		freezeTransform()
 
-		pm.parent(curveShape_1, curveShape_2, curveShape_3, curveShape_4, switch, s=1, r=1)
-		pm.delete(ikfk_shape_1, ikfk_shape_2, ikfk_shape_3, ikfk_shape_4)
-		pm.cmds.move(0, 0, 3, switch + '.scalePivot', switch + '.rotatePivot', rpr=1)
+		pm.parent(curveShape_1, curveShape_2, curveShape_3, curveShape_4, lt_switch, s=1, r=1)
+		pm.delete(lt_ikfk_shape_1, lt_ikfk_shape_2, lt_ikfk_shape_3, lt_ikfk_shape_4)
+		pm.cmds.move(0, 0, 3, lt_switch + '.scalePivot', lt_switch + '.rotatePivot', rpr=1)
 
-		pm.xform(switch, ro=[0,0,90], scale=[1.5,1.5,1.5])
-		freezeTransform(switch)
+		pm.xform(lt_switch, ro=[0,0,90], scale=[1.5,1.5,1.5])
+		freezeTransform(lt_switch)
 		deleteHistory()
-		temp_constraint = pm.pointConstraint(arm_joint_3, switch, mo=0, w=1)
+		temp_constraint = pm.pointConstraint(lt_arm_joint_3, lt_switch, mo=0, w=1)
 		pm.delete(temp_constraint)
-		pm.select(switch)
+		pm.select(lt_switch)
 		freezeTransform()
-		switch_name = lt_arm_root.replace('01_bind', 'IkFk_switch')
-		switch.rename(switch_name)
-		pm.parentConstraint(arm_joint_3, switch, mo=1)
+		lt_switch_name = lt_arm_root.replace('01_bind', 'IkFk_switch')
+		lt_switch.rename(lt_switch_name)
+		pm.parentConstraint(lt_arm_joint_3, lt_switch, mo=1)
 
 
 
 		'''
 		Add IkFk attribute
 		'''
-		pm.addAttr(switch, ln="IkFk", nn='Ik/Fk', max=1, dv=0, at='double', min=0)
-		switch.IkFk.set(e=1, keyable=True)
+		pm.addAttr(lt_switch, ln="IkFk", nn='Ik/Fk', max=1, dv=0, at='double', min=0)
+		lt_switch.IkFk.set(e=1, keyable=True)
 
 		'''
 		Lock and hide attrs
 		'''
-		switch.tx.set(lock=True, channelBox=False, keyable=False)
-		switch.ty.set(lock=True, channelBox=False, keyable=False)
-		switch.tz.set(lock=True, channelBox=False, keyable=False)
-		switch.rx.set(lock=True, channelBox=False, keyable=False)
-		switch.ry.set(lock=True, channelBox=False, keyable=False)
-		switch.rz.set(lock=True, channelBox=False, keyable=False)
-		switch.sx.set(lock=True, channelBox=False, keyable=False)
-		switch.sy.set(lock=True, channelBox=False, keyable=False)
-		switch.sz.set(lock=True, channelBox=False, keyable=False)
-		switch.v.set(lock=True, channelBox=False, keyable=False)
+		lt_switch.tx.set(lt_lock=True, channelBox=False, keyable=False)
+		lt_switch.ty.set(lt_lock=True, channelBox=False, keyable=False)
+		lt_switch.tz.set(lt_lock=True, channelBox=False, keyable=False)
+		lt_switch.rx.set(lt_lock=True, channelBox=False, keyable=False)
+		lt_switch.ry.set(lt_lock=True, channelBox=False, keyable=False)
+		lt_switch.rz.set(lt_lock=True, channelBox=False, keyable=False)
+		lt_switch.sx.set(lt_lock=True, channelBox=False, keyable=False)
+		lt_switch.sy.set(lt_lock=True, channelBox=False, keyable=False)
+		lt_switch.sz.set(lt_lock=True, channelBox=False, keyable=False)
+		lt_switch.v.set(lt_lock=True, channelBox=False, keyable=False)
 
 		'''
-		Connect the blend attrs the the switch
+		Connect the blend attrs the the lt_switch
 		'''
-		pm.connectAttr(switch + '.IkFk', root_rot_ikfk + '.blender')
-		pm.connectAttr(switch + '.IkFk', arm_joint_2_rot_ikfk + '.blender')
-		pm.connectAttr(switch + '.IkFk', arm_joint_3_rot_ikfk + '.blender')
-		pm.connectAttr(switch + '.IkFk', root_trans_ikfk + '.blender')
-		pm.connectAttr(switch + '.IkFk', arm_joint_2_trans_ikfk + '.blender')
-		pm.connectAttr(switch + '.IkFk', arm_joint_3_trans_ikfk + '.blender')
+		pm.connectAttr(lt_switch + '.IkFk', lt_root_rot_ikfk + '.blender')
+		pm.connectAttr(lt_switch + '.IkFk', lt_arm_joint_2_rot_ikfk + '.blender')
+		pm.connectAttr(lt_switch + '.IkFk', lt_arm_joint_3_rot_ikfk + '.blender')
+		pm.connectAttr(lt_switch + '.IkFk', lt_root_trans_ikfk + '.blender')
+		pm.connectAttr(lt_switch + '.IkFk', lt_arm_joint_2_trans_ikfk + '.blender')
+		pm.connectAttr(lt_switch + '.IkFk', lt_arm_joint_3_trans_ikfk + '.blender')
 
 		'''
 		Create fk icons
 		'''
-		fk_icon_1 = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=2, tol=.01, nr=(1, 0, 0))[0]
-		# print 'Fk icon 1:', fk_icon_1
-		temp_constraint = pm.parentConstraint(lt_fk_root, fk_icon_1)
+		lt_fk_icon_1 = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=2, tol=.01, nr=(1, 0, 0))[0]
+		# print 'Fk icon 1:', lt_fk_icon_1
+		temp_constraint = pm.parentConstraint(lt_fk_root, lt_fk_icon_1)
 		pm.delete(temp_constraint)
-		fk_pad_1 = pm.group(empty=True)
-		temp_constraint = pm.parentConstraint(lt_fk_root, fk_pad_1)
+		lt_fk_pad_1 = pm.group(empty=True)
+		temp_constraint = pm.parentConstraint(lt_fk_root, lt_fk_pad_1)
 		pm.delete(temp_constraint)
-		pm.parent(fk_icon_1, fk_pad_1)
-		pm.select(fk_icon_1)
+		pm.parent(lt_fk_icon_1, lt_fk_pad_1)
+		pm.select(lt_fk_icon_1)
 		freezeTransform()
 
-		fk_icon_2 = pm.circle(c=(0, 0, 0), ch=2, d=3, ut=0, sw=360, s=8, r=2, tol=.02, nr=(2, 0, 0))[0]
-		# print 'Fk icon 2:', fk_icon_2
-		temp_constraint = pm.parentConstraint(fk_joint_2, fk_icon_2)
+		lt_fk_icon_2 = pm.circle(c=(0, 0, 0), ch=2, d=3, ut=0, sw=360, s=8, r=2, tol=.02, nr=(2, 0, 0))[0]
+		# print 'Fk icon 2:', lt_fk_icon_2
+		temp_constraint = pm.parentConstraint(lt_fk_joint_2, lt_fk_icon_2)
 		pm.delete(temp_constraint)
-		fk_pad_2 = pm.group(empty=True)
-		temp_constraint = pm.parentConstraint(fk_joint_2, fk_pad_2)
+		lt_fk_pad_2 = pm.group(empty=True)
+		temp_constraint = pm.parentConstraint(lt_fk_joint_2, lt_fk_pad_2)
 		pm.delete(temp_constraint)
-		pm.parent(fk_icon_2, fk_pad_2)
-		pm.select(fk_icon_2)
+		pm.parent(lt_fk_icon_2, lt_fk_pad_2)
+		pm.select(lt_fk_icon_2)
 		freezeTransform()
-		pm.parent(fk_pad_2, fk_icon_1)
+		pm.parent(lt_fk_pad_2, lt_fk_icon_1)
 
 		'''
-		Rename the icons and the pads
+		Rename the icons and the lt_arm_pads
 		'''
-		fk_icon1_name = lt_fk_root.replace('fk', 'fk_icon')
-		fk_icon_1.rename(fk_icon1_name)
+		lt_fk_icon1_name = lt_fk_root.replace('fk', 'lt_fk_icon')
+		lt_fk_icon_1.rename(lt_fk_icon1_name)
 
-		fk_icon2_name = fk_icon_1.replace('01', '02')
-		fk_icon_2.rename(fk_icon2_name)
+		lt_fk_icon2_name = lt_fk_icon_1.replace('01', '02')
+		lt_fk_icon_2.rename(lt_fk_icon2_name)
 
-		fk_pad1_name = fk_icon_1.replace('icon', 'local')
-		fk_pad_1.rename(fk_pad1_name)
+		lt_fk_pad1_name = lt_fk_icon_1.replace('icon', 'local')
+		lt_fk_pad_1.rename(lt_fk_pad1_name)
 
-		fk_pad2_name = fk_icon_2.replace('icon', 'local')
-		fk_pad_2.rename(fk_pad2_name) 
+		lt_fk_pad2_name = lt_fk_icon_2.replace('icon', 'local')
+		lt_fk_pad_2.rename(lt_fk_pad2_name) 
 
 
 
-		pm.parentConstraint(fk_icon_1, lt_fk_root)
-		pm.parentConstraint(fk_icon_2, fk_joint_2)
+		pm.parentConstraint(lt_fk_icon_1, lt_fk_root)
+		pm.parentConstraint(lt_fk_icon_2, lt_fk_joint_2)
 
 		'''
 		Create length attr
 		'''
-		pm.addAttr(fk_icon_1, ln='length', at='double', min=0, dv=1)
-		fk_icon_1.length.set(e=1, keyable=True)
-		pm.setDrivenKeyframe(fk_pad_2 + '.tx', currentDriver=fk_icon_1 + '.length')
-		fk_icon_1.length.set(0)
-		fk_pad_2.tx.set(0)
-		pm.setDrivenKeyframe(fk_pad_2 + '.tx', currentDriver=fk_icon_1 + '.length')
-		fk_icon_1.length.set(1)
-		pm.keyTangent(fk_pad_2, 'graphEditor1FromOutliner', itt='spline', animation='objects', ott='spline')
-		pm.mel.selectKey(fk_pad_2 + '.tx', add=1, k=1, f=1)
+		pm.addAttr(lt_fk_icon_1, ln='length', at='double', min=0, dv=1)
+		lt_fk_icon_1.length.set(e=1, keyable=True)
+		pm.setDrivenKeyframe(lt_fk_pad_2 + '.tx', currentDriver=lt_fk_icon_1 + '.length')
+		lt_fk_icon_1.length.set(0)
+		lt_fk_pad_2.tx.set(0)
+		pm.setDrivenKeyframe(lt_fk_pad_2 + '.tx', currentDriver=lt_fk_icon_1 + '.length')
+		lt_fk_icon_1.length.set(1)
+		pm.keyTangent(lt_fk_pad_2, 'graphEditor1FromOutliner', itt='spline', animation='objects', ott='spline')
+		pm.mel.selectKey(lt_fk_pad_2 + '.tx', add=1, k=1, f=1)
 		pm.setInfinity(poi='linear')
 
-		pm.addAttr(fk_icon_2, ln='length', at='double', min=0, dv=1)
-		fk_icon_2.length.set(e=1, keyable=True)
-		pm.setDrivenKeyframe(fk_joint_3 + '.tx', currentDriver=fk_icon_2 + '.length')
-		fk_icon_2.length.set(0)
-		fk_joint_3.tx.set(0)
-		pm.setDrivenKeyframe(fk_joint_3 + '.tx', currentDriver=fk_icon_2 + '.length')
-		fk_icon_2.length.set(1)
-		pm.keyTangent(fk_joint_3, 'graphEditor1FromOutliner', itt='spline', animation='objects', ott='spline')
-		pm.mel.selectKey(fk_joint_3 + '.tx', add=1, k=1, f=1)
+		pm.addAttr(lt_fk_icon_2, ln='length', at='double', min=0, dv=1)
+		lt_fk_icon_2.length.set(e=1, keyable=True)
+		pm.setDrivenKeyframe(lt_fk_joint_3 + '.tx', currentDriver=lt_fk_icon_2 + '.length')
+		lt_fk_icon_2.length.set(0)
+		lt_fk_joint_3.tx.set(0)
+		pm.setDrivenKeyframe(lt_fk_joint_3 + '.tx', currentDriver=lt_fk_icon_2 + '.length')
+		lt_fk_icon_2.length.set(1)
+		pm.keyTangent(lt_fk_joint_3, 'graphEditor1FromOutliner', itt='spline', animation='objects', ott='spline')
+		pm.mel.selectKey(lt_fk_joint_3 + '.tx', add=1, k=1, f=1)
 		pm.setInfinity(poi='linear')
 
 		'''
 		Create the ik
 		'''
-		pm.select(lt_ik_root, lt_arm_ik_joint_3)
-		arm_ikh = pm.ikHandle()[0]
+		pm.select(lt_arm_ik_root, lt_arm_ik_joint_3)
+		lt_arm_ikh = pm.ikHandle()[0]
 
 		ikh_name = lt_arm_root.replace('bind', 'ikh')
-		arm_ikh.rename(ikh_name)
+		lt_arm_ikh.rename(ikh_name)
 
 
 		'''
 		Create the elbow icon.
 		'''
 
-		elbow_icon = pm.curve(p=[(2, 0, -2), (4, 0, -2), (4, 0, -3), (6, 0, -1), (4, 0, 1), (4, 0, 0), (2, 0, 0), (2, 0, 2), (3, 0, 2), (1, 0, 4), (-1, 0, 2), (0, 0, 2), (0, 0, 0), (-2, 0, 0), (-2, 0, 1), (-4, 0, -1), (-2, 0, -3), (-2, 0, -2), (0, 0, -2), (0, 0, -4), (-1, 0, -4), (1, 0, -6), (3, 0, -4), (2, 0, -4), (2, 0, -2)], k=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24], d=1)
+		lt_elbow_icon = pm.curve(p=[(2, 0, -2), (4, 0, -2), (4, 0, -3), (6, 0, -1), (4, 0, 1), (4, 0, 0), (2, 0, 0), (2, 0, 2), (3, 0, 2), (1, 0, 4), (-1, 0, 2), (0, 0, 2), (0, 0, 0), (-2, 0, 0), (-2, 0, 1), (-4, 0, -1), (-2, 0, -3), (-2, 0, -2), (0, 0, -2), (0, 0, -4), (-1, 0, -4), (1, 0, -6), (3, 0, -4), (2, 0, -4), (2, 0, -2)], k=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24], d=1)
 		pm.select('curve1.cv[0]', 'curve1.cv[6]', 'curve1.cv[12]', 'curve1.cv[18]', 'curve1.cv[24]', r=1)
 		pm.cmds.move(0, -0.982783, 0, r=1, os=1, wd=1)
 		pm.select('curve1.cv[22]', r=1)
@@ -3034,428 +2944,428 @@ def lt_armSetup(*args):
 		pm.select('curve1.cv[2]', r=1)
 		pm.cmds.move(0, -0.483525, 0, r=1, os=1, wd=1)
 
-		pm.select(elbow_icon)
-		centerPivot(elbow_icon)
+		pm.select(lt_elbow_icon)
+		centerPivot(lt_elbow_icon)
 		freezeTransform()
 		deleteHistory()
 
 		'''
 		Move the elbow icon.
 		'''
-		temp_constraint = pm.pointConstraint(arm_joint_2, elbow_icon)
+		temp_constraint = pm.pointConstraint(lt_arm_joint_2, lt_elbow_icon)
 		pm.delete(temp_constraint)
-		freezeTransform(elbow_icon)
-		pm.xform(elbow_icon, t=[0,0,-10], scale=[.5, .5, .5], ro=[90, 0, 0])
-		freezeTransform(elbow_icon)
+		freezeTransform(lt_elbow_icon)
+		pm.xform(lt_elbow_icon, t=[0,0,-10], scale=[.5, .5, .5], ro=[90, 0, 0])
+		freezeTransform(lt_elbow_icon)
 
 		'''
 		Rename elbow icon
 		'''
-		elbow_icon_name = lt_arm_root.replace('arm_01_bind', 'elbow_icon')
-		elbow_icon.rename(elbow_icon_name)
+		lt_elbow_icon_name = lt_arm_root.replace('lt_arm_01_bind', 'lt_elbow_icon')
+		lt_elbow_icon.rename(lt_elbow_icon_name)
 
 		'''
 		Create the pole vector for the elbow
 		'''
-		pm.poleVectorConstraint(elbow_icon, arm_ikh)
+		pm.poleVectorConstraint(lt_elbow_icon, lt_arm_ikh)
 
 		'''
-		Parent the arm_ikh under the lt_arm_icon
+		Parent the lt_arm_ikh under the lt_arm_icon
 		'''
-		pm.parent(arm_ikh, lt_arm_icon)
+		pm.parent(lt_arm_ikh, lt_arm_icon)
 
 		'''
 		Icon visibility SDKs
 		'''
-		fk_pad_1.v.set(0)
-		pm.setDrivenKeyframe(fk_pad_1 + '.v', currentDriver= switch + '.IkFk')
-		pm.setDrivenKeyframe(lt_arm_icon + '.v', currentDriver= switch + '.IkFk')
-		pm.setDrivenKeyframe(elbow_icon + '.v', currentDriver= switch + '.IkFk')
-		switch.IkFk.set(1)
-		fk_pad_1.v.set(1)
+		lt_fk_pad_1.v.set(0)
+		pm.setDrivenKeyframe(lt_fk_pad_1 + '.v', currentDriver= lt_switch + '.IkFk')
+		pm.setDrivenKeyframe(lt_arm_icon + '.v', currentDriver= lt_switch + '.IkFk')
+		pm.setDrivenKeyframe(lt_elbow_icon + '.v', currentDriver= lt_switch + '.IkFk')
+		lt_switch.IkFk.set(1)
+		lt_fk_pad_1.v.set(1)
 		lt_arm_icon.v.set(0)
-		elbow_icon.v.set(0)
-		pm.setDrivenKeyframe(fk_pad_1 + '.v', currentDriver= switch + '.IkFk')
-		pm.setDrivenKeyframe(lt_arm_icon + '.v', currentDriver= switch + '.IkFk')
-		pm.setDrivenKeyframe(elbow_icon + '.v', currentDriver= switch + '.IkFk')
-		switch.IkFk.set(0.1)
-		fk_pad_1.v.set(1)
+		lt_elbow_icon.v.set(0)
+		pm.setDrivenKeyframe(lt_fk_pad_1 + '.v', currentDriver= lt_switch + '.IkFk')
+		pm.setDrivenKeyframe(lt_arm_icon + '.v', currentDriver= lt_switch + '.IkFk')
+		pm.setDrivenKeyframe(lt_elbow_icon + '.v', currentDriver= lt_switch + '.IkFk')
+		lt_switch.IkFk.set(0.1)
+		lt_fk_pad_1.v.set(1)
 		lt_arm_icon.v.set(1)
-		elbow_icon.v.set(1)
-		pm.setDrivenKeyframe(fk_pad_1 + '.v', currentDriver= switch + '.IkFk')
-		pm.setDrivenKeyframe(lt_arm_icon + '.v', currentDriver= switch + '.IkFk')
-		pm.setDrivenKeyframe(elbow_icon + '.v', currentDriver= switch + '.IkFk')
-		switch.IkFk.set(0.99)
-		fk_pad_1.v.set(1)
+		lt_elbow_icon.v.set(1)
+		pm.setDrivenKeyframe(lt_fk_pad_1 + '.v', currentDriver= lt_switch + '.IkFk')
+		pm.setDrivenKeyframe(lt_arm_icon + '.v', currentDriver= lt_switch + '.IkFk')
+		pm.setDrivenKeyframe(lt_elbow_icon + '.v', currentDriver= lt_switch + '.IkFk')
+		lt_switch.IkFk.set(0.99)
+		lt_fk_pad_1.v.set(1)
 		lt_arm_icon.v.set(1)
-		elbow_icon.v.set(1)
-		pm.setDrivenKeyframe(fk_pad_1 + '.v', currentDriver= switch + '.IkFk')
-		pm.setDrivenKeyframe(lt_arm_icon + '.v', currentDriver= switch + '.IkFk')
-		pm.setDrivenKeyframe(elbow_icon + '.v', currentDriver= switch + '.IkFk')
-		switch.IkFk.set(0)
+		lt_elbow_icon.v.set(1)
+		pm.setDrivenKeyframe(lt_fk_pad_1 + '.v', currentDriver= lt_switch + '.IkFk')
+		pm.setDrivenKeyframe(lt_arm_icon + '.v', currentDriver= lt_switch + '.IkFk')
+		pm.setDrivenKeyframe(lt_elbow_icon + '.v', currentDriver= lt_switch + '.IkFk')
+		lt_switch.IkFk.set(0)
 
-		upperArm_info = pm.shadingNode('curveInfo', asUtility=1)
+		lt_upperArm_info = pm.shadingNode('curveInfo', asUtility=1)
 		node_name = lt_arm_root.replace('01_bind', 'info')
-		upperArm_info.rename(node_name)
+		lt_upperArm_info.rename(node_name)
 
-		upperArm_div = pm.shadingNode('multiplyDivide', asUtility=1)
-		node_name = upperArm_info.replace('info', 'div')
-		upperArm_div.rename(node_name)
+		lt_upperArm_div = pm.shadingNode('multiplyDivide', asUtility=1)
+		node_name = lt_upperArm_info.replace('info', 'div')
+		lt_upperArm_div.rename(node_name)
 
-		pm.connectAttr(arm_curve_1 + '.worldSpace[0]', upperArm_info + '.inputCurve')
+		pm.connectAttr(lt_arm_curve_1 + '.worldSpace[0]', lt_upperArm_info + '.inputCurve')
 
-		pm.connectAttr(upperArm_info + '.arcLength', upperArm_div + '.input1X')
+		pm.connectAttr(lt_upperArm_info + '.arcLength', lt_upperArm_div + '.input1X')
 
-		upperArm_div.operation.set(2)
+		lt_upperArm_div.operation.set(2)
 
-		arcLen = upperArm_info.arcLength.get()
-		upperArm_div.input2X.set(arcLen)
+		lt_arcLen = lt_upperArm_info.arcLength.get()
+		lt_upperArm_div.input2X.set(lt_arcLen)
 
-		pm.connectAttr(upperArm_div + '.outputX', root_joint + '.sx')
-		pm.connectAttr(upperArm_div + '.outputX', splitJnt_4 + '.sx')
-		pm.connectAttr(upperArm_div + '.outputX', splitJnt_3 + '.sx')
-		pm.connectAttr(upperArm_div + '.outputX', splitJnt_2 + '.sx')
-		pm.connectAttr(upperArm_div + '.outputX', splitJnt_1 + '.sx')
-		pm.connectAttr(upperArm_div + '.outputX', mid_joint + '.sx')
+		pm.connectAttr(lt_upperArm_div + '.outputX', lt_root_joint + '.sx')
+		pm.connectAttr(lt_upperArm_div + '.outputX', lt_splitJnt_4 + '.sx')
+		pm.connectAttr(lt_upperArm_div + '.outputX', lt_splitJnt_3 + '.sx')
+		pm.connectAttr(lt_upperArm_div + '.outputX', lt_splitJnt_2 + '.sx')
+		pm.connectAttr(lt_upperArm_div + '.outputX', lt_splitJnt_1 + '.sx')
+		pm.connectAttr(lt_upperArm_div + '.outputX', lt_mid_joint + '.sx')
 
 		'''==========================================================================================================================='''
 
 		jnt_name = lt_arm_root.replace('bind', 'twist')
 		lt_arm_root.rename(jnt_name)
 
-		jnt_name = root_joint.replace('twist', 'bind')
-		root_joint.rename(jnt_name)
+		jnt_name = lt_root_joint.replace('twist', 'bind')
+		lt_root_joint.rename(jnt_name)
 
 		jnt_name = lt_arm_root.replace('t1', 't')
 		lt_arm_root.rename(jnt_name)
 
 		jnt_name = lt_arm_root.replace('01', '02')
-		arm_joint_2.rename(jnt_name)
+		lt_arm_joint_2.rename(jnt_name)
 
 		jnt_name = lt_arm_root.replace('01', '03')
-		arm_joint_3.rename(jnt_name)
+		lt_arm_joint_3.rename(jnt_name)
 
-		jnt_name = root_joint.replace('01', '02')
-		splitJnt_4.rename(jnt_name)
+		jnt_name = lt_root_joint.replace('01', '02')
+		lt_splitJnt_4.rename(jnt_name)
 
-		jnt_name = root_joint.replace('01', '03')
-		splitJnt_3.rename(jnt_name)
+		jnt_name = lt_root_joint.replace('01', '03')
+		lt_splitJnt_3.rename(jnt_name)
 
-		jnt_name = root_joint.replace('01', '04')
-		splitJnt_2.rename(jnt_name)
+		jnt_name = lt_root_joint.replace('01', '04')
+		lt_splitJnt_2.rename(jnt_name)
 
-		jnt_name = root_joint.replace('01', '05')
-		splitJnt_1.rename(jnt_name)
+		jnt_name = lt_root_joint.replace('01', '05')
+		lt_splitJnt_1.rename(jnt_name)
 
-		jnt_name = root_joint.replace('01', '06')
-		mid_joint.rename(jnt_name)
+		jnt_name = lt_root_joint.replace('01', '06')
+		lt_mid_joint.rename(jnt_name)
 
-		jnt_name = mid_joint.replace('06', '07')
-		joint_7.rename(jnt_name)
+		jnt_name = lt_mid_joint.replace('06', '07')
+		lt_joint_7.rename(jnt_name)
 
-		jnt_name = mid_joint.replace('06', '08')
-		joint_8.rename(jnt_name)
+		jnt_name = lt_mid_joint.replace('06', '08')
+		lt_joint_8.rename(jnt_name)
 
-		jnt_name = mid_joint.replace('06', '09')
-		joint_9.rename(jnt_name)
+		jnt_name = lt_mid_joint.replace('06', '09')
+		lt_joint_9.rename(jnt_name)
 
-		jnt_name = mid_joint.replace('06', '10')
-		joint_10.rename(jnt_name)
+		jnt_name = lt_mid_joint.replace('06', '10')
+		lt_joint_10.rename(jnt_name)
 
-		jnt_name = mid_joint.replace('06', '11')
-		joint_11.rename(jnt_name)
+		jnt_name = lt_mid_joint.replace('06', '11')
+		lt_joint_11.rename(jnt_name)
 
-		jnt_name = mid_joint.replace('06', '12')
+		jnt_name = lt_mid_joint.replace('06', '12')
 		lt_joint_12.rename(jnt_name)
 
 		'''==========================================================================================================================='''
 
-		foreArm_info = pm.shadingNode('curveInfo', asUtility=1)
-		node_name = upperArm_info.replace('01', '02')
-		foreArm_info.rename(node_name)
+		lt_foreArm_info = pm.shadingNode('curveInfo', asUtility=1)
+		node_name = lt_upperArm_info.replace('01', '02')
+		lt_foreArm_info.rename(node_name)
 
-		foreArm_div = pm.shadingNode('multiplyDivide', asUtility=1)
-		node_name = upperArm_div.replace('01', '02')
-		foreArm_div.rename(node_name)
+		lt_foreArm_div = pm.shadingNode('multiplyDivide', asUtility=1)
+		node_name = lt_upperArm_div.replace('01', '02')
+		lt_foreArm_div.rename(node_name)
 
-		pm.connectAttr(arm_curve_2 + '.worldSpace[0]', foreArm_info + '.inputCurve')
+		pm.connectAttr(lt_arm_curve_2 + '.worldSpace[0]', lt_foreArm_info + '.inputCurve')
 
-		pm.connectAttr(foreArm_info + '.arcLength', foreArm_div + '.input1X')
+		pm.connectAttr(lt_foreArm_info + '.arcLength', lt_foreArm_div + '.input1X')
 
-		foreArm_div.operation.set(2)
+		lt_foreArm_div.operation.set(2)
 
-		arcLen = foreArm_info.arcLength.get()
-		foreArm_div.input2X.set(arcLen)
+		lt_arcLen = lt_foreArm_info.arcLength.get()
+		lt_foreArm_div.input2X.set(lt_arcLen)
 
-		pm.connectAttr(foreArm_div + '.outputX', joint_7 + '.sx')
-		pm.connectAttr(foreArm_div + '.outputX', joint_8 + '.sx')
-		pm.connectAttr(foreArm_div + '.outputX', joint_9 + '.sx')
-		pm.connectAttr(foreArm_div + '.outputX', joint_10 + '.sx')
-		pm.connectAttr(foreArm_div + '.outputX', joint_11 + '.sx')
+		pm.connectAttr(lt_foreArm_div + '.outputX', lt_joint_7 + '.sx')
+		pm.connectAttr(lt_foreArm_div + '.outputX', lt_joint_8 + '.sx')
+		pm.connectAttr(lt_foreArm_div + '.outputX', lt_joint_9 + '.sx')
+		pm.connectAttr(lt_foreArm_div + '.outputX', lt_joint_10 + '.sx')
+		pm.connectAttr(lt_foreArm_div + '.outputX', lt_joint_11 + '.sx')
 		
 		'''==========================================================================================================================='''
-		loc_1 = pm.spaceLocator(p=(0, 0, 0))
+		lt_loc_1 = pm.spaceLocator(p=(0, 0, 0))
 
-		loc_2 = pm.spaceLocator(p=(0, 0, 0))
+		lt_loc_2 = pm.spaceLocator(p=(0, 0, 0))
 
-		temp_constraint = pm.parentConstraint(lt_arm_root, loc_1, mo=0)
+		temp_constraint = pm.parentConstraint(lt_arm_root, lt_loc_1, mo=0)
 		pm.delete(temp_constraint)
-		pm.select(loc_1)
-		freezeTransform(loc_1)
+		pm.select(lt_loc_1)
+		freezeTransform(lt_loc_1)
 
-		loc_name = root_joint.replace('01_bind', 'start_loc')
-		loc_1.rename(loc_name)
+		loc_name = lt_root_joint.replace('01_bind', 'stalt_lt_loc')
+		lt_loc_1.rename(loc_name)
 
-		temp_constraint = pm.parentConstraint(arm_joint_3, loc_2, mo=0)
+		temp_constraint = pm.parentConstraint(lt_arm_joint_3, lt_loc_2, mo=0)
 		pm.delete(temp_constraint)
-		pm.select(loc_2)
-		freezeTransform(loc_2)
+		pm.select(lt_loc_2)
+		freezeTransform(lt_loc_2)
 
-		loc_name = loc_1.replace('start', 'end')
-		loc_2.rename(loc_name)
+		loc_name = lt_loc_1.replace('start', 'end')
+		lt_loc_2.rename(loc_name)
 
-		arm_dist = pm.shadingNode('distanceDimShape', asUtility=1)
+		lt_arm_dist = pm.shadingNode('distanceDimShape', asUtility=1)
 
-		pm.select(arm_dist)
+		pm.select(lt_arm_dist)
 		selection = pm.ls(sl=True, s=False)
 		shape = selection[0]
 		pm.pickWalk(d='up')
-		transform = pm.ls(sl=True)[0]
+		lt_transform = pm.ls(sl=True)[0]
 
-		node_name = loc_2.replace('end_loc', 'dist')
+		node_name = lt_loc_2.replace('end_lt_loc', 'dist')
 		# print node_name
-		transform.rename(node_name)
+		lt_transform.rename(node_name)
 
-		pm.connectAttr(loc_1 + '.worldPosition', arm_dist + '.startPoint')
-		pm.connectAttr(loc_2 + '.worldPosition', arm_dist + '.endPoint')
+		pm.connectAttr(lt_loc_1 + '.worldPosition', lt_arm_dist + '.startPoint')
+		pm.connectAttr(lt_loc_2 + '.worldPosition', lt_arm_dist + '.endPoint')
 
-		pm.parentConstraint(lt_arm_icon, loc_2)
+		pm.parentConstraint(lt_arm_icon, lt_loc_2)
 
-		upperArm_len = pm.getAttr(lt_arm_ik_joint_2 + '.tx')
+		lt_upperArm_len = pm.getAttr(lt_arm_ik_joint_2 + '.tx')
 
-		foreArm_len = pm.getAttr(lt_arm_ik_joint_3 + '.tx')
+		lt_foreArm_len = pm.getAttr(lt_arm_ik_joint_3 + '.tx')
 
-		sumLen = upperArm_len + foreArm_len
+		lt_sumLen = lt_upperArm_len + lt_foreArm_len
 
-		pm.setDrivenKeyframe(lt_arm_ik_joint_2 + '.tx', currentDriver=arm_dist + '.distance', value=upperArm_len, driverValue=sumLen)
+		pm.setDrivenKeyframe(lt_arm_ik_joint_2 + '.tx', currentDriver=lt_arm_dist + '.distance', value=lt_upperArm_len, driverValue=lt_sumLen)
 
-		pm.setDrivenKeyframe(lt_arm_ik_joint_2 + '.tx',  currentDriver=arm_dist + '.distance', value=(upperArm_len*2), driverValue=(sumLen*2))
+		pm.setDrivenKeyframe(lt_arm_ik_joint_2 + '.tx',  currentDriver=lt_arm_dist + '.distance', value=(lt_upperArm_len*2), driverValue=(lt_sumLen*2))
 
-		pm.setDrivenKeyframe(lt_arm_ik_joint_3 + '.tx', currentDriver=arm_dist + '.distance', value=foreArm_len, driverValue=sumLen)
+		pm.setDrivenKeyframe(lt_arm_ik_joint_3 + '.tx', currentDriver=lt_arm_dist + '.distance', value=lt_foreArm_len, driverValue=lt_sumLen)
 
-		pm.setDrivenKeyframe(lt_arm_ik_joint_3 + '.tx', currentDriver=arm_dist + '.distance', value=(foreArm_len*2), driverValue=(sumLen*2))
+		pm.setDrivenKeyframe(lt_arm_ik_joint_3 + '.tx', currentDriver=lt_arm_dist + '.distance', value=(lt_foreArm_len*2), driverValue=(lt_sumLen*2))
 
 		pm.keyTangent(lt_arm_ik_joint_2, lt_arm_ik_joint_3,'graphEditor1FromOutliner', itt='spline', animation='objects', ott='spline')
 		pm.setInfinity(lt_arm_ik_joint_2, lt_arm_ik_joint_3, poi='linear')
 
-		loc_3 = pm.spaceLocator(p=(0, 0, 0))
-		temp_constraint = pm.parentConstraint(root_joint, loc_3, mo=0)
+		lt_loc_3 = pm.spaceLocator(p=(0, 0, 0))
+		temp_constraint = pm.parentConstraint(lt_root_joint, lt_loc_3, mo=0)
 		pm.delete(temp_constraint)
-		freezeTransform(loc_3)
+		freezeTransform(lt_loc_3)
 
-		node_name = loc_1.replace('start_loc', '01_snap_loc')
-		loc_3.rename(node_name)
+		node_name = lt_loc_1.replace('stalt_lt_loc', '01_snap_lt_loc')
+		lt_loc_3.rename(node_name)
 
-		loc_4 = pm.spaceLocator(p=(0, 0, 0))
-		temp_constraint = pm.parentConstraint(elbow_icon, loc_4, mo=0)
+		lt_loc_4 = pm.spaceLocator(p=(0, 0, 0))
+		temp_constraint = pm.parentConstraint(lt_elbow_icon, lt_loc_4, mo=0)
 		pm.delete(temp_constraint)
-		freezeTransform(loc_4)
+		freezeTransform(lt_loc_4)
 
-		node_name = loc_3.replace('01', '02')
-		loc_4.rename(node_name)
+		node_name = lt_loc_3.replace('01', '02')
+		lt_loc_4.rename(node_name)
 
 
-		loc_5 = pm.spaceLocator(p=(0, 0, 0))
-		temp_constraint = pm.parentConstraint(arm_joint_3, loc_5, mo=0)
+		lt_loc_5 = pm.spaceLocator(p=(0, 0, 0))
+		temp_constraint = pm.parentConstraint(lt_arm_joint_3, lt_loc_5, mo=0)
 		pm.delete(temp_constraint)
-		freezeTransform(loc_5)
+		freezeTransform(lt_loc_5)
 
-		node_name = loc_4.replace('02', '03')
-		loc_5.rename(node_name)
+		node_name = lt_loc_4.replace('02', '03')
+		lt_loc_5.rename(node_name)
 
-		snap_dist_1 = pm.shadingNode('distanceDimShape', asUtility=1)
+		lt_snapDist_1 = pm.shadingNode('distanceDimShape', asUtility=1)
 
-		pm.select(snap_dist_1)
+		pm.select(lt_snapDist_1)
 		selection = pm.ls(sl=True, s=False)
 		shape_1 = selection[0]
 		pm.pickWalk(d='up')
-		transform_1 = pm.ls(sl=True)[0]
-		temp_constraint = pm.pointConstraint(lt_arm_root, transform_1, mo=0)
+		lt_transform_1 = pm.ls(sl=True)[0]
+		temp_constraint = pm.pointConstraint(lt_arm_root, lt_transform_1, mo=0)
 		pm.delete(temp_constraint)
 
 
-		node_name = loc_2.replace('end_loc', '01_snap_dist')
-		transform_1.rename(node_name)
+		node_name = lt_loc_2.replace('end_lt_loc', '01_lt_snapDist')
+		lt_transform_1.rename(node_name)
 
-		pm.connectAttr(loc_3 + '.worldPosition', snap_dist_1 + '.startPoint')
+		pm.connectAttr(lt_loc_3 + '.worldPosition', lt_snapDist_1 + '.startPoint')
 
-		pm.connectAttr(loc_4 + '.worldPosition', snap_dist_1 + '.endPoint')
+		pm.connectAttr(lt_loc_4 + '.worldPosition', lt_snapDist_1 + '.endPoint')
 
 
-		snap_dist_2 = pm.shadingNode('distanceDimShape', asUtility=1)
+		lt_snapDist_2 = pm.shadingNode('distanceDimShape', asUtility=1)
 
-		pm.select(snap_dist_2)
+		pm.select(lt_snapDist_2)
 		selection = pm.ls(sl=True, s=False)
 		shape_2 = selection[0]
 		pm.pickWalk(d='up')
-		transform_2 = pm.ls(sl=True)[0]
-		temp_constraint = pm.pointConstraint(arm_joint_3, transform_2, mo=0)
+		lt_transform_2 = pm.ls(sl=True)[0]
+		temp_constraint = pm.pointConstraint(lt_arm_joint_3, lt_transform_2, mo=0)
 		pm.delete(temp_constraint)
 
-		node_name = transform_1.replace('01','02')
-		transform_2.rename(node_name)
+		node_name = lt_transform_1.replace('01','02')
+		lt_transform_2.rename(node_name)
 
-		pm.connectAttr(loc_4 + '.worldPosition', snap_dist_2 + '.startPoint')
+		pm.connectAttr(lt_loc_4 + '.worldPosition', lt_snapDist_2 + '.startPoint')
 
-		pm.connectAttr(loc_5 + '.worldPosition', snap_dist_2 + '.endPoint')
+		pm.connectAttr(lt_loc_5 + '.worldPosition', lt_snapDist_2 + '.endPoint')
 
-		pm.parent(loc_4, elbow_icon)
+		pm.parent(lt_loc_4, lt_elbow_icon)
 
-		pm.parent(loc_5, lt_arm_icon)
+		pm.parent(lt_loc_5, lt_arm_icon)
 
-		pm.addAttr(elbow_icon, ln='elbowSnap', at='double', min=0, max=1, dv=0)
-		elbow_icon.elbowSnap.set(e=1, keyable=True)
+		pm.addAttr(lt_elbow_icon, ln='elbowSnap', at='double', min=0, max=1, dv=0)
+		lt_elbow_icon.elbowSnap.set(e=1, keyable=True)
 
-		upperArm_stretch = pm.shadingNode('blendColors', asUtility=1)
-		node_name = upperArm_info.replace('info', 'stretch_blend_01')
-		upperArm_stretch.rename(node_name)
+		lt_upperArm_stretch = pm.shadingNode('blendColors', asUtility=1)
+		node_name = lt_upperArm_info.replace('info', 'stretch_blend_01')
+		lt_upperArm_stretch.rename(node_name)
 
-		pm.connectAttr(elbow_icon + '.elbowSnap', upperArm_stretch + '.blender')
-		pm.connectAttr(snap_dist_1 + '.distance', upperArm_stretch + '.color1R')
-		pm.connectAttr(lt_arm_ik_joint_2 + '_translateX.output', upperArm_stretch + '.color2R')
+		pm.connectAttr(lt_elbow_icon + '.elbowSnap', lt_upperArm_stretch + '.blender')
+		pm.connectAttr(lt_snapDist_1 + '.distance', lt_upperArm_stretch + '.color1R')
+		pm.connectAttr(lt_arm_ik_joint_2 + '_translateX.output', lt_upperArm_stretch + '.color2R')
 		pm.disconnectAttr(lt_arm_ik_joint_2 + '_translateX.output', lt_arm_ik_joint_2 + '.tx')
-		pm.connectAttr(upperArm_stretch + '.outputR', lt_arm_ik_joint_2 + '.tx')
+		pm.connectAttr(lt_upperArm_stretch + '.outputR', lt_arm_ik_joint_2 + '.tx')
 
-		foreArm_stretch = pm.shadingNode('blendColors', asUtility=1)
-		node_name = foreArm_info.replace('info', 'stretch_blend_02')
-		foreArm_stretch.rename(node_name)
+		lt_foreArm_stretch = pm.shadingNode('blendColors', asUtility=1)
+		node_name = lt_foreArm_info.replace('info', 'stretch_blend_02')
+		lt_foreArm_stretch.rename(node_name)
 
-		pm.connectAttr(elbow_icon + '.elbowSnap', foreArm_stretch + '.blender')
-		pm.connectAttr(snap_dist_2 + '.distance', foreArm_stretch + '.color1R')
-		pm.connectAttr(lt_arm_ik_joint_3 + '_translateX.output', foreArm_stretch + '.color2R')
+		pm.connectAttr(lt_elbow_icon + '.elbowSnap', lt_foreArm_stretch + '.blender')
+		pm.connectAttr(lt_snapDist_2 + '.distance', lt_foreArm_stretch + '.color1R')
+		pm.connectAttr(lt_arm_ik_joint_3 + '_translateX.output', lt_foreArm_stretch + '.color2R')
 		pm.disconnectAttr(lt_arm_ik_joint_3 + '_translateX.output', lt_arm_ik_joint_3 + '.tx')
-		pm.connectAttr(foreArm_stretch + '.outputR', lt_arm_ik_joint_3 + '.tx')
+		pm.connectAttr(lt_foreArm_stretch + '.outputR', lt_arm_ik_joint_3 + '.tx')
 
-		hybrid_fk_icons = pm.duplicate(fk_pad_2)
-		pm.parent(hybrid_fk_icons, w=1)
+		lt_hybrid_fk_icons = pm.duplicate(lt_fk_pad_2)
+		pm.parent(lt_hybrid_fk_icons, w=1)
 
-		pm.select(hybrid_fk_icons)
-		hIcons = pm.ls(sl=True, dag=True)
-		hPad = hIcons[0]
-		hIcon = hIcons[1]
-		# print hPad
-		# print hIcon
+		pm.select(lt_hybrid_fk_icons)
+		lt_hIcons = pm.ls(sl=True, dag=True)
+		lt_hPad = lt_hIcons[0]
+		lt_hIcon = lt_hIcons[1]
+		# print lt_hPad
+		# print lt_hIcon
 
-		pad_name = hJ_1.replace('hybridFk', 'hybridFk_local')
-		hPad.rename(pad_name)
+		pad_name = lt_hJ_1.replace('hybridFk', 'hybridFk_local')
+		lt_hPad.rename(pad_name)
 
-		icon_name = hPad.replace('local', 'icon')
-		hIcon.rename(icon_name)
+		icon_name = lt_hPad.replace('local', 'icon')
+		lt_hIcon.rename(icon_name)
 
-		temp_constraint = pm.pointConstraint(elbow_icon, hJ_1, mo=0)
+		temp_constraint = pm.pointConstraint(lt_elbow_icon, lt_hJ_1, mo=0)
 		pm.delete(temp_constraint)
-		freezeTransform(hJ_1)
+		freezeTransform(lt_hJ_1)
 
-		temp_constraint = pm.pointConstraint(elbow_icon, hPad, mo=0)
+		temp_constraint = pm.pointConstraint(lt_elbow_icon, lt_hPad, mo=0)
 		pm.delete(temp_constraint)
 
-		pm.orientConstraint(hIcon, hJ_1)
+		pm.orientConstraint(lt_hIcon, lt_hJ_1)
 
-		ik_cons_grp = pm.group(empty=True)
-		temp_constraint = pm.parentConstraint(arm_joint_3, ik_cons_grp)
+		lt_ik_cons_grp = pm.group(empty=True)
+		temp_constraint = pm.parentConstraint(lt_arm_joint_3, lt_ik_cons_grp)
 		pm.delete(temp_constraint)
-		freezeTransform(ik_cons_grp)
-		pm.parent(arm_ikh, loc_5, ik_cons_grp)
-		grp_name = twist_grp.replace('twist', 'cons')
-		ik_cons_grp.rename(grp_name)
-		constraint_1 = pm.parentConstraint(lt_arm_icon, ik_cons_grp, mo=0)
+		freezeTransform(lt_ik_cons_grp)
+		pm.parent(lt_arm_ikh, lt_loc_5, lt_ik_cons_grp)
+		grp_name = lt_twist_grp.replace('twist', 'cons')
+		lt_ik_cons_grp.rename(grp_name)
+		constraint_1 = pm.parentConstraint(lt_arm_icon, lt_ik_cons_grp, mo=0)
 		const_1_targets = constraint_1.getWeightAliasList()[0]
 		# print const_1_targets
-		constraint_2 = pm.parentConstraint(hJ_2, ik_cons_grp, mo=0)
+		constraint_2 = pm.parentConstraint(lt_hJ_2, lt_ik_cons_grp, mo=0)
 		const_2_targets = constraint_2.getWeightAliasList()[1]
 		# print const_2_targets
-		pm.parent(hPad, elbow_icon)
+		pm.parent(lt_hPad, lt_elbow_icon)
 
-		hJpad = pm.group(empty=True)
-		pad_name = hJ_1.replace('02_hybridFk', '00_hybrdFk_pad')
-		hJpad.rename(pad_name)
+		lt_hJ_pad = pm.group(empty=True)
+		pad_name = lt_hJ_1.replace('02_hybridFk', '00_hybrdFk_lt_arm_pad')
+		lt_hJ_pad.rename(pad_name)
 
-		temp_constraint = pm.parentConstraint(hJ_1, hJpad)
+		temp_constraint = pm.parentConstraint(lt_hJ_1, lt_hJ_pad)
 		pm.delete(temp_constraint)
-		freezeTransform(hJpad)
+		freezeTransform(lt_hJ_pad)
 
-		pm.parent(hJ_1, hJpad)
+		pm.parent(lt_hJ_1, lt_hJ_pad)
 
-		pm.parentConstraint(hIcon, hJpad, mo=1)
+		pm.parentConstraint(lt_hIcon, lt_hJ_pad, mo=1)
 
-		pm.addAttr(elbow_icon, ln='FK_foreArmBlend', at='double', min=0, max=1, dv=0)
-		elbow_icon.FK_foreArmBlend.set(e=1, keyable=True)
+		pm.addAttr(lt_elbow_icon, ln='FK_lt_foreArmBlend', at='double', min=0, max=1, dv=0)
+		lt_elbow_icon.FK_lt_foreArmBlend.set(e=1, keyable=True)
 
-		elbow_icon.FK_foreArmBlend.set(1)
+		lt_elbow_icon.FK_lt_foreArmBlend.set(1)
 		const_1_targets.set(0)
-		pm.setDrivenKeyframe(const_1_targets, const_2_targets, currentDriver=elbow_icon + '.FK_foreArmBlend')
-		pm.setDrivenKeyframe(hIcon + '.v',  currentDriver=elbow_icon + '.FK_foreArmBlend')
-		elbow_icon.FK_foreArmBlend.set(0)
+		pm.setDrivenKeyframe(const_1_targets, const_2_targets, currentDriver=lt_elbow_icon + '.FK_lt_foreArmBlend')
+		pm.setDrivenKeyframe(lt_hIcon + '.v',  currentDriver=lt_elbow_icon + '.FK_lt_foreArmBlend')
+		lt_elbow_icon.FK_lt_foreArmBlend.set(0)
 		const_1_targets.set(1)
 		const_2_targets.set(0)
-		hIcon.v.set(0)
-		pm.setDrivenKeyframe(const_1_targets, const_2_targets, currentDriver=elbow_icon + '.FK_foreArmBlend')
-		pm.setDrivenKeyframe(hIcon + '.v',  currentDriver=elbow_icon + '.FK_foreArmBlend')
-		pm.setDrivenKeyframe(hJ_2 + '.tx', currentDriver=hIcon + '.length')
-		hIcon.length.set(0)
-		hJ_2.tx.set(0)
-		length_sdk = pm.setDrivenKeyframe(hJ_2 + '.tx', currentDriver=hIcon + '.length')
-		pm.keyTangent(hJ_2, itt='clamped', ott='clamped')
-		pm.setInfinity(hJ_2, poi='linear')
-		hIcon.length.set(1)
+		lt_hIcon.v.set(0)
+		pm.setDrivenKeyframe(const_1_targets, const_2_targets, currentDriver=lt_elbow_icon + '.FK_lt_foreArmBlend')
+		pm.setDrivenKeyframe(lt_hIcon + '.v',  currentDriver=lt_elbow_icon + '.FK_lt_foreArmBlend')
+		pm.setDrivenKeyframe(lt_hJ_2 + '.tx', currentDriver=lt_hIcon + '.length')
+		lt_hIcon.length.set(0)
+		lt_hJ_2.tx.set(0)
+		length_sdk = pm.setDrivenKeyframe(lt_hJ_2 + '.tx', currentDriver=lt_hIcon + '.length')
+		pm.keyTangent(lt_hJ_2, itt='clamped', ott='clamped')
+		pm.setInfinity(lt_hJ_2, poi='linear')
+		lt_hIcon.length.set(1)
 
 		'''==========================================================================================================================='''
-		transform.v.set(0)
-		transform_1.v.set(0)
-		transform_2.v.set(0)
+		lt_transform.v.set(0)
+		lt_transform_1.v.set(0)
+		lt_transform_2.v.set(0)
 
-		dnt_grp = pm.group(loc_1,loc_2, loc_3, arm_dist, twist_grp, lt_arm_root, lt_ik_root, lt_fk_root, snap_dist_1, snap_dist_2, ik_cons_grp, hJpad)
-		grp_name = twist_grp.replace('twist_grp', 'DO____NOT____TOUCH')
-		dnt_grp.rename(grp_name)
+		lt_arm_dnt_grp = pm.group(lt_loc_1,lt_loc_2, lt_loc_3, lt_arm_dist, lt_twist_grp, lt_arm_root, lt_arm_ik_root, lt_fk_root, lt_snapDist_1, lt_snapDist_2, lt_ik_cons_grp, lt_hJ_pad)
+		grp_name = lt_twist_grp.replace('twist_grp', 'DO____NOT____TOUCH')
+		lt_arm_dnt_grp.rename(grp_name)
 
-		pad = pm.group(empty=True)
-		temp_constraint = pm.parentConstraint(lt_arm_root, pad, mo=0)
+		lt_arm_pad = pm.group(empty=True)
+		temp_constraint = pm.parentConstraint(lt_arm_root, lt_arm_pad, mo=0)
 		pm.delete(temp_constraint)
-		freezeTransform(pad)
+		freezeTransform(lt_arm_pad)
 
-		pm.parent(root_joint, joint_7, pad)
-		pad_name = root_joint.replace('01_bind', '00_pad')
-		pad.rename(pad_name)
+		pm.parent(lt_root_joint, lt_joint_7, lt_arm_pad)
+		pad_name = lt_root_joint.replace('01_bind', '00_lt_arm_pad')
+		lt_arm_pad.rename(pad_name)
 
-		ik_grp = pm.group(empty=True)
-		temp_constraint = pm.parentConstraint(lt_arm_root, ik_grp, mo=0)
+		lt_ik_grp = pm.group(empty=True)
+		temp_constraint = pm.parentConstraint(lt_arm_root, lt_ik_grp, mo=0)
 		pm.delete(temp_constraint)
-		freezeTransform(ik_grp)
-		pm.parent(ik_grp, dnt_grp)
-		pm.parent(lt_ik_root, loc_1, loc_2, ik_grp)
+		freezeTransform(lt_ik_grp)
+		pm.parent(lt_ik_grp, lt_arm_dnt_grp)
+		pm.parent(lt_arm_ik_root, lt_loc_1, lt_loc_2, lt_ik_grp)
 
-		grp_name = lt_ik_root.replace('01_ik', '00_ik_cons_grp')
-		ik_grp.rename(grp_name)
+		grp_name = lt_arm_ik_root.replace('01_ik', '00_lt_ik_cons_grp')
+		lt_ik_grp.rename(grp_name)
 
-		twist_jnt_grp = pm.group(empty=True)
-		temp_constraint = pm.parentConstraint(lt_arm_root, twist_jnt_grp, mo=0)
+		lt_twist_jnt_grp = pm.group(empty=True)
+		temp_constraint = pm.parentConstraint(lt_arm_root, lt_twist_jnt_grp, mo=0)
 		pm.delete(temp_constraint)
-		freezeTransform(twist_jnt_grp)
-		pm.parent(twist_jnt_grp, dnt_grp)
-		pm.parent(lt_arm_root, twist_jnt_grp)	
+		freezeTransform(lt_twist_jnt_grp)
+		pm.parent(lt_twist_jnt_grp, lt_arm_dnt_grp)
+		pm.parent(lt_arm_root, lt_twist_jnt_grp)	
 
-		grp_name = ik_grp.replace('ik', 'twist')
-		twist_jnt_grp.rename(grp_name)
+		grp_name = lt_ik_grp.replace('ik', 'twist')
+		lt_twist_jnt_grp.rename(grp_name)
 
 
-		arm_global = pm.group(empty=True)
+		lt_arm_global = pm.group(empty=True)
 
-		temp_constraint = pm.parentConstraint(lt_arm_root, arm_global)
+		temp_constraint = pm.parentConstraint(lt_arm_root, lt_arm_global)
 		pm.delete(temp_constraint)
-		freezeTransform(arm_global)
-		pm.parent(lt_arm_icon, elbow_icon, pad, switch, fk_pad_1, dnt_grp, arm_global)
-		grp_name = pad.replace('00_pad', 'global_grp')
-		arm_global.rename(grp_name)
+		freezeTransform(lt_arm_global)
+		pm.parent(lt_arm_icon, lt_elbow_icon, lt_arm_pad, lt_switch, lt_fk_pad_1, lt_arm_dnt_grp, lt_arm_global)
+		grp_name = lt_arm_pad.replace('00_lt_arm_pad', 'global_grp')
+		lt_arm_global.rename(grp_name)
 
 		if pm.objExists('*moveAll'):
 			pm.select('*moveAll')
@@ -3509,7 +3419,7 @@ def lt_armSetup(*args):
 			pm.select('*joint_grp')
 			jnt_grp = pm.ls(sl=True)[0]
 			# print jnt_grp
-			# pm.parent(pad, jnt_grp)
+			# pm.parent(lt_arm_pad, jnt_grp)
 			pm.scaleConstraint(moveAll, jnt_grp)
 
 		else:
@@ -3517,32 +3427,32 @@ def lt_armSetup(*args):
 			grp_name = lt_arm_root.replace('lt_arm_01_twist', 'joint_grp')
 			jnt_grp.rename(grp_name)
 			# print jnt_grp
-			# pm.parent(pad, jnt_grp)
+			# pm.parent(lt_arm_pad, jnt_grp)
 			pm.scaleConstraint(moveAll, jnt_grp)
 
 		if pm.objExists('*icon_grp'):
 			pm.select('*icon_grp')
 			icon_grp = pm.ls(sl=True)[0] 
 			pm.parent(moveAll, '*icon_grp')
-			# pm.parent(lt_arm_icon, fk_pad_1, elbow_icon, moveAll)
+			# pm.parent(lt_arm_icon, lt_fk_pad_1, lt_elbow_icon, moveAll)
 
 		else:
 			icon_grp = pm.group(empty=True)
 			pm.parent(moveAll, icon_grp)
 			group_name = jnt_grp.replace('joint', 'icon')
 			icon_grp.rename(group_name)
-			# pm.parent(lt_arm_icon, fk_pad_1, elbow_icon, moveAll)
+			# pm.parent(lt_arm_icon, lt_fk_pad_1, lt_elbow_icon, moveAll)
 		'''
 		Create the Gimbal icon
 		'''
-		gimbal_icon = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=1, tol=0.01, nr=(1, 0, 0))
+		lt_gimbal_icon = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=1, tol=0.01, nr=(1, 0, 0))
 
-		gimbal_icon_2 = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=0.2, tol=0.01, nr=(1, 0, 0))[0]
+		lt_gimbal_icon_2 = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=0.2, tol=0.01, nr=(1, 0, 0))[0]
 
-		gimbal_icon_2.ty.set(1)
-		freezeTransform(gimbal_icon_2)
+		lt_gimbal_icon_2.ty.set(1)
+		freezeTransform(lt_gimbal_icon_2)
 
-		pm.select(gimbal_icon, gimbal_icon_2)
+		pm.select(lt_gimbal_icon, lt_gimbal_icon_2)
 
 		selection = pm.ls(sl=True, dag=True, s=True)
 		shape_1 = selection[0]
@@ -3550,252 +3460,243 @@ def lt_armSetup(*args):
 		# print shape_1
 		# print shape_2
 
-		core_icon = pm.group(empty=True)
+		lt_core_icon = pm.group(empty=True)
 
-		pm.parent(shape_1, shape_2, core_icon, r=True, s=True)
+		pm.parent(shape_1, shape_2, lt_core_icon, r=True, s=True)
 
-		pm.delete(gimbal_icon, gimbal_icon_2)
+		pm.delete(lt_gimbal_icon, lt_gimbal_icon_2)
 
-		icon_name = lt_arm_icon.replace('arm', 'arm_gimbal_core')
-		core_icon.rename(icon_name)
+		icon_name = lt_arm_icon.replace('lt_arm', 'gimbal_core')
+		lt_core_icon.rename(icon_name)
 
-		shape_name = core_icon.replace('_icon', 'Shape1')
+		shape_name = lt_core_icon.replace('_icon', 'Shape1')
 		shape_1.rename(shape_name)
 
 		shape_name = shape_1.replace('1', '2')
 		shape_2.rename(shape_name)
 
-		temp_constraint = pm.pointConstraint(lt_arm_root, core_icon, mo=0)
+		temp_constraint = pm.pointConstraint(lt_arm_root, lt_core_icon, mo=0)
 		pm.delete(temp_constraint)
-		freezeTransform(core_icon)
+		freezeTransform(lt_core_icon)
 
-		pm.parent(core_icon, arm_global)
-		pm.orientConstraint(core_icon, fk_pad_1, mo=1)
+		pm.parent(lt_core_icon, lt_arm_global)
+		pm.orientConstraint(lt_core_icon, lt_fk_pad_1, mo=1)
 
 
-		twist_gimbal_grp = pm.group(empty=True)
-		temp_constraint = pm.parentConstraint(lt_arm_root, twist_gimbal_grp, mo=0)
+		lt_twist_gimbal_grp = pm.group(empty=True)
+		temp_constraint = pm.parentConstraint(lt_arm_root, lt_twist_gimbal_grp, mo=0)
 		pm.delete(temp_constraint)
-		freezeTransform(twist_gimbal_grp)
+		freezeTransform(lt_twist_gimbal_grp)
 
-		pm.parent(twist_gimbal_grp, twist_jnt_grp)
+		pm.parent(lt_twist_gimbal_grp, lt_twist_jnt_grp)
 
-		pm.parent(lt_arm_root, twist_gimbal_grp)
-
-
-		grp_name = core_icon.replace('arm_gimbal_core_icon', 'twist_gimbal_core_grp')
-		twist_gimbal_grp.rename(grp_name)
-
-		gimbal_core_tog = pm.shadingNode('blendColors', asUtility=1)
-
-		node_name = lt_arm_icon.replace('icon', 'gimbal_core_tog_blendColors')
-		gimbal_core_tog.rename(node_name)
-
-		pm.connectAttr(core_icon + '.r', gimbal_core_tog + '.color2')
-		gimbal_core_tog.color1R.set(0)
-		gimbal_core_tog.color1G.set(0)
-		gimbal_core_tog.color1B.set(0)
-		pm.connectAttr(gimbal_core_tog + '.output', twist_jnt_grp + '.r')
-		pm.connectAttr(switch + '.IkFk', gimbal_core_tog + '.blender')
-		pm.connectAttr(switch + '.IkFk', core_icon + '.v')
+		pm.parent(lt_arm_root, lt_twist_gimbal_grp)
 
 
-		pm.select(loc_1, loc_2, loc_3, loc_4, loc_5, snap_dist_1, snap_dist_2, lt_ik_root, arm_dist, arm_ikh, arm_ik_1, arm_ik_2, lt_arm_root, arm_curve_1, arm_curve_2, hJ_1, lt_fk_root)
+		grp_name = lt_core_icon.replace('gimbal_core_icon', 'twist_gimbal_core_grp')
+		lt_twist_gimbal_grp.rename(grp_name)
+
+		lt_gimbal_core_tog = pm.shadingNode('blendColors', asUtility=1)
+
+		node_name = lt_arm_icon.replace('icon', 'lt_gimbal_core_tog_blendColors')
+		lt_gimbal_core_tog.rename(node_name)
+
+		pm.connectAttr(lt_core_icon + '.r', lt_gimbal_core_tog + '.color2')
+		lt_gimbal_core_tog.color1R.set(0)
+		lt_gimbal_core_tog.color1G.set(0)
+		lt_gimbal_core_tog.color1B.set(0)
+		pm.connectAttr(lt_gimbal_core_tog + '.output', lt_twist_jnt_grp + '.r')
+		pm.connectAttr(lt_switch + '.IkFk', lt_gimbal_core_tog + '.blender')
+		pm.connectAttr(lt_switch + '.IkFk', lt_core_icon + '.v')
+
+
+		pm.select(lt_loc_1, lt_loc_2, lt_loc_3, lt_loc_4, lt_loc_5, lt_snapDist_1, lt_snapDist_2, lt_arm_ik_root, lt_arm_dist, lt_arm_ikh, lt_arm_ik_1, lt_arm_ik_2, lt_arm_root, lt_arm_curve_1, lt_arm_curve_2, lt_hJ_1, lt_fk_root)
 		selection = pm.ls(sl=1)
 		for each in selection:
 			pm.setAttr(each + '.visibility', 0)
 	else:
 		'''
-		Create the arm icon
+		Create the lt_arm icon
 		'''
 		lt_arm_icon = pm.curve(p=[(0.5, 0.5, 0.5), (-0.5, 0.5, 0.5), (-0.5, 0.5, -0.5), (0.5, 0.5, -0.5), (0.5, 0.5, 0.5), (0.5, -0.5, 0.5), (0.5, -0.5, -0.5), (0.5, 0.5, -0.5), (-0.5, 0.5, -0.5), (-0.5, -0.5, -0.5), (0.5, -0.5, -0.5), (0.5, -0.5, 0.5), (-0.5, -0.5, 0.5), (-0.5, 0.5, 0.5), (-0.5, 0.5, -0.5), (-0.5, -0.5, -0.5), (-0.5, -0.5, 0.5), (0.5, -0.5, 0.5), (0.5, -0.5, -0.5), (-0.5, -0.5, -0.5)], k=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19], d=1)
-		temp_constraint = pm.pointConstraint(arm_joint_3, lt_arm_icon)
+		temp_constraint = pm.pointConstraint(lt_arm_joint_3, lt_arm_icon)
 		pm.delete(temp_constraint)
 		freezeTransform()
 		deleteHistory()
 
 		'''
-		Rename arm icon
+		Rename lt_arm icon
 		'''
 		lt_arm_icon_name = lt_arm_root.replace('01_bind', 'icon')
 		lt_arm_icon.rename(lt_arm_icon_name)
 
 
 	'''
-	Create the IK/FK switch
+	Create the IK/FK lt_switch
 	'''
-	ikfk_shape_1 = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=1, tol=0.01, nr=(0, 1, 0))[0]
-	ikfk_shape_2 = pm.curve(p=[(0, 0, -1), (0, 0, 1)], k=[0, 1], d=1)
-	ikfk_shape_3 = pm.curve(p=[(-1, 0, 0), (1, 0, 0)], k=[0, 1], d=1)
-	ikfk_shape_4 = pm.curve(p=[(0, 0, 1), (0, 0, 3)], k=[0, 1], d=1)
+	lt_ikfk_shape_1 = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=1, tol=0.01, nr=(0, 1, 0))[0]
+	lt_ikfk_shape_2 = pm.curve(p=[(0, 0, -1), (0, 0, 1)], k=[0, 1], d=1)
+	lt_ikfk_shape_3 = pm.curve(p=[(-1, 0, 0), (1, 0, 0)], k=[0, 1], d=1)
+	lt_ikfk_shape_4 = pm.curve(p=[(0, 0, 1), (0, 0, 3)], k=[0, 1], d=1)
 
-	shape_name_1 = root_joint.replace('arm_01_bind', 'ikfk_curve1') 
+	shape_name_1 = lt_root_joint.replace('lt_arm_01_bind', 'ikfk_curve1') 
 	# print 'Shape 1 Name:', shape_name_1
-	ikfk_shape_1.rename(shape_name_1)
+	lt_ikfk_shape_1.rename(shape_name_1)
 
-	shape_name_2 = root_joint.replace('arm_01_bind', 'ikfk_curve2') 
+	shape_name_2 = lt_root_joint.replace('lt_arm_01_bind', 'ikfk_curve2') 
 	# print 'Shape 2 Name:', shape_name_2
-	ikfk_shape_2.rename(shape_name_2)
+	lt_ikfk_shape_2.rename(shape_name_2)
 
-	shape_name_3 = root_joint.replace('arm_01_bind', 'ikfk_curve3') 
+	shape_name_3 = lt_root_joint.replace('lt_arm_01_bind', 'ikfk_curve3') 
 	# print 'Shape 3 Name:', shape_name_3
-	ikfk_shape_3.rename(shape_name_3)
+	lt_ikfk_shape_3.rename(shape_name_3)
 
-	shape_name_4 = root_joint.replace('arm_01_bind', 'ikfk_curve4') 
+	shape_name_4 = lt_root_joint.replace('lt_arm_01_bind', 'ikfk_curve4') 
 	# print 'Shape 4 Name:', shape_name_4
-	ikfk_shape_4.rename(shape_name_4)
+	lt_ikfk_shape_4.rename(shape_name_4)
 
-	switch = pm.group(empty=True)
-	pm.select(ikfk_shape_1, ikfk_shape_2, ikfk_shape_3, ikfk_shape_4, switch)
+	lt_switch = pm.group(empty=True)
+	pm.select(lt_ikfk_shape_1, lt_ikfk_shape_2, lt_ikfk_shape_3, lt_ikfk_shape_4, lt_switch)
 	shapes = pm.ls(selection=True, dag=True)
 	curveShape_1 = shapes[1]
 	curveShape_2 = shapes[3]
 	curveShape_3 = shapes[5]
 	curveShape_4 = shapes[7]
-	switch_grp = shapes[8]
+	lt_switch_grp = shapes[8]
 	# print 'Curve Shape 1:', curveShape_1
 	# print 'Curve Shape 2:', curveShape_2
 	# print 'Curve Shape 3:', curveShape_3
 	# print 'Curve Shape 4:', curveShape_4
-	# print 'Switch:', switch_grp
-	pm.select(ikfk_shape_2, ikfk_shape_3)
+	# print 'Switch:', lt_switch_grp
+	pm.select(lt_ikfk_shape_2, lt_ikfk_shape_3)
 
 	pm.cmds.scale(0.768, 0.768, 0.768)
 	freezeTransform()
 
-	pm.parent(curveShape_1, curveShape_2, curveShape_3, curveShape_4, switch, s=1, r=1)
-	pm.delete(ikfk_shape_1, ikfk_shape_2, ikfk_shape_3, ikfk_shape_4)
-	pm.cmds.move(0, 0, 3, switch + '.scalePivot', switch + '.rotatePivot', rpr=1)
+	pm.parent(curveShape_1, curveShape_2, curveShape_3, curveShape_4, lt_switch, s=1, r=1)
+	pm.delete(lt_ikfk_shape_1, lt_ikfk_shape_2, lt_ikfk_shape_3, lt_ikfk_shape_4)
+	pm.cmds.move(0, 0, 3, lt_switch + '.scalePivot', lt_switch + '.rotatePivot', rpr=1)
 
-	pm.xform(switch, ro=[0,0,90], scale=[1.5,1.5,1.5])
-	freezeTransform(switch)
+	pm.xform(lt_switch, ro=[0,0,90], scale=[1.5,1.5,1.5])
+	freezeTransform(lt_switch)
 	deleteHistory()
-	temp_constraint = pm.pointConstraint(arm_joint_3, switch, mo=0, w=1)
+	temp_constraint = pm.pointConstraint(lt_arm_joint_3, lt_switch, mo=0, w=1)
 	pm.delete(temp_constraint)
-	pm.select(switch)
+	pm.select(lt_switch)
 	freezeTransform()
-	switch_name = lt_arm_root.replace('01_bind', 'IkFk_switch')
-	switch.rename(switch_name)
-	pm.parentConstraint(arm_joint_3, switch, mo=1)
+	lt_switch_name = lt_arm_root.replace('01_bind', 'IkFk_switch')
+	lt_switch.rename(lt_switch_name)
+	pm.parentConstraint(lt_arm_joint_3, lt_switch, mo=1)
 
 
 
 	'''
 	Add IkFk attribute
 	'''
-	pm.addAttr(switch, ln="IkFk", nn='Ik/Fk', max=1, dv=0, at='double', min=0)
-	switch.IkFk.set(e=1, keyable=True)
+	pm.addAttr(lt_switch, ln="IkFk", nn='Ik/Fk', max=1, dv=0, at='double', min=0)
+	lt_switch.IkFk.set(e=1, keyable=True)
 
 	'''
 	Lock and hide attrs
 	'''
-	switch.tx.set(lock=True, channelBox=False, keyable=False)
-	switch.ty.set(lock=True, channelBox=False, keyable=False)
-	switch.tz.set(lock=True, channelBox=False, keyable=False)
-	switch.rx.set(lock=True, channelBox=False, keyable=False)
-	switch.ry.set(lock=True, channelBox=False, keyable=False)
-	switch.rz.set(lock=True, channelBox=False, keyable=False)
-	switch.sx.set(lock=True, channelBox=False, keyable=False)
-	switch.sy.set(lock=True, channelBox=False, keyable=False)
-	switch.sz.set(lock=True, channelBox=False, keyable=False)
-	switch.v.set(lock=True, channelBox=False, keyable=False)
-
+	attrs = ['tx', 'ty', 'tz', 'rx', 'ry', 'rz', 'sx', 'sy', 'sz', 'v']
+	lock_and_hide(lt_switch, attrs)
 	'''
-	Connect the blend attrs the the switch
+	Connect the blend attrs the the lt_switch
 	'''
-	pm.connectAttr(switch + '.IkFk', root_rot_ikfk + '.blender')
-	pm.connectAttr(switch + '.IkFk', arm_joint_2_rot_ikfk + '.blender')
-	pm.connectAttr(switch + '.IkFk', arm_joint_3_rot_ikfk + '.blender')
-	pm.connectAttr(switch + '.IkFk', root_trans_ikfk + '.blender')
-	pm.connectAttr(switch + '.IkFk', arm_joint_2_trans_ikfk + '.blender')
-	pm.connectAttr(switch + '.IkFk', arm_joint_3_trans_ikfk + '.blender')
+	pm.connectAttr(lt_switch + '.IkFk', lt_root_rot_ikfk + '.blender')
+	pm.connectAttr(lt_switch + '.IkFk', lt_arm_joint_2_rot_ikfk + '.blender')
+	pm.connectAttr(lt_switch + '.IkFk', lt_arm_joint_3_rot_ikfk + '.blender')
+	pm.connectAttr(lt_switch + '.IkFk', lt_root_trans_ikfk + '.blender')
+	pm.connectAttr(lt_switch + '.IkFk', lt_arm_joint_2_trans_ikfk + '.blender')
+	pm.connectAttr(lt_switch + '.IkFk', lt_arm_joint_3_trans_ikfk + '.blender')
 
 	'''
 	Create fk icons
 	'''
-	fk_icon_1 = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=2, tol=.01, nr=(1, 0, 0))[0]
-	# print 'Fk icon 1:', fk_icon_1
-	temp_constraint = pm.parentConstraint(lt_fk_root, fk_icon_1)
+	lt_fk_icon_1 = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=2, tol=.01, nr=(1, 0, 0))[0]
+	# print 'Fk icon 1:', lt_fk_icon_1
+	temp_constraint = pm.parentConstraint(lt_fk_root, lt_fk_icon_1)
 	pm.delete(temp_constraint)
-	fk_pad_1 = pm.group(empty=True)
-	temp_constraint = pm.parentConstraint(lt_fk_root, fk_pad_1)
+	lt_fk_pad_1 = pm.group(empty=True)
+	temp_constraint = pm.parentConstraint(lt_fk_root, lt_fk_pad_1)
 	pm.delete(temp_constraint)
-	pm.parent(fk_icon_1, fk_pad_1)
-	pm.select(fk_icon_1)
+	pm.parent(lt_fk_icon_1, lt_fk_pad_1)
+	pm.select(lt_fk_icon_1)
 	freezeTransform()
 
-	fk_icon_2 = pm.circle(c=(0, 0, 0), ch=2, d=3, ut=0, sw=360, s=8, r=2, tol=.02, nr=(2, 0, 0))[0]
-	# print 'Fk icon 2:', fk_icon_2
-	temp_constraint = pm.parentConstraint(fk_joint_2, fk_icon_2)
+	lt_fk_icon_2 = pm.circle(c=(0, 0, 0), ch=2, d=3, ut=0, sw=360, s=8, r=2, tol=.02, nr=(2, 0, 0))[0]
+	# print 'Fk icon 2:', lt_fk_icon_2
+	temp_constraint = pm.parentConstraint(lt_fk_joint_2, lt_fk_icon_2)
 	pm.delete(temp_constraint)
-	fk_pad_2 = pm.group(empty=True)
-	temp_constraint = pm.parentConstraint(fk_joint_2, fk_pad_2)
+	lt_fk_pad_2 = pm.group(empty=True)
+	temp_constraint = pm.parentConstraint(lt_fk_joint_2, lt_fk_pad_2)
 	pm.delete(temp_constraint)
-	pm.parent(fk_icon_2, fk_pad_2)
-	pm.select(fk_icon_2)
+	pm.parent(lt_fk_icon_2, lt_fk_pad_2)
+	pm.select(lt_fk_icon_2)
 	freezeTransform()
-	pm.parent(fk_pad_2, fk_icon_1)
+	pm.parent(lt_fk_pad_2, lt_fk_icon_1)
 
 	'''
-	Rename the icons and the pads
+	Rename the icons and the lt_arm_pads
 	'''
-	fk_icon1_name = lt_fk_root.replace('fk', 'fk_icon')
-	fk_icon_1.rename(fk_icon1_name)
+	lt_fk_icon1_name = lt_fk_root.replace('fk', 'lt_fk_icon')
+	lt_fk_icon_1.rename(lt_fk_icon1_name)
 
-	fk_icon2_name = fk_icon_1.replace('01', '02')
-	fk_icon_2.rename(fk_icon2_name)
+	lt_fk_icon2_name = lt_fk_icon_1.replace('01', '02')
+	lt_fk_icon_2.rename(lt_fk_icon2_name)
 
-	fk_pad1_name = fk_icon_1.replace('icon', 'local')
-	fk_pad_1.rename(fk_pad1_name)
+	lt_fk_pad1_name = lt_fk_icon_1.replace('icon', 'local')
+	lt_fk_pad_1.rename(lt_fk_pad1_name)
 
-	fk_pad2_name = fk_icon_2.replace('icon', 'local')
-	fk_pad_2.rename(fk_pad2_name) 
+	lt_fk_pad2_name = lt_fk_icon_2.replace('icon', 'local')
+	lt_fk_pad_2.rename(lt_fk_pad2_name) 
 
 
 
-	pm.parentConstraint(fk_icon_1, lt_fk_root)
-	pm.parentConstraint(fk_icon_2, fk_joint_2)
+	pm.parentConstraint(lt_fk_icon_1, lt_fk_root)
+	pm.parentConstraint(lt_fk_icon_2, lt_fk_joint_2)
 
 	'''
 	Create length attr
 	'''
-	pm.addAttr(fk_icon_1, ln='length', at='double', min=0, dv=1)
-	fk_icon_1.length.set(e=1, keyable=True)
-	pm.setDrivenKeyframe(fk_pad_2 + '.tx', currentDriver=fk_icon_1 + '.length')
-	fk_icon_1.length.set(0)
-	fk_pad_2.tx.set(0)
-	pm.setDrivenKeyframe(fk_pad_2 + '.tx', currentDriver=fk_icon_1 + '.length')
-	fk_icon_1.length.set(1)
-	pm.keyTangent(fk_pad_2, 'graphEditor1FromOutliner', itt='spline', animation='objects', ott='spline')
-	pm.mel.selectKey(fk_pad_2 + '.tx', add=1, k=1, f=1)
+	pm.addAttr(lt_fk_icon_1, ln='length', at='double', min=0, dv=1)
+	lt_fk_icon_1.length.set(e=1, keyable=True)
+	pm.setDrivenKeyframe(lt_fk_pad_2 + '.tx', currentDriver=lt_fk_icon_1 + '.length')
+	lt_fk_icon_1.length.set(0)
+	lt_fk_pad_2.tx.set(0)
+	pm.setDrivenKeyframe(lt_fk_pad_2 + '.tx', currentDriver=lt_fk_icon_1 + '.length')
+	lt_fk_icon_1.length.set(1)
+	pm.keyTangent(lt_fk_pad_2, 'graphEditor1FromOutliner', itt='spline', animation='objects', ott='spline')
+	pm.mel.selectKey(lt_fk_pad_2 + '.tx', add=1, k=1, f=1)
 	pm.setInfinity(poi='linear')
 
-	pm.addAttr(fk_icon_2, ln='length', at='double', min=0, dv=1)
-	fk_icon_2.length.set(e=1, keyable=True)
-	pm.setDrivenKeyframe(fk_joint_3 + '.tx', currentDriver=fk_icon_2 + '.length')
-	fk_icon_2.length.set(0)
-	fk_joint_3.tx.set(0)
-	pm.setDrivenKeyframe(fk_joint_3 + '.tx', currentDriver=fk_icon_2 + '.length')
-	fk_icon_2.length.set(1)
-	pm.keyTangent(fk_joint_3, 'graphEditor1FromOutliner', itt='spline', animation='objects', ott='spline')
-	pm.mel.selectKey(fk_joint_3 + '.tx', add=1, k=1, f=1)
+	pm.addAttr(lt_fk_icon_2, ln='length', at='double', min=0, dv=1)
+	lt_fk_icon_2.length.set(e=1, keyable=True)
+	pm.setDrivenKeyframe(lt_fk_joint_3 + '.tx', currentDriver=lt_fk_icon_2 + '.length')
+	lt_fk_icon_2.length.set(0)
+	lt_fk_joint_3.tx.set(0)
+	pm.setDrivenKeyframe(lt_fk_joint_3 + '.tx', currentDriver=lt_fk_icon_2 + '.length')
+	lt_fk_icon_2.length.set(1)
+	pm.keyTangent(lt_fk_joint_3, 'graphEditor1FromOutliner', itt='spline', animation='objects', ott='spline')
+	pm.mel.selectKey(lt_fk_joint_3 + '.tx', add=1, k=1, f=1)
 	pm.setInfinity(poi='linear')
 
 	'''
 	Create the ik
 	'''
-	pm.select(lt_ik_root, lt_arm_ik_joint_3)
-	arm_ikh = pm.ikHandle()[0]
+	pm.select(lt_arm_ik_root, lt_arm_ik_joint_3)
+	lt_arm_ikh = pm.ikHandle()[0]
 
 	ikh_name = lt_arm_root.replace('bind', 'ikh')
-	arm_ikh.rename(ikh_name)
+	lt_arm_ikh.rename(ikh_name)
 
 
 	'''
 	Create the elbow icon.
 	'''
 
-	elbow_icon = pm.curve(p=[(2, 0, -2), (4, 0, -2), (4, 0, -3), (6, 0, -1), (4, 0, 1), (4, 0, 0), (2, 0, 0), (2, 0, 2), (3, 0, 2), (1, 0, 4), (-1, 0, 2), (0, 0, 2), (0, 0, 0), (-2, 0, 0), (-2, 0, 1), (-4, 0, -1), (-2, 0, -3), (-2, 0, -2), (0, 0, -2), (0, 0, -4), (-1, 0, -4), (1, 0, -6), (3, 0, -4), (2, 0, -4), (2, 0, -2)], k=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24], d=1)
+	lt_elbow_icon = pm.curve(p=[(2, 0, -2), (4, 0, -2), (4, 0, -3), (6, 0, -1), (4, 0, 1), (4, 0, 0), (2, 0, 0), (2, 0, 2), (3, 0, 2), (1, 0, 4), (-1, 0, 2), (0, 0, 2), (0, 0, 0), (-2, 0, 0), (-2, 0, 1), (-4, 0, -1), (-2, 0, -3), (-2, 0, -2), (0, 0, -2), (0, 0, -4), (-1, 0, -4), (1, 0, -6), (3, 0, -4), (2, 0, -4), (2, 0, -2)], k=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24], d=1)
 	pm.select('curve1.cv[0]', 'curve1.cv[6]', 'curve1.cv[12]', 'curve1.cv[18]', 'curve1.cv[24]', r=1)
 	pm.cmds.move(0, -0.982783, 0, r=1, os=1, wd=1)
 	pm.select('curve1.cv[22]', r=1)
@@ -3831,428 +3732,428 @@ def lt_armSetup(*args):
 	pm.select('curve1.cv[2]', r=1)
 	pm.cmds.move(0, -0.483525, 0, r=1, os=1, wd=1)
 
-	pm.select(elbow_icon)
-	centerPivot(elbow_icon)
+	pm.select(lt_elbow_icon)
+	centerPivot(lt_elbow_icon)
 	freezeTransform()
 	deleteHistory()
 
 	'''
 	Move the elbow icon.
 	'''
-	temp_constraint = pm.pointConstraint(arm_joint_2, elbow_icon)
+	temp_constraint = pm.pointConstraint(lt_arm_joint_2, lt_elbow_icon)
 	pm.delete(temp_constraint)
-	freezeTransform(elbow_icon)
-	pm.xform(elbow_icon, t=[0,0,-10], scale=[.5, .5, .5], ro=[90, 0, 0])
-	freezeTransform(elbow_icon)
+	freezeTransform(lt_elbow_icon)
+	pm.xform(lt_elbow_icon, t=[0,0,-10], scale=[.5, .5, .5], ro=[90, 0, 0])
+	freezeTransform(lt_elbow_icon)
 
 	'''
 	Rename elbow icon
 	'''
-	elbow_icon_name = lt_arm_root.replace('arm_01_bind', 'elbow_icon')
-	elbow_icon.rename(elbow_icon_name)
+	lt_elbow_icon_name = lt_arm_root.replace('lt_arm_01_bind', 'lt_elbow_icon')
+	lt_elbow_icon.rename(lt_elbow_icon_name)
 
 	'''
 	Create the pole vector for the elbow
 	'''
-	pm.poleVectorConstraint(elbow_icon, arm_ikh)
+	pm.poleVectorConstraint(lt_elbow_icon, lt_arm_ikh)
 
 	'''
-	Parent the arm_ikh under the lt_arm_icon
+	Parent the lt_arm_ikh under the lt_arm_icon
 	'''
-	pm.parent(arm_ikh, lt_arm_icon)
+	pm.parent(lt_arm_ikh, lt_arm_icon)
 
 	'''
 	Icon visibility SDKs
 	'''
-	fk_pad_1.v.set(0)
-	pm.setDrivenKeyframe(fk_pad_1 + '.v', currentDriver= switch + '.IkFk')
-	pm.setDrivenKeyframe(lt_arm_icon + '.v', currentDriver= switch + '.IkFk')
-	pm.setDrivenKeyframe(elbow_icon + '.v', currentDriver= switch + '.IkFk')
-	switch.IkFk.set(1)
-	fk_pad_1.v.set(1)
+	lt_fk_pad_1.v.set(0)
+	pm.setDrivenKeyframe(lt_fk_pad_1 + '.v', currentDriver= lt_switch + '.IkFk')
+	pm.setDrivenKeyframe(lt_arm_icon + '.v', currentDriver= lt_switch + '.IkFk')
+	pm.setDrivenKeyframe(lt_elbow_icon + '.v', currentDriver= lt_switch + '.IkFk')
+	lt_switch.IkFk.set(1)
+	lt_fk_pad_1.v.set(1)
 	lt_arm_icon.v.set(0)
-	elbow_icon.v.set(0)
-	pm.setDrivenKeyframe(fk_pad_1 + '.v', currentDriver= switch + '.IkFk')
-	pm.setDrivenKeyframe(lt_arm_icon + '.v', currentDriver= switch + '.IkFk')
-	pm.setDrivenKeyframe(elbow_icon + '.v', currentDriver= switch + '.IkFk')
-	switch.IkFk.set(0.1)
-	fk_pad_1.v.set(1)
+	lt_elbow_icon.v.set(0)
+	pm.setDrivenKeyframe(lt_fk_pad_1 + '.v', currentDriver= lt_switch + '.IkFk')
+	pm.setDrivenKeyframe(lt_arm_icon + '.v', currentDriver= lt_switch + '.IkFk')
+	pm.setDrivenKeyframe(lt_elbow_icon + '.v', currentDriver= lt_switch + '.IkFk')
+	lt_switch.IkFk.set(0.1)
+	lt_fk_pad_1.v.set(1)
 	lt_arm_icon.v.set(1)
-	elbow_icon.v.set(1)
-	pm.setDrivenKeyframe(fk_pad_1 + '.v', currentDriver= switch + '.IkFk')
-	pm.setDrivenKeyframe(lt_arm_icon + '.v', currentDriver= switch + '.IkFk')
-	pm.setDrivenKeyframe(elbow_icon + '.v', currentDriver= switch + '.IkFk')
-	switch.IkFk.set(0.99)
-	fk_pad_1.v.set(1)
+	lt_elbow_icon.v.set(1)
+	pm.setDrivenKeyframe(lt_fk_pad_1 + '.v', currentDriver= lt_switch + '.IkFk')
+	pm.setDrivenKeyframe(lt_arm_icon + '.v', currentDriver= lt_switch + '.IkFk')
+	pm.setDrivenKeyframe(lt_elbow_icon + '.v', currentDriver= lt_switch + '.IkFk')
+	lt_switch.IkFk.set(0.99)
+	lt_fk_pad_1.v.set(1)
 	lt_arm_icon.v.set(1)
-	elbow_icon.v.set(1)
-	pm.setDrivenKeyframe(fk_pad_1 + '.v', currentDriver= switch + '.IkFk')
-	pm.setDrivenKeyframe(lt_arm_icon + '.v', currentDriver= switch + '.IkFk')
-	pm.setDrivenKeyframe(elbow_icon + '.v', currentDriver= switch + '.IkFk')
-	switch.IkFk.set(0)
+	lt_elbow_icon.v.set(1)
+	pm.setDrivenKeyframe(lt_fk_pad_1 + '.v', currentDriver= lt_switch + '.IkFk')
+	pm.setDrivenKeyframe(lt_arm_icon + '.v', currentDriver= lt_switch + '.IkFk')
+	pm.setDrivenKeyframe(lt_elbow_icon + '.v', currentDriver= lt_switch + '.IkFk')
+	lt_switch.IkFk.set(0)
 
-	upperArm_info = pm.shadingNode('curveInfo', asUtility=1)
+	lt_upperArm_info = pm.shadingNode('curveInfo', asUtility=1)
 	node_name = lt_arm_root.replace('bind', 'info')
-	upperArm_info.rename(node_name)
+	lt_upperArm_info.rename(node_name)
 
-	upperArm_div = pm.shadingNode('multiplyDivide', asUtility=1)
-	node_name = upperArm_info.replace('info', 'div')
-	upperArm_div.rename(node_name)
+	lt_upperArm_div = pm.shadingNode('multiplyDivide', asUtility=1)
+	node_name = lt_upperArm_info.replace('info', 'div')
+	lt_upperArm_div.rename(node_name)
 
-	pm.connectAttr(arm_curve_1 + '.worldSpace[0]', upperArm_info + '.inputCurve')
+	pm.connectAttr(lt_arm_curve_1 + '.worldSpace[0]', lt_upperArm_info + '.inputCurve')
 
-	pm.connectAttr(upperArm_info + '.arcLength', upperArm_div + '.input1X')
+	pm.connectAttr(lt_upperArm_info + '.arcLength', lt_upperArm_div + '.input1X')
 
-	upperArm_div.operation.set(2)
+	lt_upperArm_div.operation.set(2)
 
-	arcLen = upperArm_info.arcLength.get()
-	upperArm_div.input2X.set(arcLen)
+	lt_arcLen = lt_upperArm_info.arcLength.get()
+	lt_upperArm_div.input2X.set(lt_arcLen)
 
-	pm.connectAttr(upperArm_div + '.outputX', root_joint + '.sx')
-	pm.connectAttr(upperArm_div + '.outputX', splitJnt_4 + '.sx')
-	pm.connectAttr(upperArm_div + '.outputX', splitJnt_3 + '.sx')
-	pm.connectAttr(upperArm_div + '.outputX', splitJnt_2 + '.sx')
-	pm.connectAttr(upperArm_div + '.outputX', splitJnt_1 + '.sx')
-	pm.connectAttr(upperArm_div + '.outputX', mid_joint + '.sx')
+	pm.connectAttr(lt_upperArm_div + '.outputX', lt_root_joint + '.sx')
+	pm.connectAttr(lt_upperArm_div + '.outputX', lt_splitJnt_4 + '.sx')
+	pm.connectAttr(lt_upperArm_div + '.outputX', lt_splitJnt_3 + '.sx')
+	pm.connectAttr(lt_upperArm_div + '.outputX', lt_splitJnt_2 + '.sx')
+	pm.connectAttr(lt_upperArm_div + '.outputX', lt_splitJnt_1 + '.sx')
+	pm.connectAttr(lt_upperArm_div + '.outputX', lt_mid_joint + '.sx')
 
 	'''==========================================================================================================================='''
 
 	jnt_name = lt_arm_root.replace('bind', 'twist')
 	lt_arm_root.rename(jnt_name)
 
-	jnt_name = root_joint.replace('twist', 'bind')
-	root_joint.rename(jnt_name)
+	jnt_name = lt_root_joint.replace('twist', 'bind')
+	lt_root_joint.rename(jnt_name)
 
 	jnt_name = lt_arm_root.replace('t1', 't')
 	lt_arm_root.rename(jnt_name)
 
 	jnt_name = lt_arm_root.replace('01', '02')
-	arm_joint_2.rename(jnt_name)
+	lt_arm_joint_2.rename(jnt_name)
 
 	jnt_name = lt_arm_root.replace('01', '03')
-	arm_joint_3.rename(jnt_name)
+	lt_arm_joint_3.rename(jnt_name)
 
-	jnt_name = root_joint.replace('01', '02')
-	splitJnt_4.rename(jnt_name)
+	jnt_name = lt_root_joint.replace('01', '02')
+	lt_splitJnt_4.rename(jnt_name)
 
-	jnt_name = root_joint.replace('01', '03')
-	splitJnt_3.rename(jnt_name)
+	jnt_name = lt_root_joint.replace('01', '03')
+	lt_splitJnt_3.rename(jnt_name)
 
-	jnt_name = root_joint.replace('01', '04')
-	splitJnt_2.rename(jnt_name)
+	jnt_name = lt_root_joint.replace('01', '04')
+	lt_splitJnt_2.rename(jnt_name)
 
-	jnt_name = root_joint.replace('01', '05')
-	splitJnt_1.rename(jnt_name)
+	jnt_name = lt_root_joint.replace('01', '05')
+	lt_splitJnt_1.rename(jnt_name)
 
-	jnt_name = root_joint.replace('01', '06')
-	mid_joint.rename(jnt_name)
+	jnt_name = lt_root_joint.replace('01', '06')
+	lt_mid_joint.rename(jnt_name)
 
-	jnt_name = mid_joint.replace('06', '07')
-	joint_7.rename(jnt_name)
+	jnt_name = lt_mid_joint.replace('06', '07')
+	lt_joint_7.rename(jnt_name)
 
-	jnt_name = mid_joint.replace('06', '08')
-	joint_8.rename(jnt_name)
+	jnt_name = lt_mid_joint.replace('06', '08')
+	lt_joint_8.rename(jnt_name)
 
-	jnt_name = mid_joint.replace('06', '09')
-	joint_9.rename(jnt_name)
+	jnt_name = lt_mid_joint.replace('06', '09')
+	lt_joint_9.rename(jnt_name)
 
-	jnt_name = mid_joint.replace('06', '10')
-	joint_10.rename(jnt_name)
+	jnt_name = lt_mid_joint.replace('06', '10')
+	lt_joint_10.rename(jnt_name)
 
-	jnt_name = mid_joint.replace('06', '11')
-	joint_11.rename(jnt_name)
+	jnt_name = lt_mid_joint.replace('06', '11')
+	lt_joint_11.rename(jnt_name)
 
-	jnt_name = mid_joint.replace('06', '12')
+	jnt_name = lt_mid_joint.replace('06', '12')
 	lt_joint_12.rename(jnt_name)
 
 	'''==========================================================================================================================='''
 
-	foreArm_info = pm.shadingNode('curveInfo', asUtility=1)
-	node_name = upperArm_info.replace('01', '02')
-	foreArm_info.rename(node_name)
+	lt_foreArm_info = pm.shadingNode('curveInfo', asUtility=1)
+	node_name = lt_upperArm_info.replace('01', '02')
+	lt_foreArm_info.rename(node_name)
 
-	foreArm_div = pm.shadingNode('multiplyDivide', asUtility=1)
-	node_name = upperArm_div.replace('01', '02')
-	foreArm_div.rename(node_name)
+	lt_foreArm_div = pm.shadingNode('multiplyDivide', asUtility=1)
+	node_name = lt_upperArm_div.replace('01', '02')
+	lt_foreArm_div.rename(node_name)
 
-	pm.connectAttr(arm_curve_2 + '.worldSpace[0]', foreArm_info + '.inputCurve')
+	pm.connectAttr(lt_arm_curve_2 + '.worldSpace[0]', lt_foreArm_info + '.inputCurve')
 
-	pm.connectAttr(foreArm_info + '.arcLength', foreArm_div + '.input1X')
+	pm.connectAttr(lt_foreArm_info + '.arcLength', lt_foreArm_div + '.input1X')
 
-	foreArm_div.operation.set(2)
+	lt_foreArm_div.operation.set(2)
 
-	arcLen = foreArm_info.arcLength.get()
-	foreArm_div.input2X.set(arcLen)
+	lt_arcLen = lt_foreArm_info.arcLength.get()
+	lt_foreArm_div.input2X.set(lt_arcLen)
 
-	pm.connectAttr(foreArm_div + '.outputX', joint_7 + '.sx')
-	pm.connectAttr(foreArm_div + '.outputX', joint_8 + '.sx')
-	pm.connectAttr(foreArm_div + '.outputX', joint_9 + '.sx')
-	pm.connectAttr(foreArm_div + '.outputX', joint_10 + '.sx')
-	pm.connectAttr(foreArm_div + '.outputX', joint_11 + '.sx')
+	pm.connectAttr(lt_foreArm_div + '.outputX', lt_joint_7 + '.sx')
+	pm.connectAttr(lt_foreArm_div + '.outputX', lt_joint_8 + '.sx')
+	pm.connectAttr(lt_foreArm_div + '.outputX', lt_joint_9 + '.sx')
+	pm.connectAttr(lt_foreArm_div + '.outputX', lt_joint_10 + '.sx')
+	pm.connectAttr(lt_foreArm_div + '.outputX', lt_joint_11 + '.sx')
 	
 	'''==========================================================================================================================='''
-	loc_1 = pm.spaceLocator(p=(0, 0, 0))
+	lt_loc_1 = pm.spaceLocator(p=(0, 0, 0))
 
-	loc_2 = pm.spaceLocator(p=(0, 0, 0))
+	lt_loc_2 = pm.spaceLocator(p=(0, 0, 0))
 
-	temp_constraint = pm.parentConstraint(lt_arm_root, loc_1, mo=0)
+	temp_constraint = pm.parentConstraint(lt_arm_root, lt_loc_1, mo=0)
 	pm.delete(temp_constraint)
-	pm.select(loc_1)
-	freezeTransform(loc_1)
+	pm.select(lt_loc_1)
+	freezeTransform(lt_loc_1)
 
-	loc_name = root_joint.replace('01_bind', 'start_loc')
-	loc_1.rename(loc_name)
+	loc_name = lt_root_joint.replace('01_bind', 'stalt_lt_loc')
+	lt_loc_1.rename(loc_name)
 
-	temp_constraint = pm.parentConstraint(arm_joint_3, loc_2, mo=0)
+	temp_constraint = pm.parentConstraint(lt_arm_joint_3, lt_loc_2, mo=0)
 	pm.delete(temp_constraint)
-	pm.select(loc_2)
-	freezeTransform(loc_2)
+	pm.select(lt_loc_2)
+	freezeTransform(lt_loc_2)
 
-	loc_name = loc_1.replace('start', 'end')
-	loc_2.rename(loc_name)
+	loc_name = lt_loc_1.replace('start', 'end')
+	lt_loc_2.rename(loc_name)
 
-	arm_dist = pm.shadingNode('distanceDimShape', asUtility=1)
+	lt_arm_dist = pm.shadingNode('distanceDimShape', asUtility=1)
 
-	pm.select(arm_dist)
+	pm.select(lt_arm_dist)
 	selection = pm.ls(sl=True, s=False)
 	shape = selection[0]
 	pm.pickWalk(d='up')
-	transform = pm.ls(sl=True)[0]
+	lt_transform = pm.ls(sl=True)[0]
 
-	node_name = loc_2.replace('end_loc', 'dist')
+	node_name = lt_loc_2.replace('end_lt_loc', 'dist')
 	# print node_name
-	transform.rename(node_name)
+	lt_transform.rename(node_name)
 
-	pm.connectAttr(loc_1 + '.worldPosition', arm_dist + '.startPoint')
-	pm.connectAttr(loc_2 + '.worldPosition', arm_dist + '.endPoint')
+	pm.connectAttr(lt_loc_1 + '.worldPosition', lt_arm_dist + '.startPoint')
+	pm.connectAttr(lt_loc_2 + '.worldPosition', lt_arm_dist + '.endPoint')
 
-	pm.parentConstraint(lt_arm_icon, loc_2)
+	pm.parentConstraint(lt_arm_icon, lt_loc_2)
 
-	upperArm_len = pm.getAttr(lt_arm_ik_joint_2 + '.tx')
+	lt_upperArm_len = pm.getAttr(lt_arm_ik_joint_2 + '.tx')
 
-	foreArm_len = pm.getAttr(lt_arm_ik_joint_3 + '.tx')
+	lt_foreArm_len = pm.getAttr(lt_arm_ik_joint_3 + '.tx')
 
-	sumLen = upperArm_len + foreArm_len
+	lt_sumLen = lt_upperArm_len + lt_foreArm_len
 
-	pm.setDrivenKeyframe(lt_arm_ik_joint_2 + '.tx', currentDriver=arm_dist + '.distance', value=upperArm_len, driverValue=sumLen)
+	pm.setDrivenKeyframe(lt_arm_ik_joint_2 + '.tx', currentDriver=lt_arm_dist + '.distance', value=lt_upperArm_len, driverValue=lt_sumLen)
 
-	pm.setDrivenKeyframe(lt_arm_ik_joint_2 + '.tx',  currentDriver=arm_dist + '.distance', value=(upperArm_len*2), driverValue=(sumLen*2))
+	pm.setDrivenKeyframe(lt_arm_ik_joint_2 + '.tx',  currentDriver=lt_arm_dist + '.distance', value=(lt_upperArm_len*2), driverValue=(lt_sumLen*2))
 
-	pm.setDrivenKeyframe(lt_arm_ik_joint_3 + '.tx', currentDriver=arm_dist + '.distance', value=foreArm_len, driverValue=sumLen)
+	pm.setDrivenKeyframe(lt_arm_ik_joint_3 + '.tx', currentDriver=lt_arm_dist + '.distance', value=lt_foreArm_len, driverValue=lt_sumLen)
 
-	pm.setDrivenKeyframe(lt_arm_ik_joint_3 + '.tx', currentDriver=arm_dist + '.distance', value=(foreArm_len*2), driverValue=(sumLen*2))
+	pm.setDrivenKeyframe(lt_arm_ik_joint_3 + '.tx', currentDriver=lt_arm_dist + '.distance', value=(lt_foreArm_len*2), driverValue=(lt_sumLen*2))
 
 	pm.keyTangent(lt_arm_ik_joint_2, lt_arm_ik_joint_3,'graphEditor1FromOutliner', itt='spline', animation='objects', ott='spline')
 	pm.setInfinity(lt_arm_ik_joint_2, lt_arm_ik_joint_3, poi='linear')
 
-	loc_3 = pm.spaceLocator(p=(0, 0, 0))
-	temp_constraint = pm.parentConstraint(root_joint, loc_3, mo=0)
+	lt_loc_3 = pm.spaceLocator(p=(0, 0, 0))
+	temp_constraint = pm.parentConstraint(lt_root_joint, lt_loc_3, mo=0)
 	pm.delete(temp_constraint)
-	freezeTransform(loc_3)
+	freezeTransform(lt_loc_3)
 
-	node_name = loc_1.replace('start_loc', '01_snap_loc')
-	loc_3.rename(node_name)
+	node_name = lt_loc_1.replace('stalt_lt_loc', '01_snap_lt_loc')
+	lt_loc_3.rename(node_name)
 
-	loc_4 = pm.spaceLocator(p=(0, 0, 0))
-	temp_constraint = pm.parentConstraint(elbow_icon, loc_4, mo=0)
+	lt_loc_4 = pm.spaceLocator(p=(0, 0, 0))
+	temp_constraint = pm.parentConstraint(lt_elbow_icon, lt_loc_4, mo=0)
 	pm.delete(temp_constraint)
-	freezeTransform(loc_4)
+	freezeTransform(lt_loc_4)
 
-	node_name = loc_3.replace('01', '02')
-	loc_4.rename(node_name)
+	node_name = lt_loc_3.replace('01', '02')
+	lt_loc_4.rename(node_name)
 
 
-	loc_5 = pm.spaceLocator(p=(0, 0, 0))
-	temp_constraint = pm.parentConstraint(arm_joint_3, loc_5, mo=0)
+	lt_loc_5 = pm.spaceLocator(p=(0, 0, 0))
+	temp_constraint = pm.parentConstraint(lt_arm_joint_3, lt_loc_5, mo=0)
 	pm.delete(temp_constraint)
-	freezeTransform(loc_5)
+	freezeTransform(lt_loc_5)
 
-	node_name = loc_4.replace('02', '03')
-	loc_5.rename(node_name)
+	node_name = lt_loc_4.replace('02', '03')
+	lt_loc_5.rename(node_name)
 
-	snap_dist_1 = pm.shadingNode('distanceDimShape', asUtility=1)
+	lt_snapDist_1 = pm.shadingNode('distanceDimShape', asUtility=1)
 
-	pm.select(snap_dist_1)
+	pm.select(lt_snapDist_1)
 	selection = pm.ls(sl=True, s=False)
 	shape_1 = selection[0]
 	pm.pickWalk(d='up')
-	transform_1 = pm.ls(sl=True)[0]
-	temp_constraint = pm.pointConstraint(lt_arm_root, transform_1, mo=0)
+	lt_transform_1 = pm.ls(sl=True)[0]
+	temp_constraint = pm.pointConstraint(lt_arm_root, lt_transform_1, mo=0)
 	pm.delete(temp_constraint)
 
 
-	node_name = loc_2.replace('end_loc', '01_snap_dist')
-	transform_1.rename(node_name)
+	node_name = lt_loc_2.replace('end_lt_loc', '01_lt_snapDist')
+	lt_transform_1.rename(node_name)
 
-	pm.connectAttr(loc_3 + '.worldPosition', snap_dist_1 + '.startPoint')
+	pm.connectAttr(lt_loc_3 + '.worldPosition', lt_snapDist_1 + '.startPoint')
 
-	pm.connectAttr(loc_4 + '.worldPosition', snap_dist_1 + '.endPoint')
+	pm.connectAttr(lt_loc_4 + '.worldPosition', lt_snapDist_1 + '.endPoint')
 
 
-	snap_dist_2 = pm.shadingNode('distanceDimShape', asUtility=1)
+	lt_snapDist_2 = pm.shadingNode('distanceDimShape', asUtility=1)
 
-	pm.select(snap_dist_2)
+	pm.select(lt_snapDist_2)
 	selection = pm.ls(sl=True, s=False)
 	shape_2 = selection[0]
 	pm.pickWalk(d='up')
-	transform_2 = pm.ls(sl=True)[0]
-	temp_constraint = pm.pointConstraint(arm_joint_3, transform_2, mo=0)
+	lt_transform_2 = pm.ls(sl=True)[0]
+	temp_constraint = pm.pointConstraint(lt_arm_joint_3, lt_transform_2, mo=0)
 	pm.delete(temp_constraint)
 
-	node_name = transform_1.replace('01','02')
-	transform_2.rename(node_name)
+	node_name = lt_transform_1.replace('01','02')
+	lt_transform_2.rename(node_name)
 
-	pm.connectAttr(loc_4 + '.worldPosition', snap_dist_2 + '.startPoint')
+	pm.connectAttr(lt_loc_4 + '.worldPosition', lt_snapDist_2 + '.startPoint')
 
-	pm.connectAttr(loc_5 + '.worldPosition', snap_dist_2 + '.endPoint')
+	pm.connectAttr(lt_loc_5 + '.worldPosition', lt_snapDist_2 + '.endPoint')
 
-	pm.parent(loc_4, elbow_icon)
+	pm.parent(lt_loc_4, lt_elbow_icon)
 
-	pm.parent(loc_5, lt_arm_icon)
+	pm.parent(lt_loc_5, lt_arm_icon)
 
-	pm.addAttr(elbow_icon, ln='elbowSnap', at='double', min=0, max=1, dv=0)
-	elbow_icon.elbowSnap.set(e=1, keyable=True)
+	pm.addAttr(lt_elbow_icon, ln='elbowSnap', at='double', min=0, max=1, dv=0)
+	lt_elbow_icon.elbowSnap.set(e=1, keyable=True)
 
-	upperArm_stretch = pm.shadingNode('blendColors', asUtility=1)
-	node_name = upperArm_info.replace('info', 'stretch_blend_01')
-	upperArm_stretch.rename(node_name)
+	lt_upperArm_stretch = pm.shadingNode('blendColors', asUtility=1)
+	node_name = lt_upperArm_info.replace('info', 'stretch_blend_01')
+	lt_upperArm_stretch.rename(node_name)
 
-	pm.connectAttr(elbow_icon + '.elbowSnap', upperArm_stretch + '.blender')
-	pm.connectAttr(snap_dist_1 + '.distance', upperArm_stretch + '.color1R')
-	pm.connectAttr(lt_arm_ik_joint_2 + '_translateX.output', upperArm_stretch + '.color2R')
+	pm.connectAttr(lt_elbow_icon + '.elbowSnap', lt_upperArm_stretch + '.blender')
+	pm.connectAttr(lt_snapDist_1 + '.distance', lt_upperArm_stretch + '.color1R')
+	pm.connectAttr(lt_arm_ik_joint_2 + '_translateX.output', lt_upperArm_stretch + '.color2R')
 	pm.disconnectAttr(lt_arm_ik_joint_2 + '_translateX.output', lt_arm_ik_joint_2 + '.tx')
-	pm.connectAttr(upperArm_stretch + '.outputR', lt_arm_ik_joint_2 + '.tx')
+	pm.connectAttr(lt_upperArm_stretch + '.outputR', lt_arm_ik_joint_2 + '.tx')
 
-	foreArm_stretch = pm.shadingNode('blendColors', asUtility=1)
-	node_name = upperArm_stretch.replace('01', '02')
-	foreArm_stretch.rename(node_name)
+	lt_foreArm_stretch = pm.shadingNode('blendColors', asUtility=1)
+	node_name = lt_upperArm_stretch.replace('01', '02')
+	lt_foreArm_stretch.rename(node_name)
 
-	pm.connectAttr(elbow_icon + '.elbowSnap', foreArm_stretch + '.blender')
-	pm.connectAttr(snap_dist_2 + '.distance', foreArm_stretch + '.color1R')
-	pm.connectAttr(lt_arm_ik_joint_3 + '_translateX.output', foreArm_stretch + '.color2R')
+	pm.connectAttr(lt_elbow_icon + '.elbowSnap', lt_foreArm_stretch + '.blender')
+	pm.connectAttr(lt_snapDist_2 + '.distance', lt_foreArm_stretch + '.color1R')
+	pm.connectAttr(lt_arm_ik_joint_3 + '_translateX.output', lt_foreArm_stretch + '.color2R')
 	pm.disconnectAttr(lt_arm_ik_joint_3 + '_translateX.output', lt_arm_ik_joint_3 + '.tx')
-	pm.connectAttr(foreArm_stretch + '.outputR', lt_arm_ik_joint_3 + '.tx')
+	pm.connectAttr(lt_foreArm_stretch + '.outputR', lt_arm_ik_joint_3 + '.tx')
 
-	hybrid_fk_icons = pm.duplicate(fk_pad_2)
-	pm.parent(hybrid_fk_icons, w=1)
+	lt_hybrid_fk_icons = pm.duplicate(lt_fk_pad_2)
+	pm.parent(lt_hybrid_fk_icons, w=1)
 
-	pm.select(hybrid_fk_icons)
-	hIcons = pm.ls(sl=True, dag=True)
-	hPad = hIcons[0]
-	hIcon = hIcons[1]
-	# print hPad
-	# print hIcon
+	pm.select(lt_hybrid_fk_icons)
+	lt_hIcons = pm.ls(sl=True, dag=True)
+	lt_hPad = lt_hIcons[0]
+	lt_hIcon = lt_hIcons[1]
+	# print lt_hPad
+	# print lt_hIcon
 
-	pad_name = hJ_1.replace('hybridFk', 'hybridFk_local')
-	hPad.rename(pad_name)
+	pad_name = lt_hJ_1.replace('hybridFk', 'hybridFk_local')
+	lt_hPad.rename(pad_name)
 
-	icon_name = hPad.replace('local', 'icon')
-	hIcon.rename(icon_name)
+	icon_name = lt_hPad.replace('local', 'icon')
+	lt_hIcon.rename(icon_name)
 
-	temp_constraint = pm.pointConstraint(elbow_icon, hJ_1, mo=0)
+	temp_constraint = pm.pointConstraint(lt_elbow_icon, lt_hJ_1, mo=0)
 	pm.delete(temp_constraint)
-	freezeTransform(hJ_1)
+	freezeTransform(lt_hJ_1)
 
-	temp_constraint = pm.pointConstraint(elbow_icon, hPad, mo=0)
+	temp_constraint = pm.pointConstraint(lt_elbow_icon, lt_hPad, mo=0)
 	pm.delete(temp_constraint)
 
-	pm.orientConstraint(hIcon, hJ_1)
+	pm.orientConstraint(lt_hIcon, lt_hJ_1)
 
-	ik_cons_grp = pm.group(empty=True)
-	temp_constraint = pm.parentConstraint(arm_joint_3, ik_cons_grp)
+	lt_ik_cons_grp = pm.group(empty=True)
+	temp_constraint = pm.parentConstraint(lt_arm_joint_3, lt_ik_cons_grp)
 	pm.delete(temp_constraint)
-	freezeTransform(ik_cons_grp)
-	pm.parent(arm_ikh, loc_5, ik_cons_grp)
-	grp_name = twist_grp.replace('twist', 'cons')
-	ik_cons_grp.rename(grp_name)
-	constraint_1 = pm.parentConstraint(lt_arm_icon, ik_cons_grp, mo=0)
+	freezeTransform(lt_ik_cons_grp)
+	pm.parent(lt_arm_ikh, lt_loc_5, lt_ik_cons_grp)
+	grp_name = lt_twist_grp.replace('twist', 'cons')
+	lt_ik_cons_grp.rename(grp_name)
+	constraint_1 = pm.parentConstraint(lt_arm_icon, lt_ik_cons_grp, mo=0)
 	const_1_targets = constraint_1.getWeightAliasList()[0]
 	# print const_1_targets
-	constraint_2 = pm.parentConstraint(hJ_2, ik_cons_grp, mo=0)
+	constraint_2 = pm.parentConstraint(lt_hJ_2, lt_ik_cons_grp, mo=0)
 	const_2_targets = constraint_2.getWeightAliasList()[1]
 	# print const_2_targets
-	pm.parent(hPad, elbow_icon)
+	pm.parent(lt_hPad, lt_elbow_icon)
 
-	hJpad = pm.group(empty=True)
-	pad_name = hJ_1.replace('02_hybridFk', '00_hybrdFk_pad')
-	hJpad.rename(pad_name)
+	lt_hJ_pad = pm.group(empty=True)
+	pad_name = lt_hJ_1.replace('02_hybridFk', '00_hybrdFk_lt_arm_pad')
+	lt_hJ_pad.rename(pad_name)
 
-	temp_constraint = pm.parentConstraint(hJ_1, hJpad)
+	temp_constraint = pm.parentConstraint(lt_hJ_1, lt_hJ_pad)
 	pm.delete(temp_constraint)
-	freezeTransform(hJpad)
+	freezeTransform(lt_hJ_pad)
 
-	pm.parent(hJ_1, hJpad)
+	pm.parent(lt_hJ_1, lt_hJ_pad)
 
-	pm.parentConstraint(hIcon, hJpad, mo=1)
+	pm.parentConstraint(lt_hIcon, lt_hJ_pad, mo=1)
 
-	pm.addAttr(elbow_icon, ln='FK_foreArmBlend', at='double', min=0, max=1, dv=0)
-	elbow_icon.FK_foreArmBlend.set(e=1, keyable=True)
+	pm.addAttr(lt_elbow_icon, ln='FK_lt_foreArmBlend', at='double', min=0, max=1, dv=0)
+	lt_elbow_icon.FK_lt_foreArmBlend.set(e=1, keyable=True)
 
-	elbow_icon.FK_foreArmBlend.set(1)
+	lt_elbow_icon.FK_lt_foreArmBlend.set(1)
 	const_1_targets.set(0)
-	pm.setDrivenKeyframe(const_1_targets, const_2_targets, currentDriver=elbow_icon + '.FK_foreArmBlend')
-	pm.setDrivenKeyframe(hIcon + '.v',  currentDriver=elbow_icon + '.FK_foreArmBlend')
-	elbow_icon.FK_foreArmBlend.set(0)
+	pm.setDrivenKeyframe(const_1_targets, const_2_targets, currentDriver=lt_elbow_icon + '.FK_lt_foreArmBlend')
+	pm.setDrivenKeyframe(lt_hIcon + '.v',  currentDriver=lt_elbow_icon + '.FK_lt_foreArmBlend')
+	lt_elbow_icon.FK_lt_foreArmBlend.set(0)
 	const_1_targets.set(1)
 	const_2_targets.set(0)
-	hIcon.v.set(0)
-	pm.setDrivenKeyframe(const_1_targets, const_2_targets, currentDriver=elbow_icon + '.FK_foreArmBlend')
-	pm.setDrivenKeyframe(hIcon + '.v',  currentDriver=elbow_icon + '.FK_foreArmBlend')
-	pm.setDrivenKeyframe(hJ_2 + '.tx', currentDriver=hIcon + '.length')
-	hIcon.length.set(0)
-	hJ_2.tx.set(0)
-	length_sdk = pm.setDrivenKeyframe(hJ_2 + '.tx', currentDriver=hIcon + '.length')
-	pm.keyTangent(hJ_2, itt='clamped', ott='clamped')
-	pm.setInfinity(hJ_2, poi='linear')
-	hIcon.length.set(1)
+	lt_hIcon.v.set(0)
+	pm.setDrivenKeyframe(const_1_targets, const_2_targets, currentDriver=lt_elbow_icon + '.FK_lt_foreArmBlend')
+	pm.setDrivenKeyframe(lt_hIcon + '.v',  currentDriver=lt_elbow_icon + '.FK_lt_foreArmBlend')
+	pm.setDrivenKeyframe(lt_hJ_2 + '.tx', currentDriver=lt_hIcon + '.length')
+	lt_hIcon.length.set(0)
+	lt_hJ_2.tx.set(0)
+	length_sdk = pm.setDrivenKeyframe(lt_hJ_2 + '.tx', currentDriver=lt_hIcon + '.length')
+	pm.keyTangent(lt_hJ_2, itt='clamped', ott='clamped')
+	pm.setInfinity(lt_hJ_2, poi='linear')
+	lt_hIcon.length.set(1)
 
 	'''==========================================================================================================================='''
-	transform.v.set(0)
-	transform_1.v.set(0)
-	transform_2.v.set(0)
+	lt_transform.v.set(0)
+	lt_transform_1.v.set(0)
+	lt_transform_2.v.set(0)
 
-	dnt_grp = pm.group(loc_1,loc_2, loc_3, arm_dist, twist_grp, lt_arm_root, lt_ik_root, lt_fk_root, snap_dist_1, snap_dist_2, ik_cons_grp, hJpad)
-	grp_name = twist_grp.replace('twist_grp', 'DO____NOT____TOUCH')
-	dnt_grp.rename(grp_name)
+	lt_arm_dnt_grp = pm.group(lt_loc_1,lt_loc_2, lt_loc_3, lt_arm_dist, lt_twist_grp, lt_arm_root, lt_arm_ik_root, lt_fk_root, lt_snapDist_1, lt_snapDist_2, lt_ik_cons_grp, lt_hJ_pad)
+	grp_name = lt_twist_grp.replace('twist_grp', 'DO____NOT____TOUCH')
+	lt_arm_dnt_grp.rename(grp_name)
 
-	pad = pm.group(empty=True)
-	temp_constraint = pm.parentConstraint(lt_arm_root, pad, mo=0)
+	lt_arm_pad = pm.group(empty=True)
+	temp_constraint = pm.parentConstraint(lt_arm_root, lt_arm_pad, mo=0)
 	pm.delete(temp_constraint)
-	freezeTransform(pad)
+	freezeTransform(lt_arm_pad)
 
-	pm.parent(root_joint, joint_7, pad)
-	pad_name = root_joint.replace('01_bind', '00_pad')
-	pad.rename(pad_name)
+	pm.parent(lt_root_joint, lt_joint_7, lt_arm_pad)
+	pad_name = lt_root_joint.replace('01_bind', '00_lt_arm_pad')
+	lt_arm_pad.rename(pad_name)
 
-	ik_grp = pm.group(empty=True)
-	temp_constraint = pm.parentConstraint(lt_arm_root, ik_grp, mo=0)
+	lt_ik_grp = pm.group(empty=True)
+	temp_constraint = pm.parentConstraint(lt_arm_root, lt_ik_grp, mo=0)
 	pm.delete(temp_constraint)
-	freezeTransform(ik_grp)
-	pm.parent(ik_grp, dnt_grp)
-	pm.parent(lt_ik_root, loc_1, loc_2, ik_grp)
+	freezeTransform(lt_ik_grp)
+	pm.parent(lt_ik_grp, lt_arm_dnt_grp)
+	pm.parent(lt_arm_ik_root, lt_loc_1, lt_loc_2, lt_ik_grp)
 
-	grp_name = lt_ik_root.replace('01_ik', '00_ik_cons_grp')
-	ik_grp.rename(grp_name)
+	grp_name = lt_arm_ik_root.replace('01_ik', '00_lt_ik_cons_grp')
+	lt_ik_grp.rename(grp_name)
 
-	twist_jnt_grp = pm.group(empty=True)
-	temp_constraint = pm.parentConstraint(lt_arm_root, twist_jnt_grp, mo=0)
+	lt_twist_jnt_grp = pm.group(empty=True)
+	temp_constraint = pm.parentConstraint(lt_arm_root, lt_twist_jnt_grp, mo=0)
 	pm.delete(temp_constraint)
-	freezeTransform(twist_jnt_grp)
-	pm.parent(twist_jnt_grp, dnt_grp)
-	pm.parent(lt_arm_root, twist_jnt_grp)	
+	freezeTransform(lt_twist_jnt_grp)
+	pm.parent(lt_twist_jnt_grp, lt_arm_dnt_grp)
+	pm.parent(lt_arm_root, lt_twist_jnt_grp)	
 
-	grp_name = ik_grp.replace('ik', 'twist')
-	twist_jnt_grp.rename(grp_name)
+	grp_name = lt_ik_grp.replace('ik', 'twist')
+	lt_twist_jnt_grp.rename(grp_name)
 
 
-	arm_global = pm.group(empty=True)
+	lt_arm_global = pm.group(empty=True)
 
-	temp_constraint = pm.parentConstraint(lt_arm_root, arm_global)
+	temp_constraint = pm.parentConstraint(lt_arm_root, lt_arm_global)
 	pm.delete(temp_constraint)
-	freezeTransform(arm_global)
-	pm.parent(lt_arm_icon, elbow_icon, pad, switch, fk_pad_1, dnt_grp, arm_global)
-	grp_name = pad.replace('00_pad', 'global_grp')
-	arm_global.rename(grp_name)
+	freezeTransform(lt_arm_global)
+	pm.parent(lt_arm_icon, lt_elbow_icon, lt_arm_pad, lt_switch, lt_fk_pad_1, lt_arm_dnt_grp, lt_arm_global)
+	grp_name = lt_arm_pad.replace('00_lt_arm_pad', 'global_grp')
+	lt_arm_global.rename(grp_name)
 
 	if pm.objExists('*moveAll'):
 		pm.select('*moveAll')
@@ -4306,7 +4207,7 @@ def lt_armSetup(*args):
 		pm.select('*joint_grp')
 		jnt_grp = pm.ls(sl=True)[0]
 		# print jnt_grp
-		# pm.parent(pad, jnt_grp)
+		# pm.parent(lt_arm_pad, jnt_grp)
 		pm.scaleConstraint(moveAll, jnt_grp)
 
 	else:
@@ -4314,32 +4215,32 @@ def lt_armSetup(*args):
 		grp_name = lt_arm_root.replace('lt_arm_01_twist', 'joint_grp')
 		jnt_grp.rename(grp_name)
 		# print jnt_grp
-		# pm.parent(pad, jnt_grp)
+		# pm.parent(lt_arm_pad, jnt_grp)
 		pm.scaleConstraint(moveAll, jnt_grp)
 
 	if pm.objExists('*icon_grp'):
 		pm.select('*icon_grp')
 		icon_grp = pm.ls(sl=True)[0] 
 		pm.parent(moveAll, '*icon_grp')
-		# pm.parent(lt_arm_icon, fk_pad_1, elbow_icon, moveAll)
+		# pm.parent(lt_arm_icon, lt_fk_pad_1, lt_elbow_icon, moveAll)
 
 	else:
 		icon_grp = pm.group(empty=True)
 		pm.parent(moveAll, icon_grp)
 		group_name = jnt_grp.replace('joint', 'icon')
 		icon_grp.rename(group_name)
-		# pm.parent(lt_arm_icon, fk_pad_1, elbow_icon, moveAll)
+		# pm.parent(lt_arm_icon, lt_fk_pad_1, lt_elbow_icon, moveAll)
 	'''
 	Create the Gimbal icon
 	'''
-	gimbal_icon = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=1, tol=0.01, nr=(1, 0, 0))
+	lt_gimbal_icon = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=1, tol=0.01, nr=(1, 0, 0))
 
-	gimbal_icon_2 = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=0.2, tol=0.01, nr=(1, 0, 0))[0]
+	lt_gimbal_icon_2 = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=0.2, tol=0.01, nr=(1, 0, 0))[0]
 
-	gimbal_icon_2.ty.set(1)
-	freezeTransform(gimbal_icon_2)
+	lt_gimbal_icon_2.ty.set(1)
+	freezeTransform(lt_gimbal_icon_2)
 
-	pm.select(gimbal_icon, gimbal_icon_2)
+	pm.select(lt_gimbal_icon, lt_gimbal_icon_2)
 
 	selection = pm.ls(sl=True, dag=True, s=True)
 	shape_1 = selection[0]
@@ -4347,57 +4248,57 @@ def lt_armSetup(*args):
 	# print shape_1
 	# print shape_2
 
-	core_icon = pm.group(empty=True)
+	lt_core_icon = pm.group(empty=True)
 
-	pm.parent(shape_1, shape_2, core_icon, r=True, s=True)
+	pm.parent(shape_1, shape_2, lt_core_icon, r=True, s=True)
 
-	pm.delete(gimbal_icon, gimbal_icon_2)
+	pm.delete(lt_gimbal_icon, lt_gimbal_icon_2)
 
-	icon_name = lt_arm_icon.replace('arm', 'arm_gimbal_core')
-	core_icon.rename(icon_name)
+	icon_name = lt_arm_icon.replace('lt_arm', 'gimbal_core')
+	lt_core_icon.rename(icon_name)
 
-	shape_name = core_icon.replace('_icon', 'Shape1')
+	shape_name = lt_core_icon.replace('_icon', 'Shape1')
 	shape_1.rename(shape_name)
 
 	shape_name = shape_1.replace('1', '2')
 	shape_2.rename(shape_name)
 
-	temp_constraint = pm.pointConstraint(lt_arm_root, core_icon, mo=0)
+	temp_constraint = pm.pointConstraint(lt_arm_root, lt_core_icon, mo=0)
 	pm.delete(temp_constraint)
-	freezeTransform(core_icon)
+	freezeTransform(lt_core_icon)
 
-	pm.parent(core_icon, arm_global)
-	pm.orientConstraint(core_icon, fk_pad_1, mo=1)
+	pm.parent(lt_core_icon, lt_arm_global)
+	pm.orientConstraint(lt_core_icon, lt_fk_pad_1, mo=1)
 
 
-	twist_gimbal_grp = pm.group(empty=True)
-	temp_constraint = pm.parentConstraint(lt_arm_root, twist_gimbal_grp, mo=0)
+	lt_twist_gimbal_grp = pm.group(empty=True)
+	temp_constraint = pm.parentConstraint(lt_arm_root, lt_twist_gimbal_grp, mo=0)
 	pm.delete(temp_constraint)
-	freezeTransform(twist_gimbal_grp)
+	freezeTransform(lt_twist_gimbal_grp)
 
-	pm.parent(twist_gimbal_grp, twist_jnt_grp)
+	pm.parent(lt_twist_gimbal_grp, lt_twist_jnt_grp)
 
-	pm.parent(lt_arm_root, twist_gimbal_grp)
-
-
-	grp_name = core_icon.replace('arm_gimbal_core_icon', 'twist_gimbal_core_grp')
-	twist_gimbal_grp.rename(grp_name)
-
-	gimbal_core_tog = pm.shadingNode('blendColors', asUtility=1)
-
-	node_name = lt_arm_icon.replace('icon', 'gimbal_core_tog_blendColors')
-	gimbal_core_tog.rename(node_name)
-
-	pm.connectAttr(core_icon + '.r', gimbal_core_tog + '.color2')
-	gimbal_core_tog.color1R.set(0)
-	gimbal_core_tog.color1G.set(0)
-	gimbal_core_tog.color1B.set(0)
-	pm.connectAttr(gimbal_core_tog + '.output', twist_jnt_grp + '.r')
-	pm.connectAttr(switch + '.IkFk', gimbal_core_tog + '.blender')
-	pm.connectAttr(switch + '.IkFk', core_icon + '.v')
+	pm.parent(lt_arm_root, lt_twist_gimbal_grp)
 
 
-	pm.select(loc_1, loc_2, loc_3, loc_4, loc_5, snap_dist_1, snap_dist_2, lt_ik_root, arm_dist, arm_ikh, arm_ik_1, arm_ik_2, lt_arm_root, arm_curve_1, arm_curve_2, hJ_1, lt_fk_root)
+	grp_name = lt_core_icon.replace('gimbal_core_icon', 'twist_gimbal_core_grp')
+	lt_twist_gimbal_grp.rename(grp_name)
+
+	lt_gimbal_core_tog = pm.shadingNode('blendColors', asUtility=1)
+
+	node_name = lt_arm_icon.replace('icon', 'lt_gimbal_core_tog_blendColors')
+	lt_gimbal_core_tog.rename(node_name)
+
+	pm.connectAttr(lt_core_icon + '.r', lt_gimbal_core_tog + '.color2')
+	lt_gimbal_core_tog.color1R.set(0)
+	lt_gimbal_core_tog.color1G.set(0)
+	lt_gimbal_core_tog.color1B.set(0)
+	pm.connectAttr(lt_gimbal_core_tog + '.output', lt_twist_jnt_grp + '.r')
+	pm.connectAttr(lt_switch + '.IkFk', lt_gimbal_core_tog + '.blender')
+	pm.connectAttr(lt_switch + '.IkFk', lt_core_icon + '.v')
+
+
+	pm.select(lt_loc_1, lt_loc_2, lt_loc_3, lt_loc_4, lt_loc_5, lt_snapDist_1, lt_snapDist_2, lt_arm_ik_root, lt_arm_dist, lt_arm_ikh, lt_arm_ik_1, lt_arm_ik_2, lt_arm_root, lt_arm_curve_1, lt_arm_curve_2, lt_hJ_1, lt_fk_root)
 	selection = pm.ls(sl=1)
 	for each in selection:
 		pm.setAttr(each + '.visibility', 0)
@@ -4405,28 +4306,57 @@ def lt_armSetup(*args):
 	pm.addAttr(lt_arm_icon, ln='stretch', at='bool')
 	unhideAttrs(lt_arm_icon, ['stretch'])
 
-	pm.disconnectAttr(upperArm_stretch + '.outputR', lt_arm_ik_joint_2 + '.translateX')
-	pm.disconnectAttr(foreArm_stretch + '.outputR', lt_arm_ik_joint_3  + '.translateX')
+	pm.disconnectAttr(lt_upperArm_stretch + '.outputR', lt_arm_ik_joint_2 + '.translateX')
+	pm.disconnectAttr(lt_foreArm_stretch + '.outputR', lt_arm_ik_joint_3  + '.translateX')
 
-	lt_arm_stretchBlend_switch = pm.shadingNode('blendColors', asUtility=1)
+	lt_arm_stretchBlend_lt_switch = pm.shadingNode('blendColors', asUtility=1)
 	node_name = lt_arm_icon.replace('icon', 'stretchBlend_switch')
-	lt_arm_stretchBlend_switch.rename(node_name)
+	lt_arm_stretchBlend_lt_switch.rename(node_name)
 
-	pm.connectAttr(foreArm_stretch + '.outputR', lt_arm_stretchBlend_switch + '.color1R')
-	pm.connectAttr(upperArm_stretch + '.outputR', lt_arm_stretchBlend_switch + '.color1G')
+	pm.connectAttr(lt_foreArm_stretch + '.outputR', lt_arm_stretchBlend_lt_switch + '.color1G')
+	pm.connectAttr(lt_upperArm_stretch + '.outputR', lt_arm_stretchBlend_lt_switch + '.color1R')
 
-	upperArm_stretch_len = pm.getAttr(lt_arm_stretchBlend_switch + '.color1R')
-	# print upperArm_stretch_len
-	lt_arm_stretchBlend_switch.color2R.set(upperArm_stretch_len)
+	lt_upperArm_stretch_len = pm.getAttr(lt_arm_stretchBlend_lt_switch + '.color1R')
+	# print lt_upperArm_stretch_len
+	lt_arm_stretchBlend_lt_switch.color2R.set(lt_upperArm_stretch_len)
 
-	foreArm_stretch_len = pm.getAttr(lt_arm_stretchBlend_switch + '.color1G')
-	# print foreArm_stretch_len
-	lt_arm_stretchBlend_switch.color2G.set(foreArm_stretch_len)
+	lt_foreArm_stretch_len = pm.getAttr(lt_arm_stretchBlend_lt_switch + '.color1G')
+	# print lt_foreArm_stretch_len
+	lt_arm_stretchBlend_lt_switch.color2G.set(lt_foreArm_stretch_len)
 
-	pm.connectAttr(lt_arm_stretchBlend_switch + '.outputR', lt_arm_ik_joint_2 + '.translateX')
-	pm.connectAttr(lt_arm_stretchBlend_switch + '.outputG', lt_arm_ik_joint_3 + '.translateX')
+	pm.connectAttr(lt_arm_stretchBlend_lt_switch + '.outputR', lt_arm_ik_joint_2 + '.translateX')
+	pm.connectAttr(lt_arm_stretchBlend_lt_switch + '.outputG', lt_arm_ik_joint_3 + '.translateX')
 
-	pm.connectAttr(lt_arm_icon + '.stretch', lt_arm_stretchBlend_switch + '.blender')
+	pm.connectAttr(lt_arm_icon + '.stretch', lt_arm_stretchBlend_lt_switch + '.blender')
+
+	pm.pointConstraint(lt_clav_space_loc, lt_arm_ik_root, mo=1)
+
+	pm.pointConstraint(lt_clav_space_loc, lt_fk_pad_1, mo=1)
+
+	lt_gimbal_local = pm.group(empty=1)
+
+	temp_constraint = pm.parentConstraint(lt_core_icon, lt_gimbal_local, mo=0)
+	pm.delete(temp_constraint)
+	freezeTransform()
+
+	local_name = lt_core_icon.replace('icon', '00_local')
+	lt_gimbal_local.rename(local_name)
+
+	pm.parent(lt_core_icon, lt_gimbal_local)
+	freezeTransform()
+
+	pm.pointConstraint(lt_clav_space_loc, lt_gimbal_local, mo=1)
+
+	attrs = ['tx', 'ty', 'tz', 'sx', 'sy', 'sz', 'v']
+	lock_and_hide(lt_fk_icon_1, attrs)
+	lock_and_hide(lt_fk_icon_2, attrs)
+	lock_and_hide(lt_core_icon, attrs)
+	lock_and_hide(lt_hIcon, attrs)
+	attrs = ['rx', 'ry', 'rz', 'sx', 'sy', 'sz', 'v']
+	lock_and_hide(lt_arm_icon, attrs)
+	lock_and_hide(lt_elbow_icon, attrs)
+
+	pm.select(cl=1)
 
 def lt_fkArmSetup(*args):
 	pm.select(lt_arm_01_bind)
@@ -4544,6 +4474,29 @@ def lt_fkArmSetup(*args):
 
 	lt_fk_root.v.set(0)
 
+	pm.pointConstraint(lt_clav_space_loc, fk_pad_1, mo=1)
+
+	gimbal_local = pm.group(empty=1)
+
+	temp_constraint = pm.parentConstraint(core_icon, gimbal_local, mo=0)
+	pm.delete(temp_constraint)
+	freezeTransform()
+
+	local_name = core_icon.replace('icon', '00_local')
+	gimbal_local.rename(local_name)
+
+	pm.parent(core_icon, gimbal_local)
+	freezeTransform()
+
+	pm.pointConstraint(lt_clav_space_loc, gimbal_local, mo=1)
+
+	attrs = ['tx', 'ty', 'tz', 'sx', 'sy', 'sz', 'v']
+	lock_and_hide(fk_icon_1, attrs)
+	lock_and_hide(fk_icon_2, attrs)
+	lock_and_hide(core_icon, attrs)
+
+	pm.select(cl=1)
+
 def lt_ikArmSetup(*args):
 	pm.select(lt_arm_01_bind)
 	arm_system = pm.ls(sl=True, dag=True)
@@ -4562,19 +4515,19 @@ def lt_ikArmSetup(*args):
 
 	ik_joints = pm.duplicate(lt_arm_root)
 	ik_joints = pm.ls(sl=True, dag=True)
-	lt_ik_root = ik_joints[0]
+	lt_arm_ik_root = ik_joints[0]
 	lt_arm_ik_joint_2 = ik_joints[1]
 	lt_arm_ik_joint_3 = ik_joints[2]
-	# print 'Ik Root:', lt_ik_root
+	# print 'Ik Root:', lt_arm_ik_root
 	# print 'Ik Joint 2:', lt_arm_ik_joint_2
 	# print 'Ik Joint 3:', lt_arm_ik_joint_3
 
 	
 	for each in ik_joints:
 		joint_name = lt_arm_root.replace('bind', 'ik')
-		lt_ik_root.rename(joint_name)
+		lt_arm_ik_root.rename(joint_name)
 
-	joint_name = lt_ik_root.replace('1', '2')
+	joint_name = lt_arm_ik_root.replace('1', '2')
 	lt_arm_ik_joint_2.rename(joint_name)
 
 	joint_name = lt_arm_ik_joint_2.replace('2', '3')
@@ -4842,11 +4795,11 @@ def lt_ikArmSetup(*args):
 
 
 	'''================================================================================================================'''
-	pm.connectAttr(lt_ik_root + '.rotate', lt_arm_root + '.rotate')
+	pm.connectAttr(lt_arm_ik_root + '.rotate', lt_arm_root + '.rotate')
 	pm.connectAttr(lt_arm_ik_joint_2 + '.rotate', arm_joint_2 + '.rotate')
 	pm.connectAttr(lt_arm_ik_joint_3 + '.rotate', arm_joint_3 + '.rotate')
 
-	pm.connectAttr(lt_ik_root + '.translate', lt_arm_root + '.translate')
+	pm.connectAttr(lt_arm_ik_root + '.translate', lt_arm_root + '.translate')
 	pm.connectAttr(lt_arm_ik_joint_2 + '.translate', arm_joint_2 + '.translate')
 	pm.connectAttr(lt_arm_ik_joint_3 + '.translate', arm_joint_3 + '.translate')
 
@@ -4869,7 +4822,7 @@ def lt_ikArmSetup(*args):
 	'''
 	Create the ik
 	'''
-	pm.select(lt_ik_root, lt_arm_ik_joint_3)
+	pm.select(lt_arm_ik_root, lt_arm_ik_joint_3)
 	arm_ikh = pm.ikHandle()[0]
 
 	ikh_name = lt_arm_root.replace('bind', 'ikh')
@@ -5225,7 +5178,7 @@ def lt_ikArmSetup(*args):
 	Rename the icons and the pads
 	'''
 
-	hybridFk_icon_name = lt_ik_root.replace('01_ik', 'hybridFk_icon')
+	hybridFk_icon_name = lt_arm_ik_root.replace('01_ik', 'hybridFk_icon')
 	hybridFk_icon.rename(hybridFk_icon_name)
 
 	hybridFk_pad_name = hybridFk_icon.replace('icon', 'local')
@@ -5291,299 +5244,333 @@ def lt_ikArmSetup(*args):
 	pm.setInfinity(hJ_2, poi='linear')
 	hybridFk_icon.length.set(1)
 
-	pm.select(loc_1, loc_2, loc_3, loc_4, loc_5, snap_dist_1, snap_dist_2, lt_ik_root, arm_dist, arm_ikh, arm_ik_1, arm_ik_2, lt_arm_root, arm_curve_1, arm_curve_2, hJ_1)
+	pm.select(loc_1, loc_2, loc_3, loc_4, loc_5, snap_dist_1, snap_dist_2, lt_arm_ik_root, arm_dist, arm_ikh, arm_ik_1, arm_ik_2, lt_arm_root, arm_curve_1, arm_curve_2, hJ_1)
 	selection = pm.ls(sl=1)
 	for each in selection:
 		pm.setAttr(each + '.visibility', 0)
 
+	pm.pointConstraint(lt_clav_space_loc, lt_arm_ik_root, mo=1)
+
+	attrs = ['tx', 'ty', 'tz', 'sx', 'sy', 'sz', 'v']
+	lock_and_hide(hIcon, attrs)
+	attrs = ['rx', 'ry', 'rz', 'sx', 'sy', 'sz', 'v']
+	lock_and_hide(lt_arm_icon, attrs)
+	lock_and_hide(elbow_icon, attrs)
+
+	pm.addAttr(lt_arm_icon, ln='stretch', at='bool')
+	unhideAttrs(lt_arm_icon, ['stretch'])
+
+	pm.disconnectAttr(upperArm_stretch + '.outputR', lt_arm_ik_joint_2 + '.translateX')
+	pm.disconnectAttr(foreArm_stretch + '.outputR', lt_arm_ik_joint_3  + '.translateX')
+
+	lt_arm_stretchBlend_switch = pm.shadingNode('blendColors', asUtility=1)
+	node_name = lt_arm_icon.replace('icon', 'stretchBlend_switch')
+	lt_arm_stretchBlend_switch.rename(node_name)
+
+	pm.connectAttr(foreArm_stretch + '.outputR', lt_arm_stretchBlend_switch + '.color1G')
+	pm.connectAttr(upperArm_stretch + '.outputR', lt_arm_stretchBlend_switch + '.color1R')
+
+	upperArm_stretch_len = pm.getAttr(lt_arm_stretchBlend_switch + '.color1R')
+	# print upperArm_stretch_len
+	lt_arm_stretchBlend_switch.color2R.set(upperArm_stretch_len)
+
+	foreArm_stretch_len = pm.getAttr(lt_arm_stretchBlend_switch + '.color1G')
+	# print foreArm_stretch_len
+	lt_arm_stretchBlend_switch.color2G.set(foreArm_stretch_len)
+
+	pm.connectAttr(lt_arm_stretchBlend_switch + '.outputR', lt_arm_ik_joint_2 + '.translateX')
+	pm.connectAttr(lt_arm_stretchBlend_switch + '.outputG', lt_arm_ik_joint_3 + '.translateX')
+
+	pm.connectAttr(lt_arm_icon + '.stretch', lt_arm_stretchBlend_switch + '.blender')
+
 	pm.select(cl=1)
 
 def rt_armSetup(*args):
-	global rt_arm_root, rt_fk_root, rt_ik_root, rt_joint_12, rt_arm_icon
+	global rt_arm_root, rt_fk_root, rt_arm_ik_root, rt_joint_12, rt_arm_icon
 	pm.select(rt_arm_01_bind)
-	arm_system = pm.ls(sl=True, dag=True)
-	rt_arm_root = arm_system[0]
-	arm_joint_2 = arm_system[1]
-	arm_joint_3 = arm_system[2]
+	rt_arm_system = pm.ls(sl=True, dag=True)
+	rt_arm_root = rt_arm_system[0]
+	rt_arm_joint_2 = rt_arm_system[1]
+	rt_arm_joint_3 = rt_arm_system[2]
 	# print 'Main Root:', rt_arm_root
-	# print 'Main Joint 2:', arm_joint_2
-	# print 'Main Joint 3:', arm_joint_3
+	# print 'Main Joint 2:', rt_arm_joint_2
+	# print 'Main Joint 3:', rt_arm_joint_3
 
 	pm.joint(rt_arm_root, zso=1, ch=1, e=1, oj='xyz', secondaryAxisOrient='ydown')
-	arm_joint_3.jointOrientX.set(0)
-	arm_joint_3.jointOrientY.set(0)
+	rt_arm_joint_3.jointOrientX.set(0)
+	rt_arm_joint_3.jointOrientY.set(0)
 	rt_arm_root.rotateOrder.set(3)
 
 
-	ik_joints = pm.duplicate(rt_arm_root)
-	ik_joints = pm.ls(sl=True, dag=True)
-	rt_ik_root = ik_joints[0]
-	rt_arm_ik_joint_2 = ik_joints[1]
-	rt_arm_ik_joint_3 = ik_joints[2]
-	# print 'Ik Root:', rt_ik_root
+	rt_ik_joints = pm.duplicate(rt_arm_root)
+	rt_ik_joints = pm.ls(sl=True, dag=True)
+	rt_arm_ik_root = rt_ik_joints[0]
+	rt_arm_ik_joint_2 = rt_ik_joints[1]
+	rt_arm_ik_joint_3 = rt_ik_joints[2]
+	# print 'Ik Root:', rt_arm_ik_root
 	# print 'Ik Joint 2:', rt_arm_ik_joint_2
 	# print 'Ik Joint 3:', rt_arm_ik_joint_3
 
 	
-	for each in ik_joints:
+	for each in rt_ik_joints:
 		joint_name = rt_arm_root.replace('bind', 'ik')
-		rt_ik_root.rename(joint_name)
+		rt_arm_ik_root.rename(joint_name)
 
-	joint_name = rt_ik_root.replace('1', '2')
+	joint_name = rt_arm_ik_root.replace('1', '2')
 	rt_arm_ik_joint_2.rename(joint_name)
 
 	joint_name = rt_arm_ik_joint_2.replace('2', '3')
 	rt_arm_ik_joint_3.rename(joint_name)
 
-	fk_joints = pm.duplicate(rt_arm_root)
-	pm.select(fk_joints)
-	fk_joints = pm.ls(sl=True, dag=True)
-	rt_fk_root = fk_joints[0]
-	fk_joint_2 = fk_joints[1]
-	fk_joint_3 = fk_joints[2]
+	rt_fk_joints = pm.duplicate(rt_arm_root)
+	pm.select(rt_fk_joints)
+	rt_fk_joints = pm.ls(sl=True, dag=True)
+	rt_fk_root = rt_fk_joints[0]
+	rt_fk_joint_2 = rt_fk_joints[1]
+	rt_fk_joint_3 = rt_fk_joints[2]
 	# print 'Fk Root:', rt_fk_root
-	# print 'Fk Joint 2:', fk_joint_2
-	# print 'Fk Joint 3:', fk_joint_3
+	# print 'Fk Joint 2:', rt_fk_joint_2
+	# print 'Fk Joint 3:', rt_fk_joint_3
 
 	
-	joint_name = rt_ik_root.replace('ik', 'fk')
+	joint_name = rt_arm_ik_root.replace('ik', 'fk')
 	rt_fk_root.rename(joint_name)
 
 	joint_name = rt_arm_ik_joint_2.replace('ik', 'fk')
-	fk_joint_2.rename(joint_name)
+	rt_fk_joint_2.rename(joint_name)
 
 	joint_name = rt_arm_ik_joint_3.replace('ik', 'fk')
-	fk_joint_3.rename(joint_name)
+	rt_fk_joint_3.rename(joint_name)
 
-	hybrid_fk_joints = pm.duplicate(fk_joint_2)
-	pm.parent(hybrid_fk_joints, w=1)
+	rt_hybrid_fk_joints = pm.duplicate(rt_fk_joint_2)
+	pm.parent(rt_hybrid_fk_joints, w=1)
 
-	pm.select(hybrid_fk_joints)
-	hJoints = pm.ls(sl=True,  dag=True)
-	hJ_1 = hJoints[0]
-	hJ_2 = hJoints[1]
-	# print hJ_1
-	# print hJ_2
+	pm.select(rt_hybrid_fk_joints)
+	rt_hJoints = pm.ls(sl=True,  dag=True)
+	rt_hJ_1 = rt_hJoints[0]
+	rt_hJ_2 = rt_hJoints[1]
+	# print rt_hJ_1
+	# print rt_hJ_2
 
-	jnt_name = fk_joint_2.replace('fk', 'hybridFk')
-	hJ_1.rename(jnt_name)
+	jnt_name = rt_fk_joint_2.replace('fk', 'hybridFk')
+	rt_hJ_1.rename(jnt_name)
 
-	jnt_name = hJ_1.replace('02', '03')
-	hJ_2.rename(jnt_name)
+	jnt_name = rt_hJ_1.replace('02', '03')
+	rt_hJ_2.rename(jnt_name)
 	
 
 
-	twist_joints = pm.duplicate(rt_arm_root)
-	pm.select(twist_joints)
+	rt_twist_joints = pm.duplicate(rt_arm_root)
+	pm.select(rt_twist_joints)
 	joint_system = pm.ls(sl=True, dag=True)
-	root_joint = joint_system[0]
-	mid_joint = joint_system[1]
-	end_joint = joint_system[2]
-	# print 'Root joint:', root_joint
-	# print 'Mid joint:', mid_joint
-	# print 'End joint:', end_joint
+	rt_root_joint = joint_system[0]
+	rt_mid_joint = joint_system[1]
+	rt_end_joint = joint_system[2]
+	# print 'Root joint:', rt_root_joint
+	# print 'Mid joint:', rt_mid_joint
+	# print 'End joint:', rt_end_joint
 
-	new_name = root_joint.replace('bind1', 'twist')
-	root_joint.rename(new_name)
-	jnt_name_1 = root_joint.replace('01', '05')
-	jnt_name_2 = root_joint.replace('01', '04')
-	jnt_name_3 = root_joint.replace('01', '03')
-	jnt_name_4 = root_joint.replace('01', '02')
+	new_name = rt_root_joint.replace('bind1', 'twist')
+	rt_root_joint.rename(new_name)
+	jnt_name_1 = rt_root_joint.replace('01', '05')
+	jnt_name_2 = rt_root_joint.replace('01', '04')
+	jnt_name_3 = rt_root_joint.replace('01', '03')
+	jnt_name_4 = rt_root_joint.replace('01', '02')
 	
-	jnt_name_6 = mid_joint.replace('02_bind', '06_twist')
+	jnt_name_6 = rt_mid_joint.replace('02_bind', '06_twist')
 
 
-	loc_1 = pm.spaceLocator(p=(0, 0, 0))
-	temp_constraint = pm.orientConstraint(root_joint, loc_1, mo=0)
-	point_constraint_1 = pm.pointConstraint(root_joint, loc_1, mo=0, w=0)
-	point_constraint_2 = pm.pointConstraint(mid_joint, loc_1, mo=0, w=1)
-	splitJnt_1 = pm.joint(loc_1, name=jnt_name_1)
+	rt_loc_1 = pm.spaceLocator(p=(0, 0, 0))
+	temp_constraint = pm.orientConstraint(rt_root_joint, rt_loc_1, mo=0)
+	point_constraint_1 = pm.pointConstraint(rt_root_joint, rt_loc_1, mo=0, w=0)
+	point_constraint_2 = pm.pointConstraint(rt_mid_joint, rt_loc_1, mo=0, w=1)
+	rt_splitJnt_1 = pm.joint(rt_loc_1, name=jnt_name_1)
 
-	loc_2 = pm.spaceLocator(p=(0, 0, 0))
-	temp_constraint_2 = pm.orientConstraint(root_joint, loc_2, mo=0)
-	point_constraint_3 = pm.pointConstraint(root_joint, loc_2, mo=0, w=.25)
-	point_constraint_4 = pm.pointConstraint(mid_joint, loc_2, mo=0, w=.75)
-	splitJnt_2 = pm.joint(loc_2, name=jnt_name_2)
+	rt_loc_2 = pm.spaceLocator(p=(0, 0, 0))
+	temp_constraint_2 = pm.orientConstraint(rt_root_joint, rt_loc_2, mo=0)
+	point_constraint_3 = pm.pointConstraint(rt_root_joint, rt_loc_2, mo=0, w=.25)
+	point_constraint_4 = pm.pointConstraint(rt_mid_joint, rt_loc_2, mo=0, w=.75)
+	rt_splitJnt_2 = pm.joint(rt_loc_2, name=jnt_name_2)
 
-	loc_3 = pm.spaceLocator(p=(0, 0, 0))
-	temp_constraint_3 = pm.orientConstraint(root_joint, loc_3, mo=0)
-	point_constraint_5 = pm.pointConstraint(root_joint, loc_3, mo=0, w=.5)
-	point_constraint_6 = pm.pointConstraint(mid_joint, loc_3, mo=0, w=.5)
-	splitJnt_3 = pm.joint(loc_3, name=jnt_name_3)
+	rt_loc_3 = pm.spaceLocator(p=(0, 0, 0))
+	temp_constraint_3 = pm.orientConstraint(rt_root_joint, rt_loc_3, mo=0)
+	point_constraint_5 = pm.pointConstraint(rt_root_joint, rt_loc_3, mo=0, w=.5)
+	point_constraint_6 = pm.pointConstraint(rt_mid_joint, rt_loc_3, mo=0, w=.5)
+	rt_splitJnt_3 = pm.joint(rt_loc_3, name=jnt_name_3)
 
-	loc_4 = pm.spaceLocator(p=(0, 0, 0))
-	temp_constraint_4 = pm.orientConstraint(root_joint, loc_4, mo=0)
-	point_constraint_7 = pm.pointConstraint(root_joint, loc_4, mo=0, w=.75)
-	point_constraint_8 = pm.pointConstraint(mid_joint, loc_4, mo=0, w=.25)
-	splitJnt_4 = pm.joint(loc_4, name=jnt_name_4)
+	rt_loc_4 = pm.spaceLocator(p=(0, 0, 0))
+	temp_constraint_4 = pm.orientConstraint(rt_root_joint, rt_loc_4, mo=0)
+	point_constraint_7 = pm.pointConstraint(rt_root_joint, rt_loc_4, mo=0, w=.75)
+	point_constraint_8 = pm.pointConstraint(rt_mid_joint, rt_loc_4, mo=0, w=.25)
+	rt_splitJnt_4 = pm.joint(rt_loc_4, name=jnt_name_4)
 
-	pm.parent(splitJnt_4, root_joint)
-	pm.parent(splitJnt_3, splitJnt_4)
-	pm.parent(splitJnt_2, splitJnt_3)
-	pm.parent(splitJnt_1, splitJnt_2)
-	pm.parent(mid_joint, splitJnt_1)
+	pm.parent(rt_splitJnt_4, rt_root_joint)
+	pm.parent(rt_splitJnt_3, rt_splitJnt_4)
+	pm.parent(rt_splitJnt_2, rt_splitJnt_3)
+	pm.parent(rt_splitJnt_1, rt_splitJnt_2)
+	pm.parent(rt_mid_joint, rt_splitJnt_1)
 
-	pm.delete(loc_1, loc_2, loc_3, loc_4)
+	pm.delete(rt_loc_1, rt_loc_2, rt_loc_3, rt_loc_4)
 
-	mid_joint.rename(jnt_name_6)
+	rt_mid_joint.rename(jnt_name_6)
 
-	jnt_name_7 = mid_joint.replace('06', '07')
+	jnt_name_7 = rt_mid_joint.replace('06', '07')
 
-	end_joint.rename(jnt_name_7)
+	rt_end_joint.rename(jnt_name_7)
 
-	twist_joints = pm.duplicate(mid_joint)
+	rt_twist_joints = pm.duplicate(rt_mid_joint)
 
-	pm.parent(twist_joints, w=1)
+	pm.parent(rt_twist_joints, w=1)
 
-	twist_joints = pm.ls(sl=True, dag=True)
-	joint_7 = twist_joints[0]
-	rt_joint_12 = twist_joints[1]
+	rt_twist_joints = pm.ls(sl=True, dag=True)
+	rt_joint_7 = rt_twist_joints[0]
+	rt_joint_12 = rt_twist_joints[1]
 
-	pm.delete(end_joint)
+	pm.delete(rt_end_joint)
 
 	jnt_name_12 = rt_joint_12.replace('07', '12')
 	rt_joint_12.rename(jnt_name_12)
-	jnt_name_7 = joint_7.replace('06_twist1', '07_twist')
-	joint_7.rename(jnt_name_7)
+	jnt_name_7 = rt_joint_7.replace('06_twist1', '07_twist')
+	rt_joint_7.rename(jnt_name_7)
 
-	loc_1 = pm.spaceLocator(p=(0, 0, 0))
-	temp_constraint = pm.orientConstraint(joint_7, loc_1, mo=0)
-	point_constraint_1 = pm.pointConstraint(joint_7, loc_1, mo=0, w=0)
-	point_constraint_2 = pm.pointConstraint(rt_joint_12, loc_1, mo=0, w=1)
+	rt_loc_1 = pm.spaceLocator(p=(0, 0, 0))
+	temp_constraint = pm.orientConstraint(rt_joint_7, rt_loc_1, mo=0)
+	point_constraint_1 = pm.pointConstraint(rt_joint_7, rt_loc_1, mo=0, w=0)
+	point_constraint_2 = pm.pointConstraint(rt_joint_12, rt_loc_1, mo=0, w=1)
 	jnt_name_11 = rt_joint_12.replace('12', '11')
-	joint_11 = pm.joint(loc_1, name=jnt_name_11)
+	rt_joint_11 = pm.joint(rt_loc_1, name=jnt_name_11)
 
-	loc_2 = pm.spaceLocator(p=(0, 0, 0))
-	temp_constraint_1 = pm.orientConstraint(joint_7, loc_1, mo=0)
-	point_constraint_3 = pm.pointConstraint(joint_7 , loc_2, mo=0, w=.25)
-	point_constraint_4 = pm.pointConstraint(rt_joint_12 , loc_2, mo=0, w=.75)
-	jnt_name_10 = joint_11.replace('11', '10')
-	joint_10 = pm.joint(loc_2, n=jnt_name_10)
+	rt_loc_2 = pm.spaceLocator(p=(0, 0, 0))
+	temp_constraint_1 = pm.orientConstraint(rt_joint_7, rt_loc_1, mo=0)
+	point_constraint_3 = pm.pointConstraint(rt_joint_7 , rt_loc_2, mo=0, w=.25)
+	point_constraint_4 = pm.pointConstraint(rt_joint_12 , rt_loc_2, mo=0, w=.75)
+	jnt_name_10 = rt_joint_11.replace('11', '10')
+	rt_joint_10 = pm.joint(rt_loc_2, n=jnt_name_10)
 
-	loc_3 = pm.spaceLocator(p=(0, 0, 0))
-	temp_constraint_2 = pm.orientConstraint(joint_7, loc_1, mo=0)
-	point_constraint_5 = pm.pointConstraint(joint_7 ,loc_3, mo=0, w=.5)
-	point_constraint_6 = pm.pointConstraint(rt_joint_12 ,loc_3, mo=0, w=.5)
-	jnt_name_9 = joint_10.replace('10', '09')
-	joint_9 = pm.joint(loc_3, n=jnt_name_9)
+	rt_loc_3 = pm.spaceLocator(p=(0, 0, 0))
+	temp_constraint_2 = pm.orientConstraint(rt_joint_7, rt_loc_1, mo=0)
+	point_constraint_5 = pm.pointConstraint(rt_joint_7 ,rt_loc_3, mo=0, w=.5)
+	point_constraint_6 = pm.pointConstraint(rt_joint_12 ,rt_loc_3, mo=0, w=.5)
+	jnt_name_9 = rt_joint_10.replace('10', '09')
+	rt_joint_9 = pm.joint(rt_loc_3, n=jnt_name_9)
 
-	loc_4 = pm.spaceLocator(p=(0, 0, 0))
-	temp_constraint_3 = pm.orientConstraint(joint_7, loc_1, mo=0)
-	point_constraint_7 = pm.pointConstraint(joint_7 ,loc_4, mo=0, w=.75)
-	point_constraint_8 = pm.pointConstraint(rt_joint_12 ,loc_4, mo=0, w=.25)
-	jnt_name_8 = joint_9.replace('9', '8')
-	joint_8 = pm.joint(loc_4, n=jnt_name_8)
+	rt_loc_4 = pm.spaceLocator(p=(0, 0, 0))
+	temp_constraint_3 = pm.orientConstraint(rt_joint_7, rt_loc_1, mo=0)
+	point_constraint_7 = pm.pointConstraint(rt_joint_7 ,rt_loc_4, mo=0, w=.75)
+	point_constraint_8 = pm.pointConstraint(rt_joint_12 ,rt_loc_4, mo=0, w=.25)
+	jnt_name_8 = rt_joint_9.replace('9', '8')
+	rt_joint_8 = pm.joint(rt_loc_4, n=jnt_name_8)
 
-	pm.parent(joint_11, joint_10)
-	pm.parent(joint_10, joint_9)
-	pm.parent(joint_9, joint_8)
-	pm.parent(joint_8, joint_7)
+	pm.parent(rt_joint_11, rt_joint_10)
+	pm.parent(rt_joint_10, rt_joint_9)
+	pm.parent(rt_joint_9, rt_joint_8)
+	pm.parent(rt_joint_8, rt_joint_7)
 
-	pm.delete(loc_1, loc_2, loc_3, loc_4)
+	pm.delete(rt_loc_1, rt_loc_2, rt_loc_3, rt_loc_4)
 
-	pm.parent(rt_joint_12, joint_11)
-
-
-	temp_joints = pm.duplicate(root_joint)
-
-	pm.select(temp_joints)
+	pm.parent(rt_joint_12, rt_joint_11)
 
 
-	temp_joints = pm.ls(sl=True, dag=True)
+	rt_temp_joints = pm.duplicate(rt_root_joint)
 
-	cb_joint_1 = temp_joints[0]
-	cb_joint_2 = temp_joints[5]
-	cb_joint_3 = temp_joints[1]
-	# print 'cb joint 1:', cb_joint_1	
-	# print 'cb joint 2:', cb_joint_2	
-	# print 'cb joint 3:', cb_joint_3	
+	pm.select(rt_temp_joints)
 
-	pm.parent(cb_joint_2, cb_joint_1)
-	pm.delete(cb_joint_3)
 
-	bind_name = cb_joint_1.replace('twist1', 'curveTwist')
-	cb_joint_1.rename(bind_name)
+	rt_temp_joints = pm.ls(sl=True, dag=True)
 
-	bind_name = cb_joint_1.replace('01', '02')
-	cb_joint_2.rename(bind_name)
+	rt_cb_joint_1 = rt_temp_joints[0]
+	rt_cb_joint_2 = rt_temp_joints[5]
+	rt_cb_joint_3 = rt_temp_joints[1]
+	# print 'cb joint 1:', rt_cb_joint_1	
+	# print 'cb joint 2:', rt_cb_joint_2	
+	# print 'cb joint 3:', rt_cb_joint_3	
 
-	pm.parent(cb_joint_2, w=1)
+	pm.parent(rt_cb_joint_2, rt_cb_joint_1)
+	pm.delete(rt_cb_joint_3)
 
-	cb_joint_3 = pm.duplicate(rt_joint_12)[0]
+	bind_name = rt_cb_joint_1.replace('twist1', 'curveTwist')
+	rt_cb_joint_1.rename(bind_name)
 
-	bind_name = cb_joint_2.replace('2', '3')
-	cb_joint_3.rename(bind_name)
+	bind_name = rt_cb_joint_1.replace('01', '02')
+	rt_cb_joint_2.rename(bind_name)
 
-	pm.parent(cb_joint_3, w=1)
+	pm.parent(rt_cb_joint_2, w=1)
+
+	rt_cb_joint_3 = pm.duplicate(rt_joint_12)[0]
+
+	bind_name = rt_cb_joint_2.replace('2', '3')
+	rt_cb_joint_3.rename(bind_name)
+
+	pm.parent(rt_cb_joint_3, w=1)
 
 	tempBind = pm.duplicate(rt_arm_root)
 
 	pm.select(tempBind)
-	temp_joints = pm.ls(sl=True, dag=True)
-	temp_1 = temp_joints[0]
-	temp_2 = temp_joints[1]
-	temp_3 = temp_joints[2]
+	rt_temp_joints = pm.ls(sl=True, dag=True)
+	rt_temp_1 = rt_temp_joints[0]
+	rt_temp_2 = rt_temp_joints[1]
+	rt_temp_3 = rt_temp_joints[2]
 
 	temp_name = rt_arm_root.replace('bind', 'temp')
-	temp_1.rename(temp_name)
+	rt_temp_1.rename(temp_name)
 
-	temp_name = temp_1.replace('1', '2')
-	temp_2.rename(temp_name)
+	temp_name = rt_temp_1.replace('1', '2')
+	rt_temp_2.rename(temp_name)
 
-	temp_name = temp_2.replace('2', '3')
-	temp_3.rename(temp_name)
+	temp_name = rt_temp_2.replace('2', '3')
+	rt_temp_3.rename(temp_name)
 
-	pm.parent(temp_3, w=1)
-
-
-	joint_positions(temp_1)
-	joints = joint_positions(temp_1) 
-	arm_curve_1 = pm.curve(d = 1, p=joints)
+	pm.parent(rt_temp_3, w=1)
 
 
-	crv_name = root_joint.replace('twist', 'crv')
-	arm_curve_1.rename(crv_name)
+	joint_positions(rt_temp_1)
+	joints = joint_positions(rt_temp_1) 
+	rt_arm_curve_1 = pm.curve(d = 1, p=joints)
 
-	pm.select(cb_joint_1, cb_joint_2, arm_curve_1)
+
+	crv_name = rt_root_joint.replace('twist', 'crv')
+	rt_arm_curve_1.rename(crv_name)
+
+	pm.select(rt_cb_joint_1, rt_cb_joint_2, rt_arm_curve_1)
 	pm.mel.SmoothBindSkin()
 
 
-	pm.select(root_joint, mid_joint, arm_curve_1)
-	arm_ik_1 = pm.ikHandle(sol='ikSplineSolver', ccv=False, pcv=False)[0]
+	pm.select(rt_root_joint, rt_mid_joint, rt_arm_curve_1)
+	rt_arm_ik_1 = pm.ikHandle(sol='ikSplineSolver', ccv=False, pcv=False)[0]
 
-	ik_name = arm_curve_1.replace('crv', 'twistIkh')
-	arm_ik_1.rename(ik_name)
+	ik_name = rt_arm_curve_1.replace('crv', 'twistIkh')
+	rt_arm_ik_1.rename(ik_name)
 
-	arm_ik_1.dTwistControlEnable.set(1)
-	arm_ik_1.dWorldUpType.set(4)
+	rt_arm_ik_1.dTwistControlEnable.set(1)
+	rt_arm_ik_1.dWorldUpType.set(4)
 
-	arm_ik_1.dForwardAxis.set(0)
-	arm_ik_1.dWorldUpAxis.set(3)
+	rt_arm_ik_1.dForwardAxis.set(0)
+	rt_arm_ik_1.dWorldUpAxis.set(3)
 
-	arm_ik_1.dWorldUpVectorY.set(0)
-	arm_ik_1.dWorldUpVectorEndY.set(0)
+	rt_arm_ik_1.dWorldUpVectorY.set(0)
+	rt_arm_ik_1.dWorldUpVectorEndY.set(0)
 
-	arm_ik_1.dWorldUpVectorZ.set(1)
-	arm_ik_1.dWorldUpVectorEndZ.set(1)
+	rt_arm_ik_1.dWorldUpVectorZ.set(1)
+	rt_arm_ik_1.dWorldUpVectorEndZ.set(1)
 
-	arm_curve_1.inheritsTransform.set(0)
+	rt_arm_curve_1.inheritsTransform.set(0)
 
-	pm.connectAttr(cb_joint_1 + '.xformMatrix', arm_ik_1 + '.dWorldUpMatrix')
-	pm.connectAttr(cb_joint_2 + '.xformMatrix', arm_ik_1 + '.dWorldUpMatrixEnd')
+	pm.connectAttr(rt_cb_joint_1 + '.xformMatrix', rt_arm_ik_1 + '.dWorldUpMatrix')
+	pm.connectAttr(rt_cb_joint_2 + '.xformMatrix', rt_arm_ik_1 + '.dWorldUpMatrixEnd')
 
-	pm.parent(temp_3, temp_2)
+	pm.parent(rt_temp_3, rt_temp_2)
 
-	joint_positions(temp_2)
-	joints = joint_positions(temp_2) 
-	arm_curve_2 = pm.curve(d = 1, p=joints)
+	joint_positions(rt_temp_2)
+	joints = joint_positions(rt_temp_2) 
+	rt_arm_curve_2 = pm.curve(d = 1, p=joints)
 
-	crv_name = arm_curve_1.replace('1', '2')
-	arm_curve_2.rename(crv_name)
+	crv_name = rt_arm_curve_1.replace('1', '2')
+	rt_arm_curve_2.rename(crv_name)
 
-	pm.delete(temp_1, temp_2)
+	pm.delete(rt_temp_1, rt_temp_2)
 
 
-	pm.select(mid_joint, arm_curve_2)
+	pm.select(rt_mid_joint, rt_arm_curve_2)
 	selection = pm.ls(sl=True)
 	driver = selection[0]
 	driven = selection[1]
@@ -5591,37 +5578,37 @@ def rt_armSetup(*args):
 	driver_translate =	driver.getTranslation(ws=True)
 	driven.setPivots(driver_translate, ws=True)
 
-	pm.select(cb_joint_2, cb_joint_3, arm_curve_2)
+	pm.select(rt_cb_joint_2, rt_cb_joint_3, rt_arm_curve_2)
 	pm.mel.SmoothBindSkin()
 
-	pm.select(end_joint, rt_joint_12, arm_curve_2)
-	arm_ik_2 = pm.ikHandle(sol='ikSplineSolver', ccv=False, pcv=False)[0]
+	pm.select(rt_end_joint, rt_joint_12, rt_arm_curve_2)
+	rt_arm_ik_2 = pm.ikHandle(sol='ikSplineSolver', ccv=False, pcv=False)[0]
 
-	ik_name = arm_ik_1.replace('1', '2')
-	arm_ik_2.rename(ik_name)
+	ik_name = rt_arm_ik_1.replace('1', '2')
+	rt_arm_ik_2.rename(ik_name)
 
-	arm_ik_2.dTwistControlEnable.set(1)
-	arm_ik_2.dWorldUpType.set(4)
+	rt_arm_ik_2.dTwistControlEnable.set(1)
+	rt_arm_ik_2.dWorldUpType.set(4)
 
-	arm_ik_2.dForwardAxis.set(0)
-	arm_ik_2.dWorldUpAxis.set(3)
+	rt_arm_ik_2.dForwardAxis.set(0)
+	rt_arm_ik_2.dWorldUpAxis.set(3)
 
-	arm_ik_2.dWorldUpVectorY.set(0)
-	arm_ik_2.dWorldUpVectorEndY.set(0)
+	rt_arm_ik_2.dWorldUpVectorY.set(0)
+	rt_arm_ik_2.dWorldUpVectorEndY.set(0)
 
-	arm_ik_2.dWorldUpVectorZ.set(1)
-	arm_ik_2.dWorldUpVectorEndZ.set(1)
+	rt_arm_ik_2.dWorldUpVectorZ.set(1)
+	rt_arm_ik_2.dWorldUpVectorEndZ.set(1)
 
-	arm_curve_2.inheritsTransform.set(0)
+	rt_arm_curve_2.inheritsTransform.set(0)
 
-	pm.connectAttr(cb_joint_2 + '.xformMatrix', arm_ik_2 + '.dWorldUpMatrix')
-	pm.connectAttr(cb_joint_3 + '.xformMatrix', arm_ik_2 + '.dWorldUpMatrixEnd')
+	pm.connectAttr(rt_cb_joint_2 + '.xformMatrix', rt_arm_ik_2 + '.dWorldUpMatrix')
+	pm.connectAttr(rt_cb_joint_3 + '.xformMatrix', rt_arm_ik_2 + '.dWorldUpMatrixEnd')
 
-	twist_grp = pm.group(arm_curve_1, arm_curve_2, arm_ik_1, arm_ik_2, cb_joint_1, cb_joint_2, cb_joint_3 )
-	grp_name = root_joint.replace('01_twist', 'twist_grp')
-	twist_grp.rename(grp_name)
+	rt_twist_grp = pm.group(rt_arm_curve_1, rt_arm_curve_2, rt_arm_ik_1, rt_arm_ik_2, rt_cb_joint_1, rt_cb_joint_2, rt_cb_joint_3 )
+	grp_name = rt_root_joint.replace('01_twist', 'twist_grp')
+	rt_twist_grp.rename(grp_name)
 
-	pm.select(root_joint, twist_grp)
+	pm.select(rt_root_joint, rt_twist_grp)
 	selection = pm.ls(sl=True)
 	driver = selection[0]
 	driven = selection[1]
@@ -5629,236 +5616,236 @@ def rt_armSetup(*args):
 	driver_translate = driver.getTranslation(ws=True)
 	driven.setPivots(driver_translate, ws=True)
 
-	pm.parentConstraint(arm_joint_3, cb_joint_3, mo=1)
-	pm.parentConstraint(arm_joint_2, cb_joint_2, mo=1)
-	pm.pointConstraint(rt_arm_root, cb_joint_1, mo=1)
+	pm.parentConstraint(rt_arm_joint_3, rt_cb_joint_3, mo=1)
+	pm.parentConstraint(rt_arm_joint_2, rt_cb_joint_2, mo=1)
+	pm.pointConstraint(rt_arm_root, rt_cb_joint_1, mo=1)
 
 
 	'''================================================================================================================'''
-	root_rot_ikfk = pm.shadingNode('blendColors', asUtility=1)
+	rt_root_rot_ikfk = pm.shadingNode('blendColors', asUtility=1)
 	node_name = rt_arm_root.replace('bind', 'rot_ikfk_blend')
-	root_rot_ikfk.rename(node_name)
+	rt_root_rot_ikfk.rename(node_name)
 
-	pm.connectAttr(rt_ik_root + '.rotate', root_rot_ikfk + '.color2')
-	pm.connectAttr(rt_fk_root + '.rotate', root_rot_ikfk + '.color1')
-	pm.connectAttr(root_rot_ikfk + '.output', rt_arm_root + '.rotate')
+	pm.connectAttr(rt_arm_ik_root + '.rotate', rt_root_rot_ikfk + '.color2')
+	pm.connectAttr(rt_fk_root + '.rotate', rt_root_rot_ikfk + '.color1')
+	pm.connectAttr(rt_root_rot_ikfk + '.output', rt_arm_root + '.rotate')
 
-	arm_joint_2_rot_ikfk = pm.shadingNode('blendColors', asUtility=1)
-	node_name = root_rot_ikfk.replace('1', '2')
-	arm_joint_2_rot_ikfk.rename(node_name)
+	rt_arm_joint_2_rot_ikfk = pm.shadingNode('blendColors', asUtility=1)
+	node_name = rt_root_rot_ikfk.replace('1', '2')
+	rt_arm_joint_2_rot_ikfk.rename(node_name)
 
-	pm.connectAttr(rt_arm_ik_joint_2 + '.rotate', arm_joint_2_rot_ikfk + '.color2')
-	pm.connectAttr(fk_joint_2 + '.rotate', arm_joint_2_rot_ikfk + '.color1')
-	pm.connectAttr(arm_joint_2_rot_ikfk + '.output', arm_joint_2 + '.rotate')
+	pm.connectAttr(rt_arm_ik_joint_2 + '.rotate', rt_arm_joint_2_rot_ikfk + '.color2')
+	pm.connectAttr(rt_fk_joint_2 + '.rotate', rt_arm_joint_2_rot_ikfk + '.color1')
+	pm.connectAttr(rt_arm_joint_2_rot_ikfk + '.output', rt_arm_joint_2 + '.rotate')
 
-	arm_joint_3_rot_ikfk = pm.shadingNode('blendColors', asUtility=1)
-	node_name = root_rot_ikfk.replace('1', '3')
-	arm_joint_3_rot_ikfk.rename(node_name)
+	rt_arm_joint_3_rot_ikfk = pm.shadingNode('blendColors', asUtility=1)
+	node_name = rt_root_rot_ikfk.replace('1', '3')
+	rt_arm_joint_3_rot_ikfk.rename(node_name)
 
-	pm.connectAttr(rt_arm_ik_joint_3 + '.rotate', arm_joint_3_rot_ikfk + '.color2')
-	pm.connectAttr(fk_joint_3 + '.rotate', arm_joint_3_rot_ikfk + '.color1')
-	pm.connectAttr(arm_joint_3_rot_ikfk + '.output', arm_joint_3 + '.rotate')
+	pm.connectAttr(rt_arm_ik_joint_3 + '.rotate', rt_arm_joint_3_rot_ikfk + '.color2')
+	pm.connectAttr(rt_fk_joint_3 + '.rotate', rt_arm_joint_3_rot_ikfk + '.color1')
+	pm.connectAttr(rt_arm_joint_3_rot_ikfk + '.output', rt_arm_joint_3 + '.rotate')
 
-	root_trans_ikfk = pm.shadingNode('blendColors', asUtility=1)
+	rt_root_trans_ikfk = pm.shadingNode('blendColors', asUtility=1)
 	node_name = rt_arm_root.replace('bind', 'trans_ikfk_blend')
-	root_trans_ikfk.rename(node_name)
+	rt_root_trans_ikfk.rename(node_name)
 
-	pm.connectAttr(rt_ik_root + '.translate', root_trans_ikfk + '.color2')
-	pm.connectAttr(rt_fk_root + '.translate', root_trans_ikfk + '.color1')
-	pm.connectAttr(root_trans_ikfk + '.output', rt_arm_root + '.translate')
+	pm.connectAttr(rt_arm_ik_root + '.translate', rt_root_trans_ikfk + '.color2')
+	pm.connectAttr(rt_fk_root + '.translate', rt_root_trans_ikfk + '.color1')
+	pm.connectAttr(rt_root_trans_ikfk + '.output', rt_arm_root + '.translate')
 
-	arm_joint_2_trans_ikfk = pm.shadingNode('blendColors', asUtility=1)
-	node_name = root_trans_ikfk.replace('1', '2')
-	arm_joint_2_trans_ikfk.rename(node_name)
+	rt_arm_joint_2_trans_ikfk = pm.shadingNode('blendColors', asUtility=1)
+	node_name = rt_root_trans_ikfk.replace('1', '2')
+	rt_arm_joint_2_trans_ikfk.rename(node_name)
 
-	pm.connectAttr(rt_arm_ik_joint_2 + '.translate', arm_joint_2_trans_ikfk + '.color2')
-	pm.connectAttr(fk_joint_2 + '.translate', arm_joint_2_trans_ikfk + '.color1')
-	pm.connectAttr(arm_joint_2_trans_ikfk + '.output', arm_joint_2 + '.translate')
+	pm.connectAttr(rt_arm_ik_joint_2 + '.translate', rt_arm_joint_2_trans_ikfk + '.color2')
+	pm.connectAttr(rt_fk_joint_2 + '.translate', rt_arm_joint_2_trans_ikfk + '.color1')
+	pm.connectAttr(rt_arm_joint_2_trans_ikfk + '.output', rt_arm_joint_2 + '.translate')
 
-	arm_joint_3_trans_ikfk = pm.shadingNode('blendColors', asUtility=1)
-	node_name = root_trans_ikfk.replace('1', '3')
-	arm_joint_3_trans_ikfk.rename(node_name)
+	rt_arm_joint_3_trans_ikfk = pm.shadingNode('blendColors', asUtility=1)
+	node_name = rt_root_trans_ikfk.replace('1', '3')
+	rt_arm_joint_3_trans_ikfk.rename(node_name)
 
-	pm.connectAttr(rt_arm_ik_joint_3 + '.translate', arm_joint_3_trans_ikfk + '.color2')
-	pm.connectAttr(fk_joint_3 + '.translate', arm_joint_3_trans_ikfk + '.color1')
-	pm.connectAttr(arm_joint_3_trans_ikfk + '.output', arm_joint_3 + '.translate')
+	pm.connectAttr(rt_arm_ik_joint_3 + '.translate', rt_arm_joint_3_trans_ikfk + '.color2')
+	pm.connectAttr(rt_fk_joint_3 + '.translate', rt_arm_joint_3_trans_ikfk + '.color1')
+	pm.connectAttr(rt_arm_joint_3_trans_ikfk + '.output', rt_arm_joint_3 + '.translate')
 
 	if pm.objExists('rt_arm_icon'):
 		'''
-		Create the IK/FK switch
+		Create the IK/FK rt_switch
 		'''
-		ikfk_shape_1 = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=1, tol=0.01, nr=(0, 1, 0))[0]
-		ikfk_shape_2 = pm.curve(p=[(0, 0, -1), (0, 0, 1)], k=[0, 1], d=1)
-		ikfk_shape_3 = pm.curve(p=[(-1, 0, 0), (1, 0, 0)], k=[0, 1], d=1)
-		ikfk_shape_4 = pm.curve(p=[(0, 0, 1), (0, 0, 3)], k=[0, 1], d=1)
+		rt_ikfk_shape_1 = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=1, tol=0.01, nr=(0, 1, 0))[0]
+		rt_ikfk_shape_2 = pm.curve(p=[(0, 0, -1), (0, 0, 1)], k=[0, 1], d=1)
+		rt_ikfk_shape_3 = pm.curve(p=[(-1, 0, 0), (1, 0, 0)], k=[0, 1], d=1)
+		rt_ikfk_shape_4 = pm.curve(p=[(0, 0, 1), (0, 0, 3)], k=[0, 1], d=1)
 
-		shape_name_1 = root_joint.replace('arm_01_bind', 'ikfk_curve1') 
+		shape_name_1 = rt_root_joint.replace('rt_arm_01_bind', 'ikfk_curve1') 
 		# print 'Shape 1 Name:', shape_name_1
-		ikfk_shape_1.rename(shape_name_1)
+		rt_ikfk_shape_1.rename(shape_name_1)
 
-		shape_name_2 = root_joint.replace('arm_01_bind', 'ikfk_curve2') 
+		shape_name_2 = rt_root_joint.replace('rt_arm_01_bind', 'ikfk_curve2') 
 		# print 'Shape 2 Name:', shape_name_2
-		ikfk_shape_2.rename(shape_name_2)
+		rt_ikfk_shape_2.rename(shape_name_2)
 
-		shape_name_3 = root_joint.replace('arm_01_bind', 'ikfk_curve3') 
+		shape_name_3 = rt_root_joint.replace('rt_arm_01_bind', 'ikfk_curve3') 
 		# print 'Shape 3 Name:', shape_name_3
-		ikfk_shape_3.rename(shape_name_3)
+		rt_ikfk_shape_3.rename(shape_name_3)
 
-		shape_name_4 = root_joint.replace('arm_01_bind', 'ikfk_curve4') 
+		shape_name_4 = rt_root_joint.replace('rt_arm_01_bind', 'ikfk_curve4') 
 		# print 'Shape 4 Name:', shape_name_4
-		ikfk_shape_4.rename(shape_name_4)
+		rt_ikfk_shape_4.rename(shape_name_4)
 
-		switch = pm.group(empty=True)
-		pm.select(ikfk_shape_1, ikfk_shape_2, ikfk_shape_3, ikfk_shape_4, switch)
+		rt_switch = pm.group(empty=True)
+		pm.select(rt_ikfk_shape_1, rt_ikfk_shape_2, rt_ikfk_shape_3, rt_ikfk_shape_4, rt_switch)
 		shapes = pm.ls(selection=True, dag=True)
 		curveShape_1 = shapes[1]
 		curveShape_2 = shapes[3]
 		curveShape_3 = shapes[5]
 		curveShape_4 = shapes[7]
-		switch_grp = shapes[8]
+		rt_switch_grp = shapes[8]
 		# print 'Curve Shape 1:', curveShape_1
 		# print 'Curve Shape 2:', curveShape_2
 		# print 'Curve Shape 3:', curveShape_3
 		# print 'Curve Shape 4:', curveShape_4
-		# print 'Switch:', switch_grp
-		pm.select(ikfk_shape_2, ikfk_shape_3)
+		# print 'Switch:', rt_switch_grp
+		pm.select(rt_ikfk_shape_2, rt_ikfk_shape_3)
 
 		pm.cmds.scale(0.768, 0.768, 0.768)
 		freezeTransform()
 
-		pm.parent(curveShape_1, curveShape_2, curveShape_3, curveShape_4, switch, s=1, r=1)
-		pm.delete(ikfk_shape_1, ikfk_shape_2, ikfk_shape_3, ikfk_shape_4)
-		pm.cmds.move(0, 0, 3, switch + '.scalePivot', switch + '.rotatePivot', rpr=1)
+		pm.parent(curveShape_1, curveShape_2, curveShape_3, curveShape_4, rt_switch, s=1, r=1)
+		pm.delete(rt_ikfk_shape_1, rt_ikfk_shape_2, rt_ikfk_shape_3, rt_ikfk_shape_4)
+		pm.cmds.move(0, 0, 3, rt_switch + '.scalePivot', rt_switch + '.rotatePivot', rpr=1)
 
-		pm.xform(switch, ro=[0,0,90], scale=[1.5,1.5,1.5])
-		freezeTransform(switch)
+		pm.xform(rt_switch, ro=[0,0,90], scale=[1.5,1.5,1.5])
+		freezeTransform(rt_switch)
 		deleteHistory()
-		temp_constraint = pm.pointConstraint(arm_joint_3, switch, mo=0, w=1)
+		temp_constraint = pm.pointConstraint(rt_arm_joint_3, rt_switch, mo=0, w=1)
 		pm.delete(temp_constraint)
-		pm.select(switch)
+		pm.select(rt_switch)
 		freezeTransform()
-		switch_name = rt_arm_root.replace('01_bind', 'IkFk_switch')
-		switch.rename(switch_name)
-		pm.parentConstraint(arm_joint_3, switch, mo=1)
+		rt_switch_name = rt_arm_root.replace('01_bind', 'IkFk_switch')
+		rt_switch.rename(rt_switch_name)
+		pm.parentConstraint(rt_arm_joint_3, rt_switch, mo=1)
 
 
 
 		'''
 		Add IkFk attribute
 		'''
-		pm.addAttr(switch, ln="IkFk", nn='Ik/Fk', max=1, dv=0, at='double', min=0)
-		switch.IkFk.set(e=1, keyable=True)
+		pm.addAttr(rt_switch, ln="IkFk", nn='Ik/Fk', max=1, dv=0, at='double', min=0)
+		rt_switch.IkFk.set(e=1, keyable=True)
 
 		'''
 		Lock and hide attrs
 		'''
-		switch.tx.set(lock=True, channelBox=False, keyable=False)
-		switch.ty.set(lock=True, channelBox=False, keyable=False)
-		switch.tz.set(lock=True, channelBox=False, keyable=False)
-		switch.rx.set(lock=True, channelBox=False, keyable=False)
-		switch.ry.set(lock=True, channelBox=False, keyable=False)
-		switch.rz.set(lock=True, channelBox=False, keyable=False)
-		switch.sx.set(lock=True, channelBox=False, keyable=False)
-		switch.sy.set(lock=True, channelBox=False, keyable=False)
-		switch.sz.set(lock=True, channelBox=False, keyable=False)
-		switch.v.set(lock=True, channelBox=False, keyable=False)
+		rt_switch.tx.set(rt_lock=True, channelBox=False, keyable=False)
+		rt_switch.ty.set(rt_lock=True, channelBox=False, keyable=False)
+		rt_switch.tz.set(rt_lock=True, channelBox=False, keyable=False)
+		rt_switch.rx.set(rt_lock=True, channelBox=False, keyable=False)
+		rt_switch.ry.set(rt_lock=True, channelBox=False, keyable=False)
+		rt_switch.rz.set(rt_lock=True, channelBox=False, keyable=False)
+		rt_switch.sx.set(rt_lock=True, channelBox=False, keyable=False)
+		rt_switch.sy.set(rt_lock=True, channelBox=False, keyable=False)
+		rt_switch.sz.set(rt_lock=True, channelBox=False, keyable=False)
+		rt_switch.v.set(rt_lock=True, channelBox=False, keyable=False)
 
 		'''
-		Connect the blend attrs the the switch
+		Connect the blend attrs the the rt_switch
 		'''
-		pm.connectAttr(switch + '.IkFk', root_rot_ikfk + '.blender')
-		pm.connectAttr(switch + '.IkFk', arm_joint_2_rot_ikfk + '.blender')
-		pm.connectAttr(switch + '.IkFk', arm_joint_3_rot_ikfk + '.blender')
-		pm.connectAttr(switch + '.IkFk', root_trans_ikfk + '.blender')
-		pm.connectAttr(switch + '.IkFk', arm_joint_2_trans_ikfk + '.blender')
-		pm.connectAttr(switch + '.IkFk', arm_joint_3_trans_ikfk + '.blender')
+		pm.connectAttr(rt_switch + '.IkFk', rt_root_rot_ikfk + '.blender')
+		pm.connectAttr(rt_switch + '.IkFk', rt_arm_joint_2_rot_ikfk + '.blender')
+		pm.connectAttr(rt_switch + '.IkFk', rt_arm_joint_3_rot_ikfk + '.blender')
+		pm.connectAttr(rt_switch + '.IkFk', rt_root_trans_ikfk + '.blender')
+		pm.connectAttr(rt_switch + '.IkFk', rt_arm_joint_2_trans_ikfk + '.blender')
+		pm.connectAttr(rt_switch + '.IkFk', rt_arm_joint_3_trans_ikfk + '.blender')
 
 		'''
 		Create fk icons
 		'''
-		fk_icon_1 = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=2, tol=.01, nr=(1, 0, 0))[0]
-		# print 'Fk icon 1:', fk_icon_1
-		temp_constraint = pm.parentConstraint(rt_fk_root, fk_icon_1)
+		rt_fk_icon_1 = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=2, tol=.01, nr=(1, 0, 0))[0]
+		# print 'Fk icon 1:', rt_fk_icon_1
+		temp_constraint = pm.parentConstraint(rt_fk_root, rt_fk_icon_1)
 		pm.delete(temp_constraint)
-		fk_pad_1 = pm.group(empty=True)
-		temp_constraint = pm.parentConstraint(rt_fk_root, fk_pad_1)
+		rt_fk_pad_1 = pm.group(empty=True)
+		temp_constraint = pm.parentConstraint(rt_fk_root, rt_fk_pad_1)
 		pm.delete(temp_constraint)
-		pm.parent(fk_icon_1, fk_pad_1)
-		pm.select(fk_icon_1)
+		pm.parent(rt_fk_icon_1, rt_fk_pad_1)
+		pm.select(rt_fk_icon_1)
 		freezeTransform()
 
-		fk_icon_2 = pm.circle(c=(0, 0, 0), ch=2, d=3, ut=0, sw=360, s=8, r=2, tol=.02, nr=(2, 0, 0))[0]
-		# print 'Fk icon 2:', fk_icon_2
-		temp_constraint = pm.parentConstraint(fk_joint_2, fk_icon_2)
+		rt_fk_icon_2 = pm.circle(c=(0, 0, 0), ch=2, d=3, ut=0, sw=360, s=8, r=2, tol=.02, nr=(2, 0, 0))[0]
+		# print 'Fk icon 2:', rt_fk_icon_2
+		temp_constraint = pm.parentConstraint(rt_fk_joint_2, rt_fk_icon_2)
 		pm.delete(temp_constraint)
-		fk_pad_2 = pm.group(empty=True)
-		temp_constraint = pm.parentConstraint(fk_joint_2, fk_pad_2)
+		rt_fk_pad_2 = pm.group(empty=True)
+		temp_constraint = pm.parentConstraint(rt_fk_joint_2, rt_fk_pad_2)
 		pm.delete(temp_constraint)
-		pm.parent(fk_icon_2, fk_pad_2)
-		pm.select(fk_icon_2)
+		pm.parent(rt_fk_icon_2, rt_fk_pad_2)
+		pm.select(rt_fk_icon_2)
 		freezeTransform()
-		pm.parent(fk_pad_2, fk_icon_1)
+		pm.parent(rt_fk_pad_2, rt_fk_icon_1)
 
 		'''
-		Rename the icons and the pads
+		Rename the icons and the rt_arm_pads
 		'''
-		fk_icon1_name = rt_fk_root.replace('fk', 'fk_icon')
-		fk_icon_1.rename(fk_icon1_name)
+		rt_fk_icon1_name = rt_fk_root.replace('fk', 'rt_fk_icon')
+		rt_fk_icon_1.rename(rt_fk_icon1_name)
 
-		fk_icon2_name = fk_icon_1.replace('01', '02')
-		fk_icon_2.rename(fk_icon2_name)
+		rt_fk_icon2_name = rt_fk_icon_1.replace('01', '02')
+		rt_fk_icon_2.rename(rt_fk_icon2_name)
 
-		fk_pad1_name = fk_icon_1.replace('icon', 'local')
-		fk_pad_1.rename(fk_pad1_name)
+		rt_fk_pad1_name = rt_fk_icon_1.replace('icon', 'local')
+		rt_fk_pad_1.rename(rt_fk_pad1_name)
 
-		fk_pad2_name = fk_icon_2.replace('icon', 'local')
-		fk_pad_2.rename(fk_pad2_name) 
+		rt_fk_pad2_name = rt_fk_icon_2.replace('icon', 'local')
+		rt_fk_pad_2.rename(rt_fk_pad2_name) 
 
 
 
-		pm.parentConstraint(fk_icon_1, rt_fk_root)
-		pm.parentConstraint(fk_icon_2, fk_joint_2)
+		pm.parentConstraint(rt_fk_icon_1, rt_fk_root)
+		pm.parentConstraint(rt_fk_icon_2, rt_fk_joint_2)
 
 		'''
 		Create length attr
 		'''
-		pm.addAttr(fk_icon_1, ln='length', at='double', min=0, dv=1)
-		fk_icon_1.length.set(e=1, keyable=True)
-		pm.setDrivenKeyframe(fk_pad_2 + '.tx', currentDriver=fk_icon_1 + '.length')
-		fk_icon_1.length.set(0)
-		fk_pad_2.tx.set(0)
-		pm.setDrivenKeyframe(fk_pad_2 + '.tx', currentDriver=fk_icon_1 + '.length')
-		fk_icon_1.length.set(1)
-		pm.keyTangent(fk_pad_2, 'graphEditor1FromOutliner', itt='spline', animation='objects', ott='spline')
-		pm.mel.selectKey(fk_pad_2 + '.tx', add=1, k=1, f=1)
+		pm.addAttr(rt_fk_icon_1, ln='length', at='double', min=0, dv=1)
+		rt_fk_icon_1.length.set(e=1, keyable=True)
+		pm.setDrivenKeyframe(rt_fk_pad_2 + '.tx', currentDriver=rt_fk_icon_1 + '.length')
+		rt_fk_icon_1.length.set(0)
+		rt_fk_pad_2.tx.set(0)
+		pm.setDrivenKeyframe(rt_fk_pad_2 + '.tx', currentDriver=rt_fk_icon_1 + '.length')
+		rt_fk_icon_1.length.set(1)
+		pm.keyTangent(rt_fk_pad_2, 'graphEditor1FromOutliner', itt='spline', animation='objects', ott='spline')
+		pm.mel.selectKey(rt_fk_pad_2 + '.tx', add=1, k=1, f=1)
 		pm.setInfinity(poi='linear')
 
-		pm.addAttr(fk_icon_2, ln='length', at='double', min=0, dv=1)
-		fk_icon_2.length.set(e=1, keyable=True)
-		pm.setDrivenKeyframe(fk_joint_3 + '.tx', currentDriver=fk_icon_2 + '.length')
-		fk_icon_2.length.set(0)
-		fk_joint_3.tx.set(0)
-		pm.setDrivenKeyframe(fk_joint_3 + '.tx', currentDriver=fk_icon_2 + '.length')
-		fk_icon_2.length.set(1)
-		pm.keyTangent(fk_joint_3, 'graphEditor1FromOutliner', itt='spline', animation='objects', ott='spline')
-		pm.mel.selectKey(fk_joint_3 + '.tx', add=1, k=1, f=1)
+		pm.addAttr(rt_fk_icon_2, ln='length', at='double', min=0, dv=1)
+		rt_fk_icon_2.length.set(e=1, keyable=True)
+		pm.setDrivenKeyframe(rt_fk_joint_3 + '.tx', currentDriver=rt_fk_icon_2 + '.length')
+		rt_fk_icon_2.length.set(0)
+		rt_fk_joint_3.tx.set(0)
+		pm.setDrivenKeyframe(rt_fk_joint_3 + '.tx', currentDriver=rt_fk_icon_2 + '.length')
+		rt_fk_icon_2.length.set(1)
+		pm.keyTangent(rt_fk_joint_3, 'graphEditor1FromOutliner', itt='spline', animation='objects', ott='spline')
+		pm.mel.selectKey(rt_fk_joint_3 + '.tx', add=1, k=1, f=1)
 		pm.setInfinity(poi='linear')
 
 		'''
 		Create the ik
 		'''
-		pm.select(rt_ik_root, rt_arm_ik_joint_3)
-		arm_ikh = pm.ikHandle()[0]
+		pm.select(rt_arm_ik_root, rt_arm_ik_joint_3)
+		rt_arm_ikh = pm.ikHandle()[0]
 
 		ikh_name = rt_arm_root.replace('bind', 'ikh')
-		arm_ikh.rename(ikh_name)
+		rt_arm_ikh.rename(ikh_name)
 
 
 		'''
 		Create the elbow icon.
 		'''
 
-		elbow_icon = pm.curve(p=[(2, 0, -2), (4, 0, -2), (4, 0, -3), (6, 0, -1), (4, 0, 1), (4, 0, 0), (2, 0, 0), (2, 0, 2), (3, 0, 2), (1, 0, 4), (-1, 0, 2), (0, 0, 2), (0, 0, 0), (-2, 0, 0), (-2, 0, 1), (-4, 0, -1), (-2, 0, -3), (-2, 0, -2), (0, 0, -2), (0, 0, -4), (-1, 0, -4), (1, 0, -6), (3, 0, -4), (2, 0, -4), (2, 0, -2)], k=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24], d=1)
+		rt_elbow_icon = pm.curve(p=[(2, 0, -2), (4, 0, -2), (4, 0, -3), (6, 0, -1), (4, 0, 1), (4, 0, 0), (2, 0, 0), (2, 0, 2), (3, 0, 2), (1, 0, 4), (-1, 0, 2), (0, 0, 2), (0, 0, 0), (-2, 0, 0), (-2, 0, 1), (-4, 0, -1), (-2, 0, -3), (-2, 0, -2), (0, 0, -2), (0, 0, -4), (-1, 0, -4), (1, 0, -6), (3, 0, -4), (2, 0, -4), (2, 0, -2)], k=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24], d=1)
 		pm.select('curve1.cv[0]', 'curve1.cv[6]', 'curve1.cv[12]', 'curve1.cv[18]', 'curve1.cv[24]', r=1)
 		pm.cmds.move(0, -0.982783, 0, r=1, os=1, wd=1)
 		pm.select('curve1.cv[22]', r=1)
@@ -5894,428 +5881,428 @@ def rt_armSetup(*args):
 		pm.select('curve1.cv[2]', r=1)
 		pm.cmds.move(0, -0.483525, 0, r=1, os=1, wd=1)
 
-		pm.select(elbow_icon)
-		centerPivot(elbow_icon)
+		pm.select(rt_elbow_icon)
+		centerPivot(rt_elbow_icon)
 		freezeTransform()
 		deleteHistory()
 
 		'''
 		Move the elbow icon.
 		'''
-		temp_constraint = pm.pointConstraint(arm_joint_2, elbow_icon)
+		temp_constraint = pm.pointConstraint(rt_arm_joint_2, rt_elbow_icon)
 		pm.delete(temp_constraint)
-		freezeTransform(elbow_icon)
-		pm.xform(elbow_icon, t=[0,0,-10], scale=[.5, .5, .5], ro=[90, 0, 0])
-		freezeTransform(elbow_icon)
+		freezeTransform(rt_elbow_icon)
+		pm.xform(rt_elbow_icon, t=[0,0,-10], scale=[.5, .5, .5], ro=[90, 0, 0])
+		freezeTransform(rt_elbow_icon)
 
 		'''
 		Rename elbow icon
 		'''
-		elbow_icon_name = rt_arm_root.replace('arm_01_bind', 'elbow_icon')
-		elbow_icon.rename(elbow_icon_name)
+		rt_elbow_icon_name = rt_arm_root.replace('rt_arm_01_bind', 'rt_elbow_icon')
+		rt_elbow_icon.rename(rt_elbow_icon_name)
 
 		'''
 		Create the pole vector for the elbow
 		'''
-		pm.poleVectorConstraint(elbow_icon, arm_ikh)
+		pm.poleVectorConstraint(rt_elbow_icon, rt_arm_ikh)
 
 		'''
-		Parent the arm_ikh under the rt_arm_icon
+		Parent the rt_arm_ikh under the rt_arm_icon
 		'''
-		pm.parent(arm_ikh, rt_arm_icon)
+		pm.parent(rt_arm_ikh, rt_arm_icon)
 
 		'''
 		Icon visibility SDKs
 		'''
-		fk_pad_1.v.set(0)
-		pm.setDrivenKeyframe(fk_pad_1 + '.v', currentDriver= switch + '.IkFk')
-		pm.setDrivenKeyframe(rt_arm_icon + '.v', currentDriver= switch + '.IkFk')
-		pm.setDrivenKeyframe(elbow_icon + '.v', currentDriver= switch + '.IkFk')
-		switch.IkFk.set(1)
-		fk_pad_1.v.set(1)
+		rt_fk_pad_1.v.set(0)
+		pm.setDrivenKeyframe(rt_fk_pad_1 + '.v', currentDriver= rt_switch + '.IkFk')
+		pm.setDrivenKeyframe(rt_arm_icon + '.v', currentDriver= rt_switch + '.IkFk')
+		pm.setDrivenKeyframe(rt_elbow_icon + '.v', currentDriver= rt_switch + '.IkFk')
+		rt_switch.IkFk.set(1)
+		rt_fk_pad_1.v.set(1)
 		rt_arm_icon.v.set(0)
-		elbow_icon.v.set(0)
-		pm.setDrivenKeyframe(fk_pad_1 + '.v', currentDriver= switch + '.IkFk')
-		pm.setDrivenKeyframe(rt_arm_icon + '.v', currentDriver= switch + '.IkFk')
-		pm.setDrivenKeyframe(elbow_icon + '.v', currentDriver= switch + '.IkFk')
-		switch.IkFk.set(0.1)
-		fk_pad_1.v.set(1)
+		rt_elbow_icon.v.set(0)
+		pm.setDrivenKeyframe(rt_fk_pad_1 + '.v', currentDriver= rt_switch + '.IkFk')
+		pm.setDrivenKeyframe(rt_arm_icon + '.v', currentDriver= rt_switch + '.IkFk')
+		pm.setDrivenKeyframe(rt_elbow_icon + '.v', currentDriver= rt_switch + '.IkFk')
+		rt_switch.IkFk.set(0.1)
+		rt_fk_pad_1.v.set(1)
 		rt_arm_icon.v.set(1)
-		elbow_icon.v.set(1)
-		pm.setDrivenKeyframe(fk_pad_1 + '.v', currentDriver= switch + '.IkFk')
-		pm.setDrivenKeyframe(rt_arm_icon + '.v', currentDriver= switch + '.IkFk')
-		pm.setDrivenKeyframe(elbow_icon + '.v', currentDriver= switch + '.IkFk')
-		switch.IkFk.set(0.99)
-		fk_pad_1.v.set(1)
+		rt_elbow_icon.v.set(1)
+		pm.setDrivenKeyframe(rt_fk_pad_1 + '.v', currentDriver= rt_switch + '.IkFk')
+		pm.setDrivenKeyframe(rt_arm_icon + '.v', currentDriver= rt_switch + '.IkFk')
+		pm.setDrivenKeyframe(rt_elbow_icon + '.v', currentDriver= rt_switch + '.IkFk')
+		rt_switch.IkFk.set(0.99)
+		rt_fk_pad_1.v.set(1)
 		rt_arm_icon.v.set(1)
-		elbow_icon.v.set(1)
-		pm.setDrivenKeyframe(fk_pad_1 + '.v', currentDriver= switch + '.IkFk')
-		pm.setDrivenKeyframe(rt_arm_icon + '.v', currentDriver= switch + '.IkFk')
-		pm.setDrivenKeyframe(elbow_icon + '.v', currentDriver= switch + '.IkFk')
-		switch.IkFk.set(0)
+		rt_elbow_icon.v.set(1)
+		pm.setDrivenKeyframe(rt_fk_pad_1 + '.v', currentDriver= rt_switch + '.IkFk')
+		pm.setDrivenKeyframe(rt_arm_icon + '.v', currentDriver= rt_switch + '.IkFk')
+		pm.setDrivenKeyframe(rt_elbow_icon + '.v', currentDriver= rt_switch + '.IkFk')
+		rt_switch.IkFk.set(0)
 
-		upperArm_info = pm.shadingNode('curveInfo', asUtility=1)
+		rt_upperArm_info = pm.shadingNode('curveInfo', asUtility=1)
 		node_name = rt_arm_root.replace('01_bind', 'info')
-		upperArm_info.rename(node_name)
+		rt_upperArm_info.rename(node_name)
 
-		upperArm_div = pm.shadingNode('multiplyDivide', asUtility=1)
-		node_name = upperArm_info.replace('info', 'div')
-		upperArm_div.rename(node_name)
+		rt_upperArm_div = pm.shadingNode('multiplyDivide', asUtility=1)
+		node_name = rt_upperArm_info.replace('info', 'div')
+		rt_upperArm_div.rename(node_name)
 
-		pm.connectAttr(arm_curve_1 + '.worldSpace[0]', upperArm_info + '.inputCurve')
+		pm.connectAttr(rt_arm_curve_1 + '.worldSpace[0]', rt_upperArm_info + '.inputCurve')
 
-		pm.connectAttr(upperArm_info + '.arcLength', upperArm_div + '.input1X')
+		pm.connectAttr(rt_upperArm_info + '.arcLength', rt_upperArm_div + '.input1X')
 
-		upperArm_div.operation.set(2)
+		rt_upperArm_div.operation.set(2)
 
-		arcLen = upperArm_info.arcLength.get()
-		upperArm_div.input2X.set(arcLen)
+		rt_arcLen = rt_upperArm_info.arcLength.get()
+		rt_upperArm_div.input2X.set(rt_arcLen)
 
-		pm.connectAttr(upperArm_div + '.outputX', root_joint + '.sx')
-		pm.connectAttr(upperArm_div + '.outputX', splitJnt_4 + '.sx')
-		pm.connectAttr(upperArm_div + '.outputX', splitJnt_3 + '.sx')
-		pm.connectAttr(upperArm_div + '.outputX', splitJnt_2 + '.sx')
-		pm.connectAttr(upperArm_div + '.outputX', splitJnt_1 + '.sx')
-		pm.connectAttr(upperArm_div + '.outputX', mid_joint + '.sx')
+		pm.connectAttr(rt_upperArm_div + '.outputX', rt_root_joint + '.sx')
+		pm.connectAttr(rt_upperArm_div + '.outputX', rt_splitJnt_4 + '.sx')
+		pm.connectAttr(rt_upperArm_div + '.outputX', rt_splitJnt_3 + '.sx')
+		pm.connectAttr(rt_upperArm_div + '.outputX', rt_splitJnt_2 + '.sx')
+		pm.connectAttr(rt_upperArm_div + '.outputX', rt_splitJnt_1 + '.sx')
+		pm.connectAttr(rt_upperArm_div + '.outputX', rt_mid_joint + '.sx')
 
 		'''==========================================================================================================================='''
 
 		jnt_name = rt_arm_root.replace('bind', 'twist')
 		rt_arm_root.rename(jnt_name)
 
-		jnt_name = root_joint.replace('twist', 'bind')
-		root_joint.rename(jnt_name)
+		jnt_name = rt_root_joint.replace('twist', 'bind')
+		rt_root_joint.rename(jnt_name)
 
 		jnt_name = rt_arm_root.replace('t1', 't')
 		rt_arm_root.rename(jnt_name)
 
 		jnt_name = rt_arm_root.replace('01', '02')
-		arm_joint_2.rename(jnt_name)
+		rt_arm_joint_2.rename(jnt_name)
 
 		jnt_name = rt_arm_root.replace('01', '03')
-		arm_joint_3.rename(jnt_name)
+		rt_arm_joint_3.rename(jnt_name)
 
-		jnt_name = root_joint.replace('01', '02')
-		splitJnt_4.rename(jnt_name)
+		jnt_name = rt_root_joint.replace('01', '02')
+		rt_splitJnt_4.rename(jnt_name)
 
-		jnt_name = root_joint.replace('01', '03')
-		splitJnt_3.rename(jnt_name)
+		jnt_name = rt_root_joint.replace('01', '03')
+		rt_splitJnt_3.rename(jnt_name)
 
-		jnt_name = root_joint.replace('01', '04')
-		splitJnt_2.rename(jnt_name)
+		jnt_name = rt_root_joint.replace('01', '04')
+		rt_splitJnt_2.rename(jnt_name)
 
-		jnt_name = root_joint.replace('01', '05')
-		splitJnt_1.rename(jnt_name)
+		jnt_name = rt_root_joint.replace('01', '05')
+		rt_splitJnt_1.rename(jnt_name)
 
-		jnt_name = root_joint.replace('01', '06')
-		mid_joint.rename(jnt_name)
+		jnt_name = rt_root_joint.replace('01', '06')
+		rt_mid_joint.rename(jnt_name)
 
-		jnt_name = mid_joint.replace('06', '07')
-		joint_7.rename(jnt_name)
+		jnt_name = rt_mid_joint.replace('06', '07')
+		rt_joint_7.rename(jnt_name)
 
-		jnt_name = mid_joint.replace('06', '08')
-		joint_8.rename(jnt_name)
+		jnt_name = rt_mid_joint.replace('06', '08')
+		rt_joint_8.rename(jnt_name)
 
-		jnt_name = mid_joint.replace('06', '09')
-		joint_9.rename(jnt_name)
+		jnt_name = rt_mid_joint.replace('06', '09')
+		rt_joint_9.rename(jnt_name)
 
-		jnt_name = mid_joint.replace('06', '10')
-		joint_10.rename(jnt_name)
+		jnt_name = rt_mid_joint.replace('06', '10')
+		rt_joint_10.rename(jnt_name)
 
-		jnt_name = mid_joint.replace('06', '11')
-		joint_11.rename(jnt_name)
+		jnt_name = rt_mid_joint.replace('06', '11')
+		rt_joint_11.rename(jnt_name)
 
-		jnt_name = mid_joint.replace('06', '12')
+		jnt_name = rt_mid_joint.replace('06', '12')
 		rt_joint_12.rename(jnt_name)
 
 		'''==========================================================================================================================='''
 
-		foreArm_info = pm.shadingNode('curveInfo', asUtility=1)
-		node_name = upperArm_info.replace('01', '02')
-		foreArm_info.rename(node_name)
+		rt_foreArm_info = pm.shadingNode('curveInfo', asUtility=1)
+		node_name = rt_upperArm_info.replace('01', '02')
+		rt_foreArm_info.rename(node_name)
 
-		foreArm_div = pm.shadingNode('multiplyDivide', asUtility=1)
-		node_name = upperArm_div.replace('01', '02')
-		foreArm_div.rename(node_name)
+		rt_foreArm_div = pm.shadingNode('multiplyDivide', asUtility=1)
+		node_name = rt_upperArm_div.replace('01', '02')
+		rt_foreArm_div.rename(node_name)
 
-		pm.connectAttr(arm_curve_2 + '.worldSpace[0]', foreArm_info + '.inputCurve')
+		pm.connectAttr(rt_arm_curve_2 + '.worldSpace[0]', rt_foreArm_info + '.inputCurve')
 
-		pm.connectAttr(foreArm_info + '.arcLength', foreArm_div + '.input1X')
+		pm.connectAttr(rt_foreArm_info + '.arcLength', rt_foreArm_div + '.input1X')
 
-		foreArm_div.operation.set(2)
+		rt_foreArm_div.operation.set(2)
 
-		arcLen = foreArm_info.arcLength.get()
-		foreArm_div.input2X.set(arcLen)
+		rt_arcLen = rt_foreArm_info.arcLength.get()
+		rt_foreArm_div.input2X.set(rt_arcLen)
 
-		pm.connectAttr(foreArm_div + '.outputX', joint_7 + '.sx')
-		pm.connectAttr(foreArm_div + '.outputX', joint_8 + '.sx')
-		pm.connectAttr(foreArm_div + '.outputX', joint_9 + '.sx')
-		pm.connectAttr(foreArm_div + '.outputX', joint_10 + '.sx')
-		pm.connectAttr(foreArm_div + '.outputX', joint_11 + '.sx')
+		pm.connectAttr(rt_foreArm_div + '.outputX', rt_joint_7 + '.sx')
+		pm.connectAttr(rt_foreArm_div + '.outputX', rt_joint_8 + '.sx')
+		pm.connectAttr(rt_foreArm_div + '.outputX', rt_joint_9 + '.sx')
+		pm.connectAttr(rt_foreArm_div + '.outputX', rt_joint_10 + '.sx')
+		pm.connectAttr(rt_foreArm_div + '.outputX', rt_joint_11 + '.sx')
 		
 		'''==========================================================================================================================='''
-		loc_1 = pm.spaceLocator(p=(0, 0, 0))
+		rt_loc_1 = pm.spaceLocator(p=(0, 0, 0))
 
-		loc_2 = pm.spaceLocator(p=(0, 0, 0))
+		rt_loc_2 = pm.spaceLocator(p=(0, 0, 0))
 
-		temp_constraint = pm.parentConstraint(rt_arm_root, loc_1, mo=0)
+		temp_constraint = pm.parentConstraint(rt_arm_root, rt_loc_1, mo=0)
 		pm.delete(temp_constraint)
-		pm.select(loc_1)
-		freezeTransform(loc_1)
+		pm.select(rt_loc_1)
+		freezeTransform(rt_loc_1)
 
-		loc_name = root_joint.replace('01_bind', 'start_loc')
-		loc_1.rename(loc_name)
+		loc_name = rt_root_joint.replace('01_bind', 'start_rt_loc')
+		rt_loc_1.rename(loc_name)
 
-		temp_constraint = pm.parentConstraint(arm_joint_3, loc_2, mo=0)
+		temp_constraint = pm.parentConstraint(rt_arm_joint_3, rt_loc_2, mo=0)
 		pm.delete(temp_constraint)
-		pm.select(loc_2)
-		freezeTransform(loc_2)
+		pm.select(rt_loc_2)
+		freezeTransform(rt_loc_2)
 
-		loc_name = loc_1.replace('start', 'end')
-		loc_2.rename(loc_name)
+		loc_name = rt_loc_1.replace('start', 'end')
+		rt_loc_2.rename(loc_name)
 
-		arm_dist = pm.shadingNode('distanceDimShape', asUtility=1)
+		rt_arm_dist = pm.shadingNode('distanceDimShape', asUtility=1)
 
-		pm.select(arm_dist)
+		pm.select(rt_arm_dist)
 		selection = pm.ls(sl=True, s=False)
 		shape = selection[0]
 		pm.pickWalk(d='up')
-		transform = pm.ls(sl=True)[0]
+		rt_transform = pm.ls(sl=True)[0]
 
-		node_name = loc_2.replace('end_loc', 'dist')
+		node_name = rt_loc_2.replace('end_rt_loc', 'dist')
 		# print node_name
-		transform.rename(node_name)
+		rt_transform.rename(node_name)
 
-		pm.connectAttr(loc_1 + '.worldPosition', arm_dist + '.startPoint')
-		pm.connectAttr(loc_2 + '.worldPosition', arm_dist + '.endPoint')
+		pm.connectAttr(rt_loc_1 + '.worldPosition', rt_arm_dist + '.startPoint')
+		pm.connectAttr(rt_loc_2 + '.worldPosition', rt_arm_dist + '.endPoint')
 
-		pm.parentConstraint(rt_arm_icon, loc_2)
+		pm.parentConstraint(rt_arm_icon, rt_loc_2)
 
-		upperArm_len = pm.getAttr(rt_arm_ik_joint_2 + '.tx')
+		rt_upperArm_len = pm.getAttr(rt_arm_ik_joint_2 + '.tx')
 
-		foreArm_len = pm.getAttr(rt_arm_ik_joint_3 + '.tx')
+		rt_foreArm_len = pm.getAttr(rt_arm_ik_joint_3 + '.tx')
 
-		sumLen = upperArm_len + foreArm_len
+		rt_sumLen = rt_upperArm_len + rt_foreArm_len
 
-		pm.setDrivenKeyframe(rt_arm_ik_joint_2 + '.tx', currentDriver=arm_dist + '.distance', value=upperArm_len, driverValue=sumLen)
+		pm.setDrivenKeyframe(rt_arm_ik_joint_2 + '.tx', currentDriver=rt_arm_dist + '.distance', value=rt_upperArm_len, driverValue=rt_sumLen)
 
-		pm.setDrivenKeyframe(rt_arm_ik_joint_2 + '.tx',  currentDriver=arm_dist + '.distance', value=(upperArm_len*2), driverValue=(sumLen*2))
+		pm.setDrivenKeyframe(rt_arm_ik_joint_2 + '.tx',  currentDriver=rt_arm_dist + '.distance', value=(rt_upperArm_len*2), driverValue=(rt_sumLen*2))
 
-		pm.setDrivenKeyframe(rt_arm_ik_joint_3 + '.tx', currentDriver=arm_dist + '.distance', value=foreArm_len, driverValue=sumLen)
+		pm.setDrivenKeyframe(rt_arm_ik_joint_3 + '.tx', currentDriver=rt_arm_dist + '.distance', value=rt_foreArm_len, driverValue=rt_sumLen)
 
-		pm.setDrivenKeyframe(rt_arm_ik_joint_3 + '.tx', currentDriver=arm_dist + '.distance', value=(foreArm_len*2), driverValue=(sumLen*2))
+		pm.setDrivenKeyframe(rt_arm_ik_joint_3 + '.tx', currentDriver=rt_arm_dist + '.distance', value=(rt_foreArm_len*2), driverValue=(rt_sumLen*2))
 
 		pm.keyTangent(rt_arm_ik_joint_2, rt_arm_ik_joint_3,'graphEditor1FromOutliner', itt='spline', animation='objects', ott='spline')
 		pm.setInfinity(rt_arm_ik_joint_2, rt_arm_ik_joint_3, poi='linear')
 
-		loc_3 = pm.spaceLocator(p=(0, 0, 0))
-		temp_constraint = pm.parentConstraint(root_joint, loc_3, mo=0)
+		rt_loc_3 = pm.spaceLocator(p=(0, 0, 0))
+		temp_constraint = pm.parentConstraint(rt_root_joint, rt_loc_3, mo=0)
 		pm.delete(temp_constraint)
-		freezeTransform(loc_3)
+		freezeTransform(rt_loc_3)
 
-		node_name = loc_1.replace('start_loc', '01_snap_loc')
-		loc_3.rename(node_name)
+		node_name = rt_loc_1.replace('start_rt_loc', '01_snap_rt_loc')
+		rt_loc_3.rename(node_name)
 
-		loc_4 = pm.spaceLocator(p=(0, 0, 0))
-		temp_constraint = pm.parentConstraint(elbow_icon, loc_4, mo=0)
+		rt_loc_4 = pm.spaceLocator(p=(0, 0, 0))
+		temp_constraint = pm.parentConstraint(rt_elbow_icon, rt_loc_4, mo=0)
 		pm.delete(temp_constraint)
-		freezeTransform(loc_4)
+		freezeTransform(rt_loc_4)
 
-		node_name = loc_3.replace('01', '02')
-		loc_4.rename(node_name)
+		node_name = rt_loc_3.replace('01', '02')
+		rt_loc_4.rename(node_name)
 
 
-		loc_5 = pm.spaceLocator(p=(0, 0, 0))
-		temp_constraint = pm.parentConstraint(arm_joint_3, loc_5, mo=0)
+		rt_loc_5 = pm.spaceLocator(p=(0, 0, 0))
+		temp_constraint = pm.parentConstraint(rt_arm_joint_3, rt_loc_5, mo=0)
 		pm.delete(temp_constraint)
-		freezeTransform(loc_5)
+		freezeTransform(rt_loc_5)
 
-		node_name = loc_4.replace('02', '03')
-		loc_5.rename(node_name)
+		node_name = rt_loc_4.replace('02', '03')
+		rt_loc_5.rename(node_name)
 
-		snap_dist_1 = pm.shadingNode('distanceDimShape', asUtility=1)
+		rt_snapDist_1 = pm.shadingNode('distanceDimShape', asUtility=1)
 
-		pm.select(snap_dist_1)
+		pm.select(rt_snapDist_1)
 		selection = pm.ls(sl=True, s=False)
 		shape_1 = selection[0]
 		pm.pickWalk(d='up')
-		transform_1 = pm.ls(sl=True)[0]
-		temp_constraint = pm.pointConstraint(rt_arm_root, transform_1, mo=0)
+		rt_transform_1 = pm.ls(sl=True)[0]
+		temp_constraint = pm.pointConstraint(rt_arm_root, rt_transform_1, mo=0)
 		pm.delete(temp_constraint)
 
 
-		node_name = loc_2.replace('end_loc', '01_snap_dist')
-		transform_1.rename(node_name)
+		node_name = rt_loc_2.replace('end_rt_loc', '01_rt_snapDist')
+		rt_transform_1.rename(node_name)
 
-		pm.connectAttr(loc_3 + '.worldPosition', snap_dist_1 + '.startPoint')
+		pm.connectAttr(rt_loc_3 + '.worldPosition', rt_snapDist_1 + '.startPoint')
 
-		pm.connectAttr(loc_4 + '.worldPosition', snap_dist_1 + '.endPoint')
+		pm.connectAttr(rt_loc_4 + '.worldPosition', rt_snapDist_1 + '.endPoint')
 
 
-		snap_dist_2 = pm.shadingNode('distanceDimShape', asUtility=1)
+		rt_snapDist_2 = pm.shadingNode('distanceDimShape', asUtility=1)
 
-		pm.select(snap_dist_2)
+		pm.select(rt_snapDist_2)
 		selection = pm.ls(sl=True, s=False)
 		shape_2 = selection[0]
 		pm.pickWalk(d='up')
-		transform_2 = pm.ls(sl=True)[0]
-		temp_constraint = pm.pointConstraint(arm_joint_3, transform_2, mo=0)
+		rt_transform_2 = pm.ls(sl=True)[0]
+		temp_constraint = pm.pointConstraint(rt_arm_joint_3, rt_transform_2, mo=0)
 		pm.delete(temp_constraint)
 
-		node_name = transform_1.replace('01','02')
-		transform_2.rename(node_name)
+		node_name = rt_transform_1.replace('01','02')
+		rt_transform_2.rename(node_name)
 
-		pm.connectAttr(loc_4 + '.worldPosition', snap_dist_2 + '.startPoint')
+		pm.connectAttr(rt_loc_4 + '.worldPosition', rt_snapDist_2 + '.startPoint')
 
-		pm.connectAttr(loc_5 + '.worldPosition', snap_dist_2 + '.endPoint')
+		pm.connectAttr(rt_loc_5 + '.worldPosition', rt_snapDist_2 + '.endPoint')
 
-		pm.parent(loc_4, elbow_icon)
+		pm.parent(rt_loc_4, rt_elbow_icon)
 
-		pm.parent(loc_5, rt_arm_icon)
+		pm.parent(rt_loc_5, rt_arm_icon)
 
-		pm.addAttr(elbow_icon, ln='elbowSnap', at='double', min=0, max=1, dv=0)
-		elbow_icon.elbowSnap.set(e=1, keyable=True)
+		pm.addAttr(rt_elbow_icon, ln='elbowSnap', at='double', min=0, max=1, dv=0)
+		rt_elbow_icon.elbowSnap.set(e=1, keyable=True)
 
-		upperArm_stretch = pm.shadingNode('blendColors', asUtility=1)
-		node_name = upperArm_info.replace('info', 'stretch_blend_01')
-		upperArm_stretch.rename(node_name)
+		rt_upperArm_stretch = pm.shadingNode('blendColors', asUtility=1)
+		node_name = rt_upperArm_info.replace('info', 'stretch_blend_01')
+		rt_upperArm_stretch.rename(node_name)
 
-		pm.connectAttr(elbow_icon + '.elbowSnap', upperArm_stretch + '.blender')
-		pm.connectAttr(snap_dist_1 + '.distance', upperArm_stretch + '.color1R')
-		pm.connectAttr(rt_arm_ik_joint_2 + '_translateX.output', upperArm_stretch + '.color2R')
+		pm.connectAttr(rt_elbow_icon + '.elbowSnap', rt_upperArm_stretch + '.blender')
+		pm.connectAttr(rt_snapDist_1 + '.distance', rt_upperArm_stretch + '.color1R')
+		pm.connectAttr(rt_arm_ik_joint_2 + '_translateX.output', rt_upperArm_stretch + '.color2R')
 		pm.disconnectAttr(rt_arm_ik_joint_2 + '_translateX.output', rt_arm_ik_joint_2 + '.tx')
-		pm.connectAttr(upperArm_stretch + '.outputR', rt_arm_ik_joint_2 + '.tx')
+		pm.connectAttr(rt_upperArm_stretch + '.outputR', rt_arm_ik_joint_2 + '.tx')
 
-		foreArm_stretch = pm.shadingNode('blendColors', asUtility=1)
-		node_name = foreArm_info.replace('info', 'stretch_blend_02')
-		foreArm_stretch.rename(node_name)
+		rt_foreArm_stretch = pm.shadingNode('blendColors', asUtility=1)
+		node_name = rt_foreArm_info.replace('info', 'stretch_blend_02')
+		rt_foreArm_stretch.rename(node_name)
 
-		pm.connectAttr(elbow_icon + '.elbowSnap', foreArm_stretch + '.blender')
-		pm.connectAttr(snap_dist_2 + '.distance', foreArm_stretch + '.color1R')
-		pm.connectAttr(rt_arm_ik_joint_3 + '_translateX.output', foreArm_stretch + '.color2R')
+		pm.connectAttr(rt_elbow_icon + '.elbowSnap', rt_foreArm_stretch + '.blender')
+		pm.connectAttr(rt_snapDist_2 + '.distance', rt_foreArm_stretch + '.color1R')
+		pm.connectAttr(rt_arm_ik_joint_3 + '_translateX.output', rt_foreArm_stretch + '.color2R')
 		pm.disconnectAttr(rt_arm_ik_joint_3 + '_translateX.output', rt_arm_ik_joint_3 + '.tx')
-		pm.connectAttr(foreArm_stretch + '.outputR', rt_arm_ik_joint_3 + '.tx')
+		pm.connectAttr(rt_foreArm_stretch + '.outputR', rt_arm_ik_joint_3 + '.tx')
 
-		hybrid_fk_icons = pm.duplicate(fk_pad_2)
-		pm.parent(hybrid_fk_icons, w=1)
+		rt_hybrid_fk_icons = pm.duplicate(rt_fk_pad_2)
+		pm.parent(rt_hybrid_fk_icons, w=1)
 
-		pm.select(hybrid_fk_icons)
-		hIcons = pm.ls(sl=True, dag=True)
-		hPad = hIcons[0]
-		hIcon = hIcons[1]
-		# print hPad
-		# print hIcon
+		pm.select(rt_hybrid_fk_icons)
+		rt_hIcons = pm.ls(sl=True, dag=True)
+		rt_hPad = rt_hIcons[0]
+		rt_hIcon = rt_hIcons[1]
+		# print rt_hPad
+		# print rt_hIcon
 
-		pad_name = hJ_1.replace('hybridFk', 'hybridFk_local')
-		hPad.rename(pad_name)
+		pad_name = rt_hJ_1.replace('hybridFk', 'hybridFk_local')
+		rt_hPad.rename(pad_name)
 
-		icon_name = hPad.replace('local', 'icon')
-		hIcon.rename(icon_name)
+		icon_name = rt_hPad.replace('local', 'icon')
+		rt_hIcon.rename(icon_name)
 
-		temp_constraint = pm.pointConstraint(elbow_icon, hJ_1, mo=0)
+		temp_constraint = pm.pointConstraint(rt_elbow_icon, rt_hJ_1, mo=0)
 		pm.delete(temp_constraint)
-		freezeTransform(hJ_1)
+		freezeTransform(rt_hJ_1)
 
-		temp_constraint = pm.pointConstraint(elbow_icon, hPad, mo=0)
+		temp_constraint = pm.pointConstraint(rt_elbow_icon, rt_hPad, mo=0)
 		pm.delete(temp_constraint)
 
-		pm.orientConstraint(hIcon, hJ_1)
+		pm.orientConstraint(rt_hIcon, rt_hJ_1)
 
-		ik_cons_grp = pm.group(empty=True)
-		temp_constraint = pm.parentConstraint(arm_joint_3, ik_cons_grp)
+		rt_ik_cons_grp = pm.group(empty=True)
+		temp_constraint = pm.parentConstraint(rt_arm_joint_3, rt_ik_cons_grp)
 		pm.delete(temp_constraint)
-		freezeTransform(ik_cons_grp)
-		pm.parent(arm_ikh, loc_5, ik_cons_grp)
-		grp_name = twist_grp.replace('twist', 'cons')
-		ik_cons_grp.rename(grp_name)
-		constraint_1 = pm.parentConstraint(rt_arm_icon, ik_cons_grp, mo=0)
+		freezeTransform(rt_ik_cons_grp)
+		pm.parent(rt_arm_ikh, rt_loc_5, rt_ik_cons_grp)
+		grp_name = rt_twist_grp.replace('twist', 'cons')
+		rt_ik_cons_grp.rename(grp_name)
+		constraint_1 = pm.parentConstraint(rt_arm_icon, rt_ik_cons_grp, mo=0)
 		const_1_targets = constraint_1.getWeightAliasList()[0]
 		# print const_1_targets
-		constraint_2 = pm.parentConstraint(hJ_2, ik_cons_grp, mo=0)
+		constraint_2 = pm.parentConstraint(rt_hJ_2, rt_ik_cons_grp, mo=0)
 		const_2_targets = constraint_2.getWeightAliasList()[1]
 		# print const_2_targets
-		pm.parent(hPad, elbow_icon)
+		pm.parent(rt_hPad, rt_elbow_icon)
 
-		hJpad = pm.group(empty=True)
-		pad_name = hJ_1.replace('02_hybridFk', '00_hybrdFk_pad')
-		hJpad.rename(pad_name)
+		rt_hJ_pad = pm.group(empty=True)
+		pad_name = rt_hJ_1.replace('02_hybridFk', '00_hybrdFk_rt_arm_pad')
+		rt_hJ_pad.rename(pad_name)
 
-		temp_constraint = pm.parentConstraint(hJ_1, hJpad)
+		temp_constraint = pm.parentConstraint(rt_hJ_1, rt_hJ_pad)
 		pm.delete(temp_constraint)
-		freezeTransform(hJpad)
+		freezeTransform(rt_hJ_pad)
 
-		pm.parent(hJ_1, hJpad)
+		pm.parent(rt_hJ_1, rt_hJ_pad)
 
-		pm.parentConstraint(hIcon, hJpad, mo=1)
+		pm.parentConstraint(rt_hIcon, rt_hJ_pad, mo=1)
 
-		pm.addAttr(elbow_icon, ln='FK_foreArmBlend', at='double', min=0, max=1, dv=0)
-		elbow_icon.FK_foreArmBlend.set(e=1, keyable=True)
+		pm.addAttr(rt_elbow_icon, ln='FK_rt_foreArmBlend', at='double', min=0, max=1, dv=0)
+		rt_elbow_icon.FK_rt_foreArmBlend.set(e=1, keyable=True)
 
-		elbow_icon.FK_foreArmBlend.set(1)
+		rt_elbow_icon.FK_rt_foreArmBlend.set(1)
 		const_1_targets.set(0)
-		pm.setDrivenKeyframe(const_1_targets, const_2_targets, currentDriver=elbow_icon + '.FK_foreArmBlend')
-		pm.setDrivenKeyframe(hIcon + '.v',  currentDriver=elbow_icon + '.FK_foreArmBlend')
-		elbow_icon.FK_foreArmBlend.set(0)
+		pm.setDrivenKeyframe(const_1_targets, const_2_targets, currentDriver=rt_elbow_icon + '.FK_rt_foreArmBlend')
+		pm.setDrivenKeyframe(rt_hIcon + '.v',  currentDriver=rt_elbow_icon + '.FK_rt_foreArmBlend')
+		rt_elbow_icon.FK_rt_foreArmBlend.set(0)
 		const_1_targets.set(1)
 		const_2_targets.set(0)
-		hIcon.v.set(0)
-		pm.setDrivenKeyframe(const_1_targets, const_2_targets, currentDriver=elbow_icon + '.FK_foreArmBlend')
-		pm.setDrivenKeyframe(hIcon + '.v',  currentDriver=elbow_icon + '.FK_foreArmBlend')
-		pm.setDrivenKeyframe(hJ_2 + '.tx', currentDriver=hIcon + '.length')
-		hIcon.length.set(0)
-		hJ_2.tx.set(0)
-		length_sdk = pm.setDrivenKeyframe(hJ_2 + '.tx', currentDriver=hIcon + '.length')
-		pm.keyTangent(hJ_2, itt='clamped', ott='clamped')
-		pm.setInfinity(hJ_2, poi='linear')
-		hIcon.length.set(1)
+		rt_hIcon.v.set(0)
+		pm.setDrivenKeyframe(const_1_targets, const_2_targets, currentDriver=rt_elbow_icon + '.FK_rt_foreArmBlend')
+		pm.setDrivenKeyframe(rt_hIcon + '.v',  currentDriver=rt_elbow_icon + '.FK_rt_foreArmBlend')
+		pm.setDrivenKeyframe(rt_hJ_2 + '.tx', currentDriver=rt_hIcon + '.length')
+		rt_hIcon.length.set(0)
+		rt_hJ_2.tx.set(0)
+		length_sdk = pm.setDrivenKeyframe(rt_hJ_2 + '.tx', currentDriver=rt_hIcon + '.length')
+		pm.keyTangent(rt_hJ_2, itt='clamped', ott='clamped')
+		pm.setInfinity(rt_hJ_2, poi='linear')
+		rt_hIcon.length.set(1)
 
 		'''==========================================================================================================================='''
-		transform.v.set(0)
-		transform_1.v.set(0)
-		transform_2.v.set(0)
+		rt_transform.v.set(0)
+		rt_transform_1.v.set(0)
+		rt_transform_2.v.set(0)
 
-		dnt_grp = pm.group(loc_1,loc_2, loc_3, arm_dist, twist_grp, rt_arm_root, rt_ik_root, rt_fk_root, snap_dist_1, snap_dist_2, ik_cons_grp, hJpad)
-		grp_name = twist_grp.replace('twist_grp', 'DO____NOT____TOUCH')
-		dnt_grp.rename(grp_name)
+		rt_arm_dnt_grp = pm.group(rt_loc_1,rt_loc_2, rt_loc_3, rt_arm_dist, rt_twist_grp, rt_arm_root, rt_arm_ik_root, rt_fk_root, rt_snapDist_1, rt_snapDist_2, rt_ik_cons_grp, rt_hJ_pad)
+		grp_name = rt_twist_grp.replace('twist_grp', 'DO____NOT____TOUCH')
+		rt_arm_dnt_grp.rename(grp_name)
 
-		pad = pm.group(empty=True)
-		temp_constraint = pm.parentConstraint(rt_arm_root, pad, mo=0)
+		rt_arm_pad = pm.group(empty=True)
+		temp_constraint = pm.parentConstraint(rt_arm_root, rt_arm_pad, mo=0)
 		pm.delete(temp_constraint)
-		freezeTransform(pad)
+		freezeTransform(rt_arm_pad)
 
-		pm.parent(root_joint, joint_7, pad)
-		pad_name = root_joint.replace('01_bind', '00_pad')
-		pad.rename(pad_name)
+		pm.parent(rt_root_joint, rt_joint_7, rt_arm_pad)
+		pad_name = rt_root_joint.replace('01_bind', '00_rt_arm_pad')
+		rt_arm_pad.rename(pad_name)
 
-		ik_grp = pm.group(empty=True)
-		temp_constraint = pm.parentConstraint(rt_arm_root, ik_grp, mo=0)
+		rt_ik_grp = pm.group(empty=True)
+		temp_constraint = pm.parentConstraint(rt_arm_root, rt_ik_grp, mo=0)
 		pm.delete(temp_constraint)
-		freezeTransform(ik_grp)
-		pm.parent(ik_grp, dnt_grp)
-		pm.parent(rt_ik_root, loc_1, loc_2, ik_grp)
+		freezeTransform(rt_ik_grp)
+		pm.parent(rt_ik_grp, rt_arm_dnt_grp)
+		pm.parent(rt_arm_ik_root, rt_loc_1, rt_loc_2, rt_ik_grp)
 
-		grp_name = rt_ik_root.replace('01_ik', '00_ik_cons_grp')
-		ik_grp.rename(grp_name)
+		grp_name = rt_arm_ik_root.replace('01_ik', '00_rt_ik_cons_grp')
+		rt_ik_grp.rename(grp_name)
 
-		twist_jnt_grp = pm.group(empty=True)
-		temp_constraint = pm.parentConstraint(rt_arm_root, twist_jnt_grp, mo=0)
+		rt_twist_jnt_grp = pm.group(empty=True)
+		temp_constraint = pm.parentConstraint(rt_arm_root, rt_twist_jnt_grp, mo=0)
 		pm.delete(temp_constraint)
-		freezeTransform(twist_jnt_grp)
-		pm.parent(twist_jnt_grp, dnt_grp)
-		pm.parent(rt_arm_root, twist_jnt_grp)	
+		freezeTransform(rt_twist_jnt_grp)
+		pm.parent(rt_twist_jnt_grp, rt_arm_dnt_grp)
+		pm.parent(rt_arm_root, rt_twist_jnt_grp)	
 
-		grp_name = ik_grp.replace('ik', 'twist')
-		twist_jnt_grp.rename(grp_name)
+		grp_name = rt_ik_grp.replace('ik', 'twist')
+		rt_twist_jnt_grp.rename(grp_name)
 
 
-		arm_global = pm.group(empty=True)
+		rt_arm_global = pm.group(empty=True)
 
-		temp_constraint = pm.parentConstraint(rt_arm_root, arm_global)
+		temp_constraint = pm.parentConstraint(rt_arm_root, rt_arm_global)
 		pm.delete(temp_constraint)
-		freezeTransform(arm_global)
-		pm.parent(rt_arm_icon, elbow_icon, pad, switch, fk_pad_1, dnt_grp, arm_global)
-		grp_name = pad.replace('00_pad', 'global_grp')
-		arm_global.rename(grp_name)
+		freezeTransform(rt_arm_global)
+		pm.parent(rt_arm_icon, rt_elbow_icon, rt_arm_pad, rt_switch, rt_fk_pad_1, rt_arm_dnt_grp, rt_arm_global)
+		grp_name = rt_arm_pad.replace('00_rt_arm_pad', 'global_grp')
+		rt_arm_global.rename(grp_name)
 
 		if pm.objExists('*moveAll'):
 			pm.select('*moveAll')
@@ -6369,7 +6356,7 @@ def rt_armSetup(*args):
 			pm.select('*joint_grp')
 			jnt_grp = pm.ls(sl=True)[0]
 			# print jnt_grp
-			# pm.parent(pad, jnt_grp)
+			# pm.parent(rt_arm_pad, jnt_grp)
 			pm.scaleConstraint(moveAll, jnt_grp)
 
 		else:
@@ -6377,32 +6364,32 @@ def rt_armSetup(*args):
 			grp_name = rt_arm_root.replace('rt_arm_01_twist', 'joint_grp')
 			jnt_grp.rename(grp_name)
 			# print jnt_grp
-			# pm.parent(pad, jnt_grp)
+			# pm.parent(rt_arm_pad, jnt_grp)
 			pm.scaleConstraint(moveAll, jnt_grp)
 
 		if pm.objExists('*icon_grp'):
 			pm.select('*icon_grp')
 			icon_grp = pm.ls(sl=True)[0] 
 			pm.parent(moveAll, '*icon_grp')
-			# pm.parent(rt_arm_icon, fk_pad_1, elbow_icon, moveAll)
+			# pm.parent(rt_arm_icon, rt_fk_pad_1, rt_elbow_icon, moveAll)
 
 		else:
 			icon_grp = pm.group(empty=True)
 			pm.parent(moveAll, icon_grp)
 			group_name = jnt_grp.replace('joint', 'icon')
 			icon_grp.rename(group_name)
-			# pm.parent(rt_arm_icon, fk_pad_1, elbow_icon, moveAll)
+			# pm.parent(rt_arm_icon, rt_fk_pad_1, rt_elbow_icon, moveAll)
 		'''
 		Create the Gimbal icon
 		'''
-		gimbal_icon = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=1, tol=0.01, nr=(1, 0, 0))
+		rt_gimbal_icon = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=1, tol=0.01, nr=(1, 0, 0))
 
-		gimbal_icon_2 = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=0.2, tol=0.01, nr=(1, 0, 0))[0]
+		rt_gimbal_icon_2 = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=0.2, tol=0.01, nr=(1, 0, 0))[0]
 
-		gimbal_icon_2.ty.set(1)
-		freezeTransform(gimbal_icon_2)
+		rt_gimbal_icon_2.ty.set(1)
+		freezeTransform(rt_gimbal_icon_2)
 
-		pm.select(gimbal_icon, gimbal_icon_2)
+		pm.select(rt_gimbal_icon, rt_gimbal_icon_2)
 
 		selection = pm.ls(sl=True, dag=True, s=True)
 		shape_1 = selection[0]
@@ -6410,252 +6397,243 @@ def rt_armSetup(*args):
 		# print shape_1
 		# print shape_2
 
-		core_icon = pm.group(empty=True)
+		rt_core_icon = pm.group(empty=True)
 
-		pm.parent(shape_1, shape_2, core_icon, r=True, s=True)
+		pm.parent(shape_1, shape_2, rt_core_icon, r=True, s=True)
 
-		pm.delete(gimbal_icon, gimbal_icon_2)
+		pm.delete(rt_gimbal_icon, rt_gimbal_icon_2)
 
-		icon_name = rt_arm_icon.replace('arm', 'arm_gimbal_core')
-		core_icon.rename(icon_name)
+		icon_name = rt_arm_icon.replace('rt_arm', 'gimbal_core')
+		rt_core_icon.rename(icon_name)
 
-		shape_name = core_icon.replace('_icon', 'Shape1')
+		shape_name = rt_core_icon.replace('_icon', 'Shape1')
 		shape_1.rename(shape_name)
 
 		shape_name = shape_1.replace('1', '2')
 		shape_2.rename(shape_name)
 
-		temp_constraint = pm.pointConstraint(rt_arm_root, core_icon, mo=0)
+		temp_constraint = pm.pointConstraint(rt_arm_root, rt_core_icon, mo=0)
 		pm.delete(temp_constraint)
-		freezeTransform(core_icon)
+		freezeTransform(rt_core_icon)
 
-		pm.parent(core_icon, arm_global)
-		pm.orientConstraint(core_icon, fk_pad_1, mo=1)
+		pm.parent(rt_core_icon, rt_arm_global)
+		pm.orientConstraint(rt_core_icon, rt_fk_pad_1, mo=1)
 
 
-		twist_gimbal_grp = pm.group(empty=True)
-		temp_constraint = pm.parentConstraint(rt_arm_root, twist_gimbal_grp, mo=0)
+		rt_twist_gimbal_grp = pm.group(empty=True)
+		temp_constraint = pm.parentConstraint(rt_arm_root, rt_twist_gimbal_grp, mo=0)
 		pm.delete(temp_constraint)
-		freezeTransform(twist_gimbal_grp)
+		freezeTransform(rt_twist_gimbal_grp)
 
-		pm.parent(twist_gimbal_grp, twist_jnt_grp)
+		pm.parent(rt_twist_gimbal_grp, rt_twist_jnt_grp)
 
-		pm.parent(rt_arm_root, twist_gimbal_grp)
-
-
-		grp_name = core_icon.replace('arm_gimbal_core_icon', 'twist_gimbal_core_grp')
-		twist_gimbal_grp.rename(grp_name)
-
-		gimbal_core_tog = pm.shadingNode('blendColors', asUtility=1)
-
-		node_name = rt_arm_icon.replace('icon', 'gimbal_core_tog_blendColors')
-		gimbal_core_tog.rename(node_name)
-
-		pm.connectAttr(core_icon + '.r', gimbal_core_tog + '.color2')
-		gimbal_core_tog.color1R.set(0)
-		gimbal_core_tog.color1G.set(0)
-		gimbal_core_tog.color1B.set(0)
-		pm.connectAttr(gimbal_core_tog + '.output', twist_jnt_grp + '.r')
-		pm.connectAttr(switch + '.IkFk', gimbal_core_tog + '.blender')
-		pm.connectAttr(switch + '.IkFk', core_icon + '.v')
+		pm.parent(rt_arm_root, rt_twist_gimbal_grp)
 
 
-		pm.select(loc_1, loc_2, loc_3, loc_4, loc_5, snap_dist_1, snap_dist_2, rt_ik_root, arm_dist, arm_ikh, arm_ik_1, arm_ik_2, rt_arm_root, arm_curve_1, arm_curve_2, hJ_1, rt_fk_root)
+		grp_name = rt_core_icon.replace('gimbal_core_icon', 'twist_gimbal_core_grp')
+		rt_twist_gimbal_grp.rename(grp_name)
+
+		rt_gimbal_core_tog = pm.shadingNode('blendColors', asUtility=1)
+
+		node_name = rt_arm_icon.replace('icon', 'rt_gimbal_core_tog_blendColors')
+		rt_gimbal_core_tog.rename(node_name)
+
+		pm.connectAttr(rt_core_icon + '.r', rt_gimbal_core_tog + '.color2')
+		rt_gimbal_core_tog.color1R.set(0)
+		rt_gimbal_core_tog.color1G.set(0)
+		rt_gimbal_core_tog.color1B.set(0)
+		pm.connectAttr(rt_gimbal_core_tog + '.output', rt_twist_jnt_grp + '.r')
+		pm.connectAttr(rt_switch + '.IkFk', rt_gimbal_core_tog + '.blender')
+		pm.connectAttr(rt_switch + '.IkFk', rt_core_icon + '.v')
+
+
+		pm.select(rt_loc_1, rt_loc_2, rt_loc_3, rt_loc_4, rt_loc_5, rt_snapDist_1, rt_snapDist_2, rt_arm_ik_root, rt_arm_dist, rt_arm_ikh, rt_arm_ik_1, rt_arm_ik_2, rt_arm_root, rt_arm_curve_1, rt_arm_curve_2, rt_hJ_1, rt_fk_root)
 		selection = pm.ls(sl=1)
 		for each in selection:
 			pm.setAttr(each + '.visibility', 0)
 	else:
 		'''
-		Create the arm icon
+		Create the rt_arm icon
 		'''
 		rt_arm_icon = pm.curve(p=[(0.5, 0.5, 0.5), (-0.5, 0.5, 0.5), (-0.5, 0.5, -0.5), (0.5, 0.5, -0.5), (0.5, 0.5, 0.5), (0.5, -0.5, 0.5), (0.5, -0.5, -0.5), (0.5, 0.5, -0.5), (-0.5, 0.5, -0.5), (-0.5, -0.5, -0.5), (0.5, -0.5, -0.5), (0.5, -0.5, 0.5), (-0.5, -0.5, 0.5), (-0.5, 0.5, 0.5), (-0.5, 0.5, -0.5), (-0.5, -0.5, -0.5), (-0.5, -0.5, 0.5), (0.5, -0.5, 0.5), (0.5, -0.5, -0.5), (-0.5, -0.5, -0.5)], k=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19], d=1)
-		temp_constraint = pm.pointConstraint(arm_joint_3, rt_arm_icon)
+		temp_constraint = pm.pointConstraint(rt_arm_joint_3, rt_arm_icon)
 		pm.delete(temp_constraint)
 		freezeTransform()
 		deleteHistory()
 
 		'''
-		Rename arm icon
+		Rename rt_arm icon
 		'''
 		rt_arm_icon_name = rt_arm_root.replace('01_bind', 'icon')
 		rt_arm_icon.rename(rt_arm_icon_name)
 
 
 	'''
-	Create the IK/FK switch
+	Create the IK/FK rt_switch
 	'''
-	ikfk_shape_1 = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=1, tol=0.01, nr=(0, 1, 0))[0]
-	ikfk_shape_2 = pm.curve(p=[(0, 0, -1), (0, 0, 1)], k=[0, 1], d=1)
-	ikfk_shape_3 = pm.curve(p=[(-1, 0, 0), (1, 0, 0)], k=[0, 1], d=1)
-	ikfk_shape_4 = pm.curve(p=[(0, 0, 1), (0, 0, 3)], k=[0, 1], d=1)
+	rt_ikfk_shape_1 = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=1, tol=0.01, nr=(0, 1, 0))[0]
+	rt_ikfk_shape_2 = pm.curve(p=[(0, 0, -1), (0, 0, 1)], k=[0, 1], d=1)
+	rt_ikfk_shape_3 = pm.curve(p=[(-1, 0, 0), (1, 0, 0)], k=[0, 1], d=1)
+	rt_ikfk_shape_4 = pm.curve(p=[(0, 0, 1), (0, 0, 3)], k=[0, 1], d=1)
 
-	shape_name_1 = root_joint.replace('arm_01_bind', 'ikfk_curve1') 
+	shape_name_1 = rt_root_joint.replace('rt_arm_01_bind', 'ikfk_curve1') 
 	# print 'Shape 1 Name:', shape_name_1
-	ikfk_shape_1.rename(shape_name_1)
+	rt_ikfk_shape_1.rename(shape_name_1)
 
-	shape_name_2 = root_joint.replace('arm_01_bind', 'ikfk_curve2') 
+	shape_name_2 = rt_root_joint.replace('rt_arm_01_bind', 'ikfk_curve2') 
 	# print 'Shape 2 Name:', shape_name_2
-	ikfk_shape_2.rename(shape_name_2)
+	rt_ikfk_shape_2.rename(shape_name_2)
 
-	shape_name_3 = root_joint.replace('arm_01_bind', 'ikfk_curve3') 
+	shape_name_3 = rt_root_joint.replace('rt_arm_01_bind', 'ikfk_curve3') 
 	# print 'Shape 3 Name:', shape_name_3
-	ikfk_shape_3.rename(shape_name_3)
+	rt_ikfk_shape_3.rename(shape_name_3)
 
-	shape_name_4 = root_joint.replace('arm_01_bind', 'ikfk_curve4') 
+	shape_name_4 = rt_root_joint.replace('rt_arm_01_bind', 'ikfk_curve4') 
 	# print 'Shape 4 Name:', shape_name_4
-	ikfk_shape_4.rename(shape_name_4)
+	rt_ikfk_shape_4.rename(shape_name_4)
 
-	switch = pm.group(empty=True)
-	pm.select(ikfk_shape_1, ikfk_shape_2, ikfk_shape_3, ikfk_shape_4, switch)
+	rt_switch = pm.group(empty=True)
+	pm.select(rt_ikfk_shape_1, rt_ikfk_shape_2, rt_ikfk_shape_3, rt_ikfk_shape_4, rt_switch)
 	shapes = pm.ls(selection=True, dag=True)
 	curveShape_1 = shapes[1]
 	curveShape_2 = shapes[3]
 	curveShape_3 = shapes[5]
 	curveShape_4 = shapes[7]
-	switch_grp = shapes[8]
+	rt_switch_grp = shapes[8]
 	# print 'Curve Shape 1:', curveShape_1
 	# print 'Curve Shape 2:', curveShape_2
 	# print 'Curve Shape 3:', curveShape_3
 	# print 'Curve Shape 4:', curveShape_4
-	# print 'Switch:', switch_grp
-	pm.select(ikfk_shape_2, ikfk_shape_3)
+	# print 'Switch:', rt_switch_grp
+	pm.select(rt_ikfk_shape_2, rt_ikfk_shape_3)
 
 	pm.cmds.scale(0.768, 0.768, 0.768)
 	freezeTransform()
 
-	pm.parent(curveShape_1, curveShape_2, curveShape_3, curveShape_4, switch, s=1, r=1)
-	pm.delete(ikfk_shape_1, ikfk_shape_2, ikfk_shape_3, ikfk_shape_4)
-	pm.cmds.move(0, 0, 3, switch + '.scalePivot', switch + '.rotatePivot', rpr=1)
+	pm.parent(curveShape_1, curveShape_2, curveShape_3, curveShape_4, rt_switch, s=1, r=1)
+	pm.delete(rt_ikfk_shape_1, rt_ikfk_shape_2, rt_ikfk_shape_3, rt_ikfk_shape_4)
+	pm.cmds.move(0, 0, 3, rt_switch + '.scalePivot', rt_switch + '.rotatePivot', rpr=1)
 
-	pm.xform(switch, ro=[0,0,90], scale=[1.5,1.5,1.5])
-	freezeTransform(switch)
+	pm.xform(rt_switch, ro=[0,0,90], scale=[1.5,1.5,1.5])
+	freezeTransform(rt_switch)
 	deleteHistory()
-	temp_constraint = pm.pointConstraint(arm_joint_3, switch, mo=0, w=1)
+	temp_constraint = pm.pointConstraint(rt_arm_joint_3, rt_switch, mo=0, w=1)
 	pm.delete(temp_constraint)
-	pm.select(switch)
+	pm.select(rt_switch)
 	freezeTransform()
-	switch_name = rt_arm_root.replace('01_bind', 'IkFk_switch')
-	switch.rename(switch_name)
-	pm.parentConstraint(arm_joint_3, switch, mo=1)
+	rt_switch_name = rt_arm_root.replace('01_bind', 'IkFk_switch')
+	rt_switch.rename(rt_switch_name)
+	pm.parentConstraint(rt_arm_joint_3, rt_switch, mo=1)
 
 
 
 	'''
 	Add IkFk attribute
 	'''
-	pm.addAttr(switch, ln="IkFk", nn='Ik/Fk', max=1, dv=0, at='double', min=0)
-	switch.IkFk.set(e=1, keyable=True)
+	pm.addAttr(rt_switch, ln="IkFk", nn='Ik/Fk', max=1, dv=0, at='double', min=0)
+	rt_switch.IkFk.set(e=1, keyable=True)
 
 	'''
 	Lock and hide attrs
 	'''
-	switch.tx.set(lock=True, channelBox=False, keyable=False)
-	switch.ty.set(lock=True, channelBox=False, keyable=False)
-	switch.tz.set(lock=True, channelBox=False, keyable=False)
-	switch.rx.set(lock=True, channelBox=False, keyable=False)
-	switch.ry.set(lock=True, channelBox=False, keyable=False)
-	switch.rz.set(lock=True, channelBox=False, keyable=False)
-	switch.sx.set(lock=True, channelBox=False, keyable=False)
-	switch.sy.set(lock=True, channelBox=False, keyable=False)
-	switch.sz.set(lock=True, channelBox=False, keyable=False)
-	switch.v.set(lock=True, channelBox=False, keyable=False)
-
+	attrs = ['tx', 'ty', 'tz', 'rx', 'ry', 'rz', 'sx', 'sy', 'sz', 'v']
+	lock_and_hide(rt_switch, attrs)
 	'''
-	Connect the blend attrs the the switch
+	Connect the blend attrs the the rt_switch
 	'''
-	pm.connectAttr(switch + '.IkFk', root_rot_ikfk + '.blender')
-	pm.connectAttr(switch + '.IkFk', arm_joint_2_rot_ikfk + '.blender')
-	pm.connectAttr(switch + '.IkFk', arm_joint_3_rot_ikfk + '.blender')
-	pm.connectAttr(switch + '.IkFk', root_trans_ikfk + '.blender')
-	pm.connectAttr(switch + '.IkFk', arm_joint_2_trans_ikfk + '.blender')
-	pm.connectAttr(switch + '.IkFk', arm_joint_3_trans_ikfk + '.blender')
+	pm.connectAttr(rt_switch + '.IkFk', rt_root_rot_ikfk + '.blender')
+	pm.connectAttr(rt_switch + '.IkFk', rt_arm_joint_2_rot_ikfk + '.blender')
+	pm.connectAttr(rt_switch + '.IkFk', rt_arm_joint_3_rot_ikfk + '.blender')
+	pm.connectAttr(rt_switch + '.IkFk', rt_root_trans_ikfk + '.blender')
+	pm.connectAttr(rt_switch + '.IkFk', rt_arm_joint_2_trans_ikfk + '.blender')
+	pm.connectAttr(rt_switch + '.IkFk', rt_arm_joint_3_trans_ikfk + '.blender')
 
 	'''
 	Create fk icons
 	'''
-	fk_icon_1 = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=2, tol=.01, nr=(1, 0, 0))[0]
-	# print 'Fk icon 1:', fk_icon_1
-	temp_constraint = pm.parentConstraint(rt_fk_root, fk_icon_1)
+	rt_fk_icon_1 = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=2, tol=.01, nr=(1, 0, 0))[0]
+	# print 'Fk icon 1:', rt_fk_icon_1
+	temp_constraint = pm.parentConstraint(rt_fk_root, rt_fk_icon_1)
 	pm.delete(temp_constraint)
-	fk_pad_1 = pm.group(empty=True)
-	temp_constraint = pm.parentConstraint(rt_fk_root, fk_pad_1)
+	rt_fk_pad_1 = pm.group(empty=True)
+	temp_constraint = pm.parentConstraint(rt_fk_root, rt_fk_pad_1)
 	pm.delete(temp_constraint)
-	pm.parent(fk_icon_1, fk_pad_1)
-	pm.select(fk_icon_1)
+	pm.parent(rt_fk_icon_1, rt_fk_pad_1)
+	pm.select(rt_fk_icon_1)
 	freezeTransform()
 
-	fk_icon_2 = pm.circle(c=(0, 0, 0), ch=2, d=3, ut=0, sw=360, s=8, r=2, tol=.02, nr=(2, 0, 0))[0]
-	# print 'Fk icon 2:', fk_icon_2
-	temp_constraint = pm.parentConstraint(fk_joint_2, fk_icon_2)
+	rt_fk_icon_2 = pm.circle(c=(0, 0, 0), ch=2, d=3, ut=0, sw=360, s=8, r=2, tol=.02, nr=(2, 0, 0))[0]
+	# print 'Fk icon 2:', rt_fk_icon_2
+	temp_constraint = pm.parentConstraint(rt_fk_joint_2, rt_fk_icon_2)
 	pm.delete(temp_constraint)
-	fk_pad_2 = pm.group(empty=True)
-	temp_constraint = pm.parentConstraint(fk_joint_2, fk_pad_2)
+	rt_fk_pad_2 = pm.group(empty=True)
+	temp_constraint = pm.parentConstraint(rt_fk_joint_2, rt_fk_pad_2)
 	pm.delete(temp_constraint)
-	pm.parent(fk_icon_2, fk_pad_2)
-	pm.select(fk_icon_2)
+	pm.parent(rt_fk_icon_2, rt_fk_pad_2)
+	pm.select(rt_fk_icon_2)
 	freezeTransform()
-	pm.parent(fk_pad_2, fk_icon_1)
+	pm.parent(rt_fk_pad_2, rt_fk_icon_1)
 
 	'''
-	Rename the icons and the pads
+	Rename the icons and the rt_arm_pads
 	'''
-	fk_icon1_name = rt_fk_root.replace('fk', 'fk_icon')
-	fk_icon_1.rename(fk_icon1_name)
+	rt_fk_icon1_name = rt_fk_root.replace('fk', 'rt_fk_icon')
+	rt_fk_icon_1.rename(rt_fk_icon1_name)
 
-	fk_icon2_name = fk_icon_1.replace('01', '02')
-	fk_icon_2.rename(fk_icon2_name)
+	rt_fk_icon2_name = rt_fk_icon_1.replace('01', '02')
+	rt_fk_icon_2.rename(rt_fk_icon2_name)
 
-	fk_pad1_name = fk_icon_1.replace('icon', 'local')
-	fk_pad_1.rename(fk_pad1_name)
+	rt_fk_pad1_name = rt_fk_icon_1.replace('icon', 'local')
+	rt_fk_pad_1.rename(rt_fk_pad1_name)
 
-	fk_pad2_name = fk_icon_2.replace('icon', 'local')
-	fk_pad_2.rename(fk_pad2_name) 
+	rt_fk_pad2_name = rt_fk_icon_2.replace('icon', 'local')
+	rt_fk_pad_2.rename(rt_fk_pad2_name) 
 
 
 
-	pm.parentConstraint(fk_icon_1, rt_fk_root)
-	pm.parentConstraint(fk_icon_2, fk_joint_2)
+	pm.parentConstraint(rt_fk_icon_1, rt_fk_root)
+	pm.parentConstraint(rt_fk_icon_2, rt_fk_joint_2)
 
 	'''
 	Create length attr
 	'''
-	pm.addAttr(fk_icon_1, ln='length', at='double', min=0, dv=1)
-	fk_icon_1.length.set(e=1, keyable=True)
-	pm.setDrivenKeyframe(fk_pad_2 + '.tx', currentDriver=fk_icon_1 + '.length')
-	fk_icon_1.length.set(0)
-	fk_pad_2.tx.set(0)
-	pm.setDrivenKeyframe(fk_pad_2 + '.tx', currentDriver=fk_icon_1 + '.length')
-	fk_icon_1.length.set(1)
-	pm.keyTangent(fk_pad_2, 'graphEditor1FromOutliner', itt='spline', animation='objects', ott='spline')
-	pm.mel.selectKey(fk_pad_2 + '.tx', add=1, k=1, f=1)
+	pm.addAttr(rt_fk_icon_1, ln='length', at='double', min=0, dv=1)
+	rt_fk_icon_1.length.set(e=1, keyable=True)
+	pm.setDrivenKeyframe(rt_fk_pad_2 + '.tx', currentDriver=rt_fk_icon_1 + '.length')
+	rt_fk_icon_1.length.set(0)
+	rt_fk_pad_2.tx.set(0)
+	pm.setDrivenKeyframe(rt_fk_pad_2 + '.tx', currentDriver=rt_fk_icon_1 + '.length')
+	rt_fk_icon_1.length.set(1)
+	pm.keyTangent(rt_fk_pad_2, 'graphEditor1FromOutliner', itt='spline', animation='objects', ott='spline')
+	pm.mel.selectKey(rt_fk_pad_2 + '.tx', add=1, k=1, f=1)
 	pm.setInfinity(poi='linear')
 
-	pm.addAttr(fk_icon_2, ln='length', at='double', min=0, dv=1)
-	fk_icon_2.length.set(e=1, keyable=True)
-	pm.setDrivenKeyframe(fk_joint_3 + '.tx', currentDriver=fk_icon_2 + '.length')
-	fk_icon_2.length.set(0)
-	fk_joint_3.tx.set(0)
-	pm.setDrivenKeyframe(fk_joint_3 + '.tx', currentDriver=fk_icon_2 + '.length')
-	fk_icon_2.length.set(1)
-	pm.keyTangent(fk_joint_3, 'graphEditor1FromOutliner', itt='spline', animation='objects', ott='spline')
-	pm.mel.selectKey(fk_joint_3 + '.tx', add=1, k=1, f=1)
+	pm.addAttr(rt_fk_icon_2, ln='length', at='double', min=0, dv=1)
+	rt_fk_icon_2.length.set(e=1, keyable=True)
+	pm.setDrivenKeyframe(rt_fk_joint_3 + '.tx', currentDriver=rt_fk_icon_2 + '.length')
+	rt_fk_icon_2.length.set(0)
+	rt_fk_joint_3.tx.set(0)
+	pm.setDrivenKeyframe(rt_fk_joint_3 + '.tx', currentDriver=rt_fk_icon_2 + '.length')
+	rt_fk_icon_2.length.set(1)
+	pm.keyTangent(rt_fk_joint_3, 'graphEditor1FromOutliner', itt='spline', animation='objects', ott='spline')
+	pm.mel.selectKey(rt_fk_joint_3 + '.tx', add=1, k=1, f=1)
 	pm.setInfinity(poi='linear')
 
 	'''
 	Create the ik
 	'''
-	pm.select(rt_ik_root, rt_arm_ik_joint_3)
-	arm_ikh = pm.ikHandle()[0]
+	pm.select(rt_arm_ik_root, rt_arm_ik_joint_3)
+	rt_arm_ikh = pm.ikHandle()[0]
 
 	ikh_name = rt_arm_root.replace('bind', 'ikh')
-	arm_ikh.rename(ikh_name)
+	rt_arm_ikh.rename(ikh_name)
 
 
 	'''
 	Create the elbow icon.
 	'''
 
-	elbow_icon = pm.curve(p=[(2, 0, -2), (4, 0, -2), (4, 0, -3), (6, 0, -1), (4, 0, 1), (4, 0, 0), (2, 0, 0), (2, 0, 2), (3, 0, 2), (1, 0, 4), (-1, 0, 2), (0, 0, 2), (0, 0, 0), (-2, 0, 0), (-2, 0, 1), (-4, 0, -1), (-2, 0, -3), (-2, 0, -2), (0, 0, -2), (0, 0, -4), (-1, 0, -4), (1, 0, -6), (3, 0, -4), (2, 0, -4), (2, 0, -2)], k=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24], d=1)
+	rt_elbow_icon = pm.curve(p=[(2, 0, -2), (4, 0, -2), (4, 0, -3), (6, 0, -1), (4, 0, 1), (4, 0, 0), (2, 0, 0), (2, 0, 2), (3, 0, 2), (1, 0, 4), (-1, 0, 2), (0, 0, 2), (0, 0, 0), (-2, 0, 0), (-2, 0, 1), (-4, 0, -1), (-2, 0, -3), (-2, 0, -2), (0, 0, -2), (0, 0, -4), (-1, 0, -4), (1, 0, -6), (3, 0, -4), (2, 0, -4), (2, 0, -2)], k=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24], d=1)
 	pm.select('curve1.cv[0]', 'curve1.cv[6]', 'curve1.cv[12]', 'curve1.cv[18]', 'curve1.cv[24]', r=1)
 	pm.cmds.move(0, -0.982783, 0, r=1, os=1, wd=1)
 	pm.select('curve1.cv[22]', r=1)
@@ -6691,428 +6669,428 @@ def rt_armSetup(*args):
 	pm.select('curve1.cv[2]', r=1)
 	pm.cmds.move(0, -0.483525, 0, r=1, os=1, wd=1)
 
-	pm.select(elbow_icon)
-	centerPivot(elbow_icon)
+	pm.select(rt_elbow_icon)
+	centerPivot(rt_elbow_icon)
 	freezeTransform()
 	deleteHistory()
 
 	'''
 	Move the elbow icon.
 	'''
-	temp_constraint = pm.pointConstraint(arm_joint_2, elbow_icon)
+	temp_constraint = pm.pointConstraint(rt_arm_joint_2, rt_elbow_icon)
 	pm.delete(temp_constraint)
-	freezeTransform(elbow_icon)
-	pm.xform(elbow_icon, t=[0,0,-10], scale=[.5, .5, .5], ro=[90, 0, 0])
-	freezeTransform(elbow_icon)
+	freezeTransform(rt_elbow_icon)
+	pm.xform(rt_elbow_icon, t=[0,0,-10], scale=[.5, .5, .5], ro=[90, 0, 0])
+	freezeTransform(rt_elbow_icon)
 
 	'''
 	Rename elbow icon
 	'''
-	elbow_icon_name = rt_arm_root.replace('arm_01_bind', 'elbow_icon')
-	elbow_icon.rename(elbow_icon_name)
+	rt_elbow_icon_name = rt_arm_root.replace('rt_arm_01_bind', 'rt_elbow_icon')
+	rt_elbow_icon.rename(rt_elbow_icon_name)
 
 	'''
 	Create the pole vector for the elbow
 	'''
-	pm.poleVectorConstraint(elbow_icon, arm_ikh)
+	pm.poleVectorConstraint(rt_elbow_icon, rt_arm_ikh)
 
 	'''
-	Parent the arm_ikh under the rt_arm_icon
+	Parent the rt_arm_ikh under the rt_arm_icon
 	'''
-	pm.parent(arm_ikh, rt_arm_icon)
+	pm.parent(rt_arm_ikh, rt_arm_icon)
 
 	'''
 	Icon visibility SDKs
 	'''
-	fk_pad_1.v.set(0)
-	pm.setDrivenKeyframe(fk_pad_1 + '.v', currentDriver= switch + '.IkFk')
-	pm.setDrivenKeyframe(rt_arm_icon + '.v', currentDriver= switch + '.IkFk')
-	pm.setDrivenKeyframe(elbow_icon + '.v', currentDriver= switch + '.IkFk')
-	switch.IkFk.set(1)
-	fk_pad_1.v.set(1)
+	rt_fk_pad_1.v.set(0)
+	pm.setDrivenKeyframe(rt_fk_pad_1 + '.v', currentDriver= rt_switch + '.IkFk')
+	pm.setDrivenKeyframe(rt_arm_icon + '.v', currentDriver= rt_switch + '.IkFk')
+	pm.setDrivenKeyframe(rt_elbow_icon + '.v', currentDriver= rt_switch + '.IkFk')
+	rt_switch.IkFk.set(1)
+	rt_fk_pad_1.v.set(1)
 	rt_arm_icon.v.set(0)
-	elbow_icon.v.set(0)
-	pm.setDrivenKeyframe(fk_pad_1 + '.v', currentDriver= switch + '.IkFk')
-	pm.setDrivenKeyframe(rt_arm_icon + '.v', currentDriver= switch + '.IkFk')
-	pm.setDrivenKeyframe(elbow_icon + '.v', currentDriver= switch + '.IkFk')
-	switch.IkFk.set(0.1)
-	fk_pad_1.v.set(1)
+	rt_elbow_icon.v.set(0)
+	pm.setDrivenKeyframe(rt_fk_pad_1 + '.v', currentDriver= rt_switch + '.IkFk')
+	pm.setDrivenKeyframe(rt_arm_icon + '.v', currentDriver= rt_switch + '.IkFk')
+	pm.setDrivenKeyframe(rt_elbow_icon + '.v', currentDriver= rt_switch + '.IkFk')
+	rt_switch.IkFk.set(0.1)
+	rt_fk_pad_1.v.set(1)
 	rt_arm_icon.v.set(1)
-	elbow_icon.v.set(1)
-	pm.setDrivenKeyframe(fk_pad_1 + '.v', currentDriver= switch + '.IkFk')
-	pm.setDrivenKeyframe(rt_arm_icon + '.v', currentDriver= switch + '.IkFk')
-	pm.setDrivenKeyframe(elbow_icon + '.v', currentDriver= switch + '.IkFk')
-	switch.IkFk.set(0.99)
-	fk_pad_1.v.set(1)
+	rt_elbow_icon.v.set(1)
+	pm.setDrivenKeyframe(rt_fk_pad_1 + '.v', currentDriver= rt_switch + '.IkFk')
+	pm.setDrivenKeyframe(rt_arm_icon + '.v', currentDriver= rt_switch + '.IkFk')
+	pm.setDrivenKeyframe(rt_elbow_icon + '.v', currentDriver= rt_switch + '.IkFk')
+	rt_switch.IkFk.set(0.99)
+	rt_fk_pad_1.v.set(1)
 	rt_arm_icon.v.set(1)
-	elbow_icon.v.set(1)
-	pm.setDrivenKeyframe(fk_pad_1 + '.v', currentDriver= switch + '.IkFk')
-	pm.setDrivenKeyframe(rt_arm_icon + '.v', currentDriver= switch + '.IkFk')
-	pm.setDrivenKeyframe(elbow_icon + '.v', currentDriver= switch + '.IkFk')
-	switch.IkFk.set(0)
+	rt_elbow_icon.v.set(1)
+	pm.setDrivenKeyframe(rt_fk_pad_1 + '.v', currentDriver= rt_switch + '.IkFk')
+	pm.setDrivenKeyframe(rt_arm_icon + '.v', currentDriver= rt_switch + '.IkFk')
+	pm.setDrivenKeyframe(rt_elbow_icon + '.v', currentDriver= rt_switch + '.IkFk')
+	rt_switch.IkFk.set(0)
 
-	upperArm_info = pm.shadingNode('curveInfo', asUtility=1)
+	rt_upperArm_info = pm.shadingNode('curveInfo', asUtility=1)
 	node_name = rt_arm_root.replace('bind', 'info')
-	upperArm_info.rename(node_name)
+	rt_upperArm_info.rename(node_name)
 
-	upperArm_div = pm.shadingNode('multiplyDivide', asUtility=1)
-	node_name = upperArm_info.replace('info', 'div')
-	upperArm_div.rename(node_name)
+	rt_upperArm_div = pm.shadingNode('multiplyDivide', asUtility=1)
+	node_name = rt_upperArm_info.replace('info', 'div')
+	rt_upperArm_div.rename(node_name)
 
-	pm.connectAttr(arm_curve_1 + '.worldSpace[0]', upperArm_info + '.inputCurve')
+	pm.connectAttr(rt_arm_curve_1 + '.worldSpace[0]', rt_upperArm_info + '.inputCurve')
 
-	pm.connectAttr(upperArm_info + '.arcLength', upperArm_div + '.input1X')
+	pm.connectAttr(rt_upperArm_info + '.arcLength', rt_upperArm_div + '.input1X')
 
-	upperArm_div.operation.set(2)
+	rt_upperArm_div.operation.set(2)
 
-	arcLen = upperArm_info.arcLength.get()
-	upperArm_div.input2X.set(arcLen)
+	rt_arcLen = rt_upperArm_info.arcLength.get()
+	rt_upperArm_div.input2X.set(rt_arcLen)
 
-	pm.connectAttr(upperArm_div + '.outputX', root_joint + '.sx')
-	pm.connectAttr(upperArm_div + '.outputX', splitJnt_4 + '.sx')
-	pm.connectAttr(upperArm_div + '.outputX', splitJnt_3 + '.sx')
-	pm.connectAttr(upperArm_div + '.outputX', splitJnt_2 + '.sx')
-	pm.connectAttr(upperArm_div + '.outputX', splitJnt_1 + '.sx')
-	pm.connectAttr(upperArm_div + '.outputX', mid_joint + '.sx')
+	pm.connectAttr(rt_upperArm_div + '.outputX', rt_root_joint + '.sx')
+	pm.connectAttr(rt_upperArm_div + '.outputX', rt_splitJnt_4 + '.sx')
+	pm.connectAttr(rt_upperArm_div + '.outputX', rt_splitJnt_3 + '.sx')
+	pm.connectAttr(rt_upperArm_div + '.outputX', rt_splitJnt_2 + '.sx')
+	pm.connectAttr(rt_upperArm_div + '.outputX', rt_splitJnt_1 + '.sx')
+	pm.connectAttr(rt_upperArm_div + '.outputX', rt_mid_joint + '.sx')
 
 	'''==========================================================================================================================='''
 
 	jnt_name = rt_arm_root.replace('bind', 'twist')
 	rt_arm_root.rename(jnt_name)
 
-	jnt_name = root_joint.replace('twist', 'bind')
-	root_joint.rename(jnt_name)
+	jnt_name = rt_root_joint.replace('twist', 'bind')
+	rt_root_joint.rename(jnt_name)
 
 	jnt_name = rt_arm_root.replace('t1', 't')
 	rt_arm_root.rename(jnt_name)
 
 	jnt_name = rt_arm_root.replace('01', '02')
-	arm_joint_2.rename(jnt_name)
+	rt_arm_joint_2.rename(jnt_name)
 
 	jnt_name = rt_arm_root.replace('01', '03')
-	arm_joint_3.rename(jnt_name)
+	rt_arm_joint_3.rename(jnt_name)
 
-	jnt_name = root_joint.replace('01', '02')
-	splitJnt_4.rename(jnt_name)
+	jnt_name = rt_root_joint.replace('01', '02')
+	rt_splitJnt_4.rename(jnt_name)
 
-	jnt_name = root_joint.replace('01', '03')
-	splitJnt_3.rename(jnt_name)
+	jnt_name = rt_root_joint.replace('01', '03')
+	rt_splitJnt_3.rename(jnt_name)
 
-	jnt_name = root_joint.replace('01', '04')
-	splitJnt_2.rename(jnt_name)
+	jnt_name = rt_root_joint.replace('01', '04')
+	rt_splitJnt_2.rename(jnt_name)
 
-	jnt_name = root_joint.replace('01', '05')
-	splitJnt_1.rename(jnt_name)
+	jnt_name = rt_root_joint.replace('01', '05')
+	rt_splitJnt_1.rename(jnt_name)
 
-	jnt_name = root_joint.replace('01', '06')
-	mid_joint.rename(jnt_name)
+	jnt_name = rt_root_joint.replace('01', '06')
+	rt_mid_joint.rename(jnt_name)
 
-	jnt_name = mid_joint.replace('06', '07')
-	joint_7.rename(jnt_name)
+	jnt_name = rt_mid_joint.replace('06', '07')
+	rt_joint_7.rename(jnt_name)
 
-	jnt_name = mid_joint.replace('06', '08')
-	joint_8.rename(jnt_name)
+	jnt_name = rt_mid_joint.replace('06', '08')
+	rt_joint_8.rename(jnt_name)
 
-	jnt_name = mid_joint.replace('06', '09')
-	joint_9.rename(jnt_name)
+	jnt_name = rt_mid_joint.replace('06', '09')
+	rt_joint_9.rename(jnt_name)
 
-	jnt_name = mid_joint.replace('06', '10')
-	joint_10.rename(jnt_name)
+	jnt_name = rt_mid_joint.replace('06', '10')
+	rt_joint_10.rename(jnt_name)
 
-	jnt_name = mid_joint.replace('06', '11')
-	joint_11.rename(jnt_name)
+	jnt_name = rt_mid_joint.replace('06', '11')
+	rt_joint_11.rename(jnt_name)
 
-	jnt_name = mid_joint.replace('06', '12')
+	jnt_name = rt_mid_joint.replace('06', '12')
 	rt_joint_12.rename(jnt_name)
 
 	'''==========================================================================================================================='''
 
-	foreArm_info = pm.shadingNode('curveInfo', asUtility=1)
-	node_name = upperArm_info.replace('01', '02')
-	foreArm_info.rename(node_name)
+	rt_foreArm_info = pm.shadingNode('curveInfo', asUtility=1)
+	node_name = rt_upperArm_info.replace('01', '02')
+	rt_foreArm_info.rename(node_name)
 
-	foreArm_div = pm.shadingNode('multiplyDivide', asUtility=1)
-	node_name = upperArm_div.replace('01', '02')
-	foreArm_div.rename(node_name)
+	rt_foreArm_div = pm.shadingNode('multiplyDivide', asUtility=1)
+	node_name = rt_upperArm_div.replace('01', '02')
+	rt_foreArm_div.rename(node_name)
 
-	pm.connectAttr(arm_curve_2 + '.worldSpace[0]', foreArm_info + '.inputCurve')
+	pm.connectAttr(rt_arm_curve_2 + '.worldSpace[0]', rt_foreArm_info + '.inputCurve')
 
-	pm.connectAttr(foreArm_info + '.arcLength', foreArm_div + '.input1X')
+	pm.connectAttr(rt_foreArm_info + '.arcLength', rt_foreArm_div + '.input1X')
 
-	foreArm_div.operation.set(2)
+	rt_foreArm_div.operation.set(2)
 
-	arcLen = foreArm_info.arcLength.get()
-	foreArm_div.input2X.set(arcLen)
+	rt_arcLen = rt_foreArm_info.arcLength.get()
+	rt_foreArm_div.input2X.set(rt_arcLen)
 
-	pm.connectAttr(foreArm_div + '.outputX', joint_7 + '.sx')
-	pm.connectAttr(foreArm_div + '.outputX', joint_8 + '.sx')
-	pm.connectAttr(foreArm_div + '.outputX', joint_9 + '.sx')
-	pm.connectAttr(foreArm_div + '.outputX', joint_10 + '.sx')
-	pm.connectAttr(foreArm_div + '.outputX', joint_11 + '.sx')
+	pm.connectAttr(rt_foreArm_div + '.outputX', rt_joint_7 + '.sx')
+	pm.connectAttr(rt_foreArm_div + '.outputX', rt_joint_8 + '.sx')
+	pm.connectAttr(rt_foreArm_div + '.outputX', rt_joint_9 + '.sx')
+	pm.connectAttr(rt_foreArm_div + '.outputX', rt_joint_10 + '.sx')
+	pm.connectAttr(rt_foreArm_div + '.outputX', rt_joint_11 + '.sx')
 	
 	'''==========================================================================================================================='''
-	loc_1 = pm.spaceLocator(p=(0, 0, 0))
+	rt_loc_1 = pm.spaceLocator(p=(0, 0, 0))
 
-	loc_2 = pm.spaceLocator(p=(0, 0, 0))
+	rt_loc_2 = pm.spaceLocator(p=(0, 0, 0))
 
-	temp_constraint = pm.parentConstraint(rt_arm_root, loc_1, mo=0)
+	temp_constraint = pm.parentConstraint(rt_arm_root, rt_loc_1, mo=0)
 	pm.delete(temp_constraint)
-	pm.select(loc_1)
-	freezeTransform(loc_1)
+	pm.select(rt_loc_1)
+	freezeTransform(rt_loc_1)
 
-	loc_name = root_joint.replace('01_bind', 'start_loc')
-	loc_1.rename(loc_name)
+	loc_name = rt_root_joint.replace('01_bind', 'start_rt_loc')
+	rt_loc_1.rename(loc_name)
 
-	temp_constraint = pm.parentConstraint(arm_joint_3, loc_2, mo=0)
+	temp_constraint = pm.parentConstraint(rt_arm_joint_3, rt_loc_2, mo=0)
 	pm.delete(temp_constraint)
-	pm.select(loc_2)
-	freezeTransform(loc_2)
+	pm.select(rt_loc_2)
+	freezeTransform(rt_loc_2)
 
-	loc_name = loc_1.replace('start', 'end')
-	loc_2.rename(loc_name)
+	loc_name = rt_loc_1.replace('start', 'end')
+	rt_loc_2.rename(loc_name)
 
-	arm_dist = pm.shadingNode('distanceDimShape', asUtility=1)
+	rt_arm_dist = pm.shadingNode('distanceDimShape', asUtility=1)
 
-	pm.select(arm_dist)
+	pm.select(rt_arm_dist)
 	selection = pm.ls(sl=True, s=False)
 	shape = selection[0]
 	pm.pickWalk(d='up')
-	transform = pm.ls(sl=True)[0]
+	rt_transform = pm.ls(sl=True)[0]
 
-	node_name = loc_2.replace('end_loc', 'dist')
+	node_name = rt_loc_2.replace('end_rt_loc', 'dist')
 	# print node_name
-	transform.rename(node_name)
+	rt_transform.rename(node_name)
 
-	pm.connectAttr(loc_1 + '.worldPosition', arm_dist + '.startPoint')
-	pm.connectAttr(loc_2 + '.worldPosition', arm_dist + '.endPoint')
+	pm.connectAttr(rt_loc_1 + '.worldPosition', rt_arm_dist + '.startPoint')
+	pm.connectAttr(rt_loc_2 + '.worldPosition', rt_arm_dist + '.endPoint')
 
-	pm.parentConstraint(rt_arm_icon, loc_2)
+	pm.parentConstraint(rt_arm_icon, rt_loc_2)
 
-	upperArm_len = pm.getAttr(rt_arm_ik_joint_2 + '.tx')
+	rt_upperArm_len = pm.getAttr(rt_arm_ik_joint_2 + '.tx')
 
-	foreArm_len = pm.getAttr(rt_arm_ik_joint_3 + '.tx')
+	rt_foreArm_len = pm.getAttr(rt_arm_ik_joint_3 + '.tx')
 
-	sumLen = upperArm_len + foreArm_len
+	rt_sumLen = rt_upperArm_len + rt_foreArm_len
 
-	pm.setDrivenKeyframe(rt_arm_ik_joint_2 + '.tx', currentDriver=arm_dist + '.distance', value=upperArm_len, driverValue=sumLen)
+	pm.setDrivenKeyframe(rt_arm_ik_joint_2 + '.tx', currentDriver=rt_arm_dist + '.distance', value=rt_upperArm_len, driverValue=rt_sumLen)
 
-	pm.setDrivenKeyframe(rt_arm_ik_joint_2 + '.tx',  currentDriver=arm_dist + '.distance', value=(upperArm_len*2), driverValue=(sumLen*2))
+	pm.setDrivenKeyframe(rt_arm_ik_joint_2 + '.tx',  currentDriver=rt_arm_dist + '.distance', value=(rt_upperArm_len*2), driverValue=(rt_sumLen*2))
 
-	pm.setDrivenKeyframe(rt_arm_ik_joint_3 + '.tx', currentDriver=arm_dist + '.distance', value=foreArm_len, driverValue=sumLen)
+	pm.setDrivenKeyframe(rt_arm_ik_joint_3 + '.tx', currentDriver=rt_arm_dist + '.distance', value=rt_foreArm_len, driverValue=rt_sumLen)
 
-	pm.setDrivenKeyframe(rt_arm_ik_joint_3 + '.tx', currentDriver=arm_dist + '.distance', value=(foreArm_len*2), driverValue=(sumLen*2))
+	pm.setDrivenKeyframe(rt_arm_ik_joint_3 + '.tx', currentDriver=rt_arm_dist + '.distance', value=(rt_foreArm_len*2), driverValue=(rt_sumLen*2))
 
 	pm.keyTangent(rt_arm_ik_joint_2, rt_arm_ik_joint_3,'graphEditor1FromOutliner', itt='spline', animation='objects', ott='spline')
 	pm.setInfinity(rt_arm_ik_joint_2, rt_arm_ik_joint_3, poi='linear')
 
-	loc_3 = pm.spaceLocator(p=(0, 0, 0))
-	temp_constraint = pm.parentConstraint(root_joint, loc_3, mo=0)
+	rt_loc_3 = pm.spaceLocator(p=(0, 0, 0))
+	temp_constraint = pm.parentConstraint(rt_root_joint, rt_loc_3, mo=0)
 	pm.delete(temp_constraint)
-	freezeTransform(loc_3)
+	freezeTransform(rt_loc_3)
 
-	node_name = loc_1.replace('start_loc', '01_snap_loc')
-	loc_3.rename(node_name)
+	node_name = rt_loc_1.replace('start_rt_loc', '01_snap_rt_loc')
+	rt_loc_3.rename(node_name)
 
-	loc_4 = pm.spaceLocator(p=(0, 0, 0))
-	temp_constraint = pm.parentConstraint(elbow_icon, loc_4, mo=0)
+	rt_loc_4 = pm.spaceLocator(p=(0, 0, 0))
+	temp_constraint = pm.parentConstraint(rt_elbow_icon, rt_loc_4, mo=0)
 	pm.delete(temp_constraint)
-	freezeTransform(loc_4)
+	freezeTransform(rt_loc_4)
 
-	node_name = loc_3.replace('01', '02')
-	loc_4.rename(node_name)
+	node_name = rt_loc_3.replace('01', '02')
+	rt_loc_4.rename(node_name)
 
 
-	loc_5 = pm.spaceLocator(p=(0, 0, 0))
-	temp_constraint = pm.parentConstraint(arm_joint_3, loc_5, mo=0)
+	rt_loc_5 = pm.spaceLocator(p=(0, 0, 0))
+	temp_constraint = pm.parentConstraint(rt_arm_joint_3, rt_loc_5, mo=0)
 	pm.delete(temp_constraint)
-	freezeTransform(loc_5)
+	freezeTransform(rt_loc_5)
 
-	node_name = loc_4.replace('02', '03')
-	loc_5.rename(node_name)
+	node_name = rt_loc_4.replace('02', '03')
+	rt_loc_5.rename(node_name)
 
-	snap_dist_1 = pm.shadingNode('distanceDimShape', asUtility=1)
+	rt_snapDist_1 = pm.shadingNode('distanceDimShape', asUtility=1)
 
-	pm.select(snap_dist_1)
+	pm.select(rt_snapDist_1)
 	selection = pm.ls(sl=True, s=False)
 	shape_1 = selection[0]
 	pm.pickWalk(d='up')
-	transform_1 = pm.ls(sl=True)[0]
-	temp_constraint = pm.pointConstraint(rt_arm_root, transform_1, mo=0)
+	rt_transform_1 = pm.ls(sl=True)[0]
+	temp_constraint = pm.pointConstraint(rt_arm_root, rt_transform_1, mo=0)
 	pm.delete(temp_constraint)
 
 
-	node_name = loc_2.replace('end_loc', '01_snap_dist')
-	transform_1.rename(node_name)
+	node_name = rt_loc_2.replace('end_rt_loc', '01_rt_snapDist')
+	rt_transform_1.rename(node_name)
 
-	pm.connectAttr(loc_3 + '.worldPosition', snap_dist_1 + '.startPoint')
+	pm.connectAttr(rt_loc_3 + '.worldPosition', rt_snapDist_1 + '.startPoint')
 
-	pm.connectAttr(loc_4 + '.worldPosition', snap_dist_1 + '.endPoint')
+	pm.connectAttr(rt_loc_4 + '.worldPosition', rt_snapDist_1 + '.endPoint')
 
 
-	snap_dist_2 = pm.shadingNode('distanceDimShape', asUtility=1)
+	rt_snapDist_2 = pm.shadingNode('distanceDimShape', asUtility=1)
 
-	pm.select(snap_dist_2)
+	pm.select(rt_snapDist_2)
 	selection = pm.ls(sl=True, s=False)
 	shape_2 = selection[0]
 	pm.pickWalk(d='up')
-	transform_2 = pm.ls(sl=True)[0]
-	temp_constraint = pm.pointConstraint(arm_joint_3, transform_2, mo=0)
+	rt_transform_2 = pm.ls(sl=True)[0]
+	temp_constraint = pm.pointConstraint(rt_arm_joint_3, rt_transform_2, mo=0)
 	pm.delete(temp_constraint)
 
-	node_name = transform_1.replace('01','02')
-	transform_2.rename(node_name)
+	node_name = rt_transform_1.replace('01','02')
+	rt_transform_2.rename(node_name)
 
-	pm.connectAttr(loc_4 + '.worldPosition', snap_dist_2 + '.startPoint')
+	pm.connectAttr(rt_loc_4 + '.worldPosition', rt_snapDist_2 + '.startPoint')
 
-	pm.connectAttr(loc_5 + '.worldPosition', snap_dist_2 + '.endPoint')
+	pm.connectAttr(rt_loc_5 + '.worldPosition', rt_snapDist_2 + '.endPoint')
 
-	pm.parent(loc_4, elbow_icon)
+	pm.parent(rt_loc_4, rt_elbow_icon)
 
-	pm.parent(loc_5, rt_arm_icon)
+	pm.parent(rt_loc_5, rt_arm_icon)
 
-	pm.addAttr(elbow_icon, ln='elbowSnap', at='double', min=0, max=1, dv=0)
-	elbow_icon.elbowSnap.set(e=1, keyable=True)
+	pm.addAttr(rt_elbow_icon, ln='elbowSnap', at='double', min=0, max=1, dv=0)
+	rt_elbow_icon.elbowSnap.set(e=1, keyable=True)
 
-	upperArm_stretch = pm.shadingNode('blendColors', asUtility=1)
-	node_name = upperArm_info.replace('info', 'stretch_blend_01')
-	upperArm_stretch.rename(node_name)
+	rt_upperArm_stretch = pm.shadingNode('blendColors', asUtility=1)
+	node_name = rt_upperArm_info.replace('info', 'stretch_blend_01')
+	rt_upperArm_stretch.rename(node_name)
 
-	pm.connectAttr(elbow_icon + '.elbowSnap', upperArm_stretch + '.blender')
-	pm.connectAttr(snap_dist_1 + '.distance', upperArm_stretch + '.color1R')
-	pm.connectAttr(rt_arm_ik_joint_2 + '_translateX.output', upperArm_stretch + '.color2R')
+	pm.connectAttr(rt_elbow_icon + '.elbowSnap', rt_upperArm_stretch + '.blender')
+	pm.connectAttr(rt_snapDist_1 + '.distance', rt_upperArm_stretch + '.color1R')
+	pm.connectAttr(rt_arm_ik_joint_2 + '_translateX.output', rt_upperArm_stretch + '.color2R')
 	pm.disconnectAttr(rt_arm_ik_joint_2 + '_translateX.output', rt_arm_ik_joint_2 + '.tx')
-	pm.connectAttr(upperArm_stretch + '.outputR', rt_arm_ik_joint_2 + '.tx')
+	pm.connectAttr(rt_upperArm_stretch + '.outputR', rt_arm_ik_joint_2 + '.tx')
 
-	foreArm_stretch = pm.shadingNode('blendColors', asUtility=1)
-	node_name = upperArm_stretch.replace('01', '02')
-	foreArm_stretch.rename(node_name)
+	rt_foreArm_stretch = pm.shadingNode('blendColors', asUtility=1)
+	node_name = rt_upperArm_stretch.replace('01', '02')
+	rt_foreArm_stretch.rename(node_name)
 
-	pm.connectAttr(elbow_icon + '.elbowSnap', foreArm_stretch + '.blender')
-	pm.connectAttr(snap_dist_2 + '.distance', foreArm_stretch + '.color1R')
-	pm.connectAttr(rt_arm_ik_joint_3 + '_translateX.output', foreArm_stretch + '.color2R')
+	pm.connectAttr(rt_elbow_icon + '.elbowSnap', rt_foreArm_stretch + '.blender')
+	pm.connectAttr(rt_snapDist_2 + '.distance', rt_foreArm_stretch + '.color1R')
+	pm.connectAttr(rt_arm_ik_joint_3 + '_translateX.output', rt_foreArm_stretch + '.color2R')
 	pm.disconnectAttr(rt_arm_ik_joint_3 + '_translateX.output', rt_arm_ik_joint_3 + '.tx')
-	pm.connectAttr(foreArm_stretch + '.outputR', rt_arm_ik_joint_3 + '.tx')
+	pm.connectAttr(rt_foreArm_stretch + '.outputR', rt_arm_ik_joint_3 + '.tx')
 
-	hybrid_fk_icons = pm.duplicate(fk_pad_2)
-	pm.parent(hybrid_fk_icons, w=1)
+	rt_hybrid_fk_icons = pm.duplicate(rt_fk_pad_2)
+	pm.parent(rt_hybrid_fk_icons, w=1)
 
-	pm.select(hybrid_fk_icons)
-	hIcons = pm.ls(sl=True, dag=True)
-	hPad = hIcons[0]
-	hIcon = hIcons[1]
-	# print hPad
-	# print hIcon
+	pm.select(rt_hybrid_fk_icons)
+	rt_hIcons = pm.ls(sl=True, dag=True)
+	rt_hPad = rt_hIcons[0]
+	rt_hIcon = rt_hIcons[1]
+	# print rt_hPad
+	# print rt_hIcon
 
-	pad_name = hJ_1.replace('hybridFk', 'hybridFk_local')
-	hPad.rename(pad_name)
+	pad_name = rt_hJ_1.replace('hybridFk', 'hybridFk_local')
+	rt_hPad.rename(pad_name)
 
-	icon_name = hPad.replace('local', 'icon')
-	hIcon.rename(icon_name)
+	icon_name = rt_hPad.replace('local', 'icon')
+	rt_hIcon.rename(icon_name)
 
-	temp_constraint = pm.pointConstraint(elbow_icon, hJ_1, mo=0)
+	temp_constraint = pm.pointConstraint(rt_elbow_icon, rt_hJ_1, mo=0)
 	pm.delete(temp_constraint)
-	freezeTransform(hJ_1)
+	freezeTransform(rt_hJ_1)
 
-	temp_constraint = pm.pointConstraint(elbow_icon, hPad, mo=0)
+	temp_constraint = pm.pointConstraint(rt_elbow_icon, rt_hPad, mo=0)
 	pm.delete(temp_constraint)
 
-	pm.orientConstraint(hIcon, hJ_1)
+	pm.orientConstraint(rt_hIcon, rt_hJ_1)
 
-	ik_cons_grp = pm.group(empty=True)
-	temp_constraint = pm.parentConstraint(arm_joint_3, ik_cons_grp)
+	rt_ik_cons_grp = pm.group(empty=True)
+	temp_constraint = pm.parentConstraint(rt_arm_joint_3, rt_ik_cons_grp)
 	pm.delete(temp_constraint)
-	freezeTransform(ik_cons_grp)
-	pm.parent(arm_ikh, loc_5, ik_cons_grp)
-	grp_name = twist_grp.replace('twist', 'cons')
-	ik_cons_grp.rename(grp_name)
-	constraint_1 = pm.parentConstraint(rt_arm_icon, ik_cons_grp, mo=0)
+	freezeTransform(rt_ik_cons_grp)
+	pm.parent(rt_arm_ikh, rt_loc_5, rt_ik_cons_grp)
+	grp_name = rt_twist_grp.replace('twist', 'cons')
+	rt_ik_cons_grp.rename(grp_name)
+	constraint_1 = pm.parentConstraint(rt_arm_icon, rt_ik_cons_grp, mo=0)
 	const_1_targets = constraint_1.getWeightAliasList()[0]
 	# print const_1_targets
-	constraint_2 = pm.parentConstraint(hJ_2, ik_cons_grp, mo=0)
+	constraint_2 = pm.parentConstraint(rt_hJ_2, rt_ik_cons_grp, mo=0)
 	const_2_targets = constraint_2.getWeightAliasList()[1]
 	# print const_2_targets
-	pm.parent(hPad, elbow_icon)
+	pm.parent(rt_hPad, rt_elbow_icon)
 
-	hJpad = pm.group(empty=True)
-	pad_name = hJ_1.replace('02_hybridFk', '00_hybrdFk_pad')
-	hJpad.rename(pad_name)
+	rt_hJ_pad = pm.group(empty=True)
+	pad_name = rt_hJ_1.replace('02_hybridFk', '00_hybrdFk_rt_arm_pad')
+	rt_hJ_pad.rename(pad_name)
 
-	temp_constraint = pm.parentConstraint(hJ_1, hJpad)
+	temp_constraint = pm.parentConstraint(rt_hJ_1, rt_hJ_pad)
 	pm.delete(temp_constraint)
-	freezeTransform(hJpad)
+	freezeTransform(rt_hJ_pad)
 
-	pm.parent(hJ_1, hJpad)
+	pm.parent(rt_hJ_1, rt_hJ_pad)
 
-	pm.parentConstraint(hIcon, hJpad, mo=1)
+	pm.parentConstraint(rt_hIcon, rt_hJ_pad, mo=1)
 
-	pm.addAttr(elbow_icon, ln='FK_foreArmBlend', at='double', min=0, max=1, dv=0)
-	elbow_icon.FK_foreArmBlend.set(e=1, keyable=True)
+	pm.addAttr(rt_elbow_icon, ln='FK_rt_foreArmBlend', at='double', min=0, max=1, dv=0)
+	rt_elbow_icon.FK_rt_foreArmBlend.set(e=1, keyable=True)
 
-	elbow_icon.FK_foreArmBlend.set(1)
+	rt_elbow_icon.FK_rt_foreArmBlend.set(1)
 	const_1_targets.set(0)
-	pm.setDrivenKeyframe(const_1_targets, const_2_targets, currentDriver=elbow_icon + '.FK_foreArmBlend')
-	pm.setDrivenKeyframe(hIcon + '.v',  currentDriver=elbow_icon + '.FK_foreArmBlend')
-	elbow_icon.FK_foreArmBlend.set(0)
+	pm.setDrivenKeyframe(const_1_targets, const_2_targets, currentDriver=rt_elbow_icon + '.FK_rt_foreArmBlend')
+	pm.setDrivenKeyframe(rt_hIcon + '.v',  currentDriver=rt_elbow_icon + '.FK_rt_foreArmBlend')
+	rt_elbow_icon.FK_rt_foreArmBlend.set(0)
 	const_1_targets.set(1)
 	const_2_targets.set(0)
-	hIcon.v.set(0)
-	pm.setDrivenKeyframe(const_1_targets, const_2_targets, currentDriver=elbow_icon + '.FK_foreArmBlend')
-	pm.setDrivenKeyframe(hIcon + '.v',  currentDriver=elbow_icon + '.FK_foreArmBlend')
-	pm.setDrivenKeyframe(hJ_2 + '.tx', currentDriver=hIcon + '.length')
-	hIcon.length.set(0)
-	hJ_2.tx.set(0)
-	length_sdk = pm.setDrivenKeyframe(hJ_2 + '.tx', currentDriver=hIcon + '.length')
-	pm.keyTangent(hJ_2, itt='clamped', ott='clamped')
-	pm.setInfinity(hJ_2, poi='linear')
-	hIcon.length.set(1)
+	rt_hIcon.v.set(0)
+	pm.setDrivenKeyframe(const_1_targets, const_2_targets, currentDriver=rt_elbow_icon + '.FK_rt_foreArmBlend')
+	pm.setDrivenKeyframe(rt_hIcon + '.v',  currentDriver=rt_elbow_icon + '.FK_rt_foreArmBlend')
+	pm.setDrivenKeyframe(rt_hJ_2 + '.tx', currentDriver=rt_hIcon + '.length')
+	rt_hIcon.length.set(0)
+	rt_hJ_2.tx.set(0)
+	length_sdk = pm.setDrivenKeyframe(rt_hJ_2 + '.tx', currentDriver=rt_hIcon + '.length')
+	pm.keyTangent(rt_hJ_2, itt='clamped', ott='clamped')
+	pm.setInfinity(rt_hJ_2, poi='linear')
+	rt_hIcon.length.set(1)
 
 	'''==========================================================================================================================='''
-	transform.v.set(0)
-	transform_1.v.set(0)
-	transform_2.v.set(0)
+	rt_transform.v.set(0)
+	rt_transform_1.v.set(0)
+	rt_transform_2.v.set(0)
 
-	dnt_grp = pm.group(loc_1,loc_2, loc_3, arm_dist, twist_grp, rt_arm_root, rt_ik_root, rt_fk_root, snap_dist_1, snap_dist_2, ik_cons_grp, hJpad)
-	grp_name = twist_grp.replace('twist_grp', 'DO____NOT____TOUCH')
-	dnt_grp.rename(grp_name)
+	rt_arm_dnt_grp = pm.group(rt_loc_1,rt_loc_2, rt_loc_3, rt_arm_dist, rt_twist_grp, rt_arm_root, rt_arm_ik_root, rt_fk_root, rt_snapDist_1, rt_snapDist_2, rt_ik_cons_grp, rt_hJ_pad)
+	grp_name = rt_twist_grp.replace('twist_grp', 'DO____NOT____TOUCH')
+	rt_arm_dnt_grp.rename(grp_name)
 
-	pad = pm.group(empty=True)
-	temp_constraint = pm.parentConstraint(rt_arm_root, pad, mo=0)
+	rt_arm_pad = pm.group(empty=True)
+	temp_constraint = pm.parentConstraint(rt_arm_root, rt_arm_pad, mo=0)
 	pm.delete(temp_constraint)
-	freezeTransform(pad)
+	freezeTransform(rt_arm_pad)
 
-	pm.parent(root_joint, joint_7, pad)
-	pad_name = root_joint.replace('01_bind', '00_pad')
-	pad.rename(pad_name)
+	pm.parent(rt_root_joint, rt_joint_7, rt_arm_pad)
+	pad_name = rt_root_joint.replace('01_bind', '00_rt_arm_pad')
+	rt_arm_pad.rename(pad_name)
 
-	ik_grp = pm.group(empty=True)
-	temp_constraint = pm.parentConstraint(rt_arm_root, ik_grp, mo=0)
+	rt_ik_grp = pm.group(empty=True)
+	temp_constraint = pm.parentConstraint(rt_arm_root, rt_ik_grp, mo=0)
 	pm.delete(temp_constraint)
-	freezeTransform(ik_grp)
-	pm.parent(ik_grp, dnt_grp)
-	pm.parent(rt_ik_root, loc_1, loc_2, ik_grp)
+	freezeTransform(rt_ik_grp)
+	pm.parent(rt_ik_grp, rt_arm_dnt_grp)
+	pm.parent(rt_arm_ik_root, rt_loc_1, rt_loc_2, rt_ik_grp)
 
-	grp_name = rt_ik_root.replace('01_ik', '00_ik_cons_grp')
-	ik_grp.rename(grp_name)
+	grp_name = rt_arm_ik_root.replace('01_ik', '00_rt_ik_cons_grp')
+	rt_ik_grp.rename(grp_name)
 
-	twist_jnt_grp = pm.group(empty=True)
-	temp_constraint = pm.parentConstraint(rt_arm_root, twist_jnt_grp, mo=0)
+	rt_twist_jnt_grp = pm.group(empty=True)
+	temp_constraint = pm.parentConstraint(rt_arm_root, rt_twist_jnt_grp, mo=0)
 	pm.delete(temp_constraint)
-	freezeTransform(twist_jnt_grp)
-	pm.parent(twist_jnt_grp, dnt_grp)
-	pm.parent(rt_arm_root, twist_jnt_grp)	
+	freezeTransform(rt_twist_jnt_grp)
+	pm.parent(rt_twist_jnt_grp, rt_arm_dnt_grp)
+	pm.parent(rt_arm_root, rt_twist_jnt_grp)	
 
-	grp_name = ik_grp.replace('ik', 'twist')
-	twist_jnt_grp.rename(grp_name)
+	grp_name = rt_ik_grp.replace('ik', 'twist')
+	rt_twist_jnt_grp.rename(grp_name)
 
 
-	arm_global = pm.group(empty=True)
+	rt_arm_global = pm.group(empty=True)
 
-	temp_constraint = pm.parentConstraint(rt_arm_root, arm_global)
+	temp_constraint = pm.parentConstraint(rt_arm_root, rt_arm_global)
 	pm.delete(temp_constraint)
-	freezeTransform(arm_global)
-	pm.parent(rt_arm_icon, elbow_icon, pad, switch, fk_pad_1, dnt_grp, arm_global)
-	grp_name = pad.replace('00_pad', 'global_grp')
-	arm_global.rename(grp_name)
+	freezeTransform(rt_arm_global)
+	pm.parent(rt_arm_icon, rt_elbow_icon, rt_arm_pad, rt_switch, rt_fk_pad_1, rt_arm_dnt_grp, rt_arm_global)
+	grp_name = rt_arm_pad.replace('00_rt_arm_pad', 'global_grp')
+	rt_arm_global.rename(grp_name)
 
 	if pm.objExists('*moveAll'):
 		pm.select('*moveAll')
@@ -7166,7 +7144,7 @@ def rt_armSetup(*args):
 		pm.select('*joint_grp')
 		jnt_grp = pm.ls(sl=True)[0]
 		# print jnt_grp
-		# pm.parent(pad, jnt_grp)
+		# pm.parent(rt_arm_pad, jnt_grp)
 		pm.scaleConstraint(moveAll, jnt_grp)
 
 	else:
@@ -7174,32 +7152,32 @@ def rt_armSetup(*args):
 		grp_name = rt_arm_root.replace('rt_arm_01_twist', 'joint_grp')
 		jnt_grp.rename(grp_name)
 		# print jnt_grp
-		# pm.parent(pad, jnt_grp)
+		# pm.parent(rt_arm_pad, jnt_grp)
 		pm.scaleConstraint(moveAll, jnt_grp)
 
 	if pm.objExists('*icon_grp'):
 		pm.select('*icon_grp')
 		icon_grp = pm.ls(sl=True)[0] 
 		pm.parent(moveAll, '*icon_grp')
-		# pm.parent(rt_arm_icon, fk_pad_1, elbow_icon, moveAll)
+		# pm.parent(rt_arm_icon, rt_fk_pad_1, rt_elbow_icon, moveAll)
 
 	else:
 		icon_grp = pm.group(empty=True)
 		pm.parent(moveAll, icon_grp)
 		group_name = jnt_grp.replace('joint', 'icon')
 		icon_grp.rename(group_name)
-		# pm.parent(rt_arm_icon, fk_pad_1, elbow_icon, moveAll)
+		# pm.parent(rt_arm_icon, rt_fk_pad_1, rt_elbow_icon, moveAll)
 	'''
 	Create the Gimbal icon
 	'''
-	gimbal_icon = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=1, tol=0.01, nr=(1, 0, 0))
+	rt_gimbal_icon = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=1, tol=0.01, nr=(1, 0, 0))
 
-	gimbal_icon_2 = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=0.2, tol=0.01, nr=(1, 0, 0))[0]
+	rt_gimbal_icon_2 = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=0.2, tol=0.01, nr=(1, 0, 0))[0]
 
-	gimbal_icon_2.ty.set(1)
-	freezeTransform(gimbal_icon_2)
+	rt_gimbal_icon_2.ty.set(1)
+	freezeTransform(rt_gimbal_icon_2)
 
-	pm.select(gimbal_icon, gimbal_icon_2)
+	pm.select(rt_gimbal_icon, rt_gimbal_icon_2)
 
 	selection = pm.ls(sl=True, dag=True, s=True)
 	shape_1 = selection[0]
@@ -7207,57 +7185,57 @@ def rt_armSetup(*args):
 	# print shape_1
 	# print shape_2
 
-	core_icon = pm.group(empty=True)
+	rt_core_icon = pm.group(empty=True)
 
-	pm.parent(shape_1, shape_2, core_icon, r=True, s=True)
+	pm.parent(shape_1, shape_2, rt_core_icon, r=True, s=True)
 
-	pm.delete(gimbal_icon, gimbal_icon_2)
+	pm.delete(rt_gimbal_icon, rt_gimbal_icon_2)
 
-	icon_name = rt_arm_icon.replace('arm', 'arm_gimbal_core')
-	core_icon.rename(icon_name)
+	icon_name = rt_arm_icon.replace('rt_arm', 'gimbal_core')
+	rt_core_icon.rename(icon_name)
 
-	shape_name = core_icon.replace('_icon', 'Shape1')
+	shape_name = rt_core_icon.replace('_icon', 'Shape1')
 	shape_1.rename(shape_name)
 
 	shape_name = shape_1.replace('1', '2')
 	shape_2.rename(shape_name)
 
-	temp_constraint = pm.pointConstraint(rt_arm_root, core_icon, mo=0)
+	temp_constraint = pm.pointConstraint(rt_arm_root, rt_core_icon, mo=0)
 	pm.delete(temp_constraint)
-	freezeTransform(core_icon)
+	freezeTransform(rt_core_icon)
 
-	pm.parent(core_icon, arm_global)
-	pm.orientConstraint(core_icon, fk_pad_1, mo=1)
+	pm.parent(rt_core_icon, rt_arm_global)
+	pm.orientConstraint(rt_core_icon, rt_fk_pad_1, mo=1)
 
 
-	twist_gimbal_grp = pm.group(empty=True)
-	temp_constraint = pm.parentConstraint(rt_arm_root, twist_gimbal_grp, mo=0)
+	rt_twist_gimbal_grp = pm.group(empty=True)
+	temp_constraint = pm.parentConstraint(rt_arm_root, rt_twist_gimbal_grp, mo=0)
 	pm.delete(temp_constraint)
-	freezeTransform(twist_gimbal_grp)
+	freezeTransform(rt_twist_gimbal_grp)
 
-	pm.parent(twist_gimbal_grp, twist_jnt_grp)
+	pm.parent(rt_twist_gimbal_grp, rt_twist_jnt_grp)
 
-	pm.parent(rt_arm_root, twist_gimbal_grp)
-
-
-	grp_name = core_icon.replace('arm_gimbal_core_icon', 'twist_gimbal_core_grp')
-	twist_gimbal_grp.rename(grp_name)
-
-	gimbal_core_tog = pm.shadingNode('blendColors', asUtility=1)
-
-	node_name = rt_arm_icon.replace('icon', 'gimbal_core_tog_blendColors')
-	gimbal_core_tog.rename(node_name)
-
-	pm.connectAttr(core_icon + '.r', gimbal_core_tog + '.color2')
-	gimbal_core_tog.color1R.set(0)
-	gimbal_core_tog.color1G.set(0)
-	gimbal_core_tog.color1B.set(0)
-	pm.connectAttr(gimbal_core_tog + '.output', twist_jnt_grp + '.r')
-	pm.connectAttr(switch + '.IkFk', gimbal_core_tog + '.blender')
-	pm.connectAttr(switch + '.IkFk', core_icon + '.v')
+	pm.parent(rt_arm_root, rt_twist_gimbal_grp)
 
 
-	pm.select(loc_1, loc_2, loc_3, loc_4, loc_5, snap_dist_1, snap_dist_2, rt_ik_root, arm_dist, arm_ikh, arm_ik_1, arm_ik_2, rt_arm_root, arm_curve_1, arm_curve_2, hJ_1, rt_fk_root)
+	grp_name = rt_core_icon.replace('gimbal_core_icon', 'twist_gimbal_core_grp')
+	rt_twist_gimbal_grp.rename(grp_name)
+
+	rt_gimbal_core_tog = pm.shadingNode('blendColors', asUtility=1)
+
+	node_name = rt_arm_icon.replace('icon', 'rt_gimbal_core_tog_blendColors')
+	rt_gimbal_core_tog.rename(node_name)
+
+	pm.connectAttr(rt_core_icon + '.r', rt_gimbal_core_tog + '.color2')
+	rt_gimbal_core_tog.color1R.set(0)
+	rt_gimbal_core_tog.color1G.set(0)
+	rt_gimbal_core_tog.color1B.set(0)
+	pm.connectAttr(rt_gimbal_core_tog + '.output', rt_twist_jnt_grp + '.r')
+	pm.connectAttr(rt_switch + '.IkFk', rt_gimbal_core_tog + '.blender')
+	pm.connectAttr(rt_switch + '.IkFk', rt_core_icon + '.v')
+
+
+	pm.select(rt_loc_1, rt_loc_2, rt_loc_3, rt_loc_4, rt_loc_5, rt_snapDist_1, rt_snapDist_2, rt_arm_ik_root, rt_arm_dist, rt_arm_ikh, rt_arm_ik_1, rt_arm_ik_2, rt_arm_root, rt_arm_curve_1, rt_arm_curve_2, rt_hJ_1, rt_fk_root)
 	selection = pm.ls(sl=1)
 	for each in selection:
 		pm.setAttr(each + '.visibility', 0)
@@ -7265,28 +7243,57 @@ def rt_armSetup(*args):
 	pm.addAttr(rt_arm_icon, ln='stretch', at='bool')
 	unhideAttrs(rt_arm_icon, ['stretch'])
 
-	pm.disconnectAttr(upperArm_stretch + '.outputR', rt_arm_ik_joint_2 + '.translateX')
-	pm.disconnectAttr(foreArm_stretch + '.outputR', rt_arm_ik_joint_3  + '.translateX')
+	pm.disconnectAttr(rt_upperArm_stretch + '.outputR', rt_arm_ik_joint_2 + '.translateX')
+	pm.disconnectAttr(rt_foreArm_stretch + '.outputR', rt_arm_ik_joint_3  + '.translateX')
 
-	rt_arm_stretchBlend_switch = pm.shadingNode('blendColors', asUtility=1)
+	rt_arm_stretchBlend_rt_switch = pm.shadingNode('blendColors', asUtility=1)
 	node_name = rt_arm_icon.replace('icon', 'stretchBlend_switch')
-	rt_arm_stretchBlend_switch.rename(node_name)
+	rt_arm_stretchBlend_rt_switch.rename(node_name)
 
-	pm.connectAttr(foreArm_stretch + '.outputR', rt_arm_stretchBlend_switch + '.color1R')
-	pm.connectAttr(upperArm_stretch + '.outputR', rt_arm_stretchBlend_switch + '.color1G')
+	pm.connectAttr(rt_foreArm_stretch + '.outputR', rt_arm_stretchBlend_rt_switch + '.color1G')
+	pm.connectAttr(rt_upperArm_stretch + '.outputR', rt_arm_stretchBlend_rt_switch + '.color1R')
 
-	upperArm_stretch_len = pm.getAttr(rt_arm_stretchBlend_switch + '.color1R')
-	# print upperArm_stretch_len
-	rt_arm_stretchBlend_switch.color2R.set(upperArm_stretch_len)
+	rt_upperArm_stretch_len = pm.getAttr(rt_arm_stretchBlend_rt_switch + '.color1R')
+	# print rt_upperArm_stretch_len
+	rt_arm_stretchBlend_rt_switch.color2R.set(rt_upperArm_stretch_len)
 
-	foreArm_stretch_len = pm.getAttr(rt_arm_stretchBlend_switch + '.color1G')
-	# print foreArm_stretch_len
-	rt_arm_stretchBlend_switch.color2G.set(foreArm_stretch_len)
+	rt_foreArm_stretch_len = pm.getAttr(rt_arm_stretchBlend_rt_switch + '.color1G')
+	# print rt_foreArm_stretch_len
+	rt_arm_stretchBlend_rt_switch.color2G.set(rt_foreArm_stretch_len)
 
-	pm.connectAttr(rt_arm_stretchBlend_switch + '.outputR', rt_arm_ik_joint_2 + '.translateX')
-	pm.connectAttr(rt_arm_stretchBlend_switch + '.outputG', rt_arm_ik_joint_3 + '.translateX')
+	pm.connectAttr(rt_arm_stretchBlend_rt_switch + '.outputR', rt_arm_ik_joint_2 + '.translateX')
+	pm.connectAttr(rt_arm_stretchBlend_rt_switch + '.outputG', rt_arm_ik_joint_3 + '.translateX')
 
-	pm.connectAttr(rt_arm_icon + '.stretch', rt_arm_stretchBlend_switch + '.blender')
+	pm.connectAttr(rt_arm_icon + '.stretch', rt_arm_stretchBlend_rt_switch + '.blender')
+
+	pm.pointConstraint(rt_clav_space_loc, rt_arm_ik_root, mo=1)
+
+	pm.pointConstraint(rt_clav_space_loc, rt_fk_pad_1, mo=1)
+
+	rt_gimbal_local = pm.group(empty=1)
+
+	temp_constraint = pm.parentConstraint(rt_core_icon, rt_gimbal_local, mo=0)
+	pm.delete(temp_constraint)
+	freezeTransform()
+
+	local_name = rt_core_icon.replace('icon', '00_local')
+	rt_gimbal_local.rename(local_name)
+
+	pm.parent(rt_core_icon, rt_gimbal_local)
+	freezeTransform()
+
+	pm.pointConstraint(rt_clav_space_loc, rt_gimbal_local, mo=1)
+
+	attrs = ['tx', 'ty', 'tz', 'sx', 'sy', 'sz', 'v']
+	lock_and_hide(rt_fk_icon_1, attrs)
+	lock_and_hide(rt_fk_icon_2, attrs)
+	lock_and_hide(rt_core_icon, attrs)
+	lock_and_hide(rt_hIcon, attrs)
+	attrs = ['rx', 'ry', 'rz', 'sx', 'sy', 'sz', 'v']
+	lock_and_hide(rt_arm_icon, attrs)
+	lock_and_hide(rt_elbow_icon, attrs)
+
+	pm.select(cl=1)
 
 def rt_fkArmSetup(*args):
 	pm.select(rt_arm_01_bind)
@@ -7404,6 +7411,29 @@ def rt_fkArmSetup(*args):
 
 	rt_fk_root.v.set(0)
 
+	pm.pointConstraint(rt_clav_space_loc, fk_pad_1, mo=1)
+
+	gimbal_local = pm.group(empty=1)
+
+	temp_constraint = pm.parentConstraint(core_icon, gimbal_local, mo=0)
+	pm.delete(temp_constraint)
+	freezeTransform()
+
+	local_name = core_icon.replace('icon', '00_local')
+	gimbal_local.rename(local_name)
+
+	pm.parent(core_icon, gimbal_local)
+	freezeTransform()
+
+	pm.pointConstraint(rt_clav_space_loc, gimbal_local, mo=1)
+
+	attrs = ['tx', 'ty', 'tz', 'sx', 'sy', 'sz', 'v']
+	lock_and_hide(fk_icon_1, attrs)
+	lock_and_hide(fk_icon_2, attrs)
+	lock_and_hide(core_icon, attrs)
+
+	pm.select(cl=1)
+
 def rt_ikArmSetup(*args):
 	pm.select(rt_arm_01_bind)
 	arm_system = pm.ls(sl=True, dag=True)
@@ -7422,23 +7452,23 @@ def rt_ikArmSetup(*args):
 
 	ik_joints = pm.duplicate(rt_arm_root)
 	ik_joints = pm.ls(sl=True, dag=True)
-	rt_ik_root = ik_joints[0]
-	lt_arm_ik_joint_2 = ik_joints[1]
-	lt_arm_ik_joint_3 = ik_joints[2]
-	# print 'Ik Root:', rt_ik_root
-	# print 'Ik Joint 2:', lt_arm_ik_joint_2
-	# print 'Ik Joint 3:', lt_arm_ik_joint_3
+	rt_arm_ik_root = ik_joints[0]
+	rt_arm_ik_joint_2 = ik_joints[1]
+	rt_arm_ik_joint_3 = ik_joints[2]
+	# print 'Ik Root:', rt_arm_ik_root
+	# print 'Ik Joint 2:', rt_arm_ik_joint_2
+	# print 'Ik Joint 3:', rt_arm_ik_joint_3
 
 	
 	for each in ik_joints:
 		joint_name = rt_arm_root.replace('bind', 'ik')
-		rt_ik_root.rename(joint_name)
+		rt_arm_ik_root.rename(joint_name)
 
-	joint_name = rt_ik_root.replace('1', '2')
-	lt_arm_ik_joint_2.rename(joint_name)
+	joint_name = rt_arm_ik_root.replace('1', '2')
+	rt_arm_ik_joint_2.rename(joint_name)
 
-	joint_name = lt_arm_ik_joint_2.replace('2', '3')
-	lt_arm_ik_joint_3.rename(joint_name)
+	joint_name = rt_arm_ik_joint_2.replace('2', '3')
+	rt_arm_ik_joint_3.rename(joint_name)
 
 	twist_joints = pm.duplicate(rt_arm_root)
 	pm.select(twist_joints)
@@ -7702,13 +7732,13 @@ def rt_ikArmSetup(*args):
 
 
 	'''================================================================================================================'''
-	pm.connectAttr(rt_ik_root + '.rotate', rt_arm_root + '.rotate')
-	pm.connectAttr(lt_arm_ik_joint_2 + '.rotate', arm_joint_2 + '.rotate')
-	pm.connectAttr(lt_arm_ik_joint_3 + '.rotate', arm_joint_3 + '.rotate')
+	pm.connectAttr(rt_arm_ik_root + '.rotate', rt_arm_root + '.rotate')
+	pm.connectAttr(rt_arm_ik_joint_2 + '.rotate', arm_joint_2 + '.rotate')
+	pm.connectAttr(rt_arm_ik_joint_3 + '.rotate', arm_joint_3 + '.rotate')
 
-	pm.connectAttr(rt_ik_root + '.translate', rt_arm_root + '.translate')
-	pm.connectAttr(lt_arm_ik_joint_2 + '.translate', arm_joint_2 + '.translate')
-	pm.connectAttr(lt_arm_ik_joint_3 + '.translate', arm_joint_3 + '.translate')
+	pm.connectAttr(rt_arm_ik_root + '.translate', rt_arm_root + '.translate')
+	pm.connectAttr(rt_arm_ik_joint_2 + '.translate', arm_joint_2 + '.translate')
+	pm.connectAttr(rt_arm_ik_joint_3 + '.translate', arm_joint_3 + '.translate')
 
 	'''
 	Create the arm icon
@@ -7729,7 +7759,7 @@ def rt_ikArmSetup(*args):
 	'''
 	Create the ik
 	'''
-	pm.select(rt_ik_root, lt_arm_ik_joint_3)
+	pm.select(rt_arm_ik_root, rt_arm_ik_joint_3)
 	arm_ikh = pm.ikHandle()[0]
 
 	ikh_name = rt_arm_root.replace('bind', 'ikh')
@@ -7812,7 +7842,7 @@ def rt_ikArmSetup(*args):
 	node_name = rt_arm_root.replace('01_bind', 'info')
 	upperArm_info.rename(node_name)
 
-	upperArm_div = pm.shadingNode('multiplyDivide', asUtility=1)
+	upperArm_div = pm.shadingNode('murtiplyDivide', asUtility=1)
 	node_name = upperArm_info.replace('info', 'div')
 	upperArm_div.rename(node_name)
 
@@ -7888,7 +7918,7 @@ def rt_ikArmSetup(*args):
 	node_name = upperArm_info.replace('01', '02')
 	foreArm_info.rename(node_name)
 
-	foreArm_div = pm.shadingNode('multiplyDivide', asUtility=1)
+	foreArm_div = pm.shadingNode('murtiplyDivide', asUtility=1)
 	node_name = upperArm_div.replace('01', '02')
 	foreArm_div.rename(node_name)
 
@@ -7945,22 +7975,22 @@ def rt_ikArmSetup(*args):
 
 	pm.parentConstraint(rt_arm_icon, loc_2)
 
-	upperArm_len = pm.getAttr(lt_arm_ik_joint_2 + '.tx')
+	upperArm_len = pm.getAttr(rt_arm_ik_joint_2 + '.tx')
 
-	foreArm_len = pm.getAttr(lt_arm_ik_joint_3 + '.tx')
+	foreArm_len = pm.getAttr(rt_arm_ik_joint_3 + '.tx')
 
 	sumLen = upperArm_len + foreArm_len
 
-	pm.setDrivenKeyframe(lt_arm_ik_joint_2 + '.tx', currentDriver=arm_dist + '.distance', value=upperArm_len, driverValue=sumLen)
+	pm.setDrivenKeyframe(rt_arm_ik_joint_2 + '.tx', currentDriver=arm_dist + '.distance', value=upperArm_len, driverValue=sumLen)
 
-	pm.setDrivenKeyframe(lt_arm_ik_joint_2 + '.tx',  currentDriver=arm_dist + '.distance', value=(upperArm_len*2), driverValue=(sumLen*2))
+	pm.setDrivenKeyframe(rt_arm_ik_joint_2 + '.tx',  currentDriver=arm_dist + '.distance', value=(upperArm_len*2), driverValue=(sumLen*2))
 
-	pm.setDrivenKeyframe(lt_arm_ik_joint_3 + '.tx', currentDriver=arm_dist + '.distance', value=foreArm_len, driverValue=sumLen)
+	pm.setDrivenKeyframe(rt_arm_ik_joint_3 + '.tx', currentDriver=arm_dist + '.distance', value=foreArm_len, driverValue=sumLen)
 
-	pm.setDrivenKeyframe(lt_arm_ik_joint_3 + '.tx', currentDriver=arm_dist + '.distance', value=(foreArm_len*2), driverValue=(sumLen*2))
+	pm.setDrivenKeyframe(rt_arm_ik_joint_3 + '.tx', currentDriver=arm_dist + '.distance', value=(foreArm_len*2), driverValue=(sumLen*2))
 
-	pm.keyTangent(lt_arm_ik_joint_2, lt_arm_ik_joint_3,'graphEditor1FromOutliner', itt='spline', animation='objects', ott='spline')
-	pm.setInfinity(lt_arm_ik_joint_2, lt_arm_ik_joint_3, poi='linear')
+	pm.keyTangent(rt_arm_ik_joint_2, rt_arm_ik_joint_3,'graphEditor1FromOutliner', itt='spline', animation='objects', ott='spline')
+	pm.setInfinity(rt_arm_ik_joint_2, rt_arm_ik_joint_3, poi='linear')
 
 
 	'''==========================================================================================================================='''
@@ -8034,26 +8064,26 @@ def rt_ikArmSetup(*args):
 	elbow_icon.elbowSnap.set(e=1, keyable=True)
 
 	upperArm_stretch = pm.shadingNode('blendColors', asUtility=1)
-	node_name = upperArm_info.replace('info', 'stretch_blend_01')
+	node_name = upperArm_info.replace('info', 'stretch_blend')
 	upperArm_stretch.rename(node_name)
 
 	pm.connectAttr(elbow_icon + '.elbowSnap', upperArm_stretch + '.blender')
 	pm.connectAttr(snap_dist_1 + '.distance', upperArm_stretch + '.color1R')
-	pm.connectAttr(lt_arm_ik_joint_2 + '_translateX.output', upperArm_stretch + '.color2R')
-	pm.disconnectAttr(lt_arm_ik_joint_2 + '_translateX.output', lt_arm_ik_joint_2 + '.tx')
-	pm.connectAttr(upperArm_stretch + '.outputR', lt_arm_ik_joint_2 + '.tx')
+	pm.connectAttr(rt_arm_ik_joint_2 + '_translateX.output', upperArm_stretch + '.color2R')
+	pm.disconnectAttr(rt_arm_ik_joint_2 + '_translateX.output', rt_arm_ik_joint_2 + '.tx')
+	pm.connectAttr(upperArm_stretch + '.outputR', rt_arm_ik_joint_2 + '.tx')
 
 	foreArm_stretch = pm.shadingNode('blendColors', asUtility=1)
-	node_name = foreArm_info.replace('info', 'stretch_blend_02')
+	node_name = foreArm_info.replace('info', 'stretch_blend')
 	foreArm_stretch.rename(node_name)
 
 	pm.connectAttr(elbow_icon + '.elbowSnap', foreArm_stretch + '.blender')
 	pm.connectAttr(snap_dist_2 + '.distance', foreArm_stretch + '.color1R')
-	pm.connectAttr(lt_arm_ik_joint_3 + '_translateX.output', foreArm_stretch + '.color2R')
-	pm.disconnectAttr(lt_arm_ik_joint_3 + '_translateX.output', lt_arm_ik_joint_3 + '.tx')
-	pm.connectAttr(foreArm_stretch + '.outputR', lt_arm_ik_joint_3 + '.tx')
+	pm.connectAttr(rt_arm_ik_joint_3 + '_translateX.output', foreArm_stretch + '.color2R')
+	pm.disconnectAttr(rt_arm_ik_joint_3 + '_translateX.output', rt_arm_ik_joint_3 + '.tx')
+	pm.connectAttr(foreArm_stretch + '.outputR', rt_arm_ik_joint_3 + '.tx')
 
-	hybrid_fk_joints = pm.duplicate(lt_arm_ik_joint_2)
+	hybrid_fk_joints = pm.duplicate(rt_arm_ik_joint_2)
 	pm.parent(hybrid_fk_joints, w=1)
 
 	pm.select(hybrid_fk_joints)
@@ -8063,7 +8093,7 @@ def rt_ikArmSetup(*args):
 	# print hJ_1
 	# print hJ_2
 
-	jnt_name = lt_arm_ik_joint_2.replace('ik', 'hybridFk')
+	jnt_name = rt_arm_ik_joint_2.replace('ik', 'hybridFk')
 	hJ_1.rename(jnt_name)
 
 	jnt_name = hJ_1.replace('02', '03')
@@ -8072,10 +8102,10 @@ def rt_ikArmSetup(*args):
 
 	hybridFk_icon = pm.circle(c=(0, 0, 0), ch=2, d=3, ut=0, sw=360, s=8, r=2, tol=.02, nr=(2, 0, 0))[0]
 	# print 'Fk icon 2:', hybridFk_icon
-	temp_constraint = pm.parentConstraint(lt_arm_ik_joint_2, hybridFk_icon)
+	temp_constraint = pm.parentConstraint(rt_arm_ik_joint_2, hybridFk_icon)
 	pm.delete(temp_constraint)
 	hybridFk_pad = pm.group(empty=True)
-	temp_constraint = pm.parentConstraint(lt_arm_ik_joint_2, hybridFk_pad)
+	temp_constraint = pm.parentConstraint(rt_arm_ik_joint_2, hybridFk_pad)
 	pm.delete(temp_constraint)
 	pm.parent(hybridFk_icon, hybridFk_pad)
 	pm.select(hybridFk_icon)
@@ -8085,7 +8115,7 @@ def rt_ikArmSetup(*args):
 	Rename the icons and the pads
 	'''
 
-	hybridFk_icon_name = rt_ik_root.replace('01_ik', 'hybridFk_icon')
+	hybridFk_icon_name = rt_arm_ik_root.replace('01_ik', 'hybridFk_icon')
 	hybridFk_icon.rename(hybridFk_icon_name)
 
 	hybridFk_pad_name = hybridFk_icon.replace('icon', 'local')
@@ -8096,13 +8126,13 @@ def rt_ikArmSetup(*args):
 	'''
 	pm.addAttr(hybridFk_icon, ln='length', at='double', min=0, dv=1)
 	hybridFk_icon.length.set(e=1, keyable=True)
-	pm.setDrivenKeyframe(lt_arm_ik_joint_3 + '.tx', currentDriver=hybridFk_icon + '.length')
+	pm.setDrivenKeyframe(rt_arm_ik_joint_3 + '.tx', currentDriver=hybridFk_icon + '.length')
 	hybridFk_icon.length.set(0)
-	lt_arm_ik_joint_3.tx.set(0)
-	pm.setDrivenKeyframe(lt_arm_ik_joint_3 + '.tx', currentDriver=hybridFk_icon + '.length')
+	rt_arm_ik_joint_3.tx.set(0)
+	pm.setDrivenKeyframe(rt_arm_ik_joint_3 + '.tx', currentDriver=hybridFk_icon + '.length')
 	hybridFk_icon.length.set(1)
-	pm.keyTangent(lt_arm_ik_joint_3, 'graphEditor1FromOutliner', itt='spline', animation='objects', ott='spline')
-	pm.mel.selectKey(lt_arm_ik_joint_3 + '.tx', add=1, k=1, f=1)
+	pm.keyTangent(rt_arm_ik_joint_3, 'graphEditor1FromOutliner', itt='spline', animation='objects', ott='spline')
+	pm.mel.selectKey(rt_arm_ik_joint_3 + '.tx', add=1, k=1, f=1)
 	pm.setInfinity(poi='linear')
 
 	temp_constraint = pm.pointConstraint(elbow_icon, hJ_1, mo=0)
@@ -8112,7 +8142,7 @@ def rt_ikArmSetup(*args):
 	temp_constraint = pm.pointConstraint(elbow_icon, hybridFk_pad, mo=0)
 	pm.delete(temp_constraint)
 
-	pm.orientConstraint(hybridFk_icon, hJ_1)
+	pm.orientConstraint(hybridFk_icon, hJ_1, mo=1)
 
 	ik_cons_grp = pm.group(empty=True)
 	temp_constraint = pm.parentConstraint(arm_joint_3, ik_cons_grp)
@@ -8151,25 +8181,46 @@ def rt_ikArmSetup(*args):
 	pm.setInfinity(hJ_2, poi='linear')
 	hybridFk_icon.length.set(1)
 
-	pm.select(loc_1, loc_2, loc_3, loc_4, loc_5, snap_dist_1, snap_dist_2, rt_ik_root, arm_dist, arm_ikh, arm_ik_1, arm_ik_2, rt_arm_root, arm_curve_1, arm_curve_2, hJ_1)
+	pm.select(loc_1, loc_2, loc_3, loc_4, loc_5, snap_dist_1, snap_dist_2, rt_arm_ik_root, arm_dist, arm_ikh, arm_ik_1, arm_ik_2, rt_arm_root, arm_curve_1, arm_curve_2, hJ_1)
 	selection = pm.ls(sl=1)
 	for each in selection:
 		pm.setAttr(each + '.visibility', 0)
 
+	pm.pointConstraint(rt_clav_space_loc, rt_arm_ik_root, mo=1)
+
+	attrs = ['tx', 'ty', 'tz', 'sx', 'sy', 'sz', 'v']
+	lock_and_hide(hIcon, attrs)
+	attrs = ['rx', 'ry', 'rz', 'sx', 'sy', 'sz', 'v']
+	lock_and_hide(rt_arm_icon, attrs)
+	lock_and_hide(elbow_icon, attrs)
+
+	pm.addAttr(rt_arm_icon, ln='stretch', at='bool')
+	unhideAttrs(rt_arm_icon, ['stretch'])
+
 	pm.disconnectAttr(upperArm_stretch + '.outputR', rt_arm_ik_joint_2 + '.translateX')
-	pm.disconnectAttr(foreArm_stretch + 'outputR', rt_arm_ik_joint_3  + '.translateX')
+	pm.disconnectAttr(foreArm_stretch + '.outputR', rt_arm_ik_joint_3  + '.translateX')
 
 	rt_arm_stretchBlend_switch = pm.shadingNode('blendColors', asUtility=1)
 	node_name = rt_arm_icon.replace('icon', 'stretchBlend_switch')
 	rt_arm_stretchBlend_switch.rename(node_name)
 
-	pm.connectAttr(foreArm_stretch + '.outputR', rt_arm_stretchBlend_switch + '.color1R')
-	pm.connectAttr(upperArm_stretch + '.outputR', rt_arm_stretchBlend_switch + '.output1G')
+	pm.connectAttr(foreArm_stretch + '.outputR', rt_arm_stretchBlend_switch + '.color1G')
+	pm.connectAttr(upperArm_stretch + '.outputR', rt_arm_stretchBlend_switch + '.color1R')
 
-	upperArm_stretch_len = pm.getAttr(upperArm_stretch + '.distance')
-	print upperArm_stretch_len
+	upperArm_stretch_len = pm.getAttr(rt_arm_stretchBlend_switch + '.color1R')
+	# print upperArm_stretch_len
 	rt_arm_stretchBlend_switch.color2R.set(upperArm_stretch_len)
-	# pm.select(cl=1)
+
+	foreArm_stretch_len = pm.getAttr(rt_arm_stretchBlend_switch + '.color1G')
+	# print foreArm_stretch_len
+	rt_arm_stretchBlend_switch.color2G.set(foreArm_stretch_len)
+
+	pm.connectAttr(rt_arm_stretchBlend_switch + '.outputR', rt_arm_ik_joint_2 + '.translateX')
+	pm.connectAttr(rt_arm_stretchBlend_switch + '.outputG', rt_arm_ik_joint_3 + '.translateX')
+
+	pm.connectAttr(rt_arm_icon + '.stretch', rt_arm_stretchBlend_switch + '.blender')
+
+	pm.select(cl=1)
 
 def armSetup(*args):
 	lt_armSetup()
@@ -8600,7 +8651,7 @@ def lt_twoFingerSelection(*args):
 	
 
 	pm.select(cl=1)
-	lt_ik_twoFinger_setup()
+	lt_arm_ik_twoFinger_setup()
 
 def lt_threeFingerSelection(*args):
 	global lt_index_root, lt_index_joint_2, lt_index_joint_3, lt_index_joint_4, lt_index_joint_5
@@ -8670,7 +8721,7 @@ def lt_threeFingerSelection(*args):
 	# print 'Thumb Joint 5:', lt_thumb_joint_4
 
 	pm.select(cl=1)
-	lt_ik_threeFinger_setup()
+	lt_arm_ik_threeFinger_setup()
 
 def lt_fiveFingerSelection(*args):
 	global lt_index_root, lt_index_joint_2, lt_index_joint_3, lt_index_joint_4, lt_index_joint_5
@@ -8754,9 +8805,9 @@ def lt_fiveFingerSelection(*args):
 	# print 'Thumb Joint 5:', lt_thumb_joint_4
 
 	pm.select(cl=1)
-	lt_ik_fiveFinger_setup()
+	lt_arm_ik_fiveFinger_setup()
 
-def lt_ik_twoFinger_setup(*args):
+def lt_arm_ik_twoFinger_setup(*args):
 	global lt_hand_base
 	'''
 	Create the finger parent joint
@@ -8798,7 +8849,7 @@ def lt_ik_twoFinger_setup(*args):
 
 	lt_twoFingers_and_thumb()	
 
-def lt_ik_threeFinger_setup(*args):
+def lt_arm_ik_threeFinger_setup(*args):
 	global lt_hand_base
 	'''
 	Create the finger parent joint
@@ -8840,7 +8891,7 @@ def lt_ik_threeFinger_setup(*args):
 
 	lt_threeFingers_and_thumb()
 
-def lt_ik_fiveFinger_setup(*args):
+def lt_arm_ik_fiveFinger_setup(*args):
 	global lt_hand_base
 	'''
 	Create the finger parent joint
@@ -16409,7 +16460,8 @@ def fingerSystem(*args):
 
 def backSetup(*args):
 	global back_root, back_joint_2, back_joint_3, back_joint_4, back_joint_5, back_joint_6, back_joint_7
-	global back_ik, back_pad, chest_icon, hip_icon, back_fk_local_1, back_fk_icon_1
+	global back_ik, back_pad, chest_icon, back_icon, back_fk_local_1, back_fk_icon_1
+	global cB_back_joint_1, cB_back_joint_7
 	pm.select(ct_back_01_bind)
 	bind_system = pm.ls(sl=True, dag=True)
 
@@ -16503,32 +16555,32 @@ def backSetup(*args):
 	pm.mel.SmoothBindSkin()
 
 	'''
-	Step Three: Create and move the chest and hip icons
+	Step Three: Create and move the chest and back icons
 	'''
-	hip_icon = pm.curve(p=[(0.5, 0.5, 0.5), (-0.5, 0.5, 0.5), (-0.5, 0.5, -0.5), (0.5, 0.5, -0.5), (0.5, 0.5, 0.5), (0.5, -0.5, 0.5), (0.5, -0.5, -0.5), (0.5, 0.5, -0.5), (-0.5, 0.5, -0.5), (-0.5, -0.5, -0.5), (0.5, -0.5, -0.5), (0.5, -0.5, 0.5), (-0.5, -0.5, 0.5), (-0.5, 0.5, 0.5), (-0.5, 0.5, -0.5), (-0.5, -0.5, -0.5), (-0.5, -0.5, 0.5), (0.5, -0.5, 0.5), (0.5, -0.5, -0.5), (-0.5, -0.5, -0.5)], k=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19], d=1)
-	temp_constraint = pm.parentConstraint(back_root, hip_icon, mo=0)
+	back_icon = pm.curve(p=[(0.5, 0.5, 0.5), (-0.5, 0.5, 0.5), (-0.5, 0.5, -0.5), (0.5, 0.5, -0.5), (0.5, 0.5, 0.5), (0.5, -0.5, 0.5), (0.5, -0.5, -0.5), (0.5, 0.5, -0.5), (-0.5, 0.5, -0.5), (-0.5, -0.5, -0.5), (0.5, -0.5, -0.5), (0.5, -0.5, 0.5), (-0.5, -0.5, 0.5), (-0.5, 0.5, 0.5), (-0.5, 0.5, -0.5), (-0.5, -0.5, -0.5), (-0.5, -0.5, 0.5), (0.5, -0.5, 0.5), (0.5, -0.5, -0.5), (-0.5, -0.5, -0.5)], k=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19], d=1)
+	temp_constraint = pm.parentConstraint(back_root, back_icon, mo=0)
 	pm.delete(temp_constraint)
-	freezeTransform(hip_icon)
-	deleteHistory(hip_icon)
-	icon_naame = back_root.replace('back_01_bind', 'hip_icon')
-	hip_icon.rename(icon_naame)
+	freezeTransform(back_icon)
+	deleteHistory(back_icon)
+	icon_naame = back_root.replace('01_bind', 'icon')
+	back_icon.rename(icon_naame)
 
 	chest_icon = pm.curve(p=[(0.5, 0.5, 0.5), (-0.5, 0.5, 0.5), (-0.5, 0.5, -0.5), (0.5, 0.5, -0.5), (0.5, 0.5, 0.5), (0.5, -0.5, 0.5), (0.5, -0.5, -0.5), (0.5, 0.5, -0.5), (-0.5, 0.5, -0.5), (-0.5, -0.5, -0.5), (0.5, -0.5, -0.5), (0.5, -0.5, 0.5), (-0.5, -0.5, 0.5), (-0.5, 0.5, 0.5), (-0.5, 0.5, -0.5), (-0.5, -0.5, -0.5), (-0.5, -0.5, 0.5), (0.5, -0.5, 0.5), (0.5, -0.5, -0.5), (-0.5, -0.5, -0.5)], k=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19], d=1)
 	deleteHistory(chest_icon)
-	icon_naame = hip_icon.replace('hip', 'chest')
+	icon_naame = back_icon.replace('back', 'chest')
 	chest_icon.rename(icon_naame)
 
 	temp_constraint = pm.pointConstraint(back_joint_7, chest_icon)
 	pm.delete(temp_constraint)
 	freezeTransform()
 
-	hip_icon.rotateOrder.set(2)
+	back_icon.rotateOrder.set(2)
 	chest_icon.rotateOrder.set(2)
 	cB_back_joint_1.rotateOrder.set(2)
 	cB_back_joint_7.rotateOrder.set(2)
 
 	pm.parentConstraint(chest_icon, cB_back_joint_7, mo=1)
-	pm.parentConstraint(hip_icon, cB_back_joint_1, mo=1)
+	pm.parentConstraint(back_icon, cB_back_joint_1, mo=1)
 
 
 	back_ik.dTwistControlEnable.set(1)
@@ -16570,17 +16622,17 @@ def backSetup(*args):
 	fk_back_joint_5.rotateOrder.set(1)
 	fk_back_joint_7.rotateOrder.set(1)
 
-	hip_local = pm.group(hip_icon)
+	back_local = pm.group(back_icon)
 
 	chest_local = pm.group(chest_icon)
 
-	local_name = hip_icon.replace('icon', 'local')
-	hip_local.rename(local_name)
+	local_name = back_icon.replace('icon', 'local')
+	back_local.rename(local_name)
 
 	local_name = chest_icon.replace('icon', 'local')
 	chest_local.rename(local_name)
 
-	pm.parentConstraint(fk_back_joint_1, hip_local, mo=1)
+	pm.parentConstraint(fk_back_joint_1, back_local, mo=1)
 	pm.parentConstraint(fk_back_joint_7, chest_local, mo=1)
 
 	back_fk_icon_1 = pm.circle(c=(0, 0, 0), ch=1, d=3, ut=0, sw=360, s=8, r=1, tol=0.01, nr=(1, 0, 0))[0]
@@ -16609,7 +16661,7 @@ def backSetup(*args):
 
 	pm.parent(back_fk_local_2, back_fk_icon_1)
 
-	icon_naame = hip_icon.replace('hip', 'back_01_fk')
+	icon_naame = back_icon.replace('back', 'back_01_fk')
 	back_fk_icon_1.rename(icon_naame)
 
 	icon_naame = back_fk_icon_1.replace('01', '02')
@@ -16682,7 +16734,7 @@ def backSetup(*args):
 	'''
 
 	back_global = pm.curve(p=[(0.5, 0, 0.5), (-0.5, 0, 0.5), (-0.5, 0, -0.5), (0.5, 0, -0.5), (0.5, 0, 0.5)], k=[0, 1, 2, 3, 4], d=1)
-	icon_naame = hip_icon.replace('hip', 'body')
+	icon_naame = back_icon.replace('back', 'body')
 	back_global.rename(icon_naame)
 
 	temp_constraint = pm.pointConstraint(back_root, back_global, mo=0)
@@ -16692,7 +16744,7 @@ def backSetup(*args):
 	freezeTransform()
 	back_global.rotateOrder.set(2)
 
-	pm.parent(back_fk_local_1, chest_local, hip_local, back_ik, back_pad)
+	pm.parent(back_fk_local_1, chest_local, back_local, back_ik, back_pad)
 
 	pm.parentConstraint(back_global, back_pad, mo=1)
 
@@ -16736,7 +16788,8 @@ def backSetup(*args):
 	pm.parent(dnt_grp, back_pad)
 
 def hipSetup(*args):
-	global hip_joint, hip_loc
+	global hip_joint, hip_loc, hip_icon 
+	global cog_icon, anim_icon
 	pm.select(ct_hip_bind)
 	selection = pm.ls(sl=1)
 	hip_joint = selection[0]
@@ -16767,9 +16820,102 @@ def hipSetup(*args):
 	root_loc.rename(loc_name)
 	pm.parent(root_loc, root_joint)
 
+	hip_icon = pm.curve(d=1, p=[(1, 1, 1),(1, 1, -1),(-1, 1, -1),(-1, 1, 1),(1, 1, 1),(1, -1, 1),(1, -1, -1),(1, 1, -1),(-1, 1, -1),(-1, -1, -1),(1, -1, -1),(-1, -1, -1),(-1, -1, 1),(-1, 1, 1),(-1, -1, 1),(1, -1, 1)], k=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15])
+	hip_icon.setPivots([0, 1, 0])
+	temp_constraint = pm.parentConstraint(hip_joint, hip_icon, mo=0)
+	pm.delete(temp_constraint)
+	freezeTransform()
+
+	icon_name = hip_joint.replace('01_bind', 'icon')
+	hip_icon.rename(icon_name)
+
+
+	pm.setAttr (hip_icon + '.cv[5].xValue', .5)
+	pm.setAttr (hip_icon + '.cv[6].xValue', .5)
+	pm.setAttr (hip_icon + '.cv[10].xValue', .5)
+	pm.setAttr (hip_icon + '.cv[15].xValue', .5)
+	pm.setAttr (hip_icon + '.cv[9].xValue', -.5)
+	pm.setAttr (hip_icon + '.cv[11].xValue', -.5)
+	pm.setAttr (hip_icon + '.cv[12].xValue', -.5)
+	pm.setAttr (hip_icon + '.cv[14].xValue', -.5)
+	pm.setAttr (hip_icon + '.cv[6].zValue', -2.9)
+	pm.setAttr (hip_icon + '.cv[9].zValue', -2.9)
+	pm.setAttr (hip_icon + '.cv[10].zValue', -2.9)
+	pm.setAttr (hip_icon + '.cv[11].zValue', -2.9)
+	pm.setAttr (hip_icon + '.cv[5].zValue', -1.25)
+	pm.setAttr (hip_icon + '.cv[12].zValue', -1.25)
+	pm.setAttr (hip_icon + '.cv[14].zValue', -1.25)
+	pm.setAttr (hip_icon + '.cv[15].zValue', -1.25)
+	pm.setAttr (hip_icon + '.cv[5].zValue', -1.25)
+	pm.setAttr (hip_icon + '.cv[12].zValue', -1.25)
+	pm.setAttr (hip_icon + '.cv[14].zValue', -1.25)
+	pm.setAttr (hip_icon + '.cv[15].zValue', -1.25)
+
+	pm.setAttr(hip_icon + '.cv[5].yValue', 47)
+	pm.setAttr(hip_icon + '.cv[6].yValue', 47)
+	pm.setAttr(hip_icon + '.cv[9].yValue', 47)
+	pm.setAttr(hip_icon + '.cv[10].yValue', 47)
+	pm.setAttr(hip_icon + '.cv[11].yValue', 47)
+	pm.setAttr(hip_icon + '.cv[12].yValue', 47)
+	pm.setAttr(hip_icon + '.cv[14].yValue', 47)
+	pm.setAttr(hip_icon + '.cv[15].yValue', 47)
+
+	pm.parentConstraint(hip_icon, hip_joint, mo=1)
+
+
+	'''
+	Create the COG icon
+	'''
+	cog_icon = pm.circle(s=16, nr=[0,1,0])[0]
+	pm.select((cog_icon + '.cv[1]'), (cog_icon + '.cv[3]'), (cog_icon + '.cv[5]'), (cog_icon + '.cv[7]'), (cog_icon + '.cv[9]'), (cog_icon + '.cv[11]'), (cog_icon + '.cv[13]'), (cog_icon + '.cv[15]'), (cog_icon + '.cv[17]'), (cog_icon + '.cv[19]'), r=True)
+	pm.scale(0.3, 0.3, 0.3, p=[0, 0, 0], r=True)
+	pm.makeIdentity(cog_icon, apply=True, t=1, r=1, s=1, n=0)
+	pm.xform(cog_icon, cp=True)
+
+	pm.select(cog_icon)
+
+	temp_constraint = pm.parentConstraint(hip_joint, cog_icon, mo=0)
+	pm.delete(temp_constraint)
+	freezeTransform()
+
+	cog_icon.sx.set(4.2)
+	cog_icon.sy.set(4.2)
+	cog_icon.sz.set(4.2)
+
+	icon_name = hip_icon.replace('hip', 'COG')
+	cog_icon.rename(icon_name)
+
+	freezeTransform()
+
+	lock_and_hide(hip_icon, ['sx', 'sy', 'sz', 'v'])
+	lock_and_hide(cog_icon, ['sx', 'sy', 'sz', 'v'])
+
+	pm.select(hip_icon, cog_icon)
+	deleteHistory()
+
+	pm.parent(hip_icon, cog_icon)
+
+	anim_icon = pm.circle(nr=[0,1,0])[0]
+
+	icon_name = hip_icon.replace('hip', 'anim')
+	anim_icon.rename(icon_name)
+
+	anim_icon.sx.set(2.5)
+	anim_icon.sy.set(2.5)
+	anim_icon.sz.set(2.5)
+	freezeTransform()
+
+	deleteHistory()
+
+	lock_and_hide(anim_icon, ['sx', 'sy', 'sz', 'v'])
+
+	pm.parent(anim_icon, world_icon)
+
+	pm.parent(cog_icon, anim_icon)
+
 def lt_legSetup(*args):
 	global lt_leg_pad, lt_foot_icon, lt_knee_dist_1, lt_knee_dist_2, lt_leg_dist, lt_switch, lt_leg_fk_local_1
-	global lt_loc_1, lt_loc_2, lt_leg_ikh, lt_ankle_ikh, lt_toe_ikh, lt_noFlip_local
+	global lt_clav_loc_1, lt_clav_loc_2, lt_leg_ikh, lt_ankle_ikh, lt_toe_ikh, lt_noFlip_local
 	global lt_leg_fk_icon_1, lt_leg_fk_icon_2, lt_leg_fk_icon_3, lt_leg_fk_icon_4
 	global lt_leg_root, lt_leg_joint_2, lt_leg_joint_3, lt_leg_joint_4
 	'''
@@ -16800,7 +16946,7 @@ def lt_legSetup(*args):
 	ik_joints = pm.duplicate(lt_leg_root)
 	pm.select(ik_joints)
 	ik_joints = pm.ls(sl=1, dag=1)
-	lt_ik_root = ik_joints[0]
+	lt_arm_ik_root = ik_joints[0]
 	lt_arm_ik_joint_2 = ik_joints[1]
 	lt_arm_ik_joint_3 = ik_joints[2]
 	lt_arm_ik_joint_4 = ik_joints[3]
@@ -16816,7 +16962,7 @@ def lt_legSetup(*args):
 		each.rename(new_name)
 
 
-	# print 'IK Root:', lt_ik_root
+	# print 'IK Root:', lt_arm_ik_root
 	# print 'IK Joint 2:', lt_arm_ik_joint_2
 	# print 'IK Joint 3:', lt_arm_ik_joint_3
 	# print 'IK Joint 4:', lt_arm_ik_joint_4
@@ -16866,7 +17012,7 @@ def lt_legSetup(*args):
 		node_name = '{0}_{1}_0{2}_{3}'.format(ori, system_name, count, suffix)
 		each.rename(node_name)
 
-	pm.connectAttr(lt_ik_root + '.rotate', ikfk_blend_1 + '.color2')
+	pm.connectAttr(lt_arm_ik_root + '.rotate', ikfk_blend_1 + '.color2')
 	pm.connectAttr(lt_fk_root + '.rotate', ikfk_blend_1 + '.color1')
 
 	pm.connectAttr(lt_arm_ik_joint_2 + '.rotate', ikfk_blend_2 + '.color2')
@@ -16973,7 +17119,7 @@ def lt_legSetup(*args):
 		node_name = '{0}_{1}_0{2}_{3}'.format(ori, system_name, count, suffix)
 		each.rename(node_name)
 
-	pm.connectAttr(lt_ik_root + '.translate', ikfk_blend_5 + '.color2')
+	pm.connectAttr(lt_arm_ik_root + '.translate', ikfk_blend_5 + '.color2')
 	pm.connectAttr(lt_fk_root + '.translate', ikfk_blend_5 + '.color1')
 
 	pm.connectAttr(lt_arm_ik_joint_2 + '.translate', ikfk_blend_6 + '.color2')
@@ -17100,7 +17246,7 @@ def lt_legSetup(*args):
 	'''
 	Create the ik handles 
 	'''
-	lt_leg_ikh = pm.ikHandle(sj=lt_ik_root, ee=lt_arm_ik_joint_3)[0]
+	lt_leg_ikh = pm.ikHandle(sj=lt_arm_ik_root, ee=lt_arm_ik_joint_3)[0]
 	lt_ankle_ikh = pm.ikHandle(sj=lt_arm_ik_joint_3, ee=lt_arm_ik_joint_4)[0]
 	lt_toe_ikh = pm.ikHandle(sj=lt_arm_ik_joint_4, ee=lt_arm_ik_joint_5)[0]
 
@@ -17200,27 +17346,27 @@ def lt_legSetup(*args):
 	'''
 	Create the distance node
 	'''
-	lt_loc_1 = pm.spaceLocator(p=(0, 0, 0))
-	temp_constraint = pm.pointConstraint(lt_leg_root, lt_loc_1, mo=0)
+	lt_clav_loc_1 = pm.spaceLocator(p=(0, 0, 0))
+	temp_constraint = pm.pointConstraint(lt_leg_root, lt_clav_loc_1, mo=0)
 	pm.delete(temp_constraint)
 	loc_name = lt_leg_root.replace('01_bind', 'startLoc')
-	lt_loc_1.rename(loc_name)
+	lt_clav_loc_1.rename(loc_name)
 
-	lt_loc_2 = pm.spaceLocator(p=(0, 0, 0))
-	temp_constraint = pm.pointConstraint(lt_leg_joint_3, lt_loc_2, mo=0)
+	lt_clav_loc_2 = pm.spaceLocator(p=(0, 0, 0))
+	temp_constraint = pm.pointConstraint(lt_leg_joint_3, lt_clav_loc_2, mo=0)
 	pm.delete(temp_constraint)
 	loc_name = lt_leg_root.replace('01_bind', 'endLoc')
-	lt_loc_2.rename(loc_name)
+	lt_clav_loc_2.rename(loc_name)
 
 	lt_leg_dist = pm.shadingNode('distanceDimShape', asUtility=1)
 
-	pm.connectAttr(lt_loc_1 + '.worldPosition', lt_leg_dist + '.startPoint')
-	pm.connectAttr(lt_loc_2 + '.worldPosition', lt_leg_dist + '.endPoint')
+	pm.connectAttr(lt_clav_loc_1 + '.worldPosition', lt_leg_dist + '.startPoint')
+	pm.connectAttr(lt_clav_loc_2 + '.worldPosition', lt_leg_dist + '.endPoint')
 
 	node_name = lt_leg_root.replace('01_bind', 'dist')
 	lt_leg_dist.rename(node_name)
 
-	pm.parent(lt_loc_2, lt_foot_icon)
+	pm.parent(lt_clav_loc_2, lt_foot_icon)
 
 	rootLength = pm.getAttr(lt_arm_ik_joint_2 + '.translateX')
 	joint2Length = pm.getAttr(lt_arm_ik_joint_3  + '.translateX')
@@ -17244,7 +17390,7 @@ def lt_legSetup(*args):
 	pm.selectKey(lt_arm_ik_joint_3 + '_translateX', add=1, k=1, f=(1, 82.555611))
 	pm.setInfinity(poi='linear')
 
-	pm.select(lt_leg_ikh, lt_ankle_ikh, lt_toe_ikh, lt_loc_1, lt_loc_2, lt_leg_dist)
+	pm.select(lt_leg_ikh, lt_ankle_ikh, lt_toe_ikh, lt_clav_loc_1, lt_clav_loc_2, lt_leg_dist)
 	selection = pm.ls(sl=1)
 	for each in selection:
 		pm.setAttr(each + '.v', 0)
@@ -17370,7 +17516,7 @@ def lt_legSetup(*args):
 	lt_knee_loc.rename(loc_name)
 
 	lt_knee_dist_1 = pm.shadingNode('distanceDimShape', asUtility=1)
-	pm.connectAttr(lt_loc_1 + '.worldPosition', lt_knee_dist_1 + '.startPoint')
+	pm.connectAttr(lt_clav_loc_1 + '.worldPosition', lt_knee_dist_1 + '.startPoint')
 	pm.connectAttr(lt_knee_loc + '.worldPosition', lt_knee_dist_1 + '.endPoint')
 	node_name = lt_knee_loc.replace('loc', '01_dist')
 	lt_knee_dist_1.rename(node_name)
@@ -17378,7 +17524,7 @@ def lt_legSetup(*args):
 
 
 	lt_knee_dist_2 = pm.shadingNode('distanceDimShape', asUtility=1)
-	pm.connectAttr(lt_loc_2 + '.worldPosition', lt_knee_dist_2 + '.startPoint')
+	pm.connectAttr(lt_clav_loc_2 + '.worldPosition', lt_knee_dist_2 + '.startPoint')
 	pm.connectAttr(lt_knee_loc + '.worldPosition', lt_knee_dist_2 + '.endPoint')
 	node_name = lt_knee_loc.replace('loc', '02_dist')
 	lt_knee_dist_2.rename(node_name)
@@ -17424,9 +17570,9 @@ def lt_legSetup(*args):
 	temp_constraint = pm.parentConstraint(lt_leg_root, lt_leg_pad, mo=0)
 	pm.delete(temp_constraint)
 	freezeTransform()
-	pm.parent(lt_leg_root, lt_ik_root, lt_fk_root, lt_leg_pad)
+	pm.parent(lt_leg_root, lt_arm_ik_root, lt_fk_root, lt_leg_pad)
 
-	pm.select(lt_ik_root, lt_fk_root)
+	pm.select(lt_arm_ik_root, lt_fk_root)
 	selection = pm.ls(sl=1)
 	for each in selection:
 		pm.setAttr(each + '.visibility', 0)
@@ -17459,9 +17605,9 @@ def lt_legSetup(*args):
 	node_name = lt_leg_root.replace('01_bind', 'stretchBlend')
 	stretchBlend.rename(node_name)
 
-def lt_ikLegSetup(*args):
+def lt_arm_ikLegSetup(*args):
 	global lt_leg_pad, lt_foot_icon, lt_knee_dist_1, lt_knee_dist_2, lt_leg_dist
-	global lt_loc_1, lt_loc_2, lt_leg_ikh, lt_ankle_ikh, lt_toe_ikh, lt_noFlip_local
+	global lt_clav_loc_1, lt_clav_loc_2, lt_leg_ikh, lt_ankle_ikh, lt_toe_ikh, lt_noFlip_local
 	global lt_leg_root, lt_leg_joint_2, lt_leg_joint_3, lt_leg_joint_4
 	'''
 	Get bind joints
@@ -17490,7 +17636,7 @@ def lt_ikLegSetup(*args):
 	ik_joints = pm.duplicate(lt_leg_root)
 	pm.select(ik_joints)
 	ik_joints = pm.ls(sl=1, dag=1)
-	lt_ik_root = ik_joints[0]
+	lt_arm_ik_root = ik_joints[0]
 	lt_arm_ik_joint_2 = ik_joints[1]
 	lt_arm_ik_joint_3 = ik_joints[2]
 	lt_arm_ik_joint_4 = ik_joints[3]
@@ -17505,7 +17651,7 @@ def lt_ikLegSetup(*args):
 		new_name = '{0}_{1}_0{2}_{3}'.format(ori, system_name, count, suffix)
 		each.rename(new_name)
 
-	# print 'IK Root:', lt_ik_root
+	# print 'IK Root:', lt_arm_ik_root
 	# print 'IK Joint 2:', lt_arm_ik_joint_2
 	# print 'IK Joint 3:', lt_arm_ik_joint_3
 	# print 'IK Joint 4:', lt_arm_ik_joint_4
@@ -17527,7 +17673,7 @@ def lt_ikLegSetup(*args):
 		each.rename(node_name)
 		each.blender.set(1)
 
-	pm.connectAttr(lt_ik_root + '.rotate', ikfk_blend_1 + '.color1')
+	pm.connectAttr(lt_arm_ik_root + '.rotate', ikfk_blend_1 + '.color1')
 	pm.connectAttr(lt_arm_ik_joint_2 + '.rotate', ikfk_blend_2 + '.color1')
 	pm.connectAttr(lt_arm_ik_joint_3 + '.rotate', ikfk_blend_3 + '.color1')
 	pm.connectAttr(lt_arm_ik_joint_4 + '.rotate', ikfk_blend_4 + '.color1')
@@ -17558,7 +17704,7 @@ def lt_ikLegSetup(*args):
 		each.rename(node_name)
 		each.blender.set(1)
 
-	pm.connectAttr(lt_ik_root + '.translate', ikfk_blend_5 + '.color1')
+	pm.connectAttr(lt_arm_ik_root + '.translate', ikfk_blend_5 + '.color1')
 	pm.connectAttr(lt_arm_ik_joint_2 + '.translate', ikfk_blend_6 + '.color1')
 	pm.connectAttr(lt_arm_ik_joint_3 + '.translate', ikfk_blend_7 + '.color1')
 	pm.connectAttr(lt_arm_ik_joint_4 + '.translate', ikfk_blend_8 + '.color1')
@@ -17574,7 +17720,7 @@ def lt_ikLegSetup(*args):
 	'''
 	Create the ik handles 
 	'''
-	lt_leg_ikh = pm.ikHandle(sj=lt_ik_root, ee=lt_arm_ik_joint_3)[0]
+	lt_leg_ikh = pm.ikHandle(sj=lt_arm_ik_root, ee=lt_arm_ik_joint_3)[0]
 	lt_ankle_ikh = pm.ikHandle(sj=lt_arm_ik_joint_3, ee=lt_arm_ik_joint_4)[0]
 	lt_toe_ikh = pm.ikHandle(sj=lt_arm_ik_joint_4, ee=lt_arm_ik_joint_5)[0]
 
@@ -17674,27 +17820,27 @@ def lt_ikLegSetup(*args):
 	'''
 	Create the distance node
 	'''
-	lt_loc_1 = pm.spaceLocator(p=(0, 0, 0))
-	temp_constraint = pm.pointConstraint(lt_leg_root, lt_loc_1, mo=0)
+	lt_clav_loc_1 = pm.spaceLocator(p=(0, 0, 0))
+	temp_constraint = pm.pointConstraint(lt_leg_root, lt_clav_loc_1, mo=0)
 	pm.delete(temp_constraint)
 	loc_name = lt_leg_root.replace('01_bind', 'startLoc')
-	lt_loc_1.rename(loc_name)
+	lt_clav_loc_1.rename(loc_name)
 
-	lt_loc_2 = pm.spaceLocator(p=(0, 0, 0))
-	temp_constraint = pm.pointConstraint(lt_leg_joint_3, lt_loc_2, mo=0)
+	lt_clav_loc_2 = pm.spaceLocator(p=(0, 0, 0))
+	temp_constraint = pm.pointConstraint(lt_leg_joint_3, lt_clav_loc_2, mo=0)
 	pm.delete(temp_constraint)
 	loc_name = lt_leg_root.replace('01_bind', 'endLoc')
-	lt_loc_2.rename(loc_name)
+	lt_clav_loc_2.rename(loc_name)
 
 	lt_leg_dist = pm.shadingNode('distanceDimShape', asUtility=1)
 
-	pm.connectAttr(lt_loc_1 + '.worldPosition', lt_leg_dist + '.startPoint')
-	pm.connectAttr(lt_loc_2 + '.worldPosition', lt_leg_dist + '.endPoint')
+	pm.connectAttr(lt_clav_loc_1 + '.worldPosition', lt_leg_dist + '.startPoint')
+	pm.connectAttr(lt_clav_loc_2 + '.worldPosition', lt_leg_dist + '.endPoint')
 
 	node_name = lt_leg_root.replace('01_bind', 'dist')
 	lt_leg_dist.rename(node_name)
 
-	pm.parent(lt_loc_2, lt_foot_icon)
+	pm.parent(lt_clav_loc_2, lt_foot_icon)
 
 	rootLength = pm.getAttr(lt_arm_ik_joint_2 + '.translateX')
 	joint2Length = pm.getAttr(lt_arm_ik_joint_3  + '.translateX')
@@ -17718,7 +17864,7 @@ def lt_ikLegSetup(*args):
 	pm.selectKey(lt_arm_ik_joint_3 + '_translateX', add=1, k=1, f=(1, 82.555611))
 	pm.setInfinity(poi='linear')
 
-	pm.select(lt_leg_ikh, lt_ankle_ikh, lt_toe_ikh, lt_loc_1, lt_loc_2, lt_leg_dist)
+	pm.select(lt_leg_ikh, lt_ankle_ikh, lt_toe_ikh, lt_clav_loc_1, lt_clav_loc_2, lt_leg_dist)
 	selection = pm.ls(sl=1)
 	for each in selection:
 		pm.setAttr(each + '.v', 0)
@@ -17844,14 +17990,14 @@ def lt_ikLegSetup(*args):
 	lt_knee_loc.rename(loc_name)
 
 	lt_knee_dist_1 = pm.shadingNode('distanceDimShape', asUtility=1)
-	pm.connectAttr(lt_loc_1 + '.worldPosition', lt_knee_dist_1 + '.startPoint')
+	pm.connectAttr(lt_clav_loc_1 + '.worldPosition', lt_knee_dist_1 + '.startPoint')
 	pm.connectAttr(lt_knee_loc + '.worldPosition', lt_knee_dist_1 + '.endPoint')
 	node_name = lt_knee_loc.replace('loc', '01_dist')
 	lt_knee_dist_1.rename(node_name)
 
 
 	lt_knee_dist_2 = pm.shadingNode('distanceDimShape', asUtility=1)
-	pm.connectAttr(lt_loc_2 + '.worldPosition', lt_knee_dist_2 + '.startPoint')
+	pm.connectAttr(lt_clav_loc_2 + '.worldPosition', lt_knee_dist_2 + '.startPoint')
 	pm.connectAttr(lt_knee_loc + '.worldPosition', lt_knee_dist_2 + '.endPoint')
 	node_name = lt_knee_loc.replace('loc', '02_dist')
 	lt_knee_dist_2.rename(node_name)
@@ -17888,9 +18034,9 @@ def lt_ikLegSetup(*args):
 	temp_constraint = pm.parentConstraint(lt_leg_root, lt_leg_pad, mo=0)
 	pm.delete(temp_constraint)
 	freezeTransform()
-	pm.parent(lt_leg_root, lt_ik_root, lt_leg_pad)
+	pm.parent(lt_leg_root, lt_arm_ik_root, lt_leg_pad)
 
-	lt_ik_root.v.set(0)
+	lt_arm_ik_root.v.set(0)
 
 	pad_name = lt_leg_root.replace('01_bind', '00_pad')
 	lt_leg_pad.rename(pad_name)
@@ -19448,7 +19594,7 @@ def fk_legSetup(*args):
 	rt_fkLegSetup()
 
 def ik_legSetup(*args):
-	lt_ikLegSetup()
+	lt_arm_ikLegSetup()
 	rt_ikLegSetup()
 
 def legSetup(*args):
@@ -19478,7 +19624,7 @@ def legSystem(*args):
 	if ori_selection_type == 1:
 		pass 
 		if system_selection_type == 2:
-			lt_ikLegSetup()
+			lt_arm_ikLegSetup()
 	if ori_selection_type == 2:
 		pass
 		if system_selection_type == 2:
@@ -19815,6 +19961,8 @@ def rt_rflPrep(*args):
 
 	loc_connect()
 
+	pm.select(lt_heel_loc)
+
 def rt_rflSetup(*args):
 	global rt_heel_rot_clamp, rt_ball_rot_clamp, rt_footBtoS_clamp, rt_footBtoS_percent, rt_foot_roll_mult, rt_toeTap_invert_mult 
 	global rt_ball_0toB_percent, rt_foot_invert_percent, rt_ball_percent_mult, rt_ball_roll_mult, rt_ball_rot_clamp
@@ -20088,7 +20236,7 @@ def colorIcons(*args):
 	else:
 		pass
 
-	pm.select(jaw_icon)
+	pm.select(jaw_icon, hip_icon, anim_icon)
 	selection = pm.ls(sl=1, dag=1, shapes=1)
 
 	for each in selection:

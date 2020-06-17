@@ -111,7 +111,7 @@ def gui():
 	pm.iconTextButton(w=win_width, st='iconAndTextHorizontal', image1='kinInsert.png', l='Insert Joint', c=insertJoint)
 	pm.iconTextButton(w=win_width, st='iconAndTextHorizontal', image1='menuIconDisplay.png', l='IK Handle Size', c=IkSize)
 	pm.iconTextButton(w=win_width, st='iconAndTextHorizontal', image1='BR_icons/BR_diagram.png', l='Select Hierarchy', c=hierarchy)
-	pm.iconTextButton(w=win_width, st='iconAndTextHorizontal', image1='BR_icons/BR_renamerIcon.svg', l='Renamer', c=renamerWindow)
+	# pm.iconTextButton(w=win_width, st='iconAndTextHorizontal', image1='BR_icons/BR_renamerIcon.svg', l='Renamer', c=renamerWindow)
 	
 	pm.iconTextButton(w=win_width, st='iconAndTextHorizontal', image1='circle.png', l='Curve Tool Window', c=curveWindow)
 	pm.separator(w=win_width, bgc=color_3, st='in')
@@ -166,15 +166,16 @@ def gui():
 	'''
 	quad_layout = pm.frameLayout(w=win_width, l='Quadrupeds', bgc=color_6, cl=1, cll=1, ann='Quadruped Tools', cc=windowResize )
 	pm.setParent(quad_layout)
-	pm.frameLayout(w=win_width, l='Hind Legs', bgc=(color_7), cl=1, cll=1, cc=windowResize)
-	pm.text(l='orientation_h(Leg, LegIK, then LegFK)', w=win_width, al='center')
-	pm.button(l='Hind IK/FK/Helper Joints',w=win_width, ann='Creates leg ik/fk/helper joint chains', c=quad_hLeg_joints)
-	pm.text(l='Select the bind, ik, helper, and fk joints', w=win_width)
-	pm.button(l='hLeg IK/FK System', w=win_width,  ann='Sets up the hind leg IK/FK systems', c=quad_hIKFK_system)
-	pm.rowColumnLayout(nc=3, cw=[[1, win_width*.5], [2, win_width*.25],[3, win_width*.25]])
-	pm.text(l='Leg SDKs')
-	pm.button(l='lt', c=lt_hLeg_SDKs)
-	pm.button(l='rt', c=rt_hLeg_SDKs)
+	pm.text(l='Coming Soon', w=win_width)
+	# pm.frameLayout(w=win_width, l='Hind Legs', bgc=(color_7), cl=1, cll=1, cc=windowResize)
+	# pm.text(l='orientation_h(Leg, LegIK, then LegFK)', w=win_width, al='center')
+	# pm.button(l='Hind IK/FK/Helper Joints',w=win_width, ann='Creates leg ik/fk/helper joint chains', c=quad_hLeg_joints)
+	# pm.text(l='Select the bind, ik, helper, and fk joints', w=win_width)
+	# pm.button(l='hLeg IK/FK System', w=win_width,  ann='Sets up the hind leg IK/FK systems', c=quad_hIKFK_system)
+	# pm.rowColumnLayout(nc=3, cw=[[1, win_width*.5], [2, win_width*.25],[3, win_width*.25]])
+	# pm.text(l='Leg SDKs')
+	# pm.button(l='lt', c=lt_hLeg_SDKs)
+	# pm.button(l='rt', c=rt_hLeg_SDKs)
 	
 
 
@@ -411,12 +412,9 @@ def hierarchy(*args):
 	print 'Hierarchy Selected'
 	pm.mel.SelectHierarchy()
 
-def renamerWindow(*args):
-	from kbpRenameTool_pkg import kbpRenameTool_ui as renamer
-
-	win = renamer.run_ui()
-	
-	# Not my script, I downloaded it from highend3d.com 
+# def renamerWindow(*args):
+	# print 'Renamer Tool Active'
+	# pass
 
 def curveWindow(*args):
 	import BR_Interface_Toolset.BR_curveTool as BR_curveTool
