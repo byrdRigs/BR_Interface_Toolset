@@ -166,7 +166,7 @@ def gui():
 	'''
 	quad_layout = pm.frameLayout(w=win_width, l='Quadrupeds', bgc=color_6, cl=1, cll=1, ann='Quadruped Tools', cc=windowResize )
 	pm.setParent(quad_layout)
-	pm.text(l='Coming Soon', w=win_width)
+	pm.text(l='Coming Soon - In Testing', w=win_width)
 	# pm.frameLayout(w=win_width, l='Hind Legs', bgc=(color_7), cl=1, cll=1, cc=windowResize)
 	# pm.text(l='orientation_h(Leg, LegIK, then LegFK)', w=win_width, al='center')
 	# pm.button(l='Hind IK/FK/Helper Joints',w=win_width, ann='Creates leg ik/fk/helper joint chains', c=quad_hLeg_joints)
