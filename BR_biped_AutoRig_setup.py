@@ -318,8 +318,9 @@ def getDir():
 	# print raw_name
 
 	listOfFiles = getListOfFiles(file_name)
-	print listOfFiles[9]
-	cmds.file(listOfFiles[9], pr=1, rpr="biped", ignoreVersion=1, i=1, type="mayaAscii", importFrameRate=True, importTimeRange="override", ra=True, mergeNamespacesOnClash=False, options="v=0;")
+	# print listOfFiles
+	print listOfFiles[8]
+	cmds.file(listOfFiles[8], pr=1, rpr="biped", ignoreVersion=1, i=1, type="mayaAscii", importFrameRate=True, importTimeRange="override", ra=True, mergeNamespacesOnClash=False, options="v=0;")
 
 def getListOfFiles(file_name):
     # create a list of file and sub directories 
@@ -573,7 +574,9 @@ def jointConvert(*args):
 
 	pm.select('joint1')
 	joint_chain = pm.ls(sl=1, dag=1, type='transform')
+	ct_back_01_bind = joint_chain[0]
 	# print 'Joint chain', joint_chain
+	print 'ct_back_01_bind:', ct_back_01_bind
 	ori = 'ct'
 	system_name = 'back'
 	count = 0
@@ -586,6 +589,8 @@ def jointConvert(*args):
 		
 	new_name = '{0}_{1}_0{2}_{3}'.format(ori, system_name, count, 'waste')
 	current_joint.rename(new_name)
+
+
 
 	pm.select(joint_chain)
 	joint_chain = pm.ls(sl=1)[0]
@@ -605,6 +610,7 @@ def jointConvert(*args):
 
 	pm.select('joint1')
 	joint_chain = pm.ls(sl=1, dag=1, type='transform')
+	ct_head_01_bind = joint_chain[0]
 	# print 'Joint chain', joint_chain
 	ori = 'ct'
 	system_name = 'head'
@@ -636,6 +642,7 @@ def jointConvert(*args):
 
 	pm.select('joint1')
 	joint_chain = pm.ls(sl=1, dag=1, type='transform')
+	ct_hip_bind = joint_chain[0]
 	# print 'Joint chain', joint_chain
 	ori = 'ct'
 	system_name = 'hip'
@@ -664,6 +671,7 @@ def jointConvert(*args):
 
 	pm.select('joint1')
 	joint_chain = pm.ls(sl=1, dag=1, type='transform')
+	ct_jaw_01_bind = joint_chain[0]
 	# print 'Joint chain', joint_chain
 	ori = 'ct'
 	system_name = 'jaw'
@@ -695,6 +703,7 @@ def jointConvert(*args):
 
 	pm.select('joint1')
 	joint_chain = pm.ls(sl=1, dag=1, type='transform')
+	ct_neck_01_bind = joint_chain[0]
 	# print 'Joint chain', joint_chain
 	ori = 'ct'
 	system_name = 'neck'
@@ -722,6 +731,7 @@ def jointConvert(*args):
 
 	pm.select('joint1')
 	joint_chain = pm.ls(sl=1, dag=1, type='transform')
+	ct_root_waste = joint_chain[0]
 	# print 'Joint chain', joint_chain
 	ori = 'ct'
 	system_name = 'root'
@@ -751,6 +761,7 @@ def jointConvert(*args):
 
 		pm.select('joint1')
 		joint_chain = pm.ls(sl=1, dag=1, type='transform')
+		lt_arm_01_bind = joint_chain[0]
 		# print 'Joint chain', joint_chain
 		ori = 'lt'
 		system_name = 'arm'
@@ -784,6 +795,7 @@ def jointConvert(*args):
 
 		pm.select('joint1')
 		joint_chain = pm.ls(sl=1, dag=1, type='transform')
+		lt_clav_01_bind = joint_chain[0]
 		# print 'Joint chain', joint_chain
 		ori = 'lt'
 		system_name = 'clav'
@@ -817,6 +829,7 @@ def jointConvert(*args):
 
 		pm.select('joint1')
 		joint_chain = pm.ls(sl=1, dag=1, type='transform')
+		lt_eye_01_bind = joint_chain[0]
 		# print 'Joint chain', joint_chain
 		ori = 'lt'
 		system_name = 'eye'
@@ -851,6 +864,7 @@ def jointConvert(*args):
 
 		pm.select('joint1')
 		joint_chain = pm.ls(sl=1, dag=1, type='transform')
+		lt_hand_01_bind = joint_chain[0]
 		# print 'Joint chain', joint_chain
 		ori = 'lt'
 		system_name = 'hand'
@@ -884,6 +898,7 @@ def jointConvert(*args):
 
 		pm.select('joint1')
 		joint_chain = pm.ls(sl=1, dag=1, type='transform')
+		lt_index_01_bind = joint_chain[0]
 		# print 'Joint chain', joint_chain
 		ori = 'lt'
 		system_name = 'index'
@@ -917,6 +932,7 @@ def jointConvert(*args):
 
 		pm.select('joint1')
 		joint_chain = pm.ls(sl=1, dag=1, type='transform')
+		lt_leg_01_bind = joint_chain[0]
 		# print 'Joint chain', joint_chain
 		ori = 'lt'
 		system_name = 'leg'
@@ -950,6 +966,7 @@ def jointConvert(*args):
 
 		pm.select('joint1')
 		joint_chain = pm.ls(sl=1, dag=1, type='transform')
+		lt_middle_01_bind = joint_chain[0]
 		# print 'Joint chain', joint_chain
 		ori = 'lt'
 		system_name = 'middle'
@@ -983,6 +1000,7 @@ def jointConvert(*args):
 
 		pm.select('joint1')
 		joint_chain = pm.ls(sl=1, dag=1, type='transform')
+		lt_pinky_01_bind = joint_chain[0]
 		# print 'Joint chain', joint_chain
 		ori = 'lt'
 		system_name = 'pinky'
@@ -1016,6 +1034,7 @@ def jointConvert(*args):
 
 		pm.select('joint1')
 		joint_chain = pm.ls(sl=1, dag=1, type='transform')
+		lt_ring_01_bind = joint_chain[0]
 		# print 'Joint chain', joint_chain
 		ori = 'lt'
 		system_name = 'ring'
@@ -1049,7 +1068,7 @@ def jointConvert(*args):
 
 		pm.select('joint1')
 		joint_chain = pm.ls(sl=1, dag=1, type='transform')
-		pivot_joint = joint_chain[0]
+		lt_thumb_01_pivot = joint_chain[0]
 		# print 'Joint chain', joint_chain
 		ori = 'lt'
 		system_name = 'thumb'
@@ -1064,10 +1083,8 @@ def jointConvert(*args):
 		new_name = '{0}_{1}_0{2}_{3}'.format(ori, system_name, count, 'waste')
 		current_joint.rename(new_name)
 
-		new_name = pivot_joint.replace('bind', 'pivot')
-		pivot_joint.rename(new_name)
-
-
+		new_name = lt_thumb_01_pivot.replace('bind', 'pivot')
+		lt_thumb_01_pivot.rename(new_name)
 
 		pm.select(joint_chain)
 		joint_chain = pm.ls(sl=1)[0]
@@ -1088,6 +1105,7 @@ def jointConvert(*args):
 
 		pm.select('joint1')
 		joint_chain = pm.ls(sl=1, dag=1, type='transform')
+		lt_toeA_01_bind = joint_chain[0]
 		# print 'Joint chain', joint_chain
 		ori = 'lt'
 		system_name = 'toeA'
@@ -1121,6 +1139,7 @@ def jointConvert(*args):
 
 		pm.select('joint1')
 		joint_chain = pm.ls(sl=1, dag=1, type='transform')
+		lt_toeB_01_bind = joint_chain[0]
 		# print 'Joint chain', joint_chain
 		ori = 'lt'
 		system_name = 'toeB'
@@ -1155,6 +1174,7 @@ def jointConvert(*args):
 
 		pm.select('joint1')
 		joint_chain = pm.ls(sl=1, dag=1, type='transform')
+		lt_toeC_01_bind = joint_chain[0]
 		# print 'Joint chain', joint_chain
 		ori = 'lt'
 		system_name = 'toeC'
@@ -1189,6 +1209,7 @@ def jointConvert(*args):
 
 		pm.select('joint1')
 		joint_chain = pm.ls(sl=1, dag=1, type='transform')
+		lt_toeD_01_bind = joint_chain[0]
 		# print 'Joint chain', joint_chain
 		ori = 'lt'
 		system_name = 'toeD'
@@ -1223,6 +1244,7 @@ def jointConvert(*args):
 
 		pm.select('joint1')
 		joint_chain = pm.ls(sl=1, dag=1, type='transform')
+		lt_toeE_01_bind = joint_chain[0]
 		# print 'Joint chain', joint_chain
 		ori = 'lt'
 		system_name = 'toeE'
@@ -1244,7 +1266,7 @@ def jointConvert(*args):
 	else:
 		pm.warning("Toe E doesn't exist")
 	
-	pm.select('*01_bind')
+	pm.select('*01_bind', '*01_Bind')
 	pm.joint(zso=1, ch=1, e=1, oj='xyz', secondaryAxisOrient='yup')
 
 
@@ -1300,29 +1322,8 @@ def jointConvert(*args):
 
 	pm.select('ct_root_waste')
 	joint_chain = pm.ls(sl=1, dag=1)
-	print 'Joints:', joint_chain
-	ct_root_waste = joint_chain[0]
-	ct_hip_bind = joint_chain[1]
-	lt_leg_01_bind = joint_chain[2]
-	lt_toeA_01_bind = joint_chain[7]
-	lt_toeB_01_bind = joint_chain[10] 
-	lt_toeC_01_bind = joint_chain[13] 
-	lt_toeD_01_bind = joint_chain[16] 
-	lt_toeE_01_bind = joint_chain[19] 
-	ct_back_01_bind = joint_chain[22]
-	ct_neck_01_bind = joint_chain[29]
-	ct_head_01_bind = joint_chain[33]
-	lt_eye_01_bind = joint_chain[35]
-	ct_jaw_01_bind = joint_chain[37]
+	# print 'Joints:', joint_chain
 	rt_eye_01_bind = joint_chain[39]
-	lt_clav_01_bind = joint_chain[41]
-	lt_arm_01_bind = joint_chain[43]
-	lt_hand_01_bind = joint_chain[46]
-	lt_index_01_bind = joint_chain[48]
-	lt_middle_01_bind = joint_chain[53]
-	lt_ring_01_bind = joint_chain[58]
-	lt_pinky_01_bind = joint_chain[63]
-	lt_thumb_01_pivot = joint_chain[68]
 	rt_clav_01_bind = joint_chain[73]
 	rt_arm_01_bind = joint_chain[75]
 	rt_hand_01_bind = joint_chain[78]
@@ -1337,42 +1338,42 @@ def jointConvert(*args):
 	rt_toeC_01_bind = joint_chain[116] 
 	rt_toeD_01_bind = joint_chain[119] 
 	rt_toeE_01_bind = joint_chain[122] 
-	print 'Root Waste:', ct_root_waste
-	print 'Hip Bind:', ct_hip_bind
-	print 'Lt Leg Bind:', lt_leg_01_bind
-	print 'Lt Toe A:', lt_toeA_01_bind
-	print 'Lt Toe B:', lt_toeB_01_bind
-	print 'Lt Toe C:', lt_toeC_01_bind
-	print 'Lt Toe D:', lt_toeD_01_bind
-	print 'Lt Toe E:', lt_toeE_01_bind
-	print 'Back Bind:', ct_back_01_bind
-	print 'Neck Bind:', ct_neck_01_bind
-	print 'Head Bind:', ct_head_01_bind
-	print 'Lt Eye Bind:', lt_eye_01_bind
-	print 'Jaw Bind:', ct_jaw_01_bind
-	print 'Rt Eye Bind:', rt_eye_01_bind
-	print 'Lt Clav Bind:', lt_clav_01_bind
-	print 'Lt Arm Bind:', lt_arm_01_bind
-	print 'Lt Hand Bind:', lt_hand_01_bind
-	print 'Lt Index Bind:', lt_index_01_bind
-	print 'Lt Middle Bind:', lt_middle_01_bind
-	print 'Lt Pinky Bind:', lt_pinky_01_bind
-	print 'Lt Ring Bind:', lt_ring_01_bind
-	print 'Lt Thumb Pivot:', lt_thumb_01_pivot
-	print 'Rt Clav Bind:', rt_clav_01_bind
-	print 'Rt Arm Bind:', rt_arm_01_bind
-	print 'Rt Hand Bind:', rt_hand_01_bind
-	print 'Rt Index Bind:', rt_index_01_bind
-	print 'Rt Middle Bind:', rt_middle_01_bind
-	print 'Rt Ring Bind:', rt_ring_01_bind
-	print 'Rt Pinky Bind:', rt_pinky_01_bind
-	print 'Rt Thumb Pivot:', rt_thumb_01_pivot
-	print 'Rt Leg Bind:', rt_leg_01_bind
-	print 'Rt Toe A:', rt_toeA_01_bind
-	print 'Rt Toe B:', rt_toeB_01_bind
-	print 'Rt Toe C:', rt_toeC_01_bind
-	print 'Rt Toe D:', rt_toeD_01_bind
-	print 'Rt Toe E:', rt_toeE_01_bind
+	# print 'Root Waste:', ct_root_waste
+	# print 'Hip Bind:', ct_hip_bind
+	# print 'Lt Leg Bind:', lt_leg_01_bind
+	# print 'Lt Toe A:', lt_toeA_01_bind
+	# print 'Lt Toe B:', lt_toeB_01_bind
+	# print 'Lt Toe C:', lt_toeC_01_bind
+	# print 'Lt Toe D:', lt_toeD_01_bind
+	# print 'Lt Toe E:', lt_toeE_01_bind
+	# print 'Back Bind:', ct_back_01_bind
+	# print 'Neck Bind:', ct_neck_01_bind
+	# print 'Head Bind:', ct_head_01_bind
+	# print 'Lt Eye Bind:', lt_eye_01_bind
+	# print 'Jaw Bind:', ct_jaw_01_bind
+	# print 'Rt Eye Bind:', rt_eye_01_bind
+	# print 'Lt Clav Bind:', lt_clav_01_bind
+	# print 'Lt Arm Bind:', lt_arm_01_bind
+	# print 'Lt Hand Bind:', lt_hand_01_bind
+	# print 'Lt Index Bind:', lt_index_01_bind
+	# print 'Lt Middle Bind:', lt_middle_01_bind
+	# print 'Lt Pinky Bind:', lt_pinky_01_bind
+	# print 'Lt Ring Bind:', lt_ring_01_bind
+	# print 'Lt Thumb Pivot:', lt_thumb_01_pivot
+	# print 'Rt Clav Bind:', rt_clav_01_bind
+	# print 'Rt Arm Bind:', rt_arm_01_bind
+	# print 'Rt Hand Bind:', rt_hand_01_bind
+	# print 'Rt Index Bind:', rt_index_01_bind
+	# print 'Rt Middle Bind:', rt_middle_01_bind
+	# print 'Rt Ring Bind:', rt_ring_01_bind
+	# print 'Rt Pinky Bind:', rt_pinky_01_bind
+	# print 'Rt Thumb Pivot:', rt_thumb_01_pivot
+	# print 'Rt Leg Bind:', rt_leg_01_bind
+	# print 'Rt Toe A:', rt_toeA_01_bind
+	# print 'Rt Toe B:', rt_toeB_01_bind
+	# print 'Rt Toe C:', rt_toeC_01_bind
+	# print 'Rt Toe D:', rt_toeD_01_bind
+	# print 'Rt Toe E:', rt_toeE_01_bind
 
 
 
