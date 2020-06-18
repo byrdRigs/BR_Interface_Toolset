@@ -1011,11 +1011,11 @@ def template_attr(*args):
 Attrs
 '''
 # Attribute Lists
-finger_dropAttrs = ['fingerDrops', 'thumbDrop', 'pinkyDrop']
+finger_dropAttrs = ['fingerDrops', 'thumbDrop']
 finger_spreadAttrs = ['Spreads', 'thumbSpread', 'indexSpread', 'middleSpread', 'ringSpread', 'pinkySpread']
 thumb_curlAttrs = ['thumbCurl', 'thumbRoot', 'thumbMid', 'thumbEnd']
 index_curlAttrs = ['indexCurl', 'indexRoot', 'indexMid', 'indexEnd']
-mid_curlAttrs = ['midddleCurl', 'midddleRoot', 'midddleMid', 'midddleEnd']
+mid_curlAttrs = ['middleCurl', 'middleRoot', 'middleMid', 'middleEnd']
 ring_curlAttrs = ['ringCurl', 'ringRoot', 'ringMid', 'ringEnd']
 pinky_curlAttrs = ['pinkyCurl', 'pinkyRoot', 'pinkyMid', 'pinkyEnd']
 
@@ -1215,7 +1215,7 @@ def add_handSwitchAttrs(*args):
 def create_dropAttrs(individual_object, attr_list):
     create_separatorAttr(individual_object, attr_list[0])
     create_floatAttr(individual_object, attr_list[1], -100 , 100)
-    create_floatAttr(individual_object, attr_list[2], -100 , 100)
+    
 	
 	
 def create_curlAttrs(individual_object, attr_list):

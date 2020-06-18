@@ -1615,103 +1615,113 @@ def rt_hLeg_SDKs(*args):
 	pm.setAttr(switch + '.IkFk', 0)
 
 def setZeroHumanFoot(*args):
-	selList=pm.ls(sl=1)
-	for current in selList:
-		pm.setAttr((str(current) + ".roll"), lock=0)
-		pm.setAttr((str(current) + ".roll"), 0)
-		pm.setAttr((str(current) + ".bendLimitAngle"), lock=0)
-		pm.setAttr((str(current) + ".bendLimitAngle"), 45)
-		pm.setAttr((str(current) + ".toeStraightAngle"), lock=0)
-		pm.setAttr((str(current) + ".toeStraightAngle"), 75)
-		pm.setAttr((str(current) + ".tilt"), lock=0)
-		pm.setAttr((str(current) + ".tilt"), 0)
-		pm.setAttr((str(current) + ".lean"), lock=0)
-		pm.setAttr((str(current) + ".lean"), 0)
-		pm.setAttr((str(current) + ".toeSpin"), lock=0)
-		pm.setAttr((str(current) + ".toeSpin"), 0)
-		pm.setAttr((str(current) + ".toeTap"), lock=0)
-		pm.setAttr((str(current) + ".toeTap"), 0)
+	selection=pm.ls(sl=1)
+	for each in selection:
+		if pm.getAttr(each + '.kneeTwist', lock=0):
+			pm.setAttr(each + '.kneeTwist', 0)
+		if pm.getAttr(each + '.roll', lock=0):
+			pm.setAttr(each + '.roll', 0)
+		if pm.getAttr(each + '.bendLimitAngle', lock=0):
+			pm.setAttr(each + '.bendLimitAngle', 45)
+		if pm.getAttr(each + '.toeStraightAngle', lock=0):
+			pm.setAttr(each + '.toeStraightAngle', 75)
+		if pm.getAttr(each + '.tilt', lock=0):
+			pm.setAttr(each + '.tilt', 0)
+		if pm.getAttr(each + '.lean', lock=0):
+			pm.setAttr(each + '.lean', 0)
+		if pm.getAttr(each + '.toeSpin', lock=0):
+			pm.setAttr(each + '.toeSpin', 0)
+		if pm.getAttr(each + '.toeTap', lock=0):
+			pm.setAttr(each + '.toeTap', 0)
 
 def setZeroHumanHand(*args):
 
-	selList=pm.ls(sl=1)
-	for current in selList:
-		pm.setAttr((str(current) + ".All_Curl"), lock=0)
-		pm.setAttr((str(current) + ".All_Curl"), 0)
-		pm.setAttr((str(current) + ".All_Spread"), lock=0)
-		pm.setAttr((str(current) + ".All_Spread"), 0)
-		pm.setAttr((str(current) + ".Thumb_Drop"), lock=0)
-		pm.setAttr((str(current) + ".Thumb_Drop"), 0)
-		pm.setAttr((str(current) + ".Thumb_Root"), lock=0)
-		pm.setAttr((str(current) + ".Thumb_Root"), 0)
-		pm.setAttr((str(current) + ".Thumb_Mid"), lock=0)
-		pm.setAttr((str(current) + ".Thumb_Mid"), 0)
-		pm.setAttr((str(current) + ".Thumb_End"), lock=0)
-		pm.setAttr((str(current) + ".Thumb_End"), 0)
-		pm.setAttr((str(current) + ".Index_Root"), lock=0)
-		pm.setAttr((str(current) + ".Index_Root"), 0)
-		pm.setAttr((str(current) + ".Index_Mid"), lock=0)
-		pm.setAttr((str(current) + ".Index_Mid"), 0)
-		pm.setAttr((str(current) + ".Index_End"), lock=0)
-		pm.setAttr((str(current) + ".Index_End"), 0)
-		pm.setAttr((str(current) + ".Mid_Root"), lock=0)
-		pm.setAttr((str(current) + ".Mid_Root"), 0)
-		pm.setAttr((str(current) + ".Mid_Mid"), lock=0)
-		pm.setAttr((str(current) + ".Mid_Mid"), 0)
-		pm.setAttr((str(current) + ".Mid_End"), lock=0)
-		pm.setAttr((str(current) + ".Mid_End"), 0)
-		pm.setAttr((str(current) + ".Ring_Root"), lock=0)
-		pm.setAttr((str(current) + ".Ring_Root"), 0)
-		pm.setAttr((str(current) + ".Ring_Mid"), lock=0)
-		pm.setAttr((str(current) + ".Ring_Mid"), 0)
-		pm.setAttr((str(current) + ".Ring_End"), lock=0)
-		pm.setAttr((str(current) + ".Ring_End"), 0)
-		pm.setAttr((str(current) + ".Pinky_Root"), lock=0)
-		pm.setAttr((str(current) + ".Pinky_Root"), 0)
-		pm.setAttr((str(current) + ".Pinky_Mid"), lock=0)
-		pm.setAttr((str(current) + ".Pinky_Mid"), 0)
-		pm.setAttr((str(current) + ".Pinky_End"), lock=0)
-		pm.setAttr((str(current) + ".Pinky_End"), 0)
-		pm.setAttr((str(current) + ".Thumb_Spread"), lock=0)
-		pm.setAttr((str(current) + ".Thumb_Spread"), 0)
-		pm.setAttr((str(current) + ".Index_Spread"), lock=0)
-		pm.setAttr((str(current) + ".Index_Spread"), 0)
-		pm.setAttr((str(current) + ".Middle_Spread"), lock=0)
-		pm.setAttr((str(current) + ".Middle_Spread"), 0)
-		pm.setAttr((str(current) + ".Ring_Spread"), lock=0)
-		pm.setAttr((str(current) + ".Ring_Spread"), 0)
-		pm.setAttr((str(current) + ".Pinky_Spread"), lock=0)
-		pm.setAttr((str(current) + ".Pinky_Spread"), 0)
+	selection=pm.ls(sl=1)
+	for each in selection:
+		if pm.getAttr(each + '.Ik_Fk_Switch', lock=0):
+			pm.setAttr(each + '.Ik_Fk_Switch', 0)
+		if pm.getAttr(each + '.All_Curl', lock=0):
+			pm.setAttr(each + '.All_Curl', 0)
+		if pm.getAttr(each + '.All_Spread', lock=0):
+			pm.setAttr(each + '.All_Spread', 0)
+		if pm.getAttr(each + '.thumbDrop', lock=0):
+			pm.setAttr(each + '.thumbDrop', 0)
+		if pm.getAttr(each + '.thumbRoot', lock=0):
+			pm.setAttr(each + '.thumbRoot', 0)
+		if pm.getAttr(each + '.thumbMid', lock=0):
+			pm.setAttr(each + '.thumbMid', 0)
+		if pm.getAttr(each + '.thumbEnd', lock=0):
+			pm.setAttr(each + '.thumbEnd', 0)
+		if pm.getAttr(each + '.indexRoot', lock=0):
+			pm.setAttr(each + '.indexRoot', 0)
+		if pm.getAttr(each + '.indexMid', lock=0):
+			pm.setAttr(each + '.indexMid', 0)
+		if pm.getAttr(each + '.indexEnd', lock=0):
+			pm.setAttr(each + '.indexEnd', 0)
+		if pm.getAttr(each + '.middleRoot', lock=0):
+			pm.setAttr(each + '.middleRoot', 0)
+		if pm.getAttr(each + '.middleMid', lock=0):
+			pm.setAttr(each + '.middleMid', 0)
+		if pm.getAttr(each + '.middleEnd', lock=0):
+			pm.setAttr(each + '.middleEnd', 0)
+		if pm.getAttr(each + '.ringRoot', lock=0):
+			pm.setAttr(each + '.ringRoot', 0)
+		if pm.getAttr(each + '.ringMid', lock=0):
+			pm.setAttr(each + '.ringMid', 0)
+		if pm.getAttr(each + '.ringEnd', lock=0):
+			pm.setAttr(each + '.ringEnd', 0)
+		if pm.getAttr(each + '.pinkyRoot', lock=0):
+			pm.setAttr(each + '.pinkyRoot', 0)
+		if pm.getAttr(each + '.pinkyMid', lock=0):
+			pm.setAttr(each + '.pinkyMid', 0)
+		if pm.getAttr(each + '.pinkyEnd', lock=0):
+			pm.setAttr(each + '.pinkyEnd', 0)
+		if pm.getAttr(each + '.thumbSpread', lock=0):
+			pm.setAttr(each + '.thumbSpread', 0)
+		if pm.getAttr(each + '.indexSpread', lock=0):
+			pm.setAttr(each + '.indexSpread', 0)
+		if pm.getAttr(each + '.middleSpread', lock=0):
+			pm.setAttr(each + '.middleSpread', 0)
+		if pm.getAttr(each + '.ringSpread', lock=0):
+			pm.setAttr(each + '.ringSpread', 0)
+		if pm.getAttr(each + '.pinkySpread', lock=0):
+			pm.setAttr(each + '.pinkySpread', 0)
 
 def setZeroTr(*args):
-	selList=pm.ls(sl=1)
-	for current in selList:
-		pm.setAttr((str(current) + ".translateX"), lock=0)
-		pm.setAttr((str(current) + ".translateX"), 0)
-		pm.setAttr((str(current) + ".translateY"), lock=0)
-		pm.setAttr((str(current) + ".translateY"), 0)
-		pm.setAttr((str(current) + ".translateZ"), lock=0)
-		pm.setAttr((str(current) + ".translateZ"), 0)
+	selection = pm.ls(sl=1)
+	for each in selection:
+		if pm.getAttr(each + '.tx', lock=0):
+			pm.setAttr(each + '.tx', 0)
+
+		if pm.getAttr(each + '.ty', lock=0):
+			pm.setAttr(each + '.ty', 0)
+
+		if pm.getAttr(each + '.tz', lock=0):
+			pm.setAttr(each + '.tz', 0)
 
 def setZeroRo(*args):
-	selList=pm.ls(sl=1)
-	for current in selList:
-		pm.setAttr((str(current) + ".rotateX"), lock=0)
-		pm.setAttr((str(current) + ".rotateX"), 0)
-		pm.setAttr((str(current) + ".rotateY"), lock=0)
-		pm.setAttr((str(current) + ".rotateY"), 0)
-		pm.setAttr((str(current) + ".rotateZ"), lock=0)
-		pm.setAttr((str(current) + ".rotateZ"), 0)
+	selection = pm.ls(sl=1)
+	for each in selection:
+		if pm.getAttr(each + '.rx', lock=0):
+			pm.setAttr(each + '.rx', 0)
+
+		if pm.getAttr(each + '.ry', lock=0):
+			pm.setAttr(each + '.ry', 0)
+
+		if pm.getAttr(each + '.rz', lock=0):
+			pm.setAttr(each + '.rz', 0)	
 
 def setZeroSc(*args):
-	selList=pm.ls(sl=1)
-	for current in selList:
-		pm.setAttr((str(current) + ".scaleX"), lock=0)
-		pm.setAttr((str(current) + ".scaleX"), 1)
-		pm.setAttr((str(current) + ".scaleY"), lock=0)
-		pm.setAttr((str(current) + ".scaleY"), 1)
-		pm.setAttr((str(current) + ".scaleZ"), lock=0)
-		pm.setAttr((str(current) + ".scaleZ"), 1)
+	selection = pm.ls(sl=1)
+	for each in selection:
+		if pm.getAttr(each + '.sx', lock=0):
+			pm.setAttr(each + '.sx', 1)
+
+		if pm.getAttr(each + '.sy', lock=0):
+			pm.setAttr(each + '.sy', 1)
+
+		if pm.getAttr(each + '.sz', lock=0):
+			pm.setAttr(each + '.sz', 1)
 
 def windowResize(*args):
 	if pm.window('ByrdRigs_interface_toolset', q=1, exists=1):
