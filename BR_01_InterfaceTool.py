@@ -111,7 +111,7 @@ def gui():
 	pm.iconTextButton(w=win_width, st='iconAndTextHorizontal', image1='kinInsert.png', l='Insert Joint', c=insertJoint)
 	pm.iconTextButton(w=win_width, st='iconAndTextHorizontal', image1='menuIconDisplay.png', l='IK Handle Size', c=IkSize)
 	pm.iconTextButton(w=win_width, st='iconAndTextHorizontal', image1='BR_icons/BR_diagram.png', l='Select Hierarchy', c=hierarchy)
-	# pm.iconTextButton(w=win_width, st='iconAndTextHorizontal', image1='BR_icons/BR_renamerIcon.svg', l='Renamer', c=renamerWindow)
+	pm.iconTextButton(w=win_width, st='iconAndTextHorizontal', image1='BR_icons/BR_renamerIcon.svg', l='Renamer', c=renamerWindow)
 	
 	pm.iconTextButton(w=win_width, st='iconAndTextHorizontal', image1='circle.png', l='Curve Tool Window', c=curveWindow)
 	pm.separator(w=win_width, bgc=color_3, st='in')
@@ -412,9 +412,9 @@ def hierarchy(*args):
 	print 'Hierarchy Selected'
 	pm.mel.SelectHierarchy()
 
-# def renamerWindow(*args):
-	# print 'Renamer Tool Active'
-	# pass
+def renamerWindow(*args):
+	pm.mel.source("Quick_rename_tool.mel")
+	pm.mel.Quick_rename_tool()
 
 def curveWindow(*args):
 	import BR_Interface_Toolset.BR_curveTool as BR_curveTool
