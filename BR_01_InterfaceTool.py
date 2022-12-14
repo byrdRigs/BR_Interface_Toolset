@@ -48,6 +48,7 @@ color_28 = (.608, .667, .749)
 color_29 = (.757, .773, .82)
 color_30 = (.843, .847, .859)
 
+
 def gui():
 	if pm.window('ByrdRigs_interface_toolset', q=1, exists=1):
 		pm.deleteUI('ByrdRigs_interface_toolset')
@@ -82,6 +83,9 @@ def gui():
 	pm.text(l='Poly Vis')
 	pm.button(l='On', c=polyOn)
 	pm.button(l='Off', c=polyOff)
+	pm.text(l='Poly Only Vis')
+	pm.button(l='On', c=polyOnlyOn)
+	pm.button(l='Off', c=polyOnlyOff)
 	pm.text(l='Joints')
 	pm.button(l='On', c=jointsOn)
 	pm.button(l='Off', c=jointsOff)
@@ -97,6 +101,9 @@ def gui():
 	pm.text(l='NURBS Surfaces')
 	pm.button(l='On', c=surfacesOn)
 	pm.button(l='Off', c=surfacesOff)
+	pm.text(l='DAG')
+	pm.button(l='On', c=dagOn)
+	pm.button(l='Off', c=dagOff)
 
 	pm.setParent(main_layout)
 	pm.separator(w=win_width, bgc=color_2, st='in')
@@ -125,6 +132,8 @@ def gui():
 	pm.text(l='Padding')
 	pm.button(l='Jnt' , c=jointPadding)
 	pm.button(l='Ctrl', c=ctrlPadding)
+	pm.button(l='Mirror Ctrl' , c=mirrorIcon)
+
 
 	pm.setParent(main_layout)
 	pm.separator(w=win_width, bgc=color_3, st='in')
@@ -133,16 +142,19 @@ def gui():
 	Constraints
 	'''
 	pm.frameLayout(w=win_width, l='Constraints', bgc=color_4, cl=1, cll=1, ann='Constraints', cc=windowResize)
-	pm.rowColumnLayout(nc=3, cw=[[1, win_width*.5], [2, win_width*.25],[3, win_width*.25]])
+	pm.rowColumnLayout(nc=4, cw=[[1, win_width*.25], [2, win_width*.25],[3, win_width*.25], [4, win_width*.25]])
 	pm.text(l='Parent MO')
 	pm.button(l='On', c=parentConstraint_on)
 	pm.button(l='Off', c=parentConstraint_off)
+	pm.button(l='Temp', c=parentConstraint_temp)
 	pm.text(l='Point MO')
 	pm.button(l='On', c=pointConstraint_on)
 	pm.button(l='Off', c=pointConstraint_off)
+	pm.button(l='Temp', c=pointConstraint_temp)
 	pm.text(l='Orient MO')
 	pm.button(l='On', c=orientConstraint_on)
 	pm.button(l='Off', c=orientConstraint_off)
+	pm.button(l='Temp', c=orientConstraint_temp)
 	pm.button(w=win_width, l='Pole Vector', c=poleVector)
 	
 	
@@ -298,6 +310,41 @@ def polyOff(*args):
 	pm.modelEditor(panel_4, e=1, polymeshes=0)
 	pm.modelEditor(panel_4, e=1, hos=0)
 
+def polyOnlyOn(*args):
+	pm.modelEditor(panel_1, allObjects=0, e=1)
+	pm.mel.updateShowMenu(show_1, panel_1, "modelPanel1", "Playblast Display")
+
+	pm.modelEditor(panel_2, allObjects=0, e=1)
+	pm.mel.updateShowMenu(show_2, panel_2, "modelPanel2", "Playblast Display")
+
+	pm.modelEditor(panel_3, allObjects=0, e=1)
+	pm.mel.updateShowMenu(show_3, panel_3, "modelPanel3", "Playblast Display")
+
+	pm.modelEditor(panel_4, allObjects=0, e=1)
+	pm.mel.updateShowMenu(show_4, panel_4, "modelPanel4", "Playblast Display")	
+
+	pm.modelEditor(panel_1, e=1, polymeshes=1)
+	pm.modelEditor(panel_1, e=1, hos=1)
+	pm.modelEditor(panel_2, e=1, polymeshes=1)
+	pm.modelEditor(panel_2, e=1, hos=1)
+	pm.modelEditor(panel_3, e=1, polymeshes=1)
+	pm.modelEditor(panel_3, e=1, hos=1)
+	pm.modelEditor(panel_4, e=1, polymeshes=1)
+	pm.modelEditor(panel_4, e=1, hos=1)
+
+def polyOnlyOff(*args):
+	pm.modelEditor(panel_1, allObjects=1, e=1)
+	pm.mel.updateShowMenu(show_1, panel_1, "modelPanel1", "Playblast Display")
+
+	pm.modelEditor(panel_2, allObjects=1, e=1)
+	pm.mel.updateShowMenu(show_2, panel_2, "modelPanel2", "Playblast Display")
+
+	pm.modelEditor(panel_3, allObjects=1, e=1)
+	pm.mel.updateShowMenu(show_3, panel_3, "modelPanel3", "Playblast Display")
+
+	pm.modelEditor(panel_4, allObjects=1, e=1)
+	pm.mel.updateShowMenu(show_4, panel_4, "modelPanel4", "Playblast Display")
+
 def jointsOn(*args):
 	print 'Joints visible'
 	pm.modelEditor(panel_1, e=1, joints = 1)
@@ -362,6 +409,10 @@ def curvesOn(*args):
 	pm.modelEditor(panel_2, e=1, nurbsCurves=1)
 	pm.modelEditor(panel_3, e=1, nurbsCurves=1)
 	pm.modelEditor(panel_4, e=1, nurbsCurves=1)
+	pm.modelEditor( panel_1, e=1, controllers=1 )
+	pm.modelEditor( panel_2, e=1, controllers=1 )
+	pm.modelEditor( panel_3, e=1, controllers=1 )
+	pm.modelEditor( panel_4, e=1, controllers=1 )
 
 def curvesOff(*args):
 	print 'NURBS Curves hidden'
@@ -369,6 +420,10 @@ def curvesOff(*args):
 	pm.modelEditor(panel_2, e=1, nurbsCurves=0)
 	pm.modelEditor(panel_3, e=1, nurbsCurves=0)
 	pm.modelEditor(panel_4, e=1, nurbsCurves=0)
+	pm.modelEditor( panel_1, e=1, controllers=0 )
+	pm.modelEditor( panel_2, e=1, controllers=0 )
+	pm.modelEditor( panel_3, e=1, controllers=0 )
+	pm.modelEditor( panel_4, e=1, controllers=0 )
 
 def surfacesOn(*args):
 	print 'NURBS Surfaces visible'
@@ -383,6 +438,14 @@ def surfacesOff(*args):
 	pm.modelEditor(panel_2, e=1, nurbsSurfaces=0)
 	pm.modelEditor(panel_3, e=1, nurbsSurfaces=0)
 	pm.modelEditor(panel_4, e=1, nurbsSurfaces=0)
+
+def dagOn(*args):
+	# print('Showing DAG objects')
+	pm.outlinerEditor('outlinerPanel3', showDagOnly=1, e=1)
+
+def dagOff(*args):
+	# print('Hiding DAG objects')
+	pm.outlinerEditor('outlinerPanel3', showDagOnly=0, e=1)
 
 def jointTool(*args):
 	print 'Joint Tool Active.'
@@ -399,6 +462,49 @@ def mirrorToolB(*args):
 	selection = pm.ls(sl=1) 
 	for each in selection:
 		pm.mirrorJoint(each, mirrorBehavior=1,searchReplace=("lt", "rt"), mirrorYZ=1)
+
+def mirrorIcon(*args):
+	# Get all the icons
+	pm.select( 'lt*_icon', 'lt*_switch' )
+
+	lt_icons = pm.ls( sl=1 )
+	# print(lt_icons)
+
+	tempGrp = pm.group( em=1, n='temp_grp' )
+
+	pm.parent( lt_icons, tempGrp )
+
+	mirrorGrp = pm.duplicate( tempGrp, n='mirror_grp' )[0]
+
+	mirrorGrp.sx.set( -1 )
+
+	pm.select(mirrorGrp)
+	freezeTransform()
+
+	pm.parent( lt_icons, w=1 )
+	pm.delete(tempGrp)
+
+	rt_icons = pm.ls( mirrorGrp, dag=1 )
+	print(rt_icons)
+
+	pm.select( lt_icons[0] )
+	icon = pm.ls( sl=1 )[0]
+
+
+	search= 'lt'
+	replace= 'rt'
+	pm.select( rt_icons )
+	pm.mel.searchReplaceNames(search, replace, "hierarchy")
+
+	pm.select( rt_icons )
+	pm.parent( w=1 )
+	pm.delete( mirrorGrp )
+		
+	
+	
+
+		
+
 
 def jointSize(*args):
 	print 'Changing Joint Size.'
@@ -491,6 +597,30 @@ def parentConstraint_off(*args):
 	print 'Parent Constraint with Maintain Offset Off'
 	selection = pm.ls(sl=1)
 	pm.parentConstraint(selection, mo=0)
+
+def parentConstraint_temp(*args):
+	selection = pm.ls(sl=1)
+	driver = selection[0]
+	driven= selection[1]
+
+	temp_constraint = pm.parentConstraint(driver, driven, mo=0)
+	pm.delete(temp_constraint)
+
+def pointConstraint_temp(*args):
+	selection = pm.ls(sl=1)
+	driver = selection[0]
+	driven= selection[1]
+
+	temp_constraint = pm.pointConstraint(driver, driven, mo=0)
+	pm.delete(temp_constraint)
+
+def orientConstraint_temp(*args):
+	selection = pm.ls(sl=1)
+	driver = selection[0]
+	driven= selection[1]
+
+	temp_constraint = pm.orientConstraint(driver, driven, mo=0)
+	pm.delete(temp_constraint)
 
 def pointConstraint_on(*args):
 	print 'Point Constraint with Maintain Offset On'
@@ -1714,14 +1844,14 @@ def setZeroRo(*args):
 def setZeroSc(*args):
 	selection = pm.ls(sl=1)
 	for each in selection:
-		if pm.getAttr(each + '.sx', lock=0):
-			pm.setAttr(each + '.sx', 1)
+		if pm.getAttr(each + '.scaleX', lock=0):
+			pm.setAttr(each + '.scaleX', 1)
 
-		if pm.getAttr(each + '.sy', lock=0):
-			pm.setAttr(each + '.sy', 1)
+		if pm.getAttr(each + '.scaleY', lock=0):
+			pm.setAttr(each + '.scaleY', 1)
 
-		if pm.getAttr(each + '.sz', lock=0):
-			pm.setAttr(each + '.sz', 1)
+		if pm.getAttr(each + '.scaleZ', lock=0):
+			pm.setAttr(each + '.scaleZ', 1)	
 
 def windowResize(*args):
 	if pm.window('ByrdRigs_interface_toolset', q=1, exists=1):
